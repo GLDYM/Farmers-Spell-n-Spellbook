@@ -18,8 +18,10 @@ public class ModCreativeModeTabs {
                     .icon(() -> new ItemStack(ModItems.SICHUAN_WONTON.get()))
                     .title(Component.translatable("itemGroup.kaleidoscope_chinesefood_tab"))
                     .displayItems((pParameters,pOutput) -> {
+                        pOutput.accept(ModItems.RAW_STEAMED_RICE_ROLLS.get());
                         pOutput.accept(ModItems.SICHUAN_WONTON.get());
                         pOutput.accept(ModItems.WONTON_NOODLES.get());
+                        pOutput.accept(ModItems.YANGROU_PAOMO.get());
                         pOutput.accept(ModItems.MAOCAI.get());
                         pOutput.accept(ModItems.SEAWEED_EGG_DROP_SOUP.get());
                         pOutput.accept(ModItems.SICHUAN_BOILED_PORK_SLICES.get());
@@ -38,6 +40,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.DRY_POT_SPARE_RIBS.get());
                         pOutput.accept(ModItems.YANGZHOU_FRIED_RICE.get());
                         pOutput.accept(ModItems.LAMB_PILAF.get());
+                        pOutput.accept(ModItems.STEAMED_RICE_ROLLS.get());
+                        pOutput.accept(ModBlocks.FREEZER.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {

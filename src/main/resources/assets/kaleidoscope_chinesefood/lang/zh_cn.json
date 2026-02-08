@@ -1,10 +1,13 @@
 {
   "itemGroup.kaleidoscope_chinesefood_tab": "森罗厨房：国味",
 
+  "item.kaleidoscope_chinesefood.raw_steamed_rice_rolls": "生肠粉",
   "item.kaleidoscope_chinesefood.sichuan_wonton": "麻辣抄手",
   "tooltip.kaleidoscope_chinesefood.sichuan_wonton.maxim": "红油果馅，麻香直钻鼻腔，皮薄馅嫩超入味",
   "item.kaleidoscope_chinesefood.wonton_noodles": "云吞面",
   "tooltip.kaleidoscope_chinesefood.wonton_noodles.maxim": "皮薄馅鲜的云吞，配筋道竹升面，汤底鲜醇暖脾胃",
+  "item.kaleidoscope_chinesefood.yangrou_paomo": "羊肉泡馍",
+  "tooltip.kaleidoscope_chinesefood.yangrou_paomo.maxim": "骨汤熬煮，馍吸鲜汁，西北暖食经典",
   "item.kaleidoscope_chinesefood.maocai": "冒菜",
   "tooltip.kaleidoscope_chinesefood.maocai.maxim": "麻辣浓汤涮百味，荤素一锅捞，香麻入味",
   "item.kaleidoscope_chinesefood.seaweed_egg_drop_soup": "紫菜蛋花汤",
@@ -40,5 +43,11 @@
   "item.kaleidoscope_chinesefood.yangzhou_fried_rice": "扬州炒饭",
   "tooltip.kaleidoscope_chinesefood.yangzhou_fried_rice.maxim": "米粒分明弹润，荤素融合，咸香适口不腻",
   "item.kaleidoscope_chinesefood.lamb_pilaf": "羊肉抓饭",
-  "tooltip.kaleidoscope_chinesefood.lamb_pilaf.maxim": "羊肉酥烂不膻，米饭裹满肉香，粒粒油润鲜香"
+  "tooltip.kaleidoscope_chinesefood.lamb_pilaf.maxim": "羊肉酥烂不膻，米饭裹满肉香，粒粒油润鲜香",
+  "item.kaleidoscope_chinesefood.steamed_rice_rolls": "肠粉",
+  "tooltip.kaleidoscope_chinesefood.steamed_rice_rolls.maxim": "粤式经典，米皮软滑，酱汁咸鲜",
+
+  "block.kaleidoscope_chinesefood.freezer": "冰箱",
+  "container.kaleidoscope_chinesefood.freezer_top": "保鲜层",
+  "container.kaleidoscope_chinesefood.freezer_bottom": "冷冻层"
 }

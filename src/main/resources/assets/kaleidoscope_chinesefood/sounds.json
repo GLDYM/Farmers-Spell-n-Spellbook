@@ -1,0 +1,14 @@
+{
+  "freezer_open": {
+    "subtitle": "subtitles.block.freezer.open",
+    "sounds": [
+      "kaleidoscope_chinesefood:freezer_open"
+    ]
+  },
+  "freezer_close": {
+    "subtitle": "subtitles.block.freezer.close",
+    "sounds": [
+      "kaleidoscope_chinesefood:freezer_close"
+    ]
+  }
+}

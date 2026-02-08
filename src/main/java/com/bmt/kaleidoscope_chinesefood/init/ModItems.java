@@ -12,6 +12,10 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, KaleidoscopeChineseFood.MODID);
 
+    //生肠粉
+    public static final RegistryObject<Item> RAW_STEAMED_RICE_ROLLS =
+            ITEMS.register("raw_steamed_rice_rolls", () -> new Item(new Item.Properties()));
+
     // 麻辣抄手
     public static final RegistryObject<Item> SICHUAN_WONTON =
             ITEMS.register("sichuan_wonton", () -> new BowlFoodOnlyItem(ModFoods.SICHUAN_WONTON));
@@ -19,6 +23,10 @@ public class ModItems {
     // 云吞面
     public static final RegistryObject<Item> WONTON_NOODLES =
             ITEMS.register("wonton_noodles", () -> new BowlFoodOnlyItem(ModFoods.WONTON_NOODLES));
+
+    // 羊肉泡馍
+    public static final RegistryObject<Item> YANGROU_PAOMO =
+            ITEMS.register("yangrou_paomo", () -> new BowlFoodOnlyItem(ModFoods.YANGROU_PAOMO));
 
     // 冒菜
     public static final RegistryObject<Item> MAOCAI =
@@ -91,6 +99,10 @@ public class ModItems {
     // 羊肉抓饭
     public static final RegistryObject<Item> LAMB_PILAF =
             ITEMS.register("lamb_pilaf", () -> new BowlFoodOnlyItem(ModFoods.LAMB_PILAF));
+
+    // 肠粉
+    public static final RegistryObject<Item> STEAMED_RICE_ROLLS =
+            ITEMS.register("steamed_rice_rolls", () -> new BowlFoodOnlyItem(ModFoods.STEAMED_RICE_ROLLS));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
