@@ -2,8 +2,12 @@ package com.chenjdy.farmers_spell.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
@@ -12,13 +16,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-
-import javax.annotation.Nullable;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import com.mojang.serialization.JsonOps;
+import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 
 
@@ -27,10 +31,10 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
     @Nullable
     private final ResourceLocation requiredSchool;
 
-    public AlchemistCookingRecipe(ResourceLocation id, String group, NonNullList<Ingredient> inputItems,
-                                    ItemStack output, ItemStack container, float experience, int cookTime,
-                                    @Nullable ResourceLocation requiredSchool) {
-        super(id, group, null, inputItems, output, container, experience, cookTime);
+    public AlchemistCookingRecipe(String group, NonNullList<Ingredient> inputItems,
+                                  ItemStack output, ItemStack container, float experience, int cookTime,
+                                  @Nullable ResourceLocation requiredSchool) {
+        super(group, null, inputItems, output, container, experience, cookTime);
         this.requiredSchool = requiredSchool;
     }
 
@@ -52,8 +56,41 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
     public static class AlchemistRecipeSerializer implements RecipeSerializer<AlchemistCookingRecipe> {
 
         public static final AlchemistRecipeSerializer INSTANCE = new AlchemistRecipeSerializer();
+        private static final Codec<NonNullList<Ingredient>> INGREDIENTS_CODEC = Ingredient.CODEC_NONEMPTY.listOf().xmap(
+                list -> {
+                    NonNullList<Ingredient> ingredients = NonNullList.create();
+                    ingredients.addAll(list);
+                    return ingredients;
+                },
+                list -> list
+        );
+        private static final MapCodec<Optional<String>> REQUIRED_SCHOOL_CODEC = Codec.STRING.optionalFieldOf("required_school");
+        private static final MapCodec<AlchemistCookingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "").forGetter(AlchemistCookingRecipe::getGroup),
+                INGREDIENTS_CODEC.fieldOf("ingredients").forGetter(AlchemistCookingRecipe::getIngredients),
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.getResultItem(RegistryAccess.EMPTY)),
+                ItemStack.CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(AlchemistCookingRecipe::getOutputContainer),
+                Codec.FLOAT.optionalFieldOf("experience", 0.2F).forGetter(AlchemistCookingRecipe::getExperience),
+                Codec.INT.optionalFieldOf("cookingtime", 200).forGetter(AlchemistCookingRecipe::getCookTime),
+                REQUIRED_SCHOOL_CODEC.forGetter(recipe -> Optional.ofNullable(recipe.getRequiredSchool()).map(ResourceLocation::toString))
+        ).apply(instance, (group, ingredients, result, container, experience, cookTime, requiredSchool) ->
+                new AlchemistCookingRecipe(group, ingredients, result, container, experience, cookTime,
+                        requiredSchool.map(ResourceLocation::parse).orElse(null))));
+        private static final StreamCodec<RegistryFriendlyByteBuf, AlchemistCookingRecipe> STREAM_CODEC = StreamCodec.of(
+                AlchemistRecipeSerializer::toNetwork,
+                AlchemistRecipeSerializer::fromNetwork
+        );
 
         @Override
+        public MapCodec<AlchemistCookingRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, AlchemistCookingRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
         public AlchemistCookingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             String s = GsonHelper.getAsString(json, "group", "");
 
@@ -79,10 +116,10 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
 
                 ResourceLocation school = null;
                 if (json.has("required_school")) {
-                    school = ResourceLocation.fromNamespaceAndPath(GsonHelper.getAsString(json, "required_school"));
+                    school = ResourceLocation.parse(GsonHelper.getAsString(json, "required_school"));
                 }
 
-                return new AlchemistCookingRecipe(recipeId, s, nonnulllist, output, container, f, i, school);
+                return new AlchemistCookingRecipe(s, nonnulllist, output, container, f, i, school);
             }
         }
 
@@ -96,18 +133,16 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
             return new ItemStack(item, count);
         }
 
-        @Override
-        public AlchemistCookingRecipe fromNetwork(ResourceLocation recipeId, RegistryFriendlyByteBuf buf) {
+        private static AlchemistCookingRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
             String s = buf.readUtf();
             int i = buf.readVarInt();
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
-
             for (int j = 0; j < i; ++j) {
                 nonnulllist.set(j, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
             }
 
             ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
-            ItemStack container = ItemStack.STREAM_CODEC.decode(buf);
+            ItemStack container = buf.readBoolean() ? ItemStack.STREAM_CODEC.decode(buf) : ItemStack.EMPTY;
             float f = buf.readFloat();
             int k = buf.readVarInt();
 
@@ -116,11 +151,10 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
                 school = buf.readResourceLocation();
             }
 
-            return new AlchemistCookingRecipe(recipeId, s, nonnulllist, output, container, f, k, school);
+            return new AlchemistCookingRecipe(s, nonnulllist, output, container, f, k, school);
         }
 
-        @Override
-        public void toNetwork(RegistryFriendlyByteBuf buf, AlchemistCookingRecipe recipe) {
+        private static void toNetwork(RegistryFriendlyByteBuf buf, AlchemistCookingRecipe recipe) {
             buf.writeUtf(recipe.getGroup());
             buf.writeVarInt(recipe.getIngredients().size());
 
@@ -129,7 +163,11 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
             }
 
             ItemStack.STREAM_CODEC.encode(buf, recipe.getResultItem(RegistryAccess.EMPTY));
-            ItemStack.STREAM_CODEC.encode(buf, recipe.getOutputContainer());
+            ItemStack container = recipe.getOutputContainer();
+            buf.writeBoolean(!container.isEmpty());
+            if (!container.isEmpty()) {
+                ItemStack.STREAM_CODEC.encode(buf, container);
+            }
             buf.writeFloat(recipe.getExperience());
             buf.writeVarInt(recipe.getCookTime());
 

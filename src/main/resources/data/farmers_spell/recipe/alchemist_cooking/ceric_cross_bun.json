@@ -2,7 +2,7 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "tag": "c:dough"
+            "tag": "c:foods/dough"
         },
         {
             "item": "farmers_spell:wsip_butter"
@@ -12,7 +12,7 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:ceric_cross_bun",
+        "id": "farmers_spell:ceric_cross_bun",
         "count": 1
     },
     "experience": 1.0,

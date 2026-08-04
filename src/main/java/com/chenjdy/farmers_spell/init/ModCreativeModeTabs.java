@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.init;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.creativetab.FancyTabSections;
 import com.chenjdy.farmers_spell.creativetab.SectionTextured;
 import net.minecraft.core.registries.Registries;
@@ -14,24 +14,24 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModCreativeModeTabs {
 
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, FARMERSSPELL.MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, FarmersSpell.MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FARMERSSPELL_TAB = CREATIVE_MODE_TABS.register("farmers_spell_tab", () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ALCHEMIST_POT.get())).title(Component.translatable("itemGroup.farmers_spell_tab")).displayItems((pParameters, pOutput) -> {
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FarmersSpell_TAB = CREATIVE_MODE_TABS.register("farmers_spell_tab", () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ALCHEMIST_POT.get())).title(Component.translatable("itemGroup.farmers_spell_tab")).displayItems((pParameters, pOutput) -> {
         // 所有物品将通过FancyTabSections的Sections系统自动添加
     }).build());
 
     // Section的ResourceLocations
-    public static final ResourceLocation COOKWARE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "cookware");
+    public static final ResourceLocation COOKWARE = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "cookware");
 
-    public static final ResourceLocation FOOD = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "food");
+    public static final ResourceLocation FOOD = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "food");
 
-    public static final ResourceLocation DRINKS = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "drinks");
+    public static final ResourceLocation DRINKS = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "drinks");
 
-    public static final ResourceLocation EQUIPMENT = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "equipment");
+    public static final ResourceLocation EQUIPMENT = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "equipment");
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
-        ResourceLocation tabId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "farmers_spell_tab");
+        ResourceLocation tabId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "farmers_spell_tab");
         // 厨具 - 方块和厨具物品
         FancyTabSections.addSection(tabId, new SectionTextured(COOKWARE).setTitle(Component.translatable("section.farmers_spell.cookware")).setCollapsible(false).setTextColor(0xFFFFFFFF).addBlock(ModBlocks.WISEWOOD_CABINET).addBlock(ModBlocks.CINDEROUS_STOVE).addBlock(ModBlocks.ALCHEMIST_POT));
         // 食物 - 所有可食用物品

@@ -1,7 +1,7 @@
 package com.chenjdy.farmers_spell.loot;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
@@ -12,18 +12,12 @@ import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
-import com.mojang.serialization.MapCodec;
-
-
-
 
 public class AppendLootModifier extends LootModifier {
-    public static final Supplier<Codec<AppendLootModifier>> CODEC = Suppliers.memoize(()
-            -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst).and(Codec.STRING
-            .fieldOf("key").forGetter(m -> m.resourceLocationKey)).apply(inst, AppendLootModifier::new)));
+    public static final MapCodec<AppendLootModifier> CODEC = RecordCodecBuilder.mapCodec(inst -> codecStart(inst).and(Codec.STRING
+            .fieldOf("key").forGetter(m -> m.resourceLocationKey)).apply(inst, AppendLootModifier::new));
     private final String resourceLocationKey;
 
     protected AppendLootModifier(LootItemCondition[] conditionsIn, String resourceLocationKey) {
@@ -43,6 +37,6 @@ public class AppendLootModifier extends LootModifier {
 
     @Override
     public MapCodec<? extends IGlobalLootModifier> codec() {
-        return CODEC.get();
+        return CODEC;
     }
 }

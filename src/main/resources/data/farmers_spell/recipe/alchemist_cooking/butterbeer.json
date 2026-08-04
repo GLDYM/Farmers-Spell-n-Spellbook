@@ -12,11 +12,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:butterbeer",
+        "id": "farmers_spell:butterbeer",
         "count": 1
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "id": "minecraft:glass_bottle"
     },
     "experience": 1.0,
     "cookingtime": 200

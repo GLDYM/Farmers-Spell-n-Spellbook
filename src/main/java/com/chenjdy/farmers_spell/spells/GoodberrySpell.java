@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.spells;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public class GoodberrySpell extends AbstractSpell {
 
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "goodberry");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "goodberry");
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)

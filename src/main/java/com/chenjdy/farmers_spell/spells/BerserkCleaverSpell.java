@@ -1,6 +1,6 @@
 /*package com.chenjdy.farmers_spell.spells;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.entity.KinfeProjectile;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -32,7 +32,7 @@ import java.util.Optional;
 
 public class BerserkCleaverSpell extends AbstractSpell {
     
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "berserk_cleaver");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "berserk_cleaver");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {

@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.init;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.entity.BadAppleEntity;
 import com.chenjdy.farmers_spell.entity.ButterProjectile;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
@@ -15,14 +15,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 public class ModEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, FARMERSSPELL.MODID);
-
-    /*public static final RegistryObject<EntityType<KinfeProjectile>> CLEAVER_PROJECTILE = ENTITIES.register("cleaver_projectile",
-            () -> EntityType.Builder.<KinfeProjectile>of(KinfeProjectile::new, MobCategory.MISC)
-                    .sized(0.5F, 0.5F)
-                    .clientTrackingRange(4)
-                    .updateInterval(20)
-                    .build("cleaver_projectile"));*/
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, FarmersSpell.MODID);
 
     public static final DeferredHolder<EntityType<?>, EntityType<BadAppleEntity>> BAD_APPLE_ENTITY = ENTITIES.register("bad_apple",
             () -> EntityType.Builder.<BadAppleEntity>of(BadAppleEntity::new, MobCategory.MISC)

@@ -6,9 +6,11 @@
         }
     ],
     "result": [
-        {
-            "count": 3,
-            "item": "farmers_spell:hogskin_slice"
+        { 
+            "item": {
+                "count": 3,
+                "id": "farmers_spell:hogskin_slice"
+            }
         }
     ],
     "tool": {

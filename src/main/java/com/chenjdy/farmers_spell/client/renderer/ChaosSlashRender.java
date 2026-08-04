@@ -1,11 +1,10 @@
 package com.chenjdy.farmers_spell.client.renderer;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,7 +15,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/chaos_slash.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "textures/entity/chaos_slash.png");
 
     public ChaosSlashRender(Context context) {
         super(context);
@@ -55,15 +54,13 @@ public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
 
     private void drawSlash(Pose pose, MultiBufferSource bufferSource, int light, float width) {
         Matrix4f poseMatrix = pose.pose();
-        Matrix3f normalMatrix = pose.normal();
-
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         float halfWidth = width * .5f;
 
-        consumer.addVertex(poseMatrix, -halfWidth, -.1f, -halfWidth).setColor(255, 255, 255, 255).setUv(0f, 1f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(normalMatrix, 0f, 1f, 0f);
-        consumer.addVertex(poseMatrix, halfWidth, -.1f, -halfWidth).setColor(255, 255, 255, 255).setUv(1f, 1f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(normalMatrix, 0f, 1f, 0f);
-        consumer.addVertex(poseMatrix, halfWidth, -.1f, halfWidth).setColor(255, 255, 255, 255).setUv(1f, 0f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(normalMatrix, 0f, 1f, 0f);
-        consumer.addVertex(poseMatrix, -halfWidth, -.1f, halfWidth).setColor(255, 255, 255, 255).setUv(0f, 0f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(normalMatrix, 0f, 1f, 0f);
+        consumer.addVertex(poseMatrix, -halfWidth, -.1f, -halfWidth).setColor(255, 255, 255, 255).setUv(0f, 1f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0f, 1f, 0f);
+        consumer.addVertex(poseMatrix, halfWidth, -.1f, -halfWidth).setColor(255, 255, 255, 255).setUv(1f, 1f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0f, 1f, 0f);
+        consumer.addVertex(poseMatrix, halfWidth, -.1f, halfWidth).setColor(255, 255, 255, 255).setUv(1f, 0f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0f, 1f, 0f);
+        consumer.addVertex(poseMatrix, -halfWidth, -.1f, halfWidth).setColor(255, 255, 255, 255).setUv(0f, 0f).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(pose, 0f, 1f, 0f);
     }
 
     @Override

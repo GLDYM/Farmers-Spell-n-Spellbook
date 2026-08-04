@@ -14,14 +14,14 @@
             "item": "farmers_spell:blood_tofu"
         },
         {
-            "tag": "c:vegetables"
+            "tag": "c:foods/vegetable"
         },
         {
-            "tag": "c:vegetables"
+            "tag": "c:foods/vegetable"
         }
     ],
     "result": {
-        "item": "farmers_spell:cinderous_hotpot",
+        "id": "farmers_spell:cinderous_hotpot",
         "count": 1
     },
     "experience": 1.0,

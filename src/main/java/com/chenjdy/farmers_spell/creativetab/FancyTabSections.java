@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.creativetab;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class FancyTabSections {
 
-    public static final String MOD_ID = FARMERSSPELL.MODID;
+    public static final String MOD_ID = FarmersSpell.MODID;
     public static final Map<ResourceLocation, List<Section<?>>> REGISTERED_TABS = new HashMap<>();
 
     public FancyTabSections() {

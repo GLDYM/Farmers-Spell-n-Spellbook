@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.item;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PlaceableBlockItem extends BlockItem {
 
-    private static final Component PLACEABLE = Component.translatable(FARMERSSPELL.MODID + ".tooltip.placeable")
+    private static final Component PLACEABLE = Component.translatable(FarmersSpell.MODID + ".tooltip.placeable")
             .withStyle(ChatFormatting.DARK_GRAY)
             .withStyle(ChatFormatting.ITALIC);
 

@@ -1,7 +1,6 @@
 package com.chenjdy.farmers_spell.item.weapons;
 
 import com.chenjdy.farmers_spell.init.ModItems;
-import com.chenjdy.farmers_spell.init.ModSpells;
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import net.minecraft.core.BlockPos;
@@ -25,15 +24,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Map;
-
 public class GrowKnife extends MagicSwordItem {
 
     public GrowKnife() {
-        super(Tiers.IRON, 0.0f, -1.0f,
-                SpellDataRegistryHolder.of(new SpellDataRegistryHolder(ModSpells.GOODBERRY_SPELL, 1)),
-                Map.of(),
-                new Item.Properties().durability(250).rarity(Rarity.COMMON));
+        super(Tiers.IRON, new Item.Properties().durability(250).rarity(Rarity.COMMON), SpellDataRegistryHolder.of());
     }
 
     @Override

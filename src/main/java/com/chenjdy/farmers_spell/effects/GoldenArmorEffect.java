@@ -1,5 +1,7 @@
 package com.chenjdy.farmers_spell.effects;
 
+import com.chenjdy.farmers_spell.FarmersSpell;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -12,6 +14,6 @@ public class GoldenArmorEffect extends MobEffect {
     @SuppressWarnings("this-escape")
     public GoldenArmorEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
-        this.addAttributeModifier(Attributes.ARMOR, ARMOR_MODIFIER_ID, 2.0, AttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "golden_armor_bonus"), 2.0, AttributeModifier.Operation.ADD_VALUE);
     }
 }

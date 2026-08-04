@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.integration.jei;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
+import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.client.AlchemistPotScreen;
 import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModMenuTypes;
@@ -20,7 +21,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 @JeiPlugin
 public class Plugin implements IModPlugin {
 
-    private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "jei_plugin");
+    private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "jei_plugin");
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -60,7 +61,7 @@ public class Plugin implements IModPlugin {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(
-                com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu.class,
+                AlchemistPotMenu.class,
                 ModMenuTypes.ALCHEMIST_POT.get(),
                 AlchemistPotRecipeCategory.RECIPE_TYPE,
                 0, 6,

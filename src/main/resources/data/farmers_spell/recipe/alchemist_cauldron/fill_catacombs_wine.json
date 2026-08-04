@@ -1,14 +1,14 @@
 {
   "type": "irons_spellbooks:alchemist_cauldron_fill",
   "fluid": {
-    "Amount": 250,
-    "FluidName": "farmers_spell:catacombs_wine"
+    "amount": 250,
+    "id": "farmers_spell:catacombs_wine"
   },
   "input": {
     "item": "farmers_spell:catacombs_wine"
   },
   "result": {
     "count": 1,
-    "item": "minecraft:glass_bottle"
+    "id": "minecraft:glass_bottle"
   }
 }

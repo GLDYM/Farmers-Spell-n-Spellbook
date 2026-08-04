@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.block;
 
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -24,24 +25,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.event.EventHooks;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import net.minecraft.world.ItemInteractionResult;
 
 public class RedVelvetCakeBlock extends CakeBlock {
-    public static final com.mojang.serialization.MapCodec<RedVelvetCakeBlock> CODEC = simpleCodec(RedVelvetCakeBlock::new);
+    public static final MapCodec<RedVelvetCakeBlock> CODEC = simpleCodec(RedVelvetCakeBlock::new);
 
     @Override
-    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
-        return CODEC;
+    public MapCodec<CakeBlock> codec() {
+        return (MapCodec<CakeBlock>) (MapCodec<?>) CODEC;
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 6);
 
     protected static final VoxelShape[] SHAPES_NORTH = new VoxelShape[]{
             Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0),
@@ -86,13 +86,13 @@ public class RedVelvetCakeBlock extends CakeBlock {
     @SuppressWarnings("this-escape")
     public RedVelvetCakeBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(BITES, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CakeBlock.BITES, 0));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
-        int bites = state.getValue(BITES);
+        int bites = state.getValue(CakeBlock.BITES);
         
         switch (facing) {
             case SOUTH:
@@ -113,27 +113,27 @@ public class RedVelvetCakeBlock extends CakeBlock {
     }
 
     @Override
-    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        net.minecraft.world.item.ItemStack heldStack = itemstack;
+    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack heldStack = itemstack;
         
         if (ItemUtils.isKnife(heldStack)) {
             return switch (cutSlice(level, pos, state, player, heldStack.getItem())) {
-                case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
-                case SUCCESS_NO_ITEM_USED -> net.minecraft.world.ItemInteractionResult.SUCCESS;
-                case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
-                case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
-                case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
-                default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                case SUCCESS -> ItemInteractionResult.SUCCESS;
+                case SUCCESS_NO_ITEM_USED -> ItemInteractionResult.SUCCESS;
+                case CONSUME -> ItemInteractionResult.CONSUME;
+                case CONSUME_PARTIAL -> ItemInteractionResult.CONSUME_PARTIAL;
+                case FAIL -> ItemInteractionResult.FAIL;
+                default -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             };
         }
 
         return switch (this.consumeBite(level, pos, state, player)) {
-            case SUCCESS -> net.minecraft.world.ItemInteractionResult.SUCCESS;
-            case SUCCESS_NO_ITEM_USED -> net.minecraft.world.ItemInteractionResult.SUCCESS;
-            case CONSUME -> net.minecraft.world.ItemInteractionResult.CONSUME;
-            case CONSUME_PARTIAL -> net.minecraft.world.ItemInteractionResult.CONSUME_PARTIAL;
-            case FAIL -> net.minecraft.world.ItemInteractionResult.FAIL;
-            default -> net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            case SUCCESS -> ItemInteractionResult.SUCCESS;
+            case SUCCESS_NO_ITEM_USED -> ItemInteractionResult.SUCCESS;
+            case CONSUME -> ItemInteractionResult.CONSUME;
+            case CONSUME_PARTIAL -> ItemInteractionResult.CONSUME_PARTIAL;
+            case FAIL -> ItemInteractionResult.FAIL;
+            default -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         };
     }
 
@@ -145,12 +145,12 @@ public class RedVelvetCakeBlock extends CakeBlock {
         ItemStack sliceStack = new ItemStack(ModItems.RED_VELVET_CAKE_SLICE.get());
         ItemStack sliceCopy = sliceStack.copy();
 
-        player.getFoodData().eat(sliceStack.getItem(), sliceStack);
+        player.eat(level, sliceStack, sliceStack.getFoodProperties(player));
 
         if (!level.isClientSide()) {
-            sliceStack.getItem().getFoodProperties().effects().forEach(effectPair -> {
-                MobEffectInstance effectInstance = effectPair.getFirst();
-                float chance = effectPair.getSecond();
+            sliceStack.getFoodProperties(player).effects().forEach(effectPair -> {
+                MobEffectInstance effectInstance = effectPair.effect();
+                float chance = effectPair.probability();
                 if (level.getRandom().nextFloat() < chance) {
                     player.addEffect(new MobEffectInstance(effectInstance));
                 }
@@ -161,9 +161,9 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
         EventHooks.onItemUseFinish(player, sliceCopy, 0, ItemStack.EMPTY);
 
-        int bites = state.getValue(BITES);
+        int bites = state.getValue(CakeBlock.BITES);
         if (bites < getMaxBites() - 1) {
-            level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
+            level.setBlock(pos, state.setValue(CakeBlock.BITES, bites + 1), 3);
         } else {
             level.removeBlock(pos, false);
         }
@@ -172,9 +172,9 @@ public class RedVelvetCakeBlock extends CakeBlock {
     }
 
     protected InteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player, Item knife) {
-        int bites = state.getValue(BITES);
+        int bites = state.getValue(CakeBlock.BITES);
         if (bites < getMaxBites() - 1) {
-            level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
+            level.setBlock(pos, state.setValue(CakeBlock.BITES, bites + 1), 3);
         } else {
             level.removeBlock(pos, false);
         }
@@ -203,12 +203,12 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, BITES);
+        builder.add(FACING, CakeBlock.BITES);
     }
 
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return getMaxBites() - state.getValue(BITES);
+        return getMaxBites() - state.getValue(CakeBlock.BITES);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.block;
 
 import com.chenjdy.farmers_spell.block.entity.CinderousStoveBlockEntity;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -15,11 +16,11 @@ import vectorwing.farmersdelight.common.block.StoveBlock;
 import javax.annotation.Nullable;
 
 public class CinderousStoveBlock extends StoveBlock {
-    public static final com.mojang.serialization.MapCodec<CinderousStoveBlock> CODEC = simpleCodec(CinderousStoveBlock::new);
+    public static final MapCodec<CinderousStoveBlock> CODEC = simpleCodec(CinderousStoveBlock::new);
 
     @Override
-    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
-        return CODEC;
+    public MapCodec<StoveBlock> codec() {
+        return (MapCodec<StoveBlock>) (MapCodec<?>) CODEC;
     }
 
     @SuppressWarnings("this-escape")

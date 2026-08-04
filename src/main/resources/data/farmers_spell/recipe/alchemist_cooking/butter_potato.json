@@ -21,7 +21,7 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:butter_potato",
+        "id": "farmers_spell:butter_potato",
         "count": 3
     },
     "experience": 1.0,

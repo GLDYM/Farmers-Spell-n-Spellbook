@@ -6,9 +6,11 @@
         }
     ],
     "result": [
-        {
-            "count": 4,
-            "item": "farmers_spell:goodberry_pie_slice"
+        { 
+            "item": {
+                "count": 4,
+                "id": "farmers_spell:goodberry_pie_slice"
+            }
         }
     ],
     "tool": {

@@ -5,21 +5,21 @@
             "item": "farmers_spell:hogskin_slice"
         },
         {
-            "tag": "c:raw_pork"
+            "tag": "c:foods/raw_pork"
         },
         {
-            "tag": "c:raw_pork"
+            "tag": "c:foods/raw_pork"
         },
         {
             "item": "minecraft:crimson_fungus"
         }
     ],
     "result": {
-        "item": "farmers_spell:hogskin_sausage",
+        "id": "farmers_spell:hogskin_sausage",
         "count": 1
     },
     "container": {
-        "item": "minecraft:bowl"
+        "id": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

@@ -10,7 +10,7 @@
             "item": "farmers_spell:icebergcream"
         },
         "&": {
-            "tag": "c:berries"
+            "tag": "c:foods/berry"
         },
         "B": {
             "item": "minecraft:bread"

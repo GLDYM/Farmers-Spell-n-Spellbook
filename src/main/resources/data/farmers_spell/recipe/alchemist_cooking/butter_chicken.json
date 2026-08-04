@@ -5,13 +5,13 @@
             "item": "farmers_spell:wsip_butter"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         },
         {
             "item": "farmersdelight:tomato_sauce"
         },
         {
-            "tag": "c:vegetables"
+            "tag": "c:foods/vegetable"
         },
         {
             "item": "minecraft:cooked_chicken"
@@ -21,11 +21,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:butter_chicken",
+        "id": "farmers_spell:butter_chicken",
         "count": 2
     },
     "container": {
-        "item": "minecraft:bowl"
+        "id": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

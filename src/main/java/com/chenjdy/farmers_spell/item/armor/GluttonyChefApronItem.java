@@ -8,7 +8,7 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class GluttonyChefApronItem extends GluttonyChefArmorItemImbued {
     public GluttonyChefApronItem(Properties settings) {
-        super(ModArmorMaterials.GLUTTONY_CHEF, ArmorItem.Type.CHESTPLATE, settings);
+        super(ArmorItem.Type.CHESTPLATE, settings);
     }
 
     @Override

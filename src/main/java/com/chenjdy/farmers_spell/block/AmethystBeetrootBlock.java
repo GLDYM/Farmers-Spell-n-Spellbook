@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.block;
 
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -34,15 +35,15 @@ import javax.annotation.Nullable;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class AmethystBeetrootBlock extends CropBlock {
-    public static final com.mojang.serialization.MapCodec<AmethystBeetrootBlock> CODEC = simpleCodec(AmethystBeetrootBlock::new);
+    public static final MapCodec<AmethystBeetrootBlock> CODEC = simpleCodec(AmethystBeetrootBlock::new);
 
     @Override
-    public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.CropBlock> codec() {
+    public MapCodec<AmethystBeetrootBlock> codec() {
         return CODEC;
     }
 
 
-    public AmethystBeetrootBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+    public AmethystBeetrootBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
@@ -192,14 +193,14 @@ public class AmethystBeetrootBlock extends CropBlock {
 
         int age = this.getAge(state);
         if (age < this.getMaxAge()) {
-            float f = this.getGrowthSpeed(state, level, pos);
+            float f = this.getCropGrowthSpeed(state, level, pos);
             if (random.nextInt((int)(25.0F / f) + 1) == 0) {
                 level.setBlock(pos, state.setValue(AGE, age + 1), 2);
             }
         }
     }
 
-    private float getGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
+    private float getCropGrowthSpeed(BlockState state, BlockGetter level, BlockPos pos) {
         float speed = 1.0F;
         Direction facing = state.getValue(FACING);
         BlockPos supportPos = pos.relative(facing.getOpposite());

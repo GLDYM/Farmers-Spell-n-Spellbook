@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.client;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.client.renderer.BadAppleRender;
 import com.chenjdy.farmers_spell.client.renderer.ChaosSlashRender;
 import com.chenjdy.farmers_spell.client.renderer.FoodgeistRender;
@@ -14,13 +14,12 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 
-@EventBusSubscriber(modid = FARMERSSPELL.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = FarmersSpell.MODID, value = Dist.CLIENT)
 public class ClientSetupRegister {
 
     @SubscribeEvent

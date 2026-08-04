@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.init;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.spells.BadAppleSpell;
 import com.chenjdy.farmers_spell.spells.ChaosSlashSpell;
 import com.chenjdy.farmers_spell.spells.GoodberrySpell;
@@ -14,12 +14,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
 public class ModSpells {
 
-    public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SpellRegistry.SPELL_REGISTRY_KEY, FARMERSSPELL.MODID);
+    public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SpellRegistry.SPELL_REGISTRY_KEY, FarmersSpell.MODID);
 
     public static final DeferredHolder<AbstractSpell, AbstractSpell> GOODBERRY_SPELL = SPELLS.register("goodberry", GoodberrySpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> PHANTOM_LOOT_SPELL = SPELLS.register("phantom_loot", PhantomLootSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> SEAL_COAT_SPELL = SPELLS.register("seal_coat", SealCoatSpell::new);
-    //public static final RegistryObject<AbstractSpell> BERSERK_CLEAVER_SPELL = SPELLS.register("berserk_cleaver", BerserkCleaverSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> BAD_APPLE_SPELL = SPELLS.register("bad_apple", BadAppleSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> CHAOS_SLASH_SPELL = SPELLS.register("chaos_slash", ChaosSlashSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> PRESERVE_CIRCLE_SPELL = SPELLS.register("preserve_circle", PreserveCircleSpell::new);

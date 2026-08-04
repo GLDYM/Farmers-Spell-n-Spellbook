@@ -1,24 +1,24 @@
 {
     "type": "farmers_spell:alchemist_cooking",
     "container": {
-        "item": "minecraft:bowl"
+        "id": "minecraft:bowl"
     },
     "ingredients": [
         {
             "item": "farmers_spell:icy_egg"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         },
         {
             "item": "minecraft:cocoa_beans"
         },
         {
-            "tag": "c:berries"
+            "tag": "c:foods/berry"
         }
     ],
     "result": {
-        "item": "farmers_spell:icebergcream",
+        "id": "farmers_spell:icebergcream",
         "count": 1
     },
     "experience": 1.0,

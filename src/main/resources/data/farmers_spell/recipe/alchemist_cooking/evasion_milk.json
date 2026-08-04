@@ -5,18 +5,18 @@
             "item": "irons_spellbooks:evasion_elixir"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         },
         {
             "item": "irons_spellbooks:arcane_essence"
         }
     ],
     "result": {
-        "item": "farmers_spell:evasion_milk",
+        "id": "farmers_spell:evasion_milk",
         "count": 1
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "id": "minecraft:glass_bottle"
     },
     "experience": 1.0,
     "cookingtime": 200

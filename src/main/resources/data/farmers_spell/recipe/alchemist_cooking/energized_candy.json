@@ -12,7 +12,7 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:energized_candy",
+        "id": "farmers_spell:energized_candy",
         "count": 1
     },
     "experience": 1.0,

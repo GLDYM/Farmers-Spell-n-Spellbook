@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.block;
 
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -28,12 +29,13 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.ItemInteractionResult;
 
 public class GluttonHotchpotchBlock extends Block {
-    public static final com.mojang.serialization.MapCodec<GluttonHotchpotchBlock> CODEC = simpleCodec(GluttonHotchpotchBlock::new);
+    public static final MapCodec<GluttonHotchpotchBlock> CODEC = simpleCodec(GluttonHotchpotchBlock::new);
 
     @Override
-    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
+    protected MapCodec<? extends Block> codec() {
         return CODEC;
     }
 
@@ -67,8 +69,8 @@ public class GluttonHotchpotchBlock extends Block {
     }
     
     @Override
-    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        net.minecraft.world.item.ItemStack heldStack = itemstack;
+    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack heldStack = itemstack;
         int bites = state.getValue(BITES);
 
         if (bites < 4) {
@@ -86,20 +88,20 @@ public class GluttonHotchpotchBlock extends Block {
                     level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
                     level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_IRON.value(), SoundSource.BLOCKS, 1.0f, 1.0f);
                 }
-                return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
             } else {
                 if (!level.isClientSide) {
                     player.displayClientMessage(Component.translatable(
                             "item.farmers_spell.glutton_hotchpotch.serve", 
                             Component.translatable("item.minecraft.bowl")), true);
                 }
-                return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return ItemInteractionResult.sidedSuccess(level.isClientSide);
             }
         } else {
             if (!level.isClientSide) {
                 level.destroyBlock(pos, true);
             }
-            return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
     }
     

@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.spells;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.entity.BadAppleEntity;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -25,7 +25,7 @@ import java.util.Optional;
 
 public class BadAppleSpell extends AbstractSpell {
     
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "bad_apple");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "bad_apple");
     
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
@@ -84,7 +84,7 @@ public class BadAppleSpell extends AbstractSpell {
         
         if (!level.isClientSide) {
             BadAppleEntity badApple = new BadAppleEntity(level, targetPos, spellLevel);
-            badApple.setCustomName(Component.literal("坏苹果"));
+            badApple.setCustomName(Component.literal("Bad Apple"));
             level.addFreshEntity(badApple);
         }
         

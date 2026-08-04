@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.entity;
 
 import com.chenjdy.farmers_spell.init.ModBlocks;
+import com.chenjdy.farmers_spell.init.ModAttributes;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -44,12 +45,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -59,7 +60,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public static final TagKey<Item> FOODGEIST_FOOD = TagKey.create(BuiltInRegistries.ITEM.getRegistryKey(), ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_food"));
+    public static final TagKey<Item> FOODGEIST_FOOD = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_food"));
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
 
@@ -277,7 +278,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
                 player.setHealth(player.getMaxHealth());
                 if (player instanceof ServerPlayer serverPlayer) {
                     MagicData magicData = MagicData.getPlayerMagicData(serverPlayer);
-                    float maxMana = (float) serverPlayer.getAttributeValue(AttributeRegistry.MAX_MANA.get());
+                    float maxMana = (float) serverPlayer.getAttributeValue(AttributeRegistry.MAX_MANA);
                     magicData.setMana(maxMana);
                 }
                 this.entityData.set(DATA_BLESSING_COOLDOWN, currentTime + 300L);
@@ -501,7 +502,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         this.entityData.set(DATA_BLESSING_COOLDOWN, compound.getLong("BlessingCooldown"));
     }
 
-    private <E extends GeoEntity> PlayState predicate(AnimationState<E> state) {
+    private PlayState predicate(AnimationState<FoodgeistEntity> state) {
         if (this.isWaving()) {
             state.getController().setAnimation(WAVE);
         } else if (this.isGifted()) {

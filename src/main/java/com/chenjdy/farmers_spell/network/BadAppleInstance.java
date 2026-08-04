@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.network;
 import com.chenjdy.farmers_spell.init.ModSounds;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 
@@ -27,7 +28,7 @@ public class BadAppleInstance extends AbstractTickableSoundInstance {
     public static void play(BlockPos pos) {
         stopCurrent();
         instance = new BadAppleInstance(pos);
-        net.minecraft.client.Minecraft.getInstance().getSoundManager().play(instance);
+        Minecraft.getInstance().getSoundManager().play(instance);
     }
     
     public static void stopCurrent() {

@@ -19,6 +19,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,8 +175,8 @@ public class ChaosSlashProjectile extends Projectile {
         if (!victims.contains(entity)) {
             entity.hurt(this.damageSources().magic(), damage);
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                        ModEffects.CLAW_BREAK.get(),
+                livingEntity.addEffect(new MobEffectInstance(
+                        ModEffects.CLAW_BREAK,
                         effectDuration * 20,
                         0,
                         false,

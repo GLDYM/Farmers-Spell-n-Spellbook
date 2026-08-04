@@ -8,14 +8,14 @@
             "item": "farmers_spell:goodberry"
         },
         {
-            "tag": "c:dough"
+            "tag": "c:foods/dough"
         },
         {
             "item": "farmers_spell:amethyst_sugar"
         }
     ],
     "result": {
-        "item": "farmers_spell:goodberry_muffin",
+        "id": "farmers_spell:goodberry_muffin",
         "count": 1
     },
     "experience": 1.0,

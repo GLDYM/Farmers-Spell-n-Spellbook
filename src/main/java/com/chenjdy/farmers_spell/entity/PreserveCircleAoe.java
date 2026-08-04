@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.entity;
 
 import io.redspace.ironsspellbooks.entity.spells.AoeEntity;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.syncher.SynchedEntityData;
 import org.joml.Vector3f;
 
 import java.util.Optional;
@@ -54,7 +56,7 @@ public class PreserveCircleAoe extends AoeEntity {
     @Override
     public void applyEffect(LivingEntity target) {
         MobEffectInstance slowedEffect = new MobEffectInstance(
-                MobEffectRegistry.SLOWED,
+                BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MobEffectRegistry.SLOWED.get()),
                 60,
                 0,
                 false,
@@ -64,7 +66,7 @@ public class PreserveCircleAoe extends AoeEntity {
         target.addEffect(slowedEffect);
 
         MobEffectInstance magicIngredientEffect = new MobEffectInstance(
-                MAGICAL_INGREDIENT.get(),
+                MAGICAL_INGREDIENT,
                 1200,
                 Math.max(0, getSpellLevel() - 1),
                 false,
@@ -82,5 +84,9 @@ public class PreserveCircleAoe extends AoeEntity {
     @Override
     public Optional<ParticleOptions> getParticle() {
         return Optional.of(ORANGE_DUST);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 }

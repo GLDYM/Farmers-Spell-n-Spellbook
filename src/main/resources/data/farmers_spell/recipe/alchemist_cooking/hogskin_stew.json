@@ -12,11 +12,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:hogskin_stew",
+        "id": "farmers_spell:hogskin_stew",
         "count": 1
     },
     "container": {
-        "item": "minecraft:bowl"
+        "id": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

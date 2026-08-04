@@ -1,16 +1,16 @@
 {
   "type": "irons_spellbooks:alchemist_cauldron_brew",
   "base_fluid": {
-    "Amount": 250,
-    "FluidName": "minecraft:water"
+    "amount": 250,
+    "id": "minecraft:water"
   },
   "input": {
     "item": "farmers_spell:amethyst_beetroot"
   },
   "results": [
     {
-      "Amount": 250,
-      "FluidName": "farmers_spell:amethyst_tequila"
+      "amount": 250,
+      "id": "farmers_spell:amethyst_tequila"
     }
   ]
 }

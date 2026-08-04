@@ -8,7 +8,7 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class GluttonyChefBootsItem extends GluttonyChefArmorItem {
     public GluttonyChefBootsItem(Properties settings) {
-        super(ModArmorMaterials.GLUTTONY_CHEF, ArmorItem.Type.BOOTS, settings);
+        super(ArmorItem.Type.BOOTS, settings);
     }
 
     @Override

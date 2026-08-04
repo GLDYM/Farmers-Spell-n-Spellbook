@@ -48,7 +48,7 @@ public class VexGinger extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack, net.minecraft.world.entity.LivingEntity entity) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 32;
     }
 
@@ -69,7 +69,6 @@ public class VexGinger extends Item {
                             (ServerLevel) level,
                             level.getCurrentDifficultyAt(vex.blockPosition()),
                             MobSpawnType.MOB_SUMMONED,
-                            null,
                             null
                     );
 

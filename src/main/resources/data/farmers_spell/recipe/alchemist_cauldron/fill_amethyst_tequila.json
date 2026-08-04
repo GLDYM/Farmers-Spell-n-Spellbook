@@ -1,14 +1,14 @@
 {
   "type": "irons_spellbooks:alchemist_cauldron_fill",
   "fluid": {
-    "Amount": 250,
-    "FluidName": "farmers_spell:amethyst_tequila"
+    "amount": 250,
+    "id": "farmers_spell:amethyst_tequila"
   },
   "input": {
     "item": "farmers_spell:amethyst_tequila"
   },
   "result": {
     "count": 1,
-    "item": "minecraft:glass_bottle"
+    "id": "minecraft:glass_bottle"
   }
 }

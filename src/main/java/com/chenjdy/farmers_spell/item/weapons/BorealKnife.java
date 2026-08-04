@@ -8,14 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 
-import java.util.Map;
-
 public class BorealKnife extends MagicSwordItem {
     public BorealKnife() {
-        super(Tiers.IRON, 7.0f, -2.0f,
-            SpellDataRegistryHolder.of(),
-            Map.of(),
-            new Item.Properties().durability(1561).rarity(Rarity.RARE));
+        super(Tiers.IRON, new Item.Properties().durability(1561).rarity(Rarity.RARE), SpellDataRegistryHolder.of());
     }
     
     @Override
@@ -26,7 +21,7 @@ public class BorealKnife extends MagicSwordItem {
 
         if (!ISpellContainer.isSpellContainer(itemStack)) {
             ISpellContainer spellContainer = ISpellContainer.create(1, true, false);
-            spellContainer.save(itemStack);
+            ISpellContainer.set(itemStack, spellContainer);
         }
     }
 }

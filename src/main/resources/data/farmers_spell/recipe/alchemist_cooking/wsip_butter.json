@@ -5,17 +5,17 @@
             "item": "irons_spellbooks:divine_pearl"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         },
         {
-            "tag": "c:milk"
+            "tag": "c:drinks/milk"
         }
     ],
     "result": {
-        "item": "farmers_spell:wsip_butter",
+        "id": "farmers_spell:wsip_butter",
         "count": 2
     },
     "experience": 1.0,

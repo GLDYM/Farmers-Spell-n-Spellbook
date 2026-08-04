@@ -15,7 +15,7 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:energized_caramel",
+        "id": "farmers_spell:energized_caramel",
         "count": 1
     },
     "experience": 1.0,

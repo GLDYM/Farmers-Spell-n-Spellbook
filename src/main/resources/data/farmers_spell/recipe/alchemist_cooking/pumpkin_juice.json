@@ -9,11 +9,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:pumpkin_juice",
+        "id": "farmers_spell:pumpkin_juice",
         "count": 1
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "id": "minecraft:glass_bottle"
     },
     "experience": 1.0,
     "cookingtime": 200

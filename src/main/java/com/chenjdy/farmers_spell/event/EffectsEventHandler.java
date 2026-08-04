@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.event;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
+import com.chenjdy.farmers_spell.init.ModAttributes;
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -10,6 +11,7 @@ import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -32,14 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-@EventBusSubscriber(modid = FARMERSSPELL.MODID)
+import net.minecraft.core.Holder;
+@EventBusSubscriber(modid = FarmersSpell.MODID)
 public class EffectsEventHandler {
 
     private static final String DRUID_HEAL_COOLDOWN = "druid_heal_cooldown";
     private static final String SEAL_OIL_COOLDOWN = "seal_oil_cooldown";
     private static final String CLEANSE_MANA_COOLDOWN = "cleanse_mana_cooldown";
 
-    private static final List<MobEffect> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
+    private static final List<Holder<MobEffect>> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
             MobEffects.MOVEMENT_SLOWDOWN,
             MobEffects.HUNGER,
             MobEffects.WEAKNESS,
@@ -64,20 +67,20 @@ public class EffectsEventHandler {
         MobEffectInstance effect = event.getEffectInstance();
         if (effect == null) return;
 
-        if (effect.getEffect().equals(MobEffects.POISON) && entity.hasEffect(ModEffects.DRUID_HEAL)) {
+        if (effect.getEffect().is(MobEffects.POISON) && entity.hasEffect(ModEffects.DRUID_HEAL)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
             return;
         }
 
         if (entity.hasEffect(ModEffects.CLEANSE)) {
-            for (MobEffect immuneEffect : CLEANSE_IMMUNE_VANILLA_EFFECTS) {
-                if (effect.getEffect().equals(immuneEffect)) {
+            for (Holder<MobEffect> immuneEffect : CLEANSE_IMMUNE_VANILLA_EFFECTS) {
+                if (effect.getEffect().is(immuneEffect)) {
                     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                     return;
                 }
             }
             MobEffect ironSlowed = getIronSlowedEffect();
-            if (ironSlowed != null && effect.getEffect().equals(ironSlowed)) {
+            if (ironSlowed != null && effect.getEffect().value() == ironSlowed) {
                 event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                 return;
             }
@@ -92,7 +95,7 @@ public class EffectsEventHandler {
         MobEffectInstance effect = event.getEffectInstance();
         if (effect == null) return;
 
-        if (effect.getEffect().equals(ModEffects.GOLDEN_ARMOR.get())) {
+        if (effect.getEffect().is(ModEffects.GOLDEN_ARMOR)) {
             if (entity.isOnFire()) {
                 entity.clearFire();
                 entity.igniteForSeconds(0);
@@ -103,7 +106,11 @@ public class EffectsEventHandler {
     @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity livingEntity)) return;
-if (livingEntity.level().isClientSide) return;
+        if (livingEntity.level().isClientSide) return;
+
+        if (livingEntity.hasEffect(ModEffects.GOLDEN_ARMOR) && livingEntity.isOnFire()) {
+            livingEntity.clearFire();
+        }
 
         MobEffectInstance druidHeal = livingEntity.getEffect(ModEffects.DRUID_HEAL);
         if (druidHeal != null) {
@@ -135,10 +142,10 @@ if (livingEntity.level().isClientSide) return;
 
         List<MobEffectInstance> harmfulEffects = new ArrayList<>();
         for (MobEffectInstance effect : livingEntity.getActiveEffects()) {
-            if (effect.getEffect().getCategory() == net.minecraft.world.effect.MobEffectCategory.HARMFUL) {
-                harmfulEffects.add(effect);
-            }
-        }
+                    if (effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
+                        harmfulEffects.add(effect);
+                    }
+                }
 
         if (harmfulEffects.isEmpty()) return;
 
@@ -174,7 +181,7 @@ if (livingEntity.level().isClientSide) return;
             } else {
                 MagicData magicData = MagicData.getPlayerMagicData(player);
                 float currentMana = magicData.getMana();
-                float maxMana = (float) player.getAttributeValue(AttributeRegistry.MAX_MANA.get());
+                float maxMana = (float) player.getAttributeValue(AttributeRegistry.MAX_MANA);
                 float manaRegenAmount = maxMana * 0.15f;
                 float newMana = Math.min(currentMana + manaRegenAmount, maxMana);
                 magicData.setMana(newMana);
@@ -289,7 +296,6 @@ if (livingEntity.level().isClientSide) return;
             motion = motion.yRot(offset * i * Mth.DEG_TO_RAD);
 
             IcicleProjectile icicle = new IcicleProjectile(serverLevel, entity);
-            icicle.setDamage(damage / 2.0f);
             icicle.setDeltaMovement(motion);
 
             Vec3 spawn = origin.add(motion.multiply(1, 0, 1).normalize().scale(0.5f));

@@ -18,11 +18,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:pumpkin_soup",
+        "id": "farmers_spell:pumpkin_soup",
         "count": 1
     },
     "container": {
-        "item": "minecraft:pumpkin"
+        "id": "minecraft:pumpkin"
     },
     "experience": 1.0,
     "cookingtime": 200

@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.event;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.entity.mobs.keeper.KeeperEntity;
 import net.minecraft.world.entity.animal.Pig;
@@ -10,7 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = FARMERSSPELL.MODID)
+@EventBusSubscriber(modid = FarmersSpell.MODID)
 public class KeeperKillHandler {
 
     @SubscribeEvent

@@ -15,7 +15,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import net.minecraft.world.item.Item;
 

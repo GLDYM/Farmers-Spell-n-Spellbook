@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.integration.jei;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
@@ -43,8 +43,8 @@ import net.minecraft.core.RegistryAccess;
 @MethodsReturnNonnullByDefault
 public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCookingRecipe>
 {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "alchemist_cooking");
-    public static final RecipeType<AlchemistCookingRecipe> RECIPE_TYPE = RecipeType.create(FARMERSSPELL.MODID, "alchemist_cooking", AlchemistCookingRecipe.class);
+    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "alchemist_cooking");
+    public static final RecipeType<AlchemistCookingRecipe> RECIPE_TYPE = RecipeType.create(FarmersSpell.MODID, "alchemist_cooking", AlchemistCookingRecipe.class);
 
     private final IDrawable heatIndicator;
     private final IDrawable timeIcon;
@@ -55,7 +55,7 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
     private final IDrawable icon;
 
     public AlchemistPotRecipeCategory(IGuiHelper helper) {
-        this.title = Component.translatable("jei." + FARMERSSPELL.MODID + ".alchemist_cooking");
+        this.title = Component.translatable("jei." + FarmersSpell.MODID + ".alchemist_cooking");
 
         ResourceLocation widgetBackgroundImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cooking_pot.png");
         ResourceLocation interfaceImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");

@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.spells;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class SealCoatSpell extends AbstractSpell {
 
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "seal_coat");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "seal_coat");
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)

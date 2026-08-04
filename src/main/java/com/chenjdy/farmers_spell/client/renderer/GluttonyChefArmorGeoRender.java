@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.client.renderer;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -11,7 +11,7 @@ import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
-import software.bernie.geckolib.util.RenderUtils;
+import software.bernie.geckolib.util.RenderUtil;
 
 import javax.annotation.Nullable;
 
@@ -32,17 +32,17 @@ public class GluttonyChefArmorGeoRender extends GeoArmorRenderer<GluttonyChefArm
     public static class GluttonyChefArmorModel extends GeoModel<GluttonyChefArmorItem> {
         @Override
         public ResourceLocation getModelResource(GluttonyChefArmorItem object) {
-            return ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "geo/gluttony_chef_armor.geo.json");
+            return ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "geo/gluttony_chef_armor.geo.json");
         }
 
         @Override
         public ResourceLocation getTextureResource(GluttonyChefArmorItem object) {
-            return ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/armor/gluttony_chef.png");
+            return ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "textures/armor/gluttony_chef.png");
         }
 
         @Override
         public ResourceLocation getAnimationResource(GluttonyChefArmorItem animatable) {
-            return ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "animations/gluttony_chef_armor_animation.json");
+            return ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "animations/gluttony_chef_armor_animation.json");
         }
     }
 
@@ -86,7 +86,7 @@ public class GluttonyChefArmorGeoRender extends GeoArmorRenderer<GluttonyChefArm
         super.applyBaseTransformations(baseModel);
         if (this.leggingTorsoLayerBone != null) {
             ModelPart bodyPart = baseModel.body;
-            RenderUtils.matchModelPartRot(bodyPart, this.leggingTorsoLayerBone);
+            RenderUtil.matchModelPartRot(bodyPart, this.leggingTorsoLayerBone);
             this.leggingTorsoLayerBone.updatePosition(bodyPart.x, -bodyPart.y, bodyPart.z);
         }
     }

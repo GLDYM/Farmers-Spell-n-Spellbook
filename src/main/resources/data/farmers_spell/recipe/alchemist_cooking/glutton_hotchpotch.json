@@ -14,18 +14,18 @@
             "item": "minecraft:chicken"
         },
         {
-            "tag": "c:raw_fishes"
+            "tag": "c:foods/raw_fish"
         },
         {
             "item": "farmers_spell:original_nectar"
         }
     ],
     "result": {
-        "item": "farmers_spell:glutton_hotchpotch",
+        "id": "farmers_spell:glutton_hotchpotch",
         "count": 1
     },
     "container": {
-        "item": "farmersdelight:cooking_pot"
+        "id": "farmersdelight:cooking_pot"
     },
     "experience": 1.0,
     "required_school": "farmers_spell:gluttony",

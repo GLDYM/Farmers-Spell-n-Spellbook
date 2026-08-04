@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.spells;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -12,6 +12,7 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -34,9 +35,9 @@ import net.minecraft.resources.ResourceKey;
 
 public class PhantomLootSpell extends AbstractSpell {
 
-    public static final TagKey<EntityType<?>> BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "phantom_loot_blacklist"));
+    public static final TagKey<EntityType<?>> BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "phantom_loot_blacklist"));
 
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "phantom_loot");
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "phantom_loot");
 
     private final DefaultConfig defaultConfig = new DefaultConfig().setMinRarity(SpellRarity.RARE).setSchoolResource(ModSchools.GLUTTONY_RESOURCE).setMaxLevel(1).setCooldownSeconds(10).build();
 
@@ -101,12 +102,12 @@ public class PhantomLootSpell extends AbstractSpell {
     }
 
     private void grantLoot(ServerLevel serverLevel, Mob mob, LivingEntity caster) {
-        ResourceLocation lootTableId = mob.getType().getDefaultLootTable();
-        if (lootTableId == null)
+        ResourceKey<LootTable> lootTableKey = mob.getType().getDefaultLootTable();
+        if (lootTableKey == null)
             return;
-        var lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, lootTableId));
+        var lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(lootTableKey);
         Player player = (Player) caster;
-        var lootParams = new Builder(serverLevel).withParameter(ORIGIN, mob.position()).withParameter(THIS_ENTITY, mob).withParameter(DAMAGE_SOURCE, serverLevel.damageSources().playerAttack(player)).withOptionalParameter(KILLER_ENTITY, player).withOptionalParameter(LAST_DAMAGE_PLAYER, player).create(ENTITY);
+        var lootParams = new Builder(serverLevel).withParameter(ORIGIN, mob.position()).withParameter(THIS_ENTITY, mob).withParameter(DAMAGE_SOURCE, serverLevel.damageSources().playerAttack(player)).withOptionalParameter(ATTACKING_ENTITY, player).withOptionalParameter(LAST_DAMAGE_PLAYER, player).create(ENTITY);
         List<ItemStack> lootItems = lootTable.getRandomItems(lootParams);
         for (ItemStack item : lootItems) {
             if (!player.getInventory().add(item)) {

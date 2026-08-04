@@ -2,8 +2,10 @@ package com.chenjdy.farmers_spell.block;
 
 import com.chenjdy.farmers_spell.block.entity.AlchemistPotBlockEntity;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -39,6 +42,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -50,16 +54,15 @@ import vectorwing.farmersdelight.common.utility.MathUtils;
 import javax.annotation.Nullable;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.core.component.DataComponents;
 
 
 
 public class AlchemistPotBlock extends Block implements SimpleWaterloggedBlock, EntityBlock
 {
-    public static final com.mojang.serialization.MapCodec<AlchemistPotBlock> CODEC = simpleCodec(AlchemistPotBlock::new);
+    public static final MapCodec<AlchemistPotBlock> CODEC = simpleCodec(AlchemistPotBlock::new);
 
     @Override
-    protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.Block> codec() {
+    protected MapCodec<? extends Block> codec() {
         return CODEC;
     }
 
@@ -80,8 +83,8 @@ public class AlchemistPotBlock extends Block implements SimpleWaterloggedBlock, 
     }
 
     @Override
-    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        net.minecraft.world.item.ItemStack heldStack = itemstack;
+    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        ItemStack heldStack = itemstack;
 
         if (heldStack.isEmpty() && player.isShiftKeyDown()) {
             level.setBlockAndUpdate(pos, state.setValue(SUPPORT, state.getValue(SUPPORT).equals(CookingPotSupport.HANDLE)
@@ -99,9 +102,9 @@ public class AlchemistPotBlock extends Block implements SimpleWaterloggedBlock, 
                     ((ServerPlayer) player).openMenu(alchemistPot, buf -> buf.writeBlockPos(pos));
                 }
             }
-            return net.minecraft.world.ItemInteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
-        return net.minecraft.world.ItemInteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -160,7 +163,7 @@ public class AlchemistPotBlock extends Block implements SimpleWaterloggedBlock, 
         if (alchemistPot != null) {
             CompoundTag nbt = alchemistPot.writeMeal(new CompoundTag());
             if (!nbt.isEmpty()) {
-                stack.set(net.minecraft.core.component.DataComponents.BLOCK_ENTITY_DATA, net.minecraft.world.item.component.CustomData.of(nbt));
+                stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
             }
             if (alchemistPot.hasCustomName()) {
                 stack.set(DataComponents.CUSTOM_NAME, alchemistPot.getCustomName());

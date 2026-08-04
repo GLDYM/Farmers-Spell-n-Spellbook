@@ -15,11 +15,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:wine_rice",
+        "id": "farmers_spell:wine_rice",
         "count": 1
     },
     "container": {
-        "item": "minecraft:bowl"
+        "id": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

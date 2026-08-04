@@ -1,8 +1,10 @@
 package com.chenjdy.farmers_spell.block.entity;
 
 import com.google.common.collect.Lists;
+import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
 import com.chenjdy.farmers_spell.init.ModRecipeTypes;
+import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import io.redspace.ironsspellbooks.api.item.IScroll;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
@@ -39,7 +41,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import com.modporter.generated.farmers_spell.compat.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
@@ -48,7 +49,6 @@ import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.HeatableBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import java.util.HashMap;
@@ -59,7 +59,7 @@ import static java.util.Map.entry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import com.modporter.generated.farmers_spell.compat.LazyOptional;
+import net.minecraft.core.Direction;
 
 
 
@@ -75,15 +75,11 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
 
     public static final int INVENTORY_SIZE = SCROLL_SLOT + 1;
 
-    public static final Map<Item, Item> INGREDIENT_REMAINDER_OVERRIDES = Map.ofEntries(entry(Items.POWDER_SNOW_BUCKET, Items.BUCKET), entry(Items.AXOLOTL_BUCKET, Items.BUCKET), entry(Items.COD_BUCKET, Items.BUCKET), entry(Items.PUFFERFISH_BUCKET, Items.BUCKET), entry(Items.SALMON_BUCKET, Items.BUCKET), entry(Items.TROPICAL_FISH_BUCKET, Items.BUCKET), entry(Items.SUSPICIOUS_STEW, Items.BOWL), entry(Items.MUSHROOM_STEW, Items.BOWL), entry(Items.RABBIT_STEW, Items.BOWL), entry(Items.BEETROOT_SOUP, Items.BOWL), entry(Items.POTION, Items.GLASS_BOTTLE), entry(Items.SPLASH_POTION, Items.GLASS_BOTTLE), entry(Items.LINGERING_POTION, Items.GLASS_BOTTLE), entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE), entry(com.chenjdy.farmers_spell.init.ModItems.ORIGINAL_NECTAR.get(), Items.GLASS_BOTTLE));
+    public static final Map<Item, Item> INGREDIENT_REMAINDER_OVERRIDES = Map.ofEntries(entry(Items.POWDER_SNOW_BUCKET, Items.BUCKET), entry(Items.AXOLOTL_BUCKET, Items.BUCKET), entry(Items.COD_BUCKET, Items.BUCKET), entry(Items.PUFFERFISH_BUCKET, Items.BUCKET), entry(Items.SALMON_BUCKET, Items.BUCKET), entry(Items.TROPICAL_FISH_BUCKET, Items.BUCKET), entry(Items.SUSPICIOUS_STEW, Items.BOWL), entry(Items.MUSHROOM_STEW, Items.BOWL), entry(Items.RABBIT_STEW, Items.BOWL), entry(Items.BEETROOT_SOUP, Items.BOWL), entry(Items.POTION, Items.GLASS_BOTTLE), entry(Items.SPLASH_POTION, Items.GLASS_BOTTLE), entry(Items.LINGERING_POTION, Items.GLASS_BOTTLE), entry(Items.EXPERIENCE_BOTTLE, Items.GLASS_BOTTLE), entry(ModItems.ORIGINAL_NECTAR.get(), Items.GLASS_BOTTLE));
 
     private final ItemStackHandler inventory;
 
     private final ItemStackHandler scrollHandler;
-
-    private final LazyOptional<IItemHandler> inputHandler;
-
-    private final LazyOptional<IItemHandler> outputHandler;
 
     private int cookTime;
 
@@ -105,8 +101,6 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         super(ModBlockEntities.ALCHEMIST_POT.get(), pos, state);
         this.inventory = createInventoryHandler();
         this.scrollHandler = createScrollHandler();
-        this.inputHandler = LazyOptional.of(() -> this.inventory);
-        this.outputHandler = LazyOptional.of(() -> this.inventory);
         this.mealContainerStack = ItemStack.EMPTY;
         this.cookingPotData = createIntArray();
         this.usedRecipeTracker = new HashMap<>();
@@ -234,12 +228,13 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         if (level == null)
             return Optional.empty();
         if (lastRecipeID != null) {
-            Recipe<RecipeWrapper> recipe = ((RecipeManagerAccessor) level.getRecipeManager()).getRecipeMap(vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING.get()).get(lastRecipeID);
-            if (recipe instanceof CookingPotRecipe) {
-                if (recipe.matches(inventoryWrapper, level)) {
-                    return Optional.of((CookingPotRecipe) recipe);
+            Optional<RecipeHolder<CookingPotRecipe>> recipe = level.getRecipeManager().byKey(lastRecipeID).map(holder -> (RecipeHolder<CookingPotRecipe>) holder);
+            if (recipe.isPresent()) {
+                CookingPotRecipe cookingRecipe = recipe.get().value();
+                if (cookingRecipe.matches(inventoryWrapper, level)) {
+                    return Optional.of(cookingRecipe);
                 }
-                if (ItemStack.isSameItem(recipe.getResultItem(this.level.registryAccess()), getMeal())) {
+                if (ItemStack.isSameItem(cookingRecipe.getResultItem(this.level.registryAccess()), getMeal())) {
                     return Optional.empty();
                 }
             }
@@ -247,7 +242,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         if (checkNewRecipe) {
             Optional<RecipeHolder<CookingPotRecipe>> recipe = level.getRecipeManager().getRecipeFor(vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING.get(), inventoryWrapper, level);
             if (recipe.isPresent()) {
-                ResourceLocation newRecipeID = recipe.get().getId();
+                ResourceLocation newRecipeID = recipe.get().id();
                 if (lastRecipeID != null && !lastRecipeID.equals(newRecipeID)) {
                     cookTime = 0;
                 }
@@ -330,7 +325,9 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         cookingPot.cookTime = 0;
         cookingPot.cookTimeTotal = recipe.getCookTime();
         cookingPot.mealContainerStack = recipe.getOutputContainer();
-        cookingPot.usedRecipeTracker.merge(recipe.getId(), 1, Integer::sum);
+        if (cookingPot.lastRecipeID != null) {
+            cookingPot.usedRecipeTracker.merge(cookingPot.lastRecipeID, 1, Integer::sum);
+        }
         ItemStack resultStack = recipe.assemble(new RecipeWrapper(cookingPot.inventory), this.level.registryAccess());
         ItemStack storedMealStack = cookingPot.inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
         if (storedMealStack.isEmpty()) {
@@ -376,33 +373,33 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
-    public void setRecipeUsed(@Nullable Recipe<?> recipe) {
+    public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
         if (recipe != null) {
-            ResourceLocation recipeID = recipe.getId();
+            ResourceLocation recipeID = recipe.id();
             usedRecipeTracker.merge(recipeID, 1, Integer::sum);
         }
     }
 
     @Nullable
     @Override
-    public Recipe<?> getRecipeUsed() {
+    public RecipeHolder<?> getRecipeUsed() {
         return null;
     }
 
     @Override
     public void awardUsedRecipes(Player player, List<ItemStack> items) {
-        List<Recipe<?>> usedRecipes = getUsedRecipesAndPopExperience(player.level(), player.position());
+        List<RecipeHolder<?>> usedRecipes = getUsedRecipesAndPopExperience(player.level(), player.position());
         player.awardRecipes(usedRecipes);
         usedRecipeTracker.clear();
     }
 
-    public List<Recipe<?>> getUsedRecipesAndPopExperience(Level level, Vec3 pos) {
-        List<Recipe<?>> list = Lists.newArrayList();
+    public List<RecipeHolder<?>> getUsedRecipesAndPopExperience(Level level, Vec3 pos) {
+        List<RecipeHolder<?>> list = Lists.newArrayList();
         for (Map.Entry<ResourceLocation, Integer> entry : usedRecipeTracker.entrySet()) {
             level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
                 list.add(recipe);
                 if (level instanceof ServerLevel serverLevel) {
-                    float exp = ((CookingPotRecipe) recipe.get()).getExperience() * entry.getValue();
+                    float exp = ((CookingPotRecipe) recipe.value()).getExperience() * entry.getValue();
                     splitAndSpawnExperience(exp);
                 }
             });
@@ -583,18 +580,10 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory player, Player entity) {
-        return new com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu(id, player, this, cookingPotData);
+        return new AlchemistPotMenu(id, player, this, cookingPotData);
     }
 
 
-    @Override
-    public void setRemoved() {
-        super.setRemoved();
-        inputHandler.invalidate();
-        outputHandler.invalidate();
-    }
-
-    @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         return writeItems(new CompoundTag(), registries);
     }
@@ -619,7 +608,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         }
         compound.put("Container", mealContainerStack.saveOptional(this.getLevel().registryAccess()));
         compound.put("Inventory", drops.serializeNBT(this.getLevel().registryAccess()));
-        compound.put("Scroll", scrollHandler.serializeNBT(registries));
+        compound.put("Scroll", scrollHandler.serializeNBT(this.getLevel().registryAccess()));
         return compound;
     }
 
@@ -674,6 +663,6 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.ALCHEMIST_POT.get(),
-                (AlchemistPotBlockEntity blockEntity, net.minecraft.core.Direction side) -> (side == null || side.equals(Direction.UP) ? blockEntity.inputHandler.orElse(null) : blockEntity.outputHandler.orElse(null)));
+                (AlchemistPotBlockEntity blockEntity, Direction side) -> side == null || side.equals(Direction.UP) ? blockEntity.inventory : blockEntity.inventory);
     }
 }

@@ -6,9 +6,11 @@
         }
     ],
     "result": [
-        {
-            "count": 7,
-            "item": "farmers_spell:red_velvet_cake_slice"
+        { 
+            "item": {
+                "count": 7,
+                "id": "farmers_spell:red_velvet_cake_slice"
+            }
         }
     ],
     "tool": {

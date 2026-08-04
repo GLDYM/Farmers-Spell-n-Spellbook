@@ -11,17 +11,17 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AmethystBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import javax.annotation.Nullable;
 import java.util.List;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class CropSeedItem extends Item {
-    private final DeferredHolder<AmethystBeetrootBlock, AmethystBeetrootBlock> cropBlock;
+    private final DeferredHolder<Block, AmethystBeetrootBlock> cropBlock;
 
-    public CropSeedItem(DeferredHolder<AmethystBeetrootBlock, AmethystBeetrootBlock> cropBlock, Item.Properties properties) {
+    public CropSeedItem(DeferredHolder<Block, AmethystBeetrootBlock> cropBlock, Item.Properties properties) {
         super(properties);
         this.cropBlock = cropBlock;
     }

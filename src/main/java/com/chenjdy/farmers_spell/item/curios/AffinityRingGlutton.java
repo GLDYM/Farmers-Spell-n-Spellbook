@@ -1,34 +1,31 @@
 package com.chenjdy.farmers_spell.item.curios;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
+import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.event.tick.LevelTickEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
-import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = FARMERSSPELL.MODID)
+@EventBusSubscriber(modid = FarmersSpell.MODID)
 public class AffinityRingGlutton extends CurioBaseItem {
     public static final UUID MANA_BONUS_UUID = UUID.fromString("A5B6C7D8-E9F0-4A5B-8C9D-0E1F2A3B4C5D");
+    private static final ResourceLocation BONUS_ID = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "glutton_ring_mana_bonus");
 
     public AffinityRingGlutton(Item.Properties properties) {
         super(properties);
@@ -43,8 +40,9 @@ public class AffinityRingGlutton extends CurioBaseItem {
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
-
-        boolean hasRing = CuriosApi.getCuriosInventory(player).flatMap(handler -> handler.findFirstCurio(com.chenjdy.farmers_spell.init.ModItems.AFFINITY_RING_GLUTTON.get())).isPresent();
+        boolean hasRing = CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.isEquipped(ModItems.AFFINITY_RING_GLUTTON.get()))
+                .orElse(false);
 
         if (!hasRing) {
             removeManaBonus(player);
@@ -52,7 +50,6 @@ public class AffinityRingGlutton extends CurioBaseItem {
         }
 
         MobEffectInstance nourishment = player.getEffect(ModEffects.NOURISHMENT);
-
         if (nourishment != null) {
             addManaBonus(player);
         } else {
@@ -61,14 +58,18 @@ public class AffinityRingGlutton extends CurioBaseItem {
     }
 
     private static void addManaBonus(Player player) {
-        player.getAttributes().getInstance(AttributeRegistry.MAX_MANA.get())
-            .removeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "glutton_ring_mana_bonus"));
-        player.getAttributes().getInstance(AttributeRegistry.MAX_MANA.get())
-            .addPermanentModifier(new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "glutton_ring_mana_bonus"), 150.0, AttributeModifier.Operation.ADD_VALUE));
+        var attribute = player.getAttributes().getInstance(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()));
+        if (attribute == null) {
+            return;
+        }
+        attribute.removeModifier(BONUS_ID);
+        attribute.addPermanentModifier(new AttributeModifier(BONUS_ID, 150.0, AttributeModifier.Operation.ADD_VALUE));
     }
 
     private static void removeManaBonus(Player player) {
-        player.getAttributes().getInstance(AttributeRegistry.MAX_MANA.get())
-            .removeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "glutton_ring_mana_bonus"));
+        var attribute = player.getAttributes().getInstance(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()));
+        if (attribute != null) {
+            attribute.removeModifier(BONUS_ID);
+        }
     }
 }

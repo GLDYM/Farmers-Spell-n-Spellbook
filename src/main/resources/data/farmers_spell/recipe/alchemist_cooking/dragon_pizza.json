@@ -8,15 +8,15 @@
             "item": "farmers_spell:foodgeist_cheese"
         },
         {
-            "tag": "c:dough"
+            "tag": "c:foods/dough"
         }
     ],
     "result": {
-        "item": "farmers_spell:dragon_pizza",
+        "id": "farmers_spell:dragon_pizza",
         "count": 1
     },
     "container": {
-        "item": "irons_spellbooks:dragonskin"
+        "id": "irons_spellbooks:dragonskin"
     },
     "experience": 1.0,
     "cookingtime": 200

@@ -1,5 +1,6 @@
 package com.chenjdy.farmers_spell.network;
 
+import com.chenjdy.farmers_spell.FarmersSpell;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BadApplePacket implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<BadApplePacket> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "bad_apple"));
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "bad_apple"));
 
     public static final StreamCodec<FriendlyByteBuf, BadApplePacket> STREAM_CODEC =
             StreamCodec.of((buf, packet) -> packet.encode(buf), BadApplePacket::new);
@@ -51,13 +52,13 @@ public class BadApplePacket implements CustomPacketPayload {
                 BadAppleInstance.stopCurrent();
             }
         });
-}
+    }
     
     public static void sendToAll(Level level, BlockPos pos, boolean play) {
         if (level instanceof ServerLevel serverLevel) {
             BadApplePacket packet = new BadApplePacket(pos, play);
             for (ServerPlayer player : serverLevel.players()) {
-                NetworkHandler.PacketDistributor.sendToPlayer(player, packet);
+                PacketDistributor.sendToPlayer(player, packet);
             }
         }
     }

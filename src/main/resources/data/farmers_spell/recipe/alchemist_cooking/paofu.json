@@ -5,11 +5,11 @@
             "item": "farmers_spell:energized_caramel"
         },
         {
-            "tag": "c:dough"
+            "tag": "c:foods/dough"
         }
     ],
     "result": {
-        "item": "farmers_spell:paofu",
+        "id": "farmers_spell:paofu",
         "count": 1
     },
     "experience": 1.0,

@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.client.renderer;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.entity.FoodgeistEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -44,11 +44,11 @@ public class FoodgeistRender extends GeoEntityRenderer<FoodgeistEntity> {
 
     private static class FoodgeistModel extends GeoModel<FoodgeistEntity> {
 
-        private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "geo/foodgeist.geo.json");
+        private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "geo/foodgeist.geo.json");
 
-        private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/foodgeist.png");
+        private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "textures/entity/foodgeist.png");
 
-        private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "animations/foodgeist.animation.json");
+        private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "animations/foodgeist.animation.json");
 
         @Override
         public ResourceLocation getModelResource(FoodgeistEntity object) {

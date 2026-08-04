@@ -21,11 +21,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:lasagnowledge",
+        "id": "farmers_spell:lasagnowledge",
         "count": 1
     },
     "container": {
-        "item": "farmers_spell:wheat_book"
+        "id": "farmers_spell:wheat_book"
     },
     "experience": 1.0,
     "cookingtime": 200

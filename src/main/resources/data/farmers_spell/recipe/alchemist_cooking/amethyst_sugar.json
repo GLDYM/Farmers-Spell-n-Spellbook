@@ -21,11 +21,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:amethyst_sugar",
+        "id": "farmers_spell:amethyst_sugar",
         "count": 3
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "id": "minecraft:glass_bottle"
     },
     "experience": 1.0,
     "cookingtime": 200

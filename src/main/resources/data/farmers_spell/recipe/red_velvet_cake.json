@@ -19,7 +19,7 @@
             "item": "minecraft:cocoa_beans"
         },
         "F": {
-            "tag": "c:dough"
+            "tag": "c:foods/dough"
         }
     },
     "result": {

@@ -1,10 +1,11 @@
 package com.chenjdy.farmers_spell.item.armor;
 
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModAttributes;
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
-import io.redspace.ironsspellbooks.item.armor.IronsExtendedArmorMaterial;
 import net.minecraft.Util;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.LazyLoadedValue;
@@ -18,12 +19,12 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public enum ModArmorMaterials implements IronsExtendedArmorMaterial {
+public enum ModArmorMaterials {
 
-    GLUTTONY_CHEF("gluttony_chef", 38, schoolArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ModItems.GLUTTON_RUNE.get()), Map.of(
-            AttributeRegistry.MAX_MANA.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "max_mana"), 125, AttributeModifier.Operation.ADD_VALUE),
-            AttributeRegistry.SPELL_POWER.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "base_power"), 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
-            ModAttributes.GLUTTONY_SPELL_POWER.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "gluttony_power"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+    GLUTTONY_CHEF("gluttony_chef", 38, schoolArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER.value(), 0.0F, 0.0F, () -> Ingredient.of(ModItems.GLUTTON_RUNE.get()), Map.of(
+            AttributeRegistry.MAX_MANA.get(), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "max_mana"), 125, AttributeModifier.Operation.ADD_VALUE),
+            AttributeRegistry.SPELL_POWER.get(), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "base_power"), 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+            ModAttributes.GLUTTONY_SPELL_POWER.get(), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "gluttony_power"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
     ));
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};

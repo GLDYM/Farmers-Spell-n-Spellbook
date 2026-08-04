@@ -12,11 +12,11 @@
         }
     ],
     "result": {
-        "item": "farmers_spell:arcane_cocoa",
+        "id": "farmers_spell:arcane_cocoa",
         "count": 1
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "id": "minecraft:glass_bottle"
     },
     "experience": 1.0,
     "cookingtime": 200

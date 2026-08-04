@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.entity;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -36,7 +37,7 @@ public class ButterProjectile extends ThrowableItemProjectile {
         Entity entity = hitResult.getEntity();
 
         if (!level().isClientSide && entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.GUIDING_BOLT, 3 * 60 * 20, 2));
+            livingEntity.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MobEffectRegistry.GUIDING_BOLT.get()), 3 * 60 * 20, 2));
             livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5 * 20, 4));
         }
 

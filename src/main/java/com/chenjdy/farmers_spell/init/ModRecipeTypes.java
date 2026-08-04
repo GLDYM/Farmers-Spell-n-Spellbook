@@ -1,6 +1,6 @@
 package com.chenjdy.farmers_spell.init;
 
-import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -12,10 +12,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 public class ModRecipeTypes {
 
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
-            DeferredRegister.create(Registries.RECIPE_SERIALIZER, FARMERSSPELL.MODID);
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, FarmersSpell.MODID);
 
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
-            DeferredRegister.create(Registries.RECIPE_TYPE, FARMERSSPELL.MODID);
+            DeferredRegister.create(Registries.RECIPE_TYPE, FarmersSpell.MODID);
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlchemistCookingRecipe>> ALCHEMIST_COOKING_SERIALIZER =
             RECIPE_SERIALIZERS.register("alchemist_cooking", () -> AlchemistCookingRecipe.AlchemistRecipeSerializer.INSTANCE);

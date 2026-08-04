@@ -8,7 +8,7 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class GluttonyChefHatItem extends GluttonyChefArmorItem {
     public GluttonyChefHatItem(Properties settings) {
-        super(ModArmorMaterials.GLUTTONY_CHEF, ArmorItem.Type.HELMET, settings);
+        super(ArmorItem.Type.HELMET, settings);
     }
 
     @Override

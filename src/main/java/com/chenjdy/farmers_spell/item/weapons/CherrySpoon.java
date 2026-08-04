@@ -1,10 +1,13 @@
 package com.chenjdy.farmers_spell.item.weapons;
 
 import com.chenjdy.farmers_spell.client.renderer.CherrySpoonRender;
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.CastingItem;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,13 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 import java.util.function.Consumer;
-import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 
 
 public class CherrySpoon extends CastingItem implements GeoItem {
@@ -35,19 +38,18 @@ public class CherrySpoon extends CastingItem implements GeoItem {
         super(properties);
         ImmutableMultimap.Builder<Holder<Attribute>, AttributeModifier> builder = ImmutableMultimap.builder();
 
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "weapon_modifier"), 3.0, AttributeModifier.Operation.ADD_VALUE));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "weapon_modifier"), -3.0, AttributeModifier.Operation.ADD_VALUE));
-        builder.put(AttributeRegistry.SPELL_POWER.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "spell_power"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-        builder.put(AttributeRegistry.CAST_TIME_REDUCTION.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "cast_time"), 0.20, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-        builder.put(AttributeRegistry.COOLDOWN_REDUCTION.get(), new AttributeModifier(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.chenjdy.farmers_spell.FARMERSSPELL.MODID, "cooldown"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "weapon_modifier"), 3.0, AttributeModifier.Operation.ADD_VALUE));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "weapon_modifier"), -3.0, AttributeModifier.Operation.ADD_VALUE));
+        builder.put(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.SPELL_POWER.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "spell_power"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        builder.put(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.CAST_TIME_REDUCTION.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "cast_time"), 0.20, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        builder.put(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.COOLDOWN_REDUCTION.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "cooldown"), 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 
         this.defaultModifiers = builder.build();
         SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
-    @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        return (slot == EquipmentSlot.MAINHAND) ? this.defaultModifiers : super.getAttributeModifiers(slot, stack);
+        return (slot == EquipmentSlot.MAINHAND) ? this.defaultModifiers : ImmutableMultimap.of();
     }
 
     @SuppressWarnings("removal")
