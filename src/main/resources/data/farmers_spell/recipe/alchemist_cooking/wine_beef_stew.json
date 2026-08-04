@@ -1,0 +1,26 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:catacombs_wine"
+        },
+        {
+            "tag": "c:raw_beef"
+        },
+        {
+            "tag": "c:raw_beef"
+        },
+        {
+            "item": "minecraft:bone"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:wine_beef_stew",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

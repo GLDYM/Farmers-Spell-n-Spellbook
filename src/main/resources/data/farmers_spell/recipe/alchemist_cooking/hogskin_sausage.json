@@ -1,0 +1,26 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:hogskin_slice"
+        },
+        {
+            "tag": "c:raw_pork"
+        },
+        {
+            "tag": "c:raw_pork"
+        },
+        {
+            "item": "minecraft:crimson_fungus"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:hogskin_sausage",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

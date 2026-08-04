@@ -1,0 +1,27 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "ingredients": [
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "tag": "c:milk"
+        },
+        {
+            "item": "minecraft:cocoa_beans"
+        },
+        {
+            "tag": "c:berries"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:icebergcream",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200,
+    "required_school": "irons_spellbooks:ice"
+}

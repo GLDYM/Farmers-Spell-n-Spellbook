@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "WAW",
+        "W&W"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:golden_apple"
+        },
+        "A": {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        "W": {
+            "item": "farmers_spell:wsip_butter"
+        },
+        "&": {
+            "item": "farmersdelight:pie_crust"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:eden_apple_tart",
+        "count": 1
+    }
+}

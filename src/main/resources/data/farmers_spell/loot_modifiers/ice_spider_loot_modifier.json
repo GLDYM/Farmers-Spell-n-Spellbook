@@ -1,0 +1,13 @@
+{
+  "type": "farmers_spell:append_loot",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "irons_spellbooks:ice_spider"
+      }
+    }
+  ],
+  "key": "farmers_spell:entities/ice_spider_loot"
+}

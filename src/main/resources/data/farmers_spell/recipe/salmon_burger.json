@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "farmersdelight:cabbage_leaf"
+        },
+        {
+            "item": "farmersdelight:cooked_salmon_slice"
+        },
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "item": "farmers_spell:icy_egg"
+        }
+    ],
+    "result": {
+        "id": "farmers_spell:salmon_burger",
+        "count": 1
+    }
+}

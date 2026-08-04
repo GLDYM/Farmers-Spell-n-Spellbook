@@ -1,0 +1,20 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "irons_spellbooks:dragonskin"
+        },
+        {
+            "item": "irons_spellbooks:dragonskin"
+        },
+        {
+            "tag": "c:storage_blocks/onion"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:dragonskin_aspic",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "#A#",
+        "&P&"
+    ],
+    "key": {
+        "#": {
+            "item": "farmers_spell:goodberry"
+        },
+        "A": {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        "P": {
+            "item": "farmersdelight:pie_crust"
+        },
+        "&": {
+            "item": "farmers_spell:amethyst_beetroot"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:goodberry_pie",
+        "count": 1
+    }
+}

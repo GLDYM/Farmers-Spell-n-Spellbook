@@ -1,0 +1,143 @@
+package com.bmt.kaleidoscope_chinesefood.init;
+
+import com.bmt.kaleidoscope_chinesefood.KaleidoscopeChineseFood;
+import com.github.ysbbbbbb.kaleidoscopecookery.item.BowlFoodOnlyItem;
+import com.github.ysbbbbbb.kaleidoscopecookery.item.FoodWithEffectsItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class ModItems {
+    public static final DeferredRegister<Item> ITEMS =
+            DeferredRegister.create(ForgeRegistries.ITEMS, KaleidoscopeChineseFood.MODID);
+
+    //生肠粉
+    public static final RegistryObject<Item> RAW_STEAMED_RICE_ROLLS =
+            ITEMS.register("raw_steamed_rice_rolls", () -> new Item(new Item.Properties()));
+
+    // 麻辣抄手
+    public static final RegistryObject<Item> SICHUAN_WONTON =
+            ITEMS.register("sichuan_wonton", () -> new BowlFoodOnlyItem(ModFoods.SICHUAN_WONTON));
+
+    // 云吞面
+    public static final RegistryObject<Item> WONTON_NOODLES =
+            ITEMS.register("wonton_noodles", () -> new BowlFoodOnlyItem(ModFoods.WONTON_NOODLES));
+
+    // 羊肉泡馍
+    public static final RegistryObject<Item> YANGROU_PAOMO =
+            ITEMS.register("yangrou_paomo", () -> new BowlFoodOnlyItem(ModFoods.YANGROU_PAOMO));
+
+    // 冒菜
+    public static final RegistryObject<Item> MAOCAI =
+            ITEMS.register("maocai", () -> new BowlFoodOnlyItem(ModFoods.MAOCAI));
+
+    // 紫菜蛋花汤
+    public static final RegistryObject<Item> SEAWEED_EGG_DROP_SOUP =
+            ITEMS.register("seaweed_egg_drop_soup", () -> new BowlFoodOnlyItem(ModFoods.SEAWEED_EGG_DROP_SOUP));
+
+    // 番茄鸡蛋汤
+    public static final RegistryObject<Item> TOMATO_EGG_DROP_SOUP =
+            ITEMS.register("tomato_egg_drop_soup", () -> new BowlFoodOnlyItem(ModFoods.TOMATO_EGG_DROP_SOUP));
+
+    // 皮蛋瘦肉粥
+    public static final RegistryObject<Item> CENTURY_EGG_CONGEE =
+            ITEMS.register("century_egg_congee", () -> new BowlFoodOnlyItem(ModFoods.CENTURY_EGG_CONGEE));
+
+    // 南瓜粥
+    public static final RegistryObject<Item> PUMPKIN_PORRIDGE =
+            ITEMS.register("pumpkin_porridge", () -> new BowlFoodOnlyItem(ModFoods.PUMPKIN_PORRIDGE));
+
+    // 回锅肉
+    public static final RegistryObject<Item> TWICE_COOKED_PORK =
+            ITEMS.register("twice_cooked_pork", () -> new BowlFoodOnlyItem(ModFoods.TWICE_COOKED_PORK));
+
+    // 回锅肉盖饭
+    public static final RegistryObject<Item> TWICE_COOKED_PORK_RICE =
+            ITEMS.register("twice_cooked_pork_rice", () -> new BowlFoodOnlyItem(ModFoods.TWICE_COOKED_PORK_RICE));
+
+    // 小炒黄牛肉
+    public static final RegistryObject<Item> STIR_FRIED_YELLOW_BEEF =
+            ITEMS.register("stir_fried_yellow_beef", () -> new BowlFoodOnlyItem(ModFoods.STIR_FRIED_YELLOW_BEEF));
+
+    // 小炒黄牛肉盖饭
+    public static final RegistryObject<Item> STIR_FRIED_YELLOW_BEEF_RICE =
+            ITEMS.register("stir_fried_yellow_beef_rice", () -> new BowlFoodOnlyItem(ModFoods.STIR_FRIED_YELLOW_BEEF_RICE));
+
+    // 滑蛋牛肉
+    public static final RegistryObject<Item> BEEF_WITH_SCRAMBLED_EGGS =
+            ITEMS.register("beef_with_scrambled_eggs", () -> new BowlFoodOnlyItem(ModFoods.BEEF_WITH_SCRAMBLED_EGGS));
+
+    // 滑蛋牛肉盖饭
+    public static final RegistryObject<Item> BEEF_WITH_SCRAMBLED_EGGS_RICE =
+            ITEMS.register("beef_with_scrambled_eggs_rice", () -> new BowlFoodOnlyItem(ModFoods.BEEF_WITH_SCRAMBLED_EGGS_RICE));
+
+    // 地三鲜
+    public static final RegistryObject<Item> STIR_FRIED_THREE_FRESH_VEGETABLES =
+            ITEMS.register("stir_fried_three_fresh_vegetables", () -> new BowlFoodOnlyItem(ModFoods.STIR_FRIED_THREE_FRESH_VEGETABLES));
+
+    // 地三鲜盖饭
+    public static final RegistryObject<Item> STIR_FRIED_THREE_FRESH_VEGETABLES_RICE =
+            ITEMS.register("stir_fried_three_fresh_vegetables_rice", () -> new BowlFoodOnlyItem(ModFoods.STIR_FRIED_THREE_FRESH_VEGETABLES_RICE));
+
+    // 大盘鸡
+    public static final RegistryObject<Item> BIG_PLATE_CHICKEN =
+            ITEMS.register("big_plate_chicken", () -> new BowlFoodOnlyItem(ModFoods.BIG_PLATE_CHICKEN));
+
+    // 大盘鸡拌面
+    public static final RegistryObject<Item> BIG_PLATE_CHICKEN_NOODLES =
+            ITEMS.register("big_plate_chicken_noodles", () -> new BowlFoodOnlyItem(ModFoods.BIG_PLATE_CHICKEN_NOODLES));
+
+    // 西红柿鸡蛋拌面
+    public static final RegistryObject<Item> TOMATO_EGG_NOODLES =
+            ITEMS.register("tomato_egg_noodles", () -> new BowlFoodOnlyItem(ModFoods.TOMATO_EGG_NOODLES));
+
+    // 辣椒炒肉拌面
+    public static final RegistryObject<Item> PORK_CHILI_NOODLES =
+            ITEMS.register("pork_chili_noodles", () -> new BowlFoodOnlyItem(ModFoods.PORK_CHILI_NOODLES));
+
+    // 四喜丸子
+    public static final RegistryObject<Item> FOUR_JOY_MEATBALLS =
+            ITEMS.register("four_joy_meatballs", () -> new BowlFoodOnlyItem(ModFoods.FOUR_JOY_MEATBALLS));
+
+    // 干锅土豆片
+    public static final RegistryObject<Item> DRY_POT_POTATOES =
+            ITEMS.register("dry_pot_potatoes", () -> new BowlFoodOnlyItem(ModFoods.DRY_POT_POTATOES));
+
+    // 干锅鸡
+    public static final RegistryObject<Item> DRY_POT_CHICKEN =
+            ITEMS.register("dry_pot_chicken", () -> new BowlFoodOnlyItem(ModFoods.DRY_POT_CHICKEN));
+
+    // 干锅排骨
+    public static final RegistryObject<Item> DRY_POT_SPARE_RIBS =
+            ITEMS.register("dry_pot_spare_ribs", () -> new BowlFoodOnlyItem(ModFoods.DRY_POT_SPARE_RIBS));
+
+    // 扬州炒饭
+    public static final RegistryObject<Item> YANGZHOU_FRIED_RICE =
+            ITEMS.register("yangzhou_fried_rice", () -> new BowlFoodOnlyItem(ModFoods.YANGZHOU_FRIED_RICE));
+
+    // 羊肉抓饭
+    public static final RegistryObject<Item> LAMB_PILAF =
+            ITEMS.register("lamb_pilaf", () -> new BowlFoodOnlyItem(ModFoods.LAMB_PILAF));
+
+    // 肠粉
+    public static final RegistryObject<Item> STEAMED_RICE_ROLLS =
+            ITEMS.register("steamed_rice_rolls", () -> new BowlFoodOnlyItem(ModFoods.STEAMED_RICE_ROLLS));
+
+    // 咸鸭蛋
+    public static final RegistryObject<Item> SALTED_EGG =
+            ITEMS.register("salted_egg", () -> new BowlFoodOnlyItem(ModFoods.SALTED_EGG));
+
+    // 皮蛋
+    public static final RegistryObject<Item> CENTURY_EGG =
+            ITEMS.register("century_egg", () -> new FoodWithEffectsItem(ModFoods.CENTURY_EGG));
+
+    public static final RegistryObject<Item> CORN_RISTRA =
+            ITEMS.register("corn_ristra", () -> new BlockItem(ModBlocks.CORN_RISTRA.get(), new Item.Properties()));
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:energized_caramel"
+        },
+        {
+            "tag": "c:dough"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:paofu",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

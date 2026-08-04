@@ -1,0 +1,17 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "tag": "c:dough"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:amethyst_mooncake",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "farmersdelight:block/template_pie_slice1",
+  "textures": {
+    "bottom": "farmersdelight:block/pie_bottom",
+    "inner": "farmers_spell:block/eden_apple_tart_inner",
+    "side": "farmersdelight:block/pie_side",
+    "top": "farmers_spell:block/eden_apple_tart_top"
+  }
+}

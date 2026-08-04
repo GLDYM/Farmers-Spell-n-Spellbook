@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " AC",
+        "RCA",
+        "CR "
+    ],
+    "key": {
+        "C": {
+            "item": "minecraft:cherry_log"
+        },
+        "A": {
+            "item": "minecraft:amethyst_shard"
+        },
+        "R": {
+            "item": "farmersdelight:rope"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:cherry_spoon",
+        "count": 1
+    }
+}

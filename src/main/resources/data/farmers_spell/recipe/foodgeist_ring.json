@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "farmers_spell:glutton_rune"
+        },
+        {
+            "item": "irons_spellbooks:mithril_scrap"
+        }
+    ],
+    "result": {
+        "id": "farmers_spell:foodgeist_ring",
+        "count": 1
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "farmersdelight:iron_knife"
+        },
+        {
+            "item": "irons_spellbooks:divine_pearl"
+        },
+        {
+            "item": "irons_spellbooks:divine_pearl"
+        }
+    ],
+    "result": {
+        "id": "farmers_spell:gospel",
+        "count": 1
+    }
+}

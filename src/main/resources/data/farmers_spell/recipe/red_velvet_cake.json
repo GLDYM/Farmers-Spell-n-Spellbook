@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AAA",
+        "PBP",
+        "CFC"
+    ],
+    "key": {
+        "A": {
+            "item": "farmers_spell:catacombs_wine"
+        },
+        "P": {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        "B": {
+            "item": "irons_spellbooks:tarnished_helmet"
+        },
+        "C": {
+            "item": "minecraft:cocoa_beans"
+        },
+        "F": {
+            "tag": "c:dough"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:red_velvet_cake",
+        "count": 1
+    }
+}

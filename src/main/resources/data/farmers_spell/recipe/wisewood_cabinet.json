@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#c#",
+        " # "
+    ],
+    "key": {
+        "#": {
+            "item": "irons_spellbooks:arcane_essence"
+        },
+        "c": {
+            "tag": "farmersdelight:cabinets/wooden"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:wisewood_cabinet",
+        "count": 1
+    }
+}

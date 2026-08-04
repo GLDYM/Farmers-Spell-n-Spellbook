@@ -1,0 +1,23 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "item": "irons_spellbooks:lightning_bottle"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:energized_caramel",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

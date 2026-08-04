@@ -1,0 +1,25 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmers_spell:hell_knife",
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{\"irons_spellbooks:spell_container\":{\"data\":[{\"id\":\"farmers_spell:chaos_slash\",\"index\":0,\"level\":5,\"locked\":1b}],\"maxSpells\":1,\"mustEquip\":0b,\"spellWheel\":1b}}"
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.05
+        }
+      ]
+    }
+  ]
+}

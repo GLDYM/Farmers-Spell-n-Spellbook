@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "cutout",
+  "textures": {
+    "cross": "farmers_spell:block/amethyst_beet_crop4"
+  }
+}

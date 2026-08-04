@@ -1,0 +1,17 @@
+{
+    "type": "farmersdelight:cutting",
+    "ingredients": [
+        {
+            "item": "farmers_spell:goodberry_pie"
+        }
+    ],
+    "result": [
+        {
+            "count": 4,
+            "item": "farmers_spell:goodberry_pie_slice"
+        }
+    ],
+    "tool": {
+        "tag": "c:tools/knife"
+    }
+}

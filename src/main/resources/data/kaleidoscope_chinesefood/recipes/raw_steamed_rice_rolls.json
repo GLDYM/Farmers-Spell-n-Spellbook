@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "tag": "forge:flour" },
+    { "tag": "forge:eggs" },
+    { "tag": "forge:raw_meats" },
+    { "tag": "forge:crops/lettuce" },
+    { "item": "minecraft:water_bucket" },
+    { "item": "minecraft:bowl" }
+  ],
+  "result": {
+    "item": "kaleidoscope_chinesefood:raw_steamed_rice_rolls",
+    "count": 1
+  }
+}

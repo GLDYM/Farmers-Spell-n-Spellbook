@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CAa",
+        "AHA",
+        "aAa"
+    ],
+    "key": {
+        "H": {
+            "item": "farmers_spell:foodgeist_ring"
+        },
+        "a": {
+            "item": "irons_spellbooks:mithril_scrap"
+        },
+        "A": {
+            "item": "farmers_spell:foodgeist_cheese"
+        },
+        "C": {
+            "item": "farmers_spell:original_nectar"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:affinity_ring_glutton",
+        "count": 1
+    }
+}

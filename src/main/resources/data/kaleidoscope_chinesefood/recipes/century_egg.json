@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "tag": "forge:eggs" },
+    { "item": "minecraft:sugar" },
+    { "item": "minecraft:charcoal" }
+  ],
+  "result": {
+    "item": "kaleidoscope_chinesefood:century_egg",
+    "count": 1
+  }
+}

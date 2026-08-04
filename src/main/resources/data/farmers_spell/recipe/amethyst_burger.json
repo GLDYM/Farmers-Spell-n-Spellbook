@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "c:bread"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:wsip_butter"
+        }
+    ],
+    "result": {
+        "id": "farmers_spell:amethyst_burger",
+        "count": 1
+    }
+}

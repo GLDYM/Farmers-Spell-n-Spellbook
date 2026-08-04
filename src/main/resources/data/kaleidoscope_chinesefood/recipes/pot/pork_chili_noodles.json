@@ -1,0 +1,28 @@
+{
+  "type": "kaleidoscope_cookery:pot",
+  "carrier": {
+    "item": "minecraft:bowl"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:cooked_pork"
+    },
+    {
+      "tag": "forge:cooked_pork"
+    },
+    {
+      "tag": "forge:crops/chilipepper"
+    },
+    {
+      "tag": "forge:crops/chilipepper"
+    },
+    {
+      "tag": "forge:pasta"
+    }
+  ],
+  "result": {
+    "item": "kaleidoscope_chinesefood:pork_chili_noodles"
+  },
+  "stir_fry_count": 3,
+  "time": 200
+}

@@ -1,0 +1,27 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": ":blood_tofu"
+        },
+        {
+            "item": "farmers_spell:"
+        },
+        {
+            "item": "farmersdelight:cabbage_leaf"
+        },
+        {
+            "item": ":cinder_essence"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "experience": 1.0,
+    "required_school": "irons_spellbooks:blood",
+    "cookingtime": 200
+}

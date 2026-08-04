@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "#&#",
+        "BCB"
+    ],
+    "key": {
+        "#": {
+            "item": "farmers_spell:icebergcream"
+        },
+        "&": {
+            "tag": "c:berries"
+        },
+        "B": {
+            "item": "minecraft:bread"
+        },
+        "C": {
+            "item": "minecraft:cookie"
+        }
+    },
+    "result": {
+        "id": "farmers_spell:icebreaker_bread",
+        "count": 1
+    }
+}

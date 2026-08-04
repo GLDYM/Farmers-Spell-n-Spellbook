@@ -1,0 +1,10 @@
+{
+  "type": "kaleidoscope_cookery:steamer",
+  "cook_tick": 1200,
+  "ingredient": {
+    "item": "kaleidoscope_chinesefood:raw_steamed_rice_rolls"
+  },
+  "result": {
+    "item": "kaleidoscope_chinesefood:steamed_rice_rolls"
+  }
+}

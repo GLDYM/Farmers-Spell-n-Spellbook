@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "irons_spellbooks:wizard_base_helmet"
+        },
+        {
+            "item": "farmers_spell:glutton_rune"
+        },
+        {
+            "item": "irons_spellbooks:arcane_essence"
+        }
+    ],
+    "result": {
+        "id": "farmers_spell:gluttony_chef_hat",
+        "count": 1
+    }
+}

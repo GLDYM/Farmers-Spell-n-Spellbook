@@ -1,0 +1,17 @@
+{
+    "type": "farmersdelight:cutting",
+    "ingredients": [
+        {
+            "item": "farmers_spell:eden_apple_tart"
+        }
+    ],
+    "result": [
+        {
+            "count": 4,
+            "item": "farmers_spell:eden_apple_tart_slice"
+        }
+    ],
+    "tool": {
+        "tag": "c:tools/knife"
+    }
+}
