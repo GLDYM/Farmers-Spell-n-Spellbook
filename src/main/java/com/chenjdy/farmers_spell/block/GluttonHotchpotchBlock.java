@@ -43,7 +43,6 @@ public class GluttonHotchpotchBlock extends Block {
     
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 10.0, 14.0);
     
-    @SuppressWarnings("this-escape")
     public GluttonHotchpotchBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()

@@ -91,7 +91,6 @@ public class AmethystBeetrootBlock extends CropBlock {
         Block.box(0, 3, 3, 8, 13, 13)
     };
 
-    @SuppressWarnings("this-escape")
     public AmethystBeetrootBlock() {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).sound(SoundType.AMETHYST).noCollission().instabreak().randomTicks().lightLevel(state -> state.getValue(AGE) >= 3 ? 2 : 0));
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(FACING, Direction.UP));

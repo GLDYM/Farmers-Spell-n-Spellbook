@@ -11,13 +11,14 @@ import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.SpellAnimations;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
-import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.api.util.RaycastBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -80,7 +81,10 @@ public class BadAppleSpell extends AbstractSpell {
     
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        Vec3 targetPos = Utils.raycastForEntity(level, entity, 30, true).getLocation();
+        Vec3 start = entity.getEyePosition();
+        Vec3 end = entity.getLookAngle().normalize().scale(30).add(start);
+        HitResult hitResult = RaycastBuilder.begin(level, entity).start(start).end(end).checkForBlocks(true).build();
+        Vec3 targetPos = hitResult.getLocation();
         
         if (!level.isClientSide) {
             BadAppleEntity badApple = new BadAppleEntity(level, targetPos, spellLevel);

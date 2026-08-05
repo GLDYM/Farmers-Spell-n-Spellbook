@@ -29,13 +29,11 @@ public class KinfeProjectile extends AbstractMagicProjectile {
     public int shakeTime;
     public boolean inGround;
     
-    @SuppressWarnings("this-escape")
     public KinfeProjectile(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setNoGravity(true);
     }
 
-    @SuppressWarnings("this-escape")
     public KinfeProjectile(Level pLevel, LivingEntity pShooter) {
         this(ModEntities.CLEAVER_PROJECTILE.get(), pLevel);
         this.setOwner(pShooter);

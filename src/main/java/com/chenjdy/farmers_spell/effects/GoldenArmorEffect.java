@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class GoldenArmorEffect extends MobEffect {
 
-    @SuppressWarnings("this-escape")
     public GoldenArmorEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
         this.addAttributeModifier(Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "golden_armor_bonus"), 2.0, AttributeModifier.Operation.ADD_VALUE);

@@ -23,7 +23,6 @@ public class CinderousStoveBlock extends StoveBlock {
         return (MapCodec<StoveBlock>) (MapCodec<?>) CODEC;
     }
 
-    @SuppressWarnings("this-escape")
     public CinderousStoveBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.TRUE));

@@ -40,7 +40,6 @@ public class ChaosSlashProjectile extends Projectile {
     private float initialXRot;
     private boolean rotationInitialized = false;
 
-    @SuppressWarnings("this-escape")
     public ChaosSlashProjectile(EntityType<? extends ChaosSlashProjectile> entityType, Level level) {
         super(entityType, level);
         setRadius(.6f);
@@ -49,7 +48,6 @@ public class ChaosSlashProjectile extends Projectile {
         this.setNoGravity(true);
     }
 
-    @SuppressWarnings("this-escape")
     public ChaosSlashProjectile(EntityType<? extends ChaosSlashProjectile> entityType, Level levelIn, LivingEntity shooter) {
         this(entityType, levelIn);
         setOwner(shooter);

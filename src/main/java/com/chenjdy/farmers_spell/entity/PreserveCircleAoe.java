@@ -30,7 +30,6 @@ public class PreserveCircleAoe extends AoeEntity {
         this.reapplicationDelay = 20;
     }
 
-    @SuppressWarnings("this-escape")
     public PreserveCircleAoe(Level level) {
         this(PRESERVE_CIRCLE_AOE.get(), level);
         this.setDeltaMovement(0, 0, 0);

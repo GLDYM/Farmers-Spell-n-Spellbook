@@ -7,6 +7,7 @@ import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -87,7 +88,6 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
     // private ItemEntity targetFoodItem = null;
 
-    @SuppressWarnings("this-escape")
     public FoodgeistEntity(EntityType<? extends FoodgeistEntity> entityType, Level level) {
         super(entityType, level);
         this.setCanPickUpLoot(false);
@@ -453,7 +453,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             mutable.setY(startPos.getY() - y);
             if (mutable.getY() >= level.getMinBuildHeight()) {
                 BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isSolid()) {
+                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
                     mutable.setY(mutable.getY() + 1);
                     if (mutable.getY() < level.getMaxBuildHeight() && level.getBlockState(mutable).canBeReplaced()) {
                         return mutable.immutable();
@@ -466,7 +466,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             mutable.setY(startPos.getY() + y);
             if (mutable.getY() < level.getMaxBuildHeight()) {
                 BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isSolid()) {
+                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
                     mutable.setY(mutable.getY() + 1);
                     if (mutable.getY() < level.getMaxBuildHeight() && level.getBlockState(mutable).canBeReplaced()) {
                         return mutable.immutable();
@@ -536,8 +536,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
         private ItemEntity targetItem;
 
-        @SuppressWarnings("this-escape")
-        public FoodgeistPickupItemGoal(FoodgeistEntity entity, double speedModifier) {
+            public FoodgeistPickupItemGoal(FoodgeistEntity entity, double speedModifier) {
             this.foodgeist = entity;
             this.speedModifier = speedModifier;
             this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -598,8 +597,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
         private final float stopDistance;
 
-        @SuppressWarnings("this-escape")
-        public FoodgeistFollowPlayerGoal(FoodgeistEntity entity, double speedModifier, float stopDistance) {
+            public FoodgeistFollowPlayerGoal(FoodgeistEntity entity, double speedModifier, float stopDistance) {
             this.foodgeist = entity;
             this.speedModifier = speedModifier;
             this.stopDistance = stopDistance;

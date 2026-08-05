@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class FrostShieldEffect extends MobEffect {
 
-    @SuppressWarnings("this-escape")
     public FrostShieldEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
         this.addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "frost_shield_knockback_resistance"), 0.25, AttributeModifier.Operation.ADD_VALUE);

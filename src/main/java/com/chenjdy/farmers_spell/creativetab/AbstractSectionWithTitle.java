@@ -46,68 +46,57 @@ public abstract class AbstractSectionWithTitle<T extends AbstractSectionWithTitl
         }
     }
 
-    @SuppressWarnings("unchecked")
     public T setTitle(Component component) {
         this.title = component;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setTitle(String title) {
         this.title = Component.literal(title);
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setTitleOffset(int x, int y) {
         this.titleOffsetX = x;
         this.titleOffsetY = y;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setCentered(boolean centered) {
         this.centered = centered;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setTextColor(int textColor) {
         this.textColor = textColor;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setTextOutline(int textOutline) {
         this.textOutline = textOutline;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setTextShadow(boolean textShadow) {
         this.textShadow = textShadow;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setCollapsible(boolean collapsible) {
         this.collapsible = collapsible;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setItems(ConglomerateOfItems items) {
         this.items = items;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setSticky(boolean sticky) {
         this.sticky = sticky;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public T setOnRender(Runnable onRender) {
         this.onRender = onRender;
         return (T) this;

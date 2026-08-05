@@ -36,7 +36,6 @@ public class BadAppleEntity extends LivingEntity {
     private static final EntityDataAccessor<Float> DATA_HEALTH = SynchedEntityData.defineId(BadAppleEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_MAX_HEALTH = SynchedEntityData.defineId(BadAppleEntity.class, EntityDataSerializers.FLOAT);
     
-    @SuppressWarnings("this-escape")
     public BadAppleEntity(EntityType<? extends BadAppleEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
@@ -45,7 +44,6 @@ public class BadAppleEntity extends LivingEntity {
         this.blockState = ModBlocks.BAD_APPLE.get().defaultBlockState();
     }
     
-    @SuppressWarnings("this-escape")
     public BadAppleEntity(Level pLevel, Vec3 pos, int spellLevel) {
         this(ModEntities.BAD_APPLE_ENTITY.get(), pLevel);
         this.spellLevel = spellLevel;

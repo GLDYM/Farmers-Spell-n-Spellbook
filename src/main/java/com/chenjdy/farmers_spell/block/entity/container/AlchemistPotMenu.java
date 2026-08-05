@@ -36,12 +36,10 @@ public class AlchemistPotMenu extends AbstractContainerMenu
     private final ContainerLevelAccess canInteractWithCallable;
     protected final Level level;
 
-    @SuppressWarnings("this-escape")
     public AlchemistPotMenu(final int windowId, final Inventory playerInventory, final FriendlyByteBuf data) {
         this(windowId, playerInventory, getBlockEntity(playerInventory, data), new SimpleContainerData(2));
     }
 
-    @SuppressWarnings("this-escape")
     public AlchemistPotMenu(final int windowId, final Inventory playerInventory, final AlchemistPotBlockEntity blockEntity, ContainerData cookingPotData) {
         super(ModMenuTypes.ALCHEMIST_POT.get(), windowId);
         this.blockEntity = blockEntity;

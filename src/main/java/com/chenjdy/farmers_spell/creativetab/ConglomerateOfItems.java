@@ -64,8 +64,7 @@ public class ConglomerateOfItems {
 
             if (o instanceof List<?> list) {
                 if (list.stream().allMatch(ItemStack.class::isInstance)) {
-                    @SuppressWarnings("unchecked")
-                    List<ItemStack> itemStacks = (List<ItemStack>) list;
+                                    List<ItemStack> itemStacks = (List<ItemStack>) list;
                     stacks.addAll(itemStacks);
                 }
             }

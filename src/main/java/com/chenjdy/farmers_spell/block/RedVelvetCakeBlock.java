@@ -82,7 +82,6 @@ public class RedVelvetCakeBlock extends CakeBlock {
             Block.box(13.0, 0.0, 1.0, 15.0, 8.0, 15.0)
     };
 
-    @SuppressWarnings("this-escape")
     public RedVelvetCakeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CakeBlock.BITES, 0));
