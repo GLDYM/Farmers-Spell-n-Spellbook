@@ -77,11 +77,12 @@ public class PermafrostPopsicle extends ConsumableItem {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         tooltipComponents.add(Component.literal("- ")
-                .append(Component.literal("鎭㈠ " + MANA_RECOVERY_PERCENT + "% 鏈€澶ф硶鍔?").withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.translatable("item.farmers_spell.permafrost_popsicle.mana_recovery", MANA_RECOVERY_PERCENT).withStyle(ChatFormatting.DARK_AQUA))
                 .withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.literal("- ")
-                .append(Component.literal("鏃犻檺").withStyle(ChatFormatting.GOLD))
+                .append(Component.translatable("item.farmers_spell.permafrost_popsicle.infinite").withStyle(ChatFormatting.GOLD))
                 .withStyle(ChatFormatting.GRAY));
+
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }
 

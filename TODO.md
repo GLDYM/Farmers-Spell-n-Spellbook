@@ -1,3 +1,5 @@
 - 重新审阅所有代码
 - 调整 Maven
 - Github Action
+- initializeClient 需要换掉
+- 属性没一个对的

@@ -142,6 +142,8 @@
     "message.farmers_spell.foodgeist_blessing": "Foodgeist's Blessing! You feel refreshed!",
     "message.farmers_spell.foodgeist_in_combat": "Foodgeist cannot bless you while in combat...",
     "Bad Apple": "Bad Apple",
-    "item.farmers_spell.drink_item.mana_recovery": "§3Restores %s%% Maximum Mana",
-    "item.farmers_spell.drink_item.clear_negative_effects": "§6Removes all negative effects"
+    "item.farmers_spell.drink_item.mana_recovery": "Restore %s%% Maximum Mana",
+    "item.farmers_spell.drink_item.clear_negative_effects": "Remove all negative effects",
+    "item.farmers_spell.permafrost_popsicle.mana_recovery": "Restore %s%% Maximum Mana",
+    "item.farmers_spell.permafrost_popsicle.infinite": "Infinite"
 }

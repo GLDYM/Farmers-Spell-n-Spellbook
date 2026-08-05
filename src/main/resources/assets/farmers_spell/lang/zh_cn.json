@@ -153,6 +153,8 @@
   "message.farmers_spell.foodgeist_recovering": "冷却中，还需 %s 秒...",
   "message.farmers_spell.foodgeist_blessing": "食灵的祝福！",
   "message.farmers_spell.foodgeist_in_combat": "食灵在战斗中无法为你祝福...",
-  "item.farmers_spell.drink_item.mana_recovery": "§3恢复 %s%% 最大魔力",
-  "item.farmers_spell.drink_item.clear_negative_effects": "§6清除所有负面效果"
+  "item.farmers_spell.drink_item.mana_recovery": "恢复 %s%% 最大法力",
+  "item.farmers_spell.drink_item.clear_negative_effects": "清除所有负面效果",
+  "item.farmers_spell.permafrost_popsicle.mana_recovery": "恢复 %s%% 最大法力",
+  "item.farmers_spell.permafrost_popsicle.infinite": "无限"
 }

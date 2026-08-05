@@ -3,10 +3,7 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
-import com.chenjdy.farmers_spell.item.armor.GluttonyChefApronItem;
-import com.chenjdy.farmers_spell.item.armor.GluttonyChefBootsItem;
-import com.chenjdy.farmers_spell.item.armor.GluttonyChefHatItem;
-import com.chenjdy.farmers_spell.item.armor.GluttonyChefLeggingsItem;
+import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
 import com.chenjdy.farmers_spell.item.irons.DrinkItem;
@@ -20,12 +17,12 @@ import com.chenjdy.farmers_spell.item.weapons.GrowKnife;
 import com.chenjdy.farmers_spell.item.weapons.HellKnife;
 import com.chenjdy.farmers_spell.item.weapons.IrisFork;
 import com.chenjdy.farmers_spell.item.weapons.TwilightBlade;
-import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.SpellBook;
+import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -183,22 +180,26 @@ public class ModItems {
             () -> new SpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> TIRAMISU = ITEMS.register("tiramisu",
             () -> new SpellBook(12, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
-                    .withAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.SPELL_POWER.get()), 0.10)
-                    .withAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), 150.0)
-                    .withAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.COOLDOWN_REDUCTION.get()), 0.10));
+                    .withSpellbookAttributes(
+                        new AttributeContainer(AttributeRegistry.SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), 
+                        new AttributeContainer(AttributeRegistry.MAX_MANA, 150, AttributeModifier.Operation.ADD_VALUE),
+                        new AttributeContainer(AttributeRegistry.COOLDOWN_REDUCTION, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                    ));
     public static final DeferredHolder<Item, Item> LASAGNOWLEDGE = ITEMS.register("lasagnowledge",
             () -> new SpellBook(10, new Item.Properties().stacksTo(1).rarity(Rarity.RARE))
-                    .withAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.SPELL_POWER.get()), 0.10)
-                    .withAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), 100.0));
+                    .withSpellbookAttributes(
+                        new AttributeContainer(AttributeRegistry.SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                        new AttributeContainer(AttributeRegistry.MAX_MANA, 100, AttributeModifier.Operation.ADD_VALUE)
+                    ));
 
     public static final DeferredHolder<Item, Item> GLUTTONY_CHEF_HAT = ITEMS.register("gluttony_chef_hat",
-            () -> new GluttonyChefHatItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1).durability(ArmorItem.Type.HELMET.getDurability(37))));
     public static final DeferredHolder<Item, Item> GLUTTONY_CHEF_APRON = ITEMS.register("gluttony_chef_apron",
-            () -> new GluttonyChefApronItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1).durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
     public static final DeferredHolder<Item, Item> GLUTTONY_CHEF_LEGGINGS = ITEMS.register("gluttony_chef_leggings",
-            () -> new GluttonyChefLeggingsItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1).durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
     public static final DeferredHolder<Item, Item> GLUTTONY_CHEF_BOOTS = ITEMS.register("gluttony_chef_boots",
-            () -> new GluttonyChefBootsItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1).durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
     public static final DeferredHolder<Item, Item> FOODGEIST_SPAWN_EGG = ITEMS.register("foodgeist_spawn_egg",
             () -> new DeferredSpawnEggItem(ModEntities.FOODGEIST, 0xC8C8C8, 0xFFCBCB, new Item.Properties()));
