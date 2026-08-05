@@ -20,10 +20,15 @@ import com.chenjdy.farmers_spell.item.weapons.TwilightBlade;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.SpellBook;
 import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
@@ -51,6 +56,17 @@ public class ModItems {
 
     public static Item.Properties normalFoodItem(FoodProperties food) {
         return new Item.Properties().food(food);
+    }
+
+    public static Item.Properties handheldCastingItem(double attackDamage, double attackSpeed, double spellPower, double castTimeReduction, double cooldownReduction) {
+        ItemAttributeModifiers attributes = ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.SPELL_POWER.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "spell_power"), spellPower, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND)
+                .add(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.CAST_TIME_REDUCTION.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "cast_time"), castTimeReduction, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND)
+                .add(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.COOLDOWN_REDUCTION.get()), new AttributeModifier(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "cooldown"), cooldownReduction, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.MAINHAND)
+                .build();
+        return new Item.Properties().stacksTo(1).attributes(attributes);
     }
 
     public static final DeferredHolder<Item, Item> BUTTER_POTATO = ITEMS.register("butter_potato",
@@ -163,9 +179,9 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> GOSPEL = ITEMS.register("gospel", GospelButterKnife::new);
     public static final DeferredHolder<Item, Item> HELL_KNIFE = ITEMS.register("hell_knife", HellKnife::new);
     public static final DeferredHolder<Item, Item> CHERRY_SPOON = ITEMS.register("cherry_spoon",
-            () -> new CherrySpoon(new Item.Properties().stacksTo(1)));
+            () -> new CherrySpoon(handheldCastingItem(3.0, -3.0, 0.10, 0.20, 0.10)));
     public static final DeferredHolder<Item, Item> IRIS_FORK = ITEMS.register("iris_fork",
-            () -> new IrisFork(new Item.Properties().stacksTo(1)));
+            () -> new IrisFork(handheldCastingItem(8.0, -3.0, 0.15, 0.15, 0.15)));
     public static final DeferredHolder<Item, Item> GROW_KNIFE = ITEMS.register("grow_knife", GrowKnife::new);
     public static final DeferredHolder<Item, Item> TWILIGHT_BLADE = ITEMS.register("twilight_blade", TwilightBlade::new);
     public static final DeferredHolder<Item, Item> BOREAL_KNIFE = ITEMS.register("boreal_knife", BorealKnife::new);
