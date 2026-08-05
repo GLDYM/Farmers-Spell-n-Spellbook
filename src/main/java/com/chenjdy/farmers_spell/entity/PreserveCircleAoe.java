@@ -24,12 +24,10 @@ public class PreserveCircleAoe extends AoeEntity {
     private static final DustParticleOptions ORANGE_DUST = new DustParticleOptions(ORANGE_COLOR, 1.0f);
     
     private int spellLevel;
-    private int tickInArea;
 
     public PreserveCircleAoe(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.reapplicationDelay = 20;
-        this.tickInArea = 0;
     }
 
     @SuppressWarnings("this-escape")

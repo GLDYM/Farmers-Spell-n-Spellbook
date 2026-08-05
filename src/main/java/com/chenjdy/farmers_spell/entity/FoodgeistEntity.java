@@ -1,7 +1,6 @@
 package com.chenjdy.farmers_spell.entity;
 
 import com.chenjdy.farmers_spell.init.ModBlocks;
-import com.chenjdy.farmers_spell.init.ModAttributes;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -20,7 +19,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -36,12 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -85,13 +79,13 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
     private static final EntityDataAccessor<Long> DATA_BLESSING_COOLDOWN = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.LONG);
 
-    private int spawnAttemptCount = 0;
+    // private int spawnAttemptCount = 0;
 
-    private int currentSpawnChance = 10;
+    // private int currentSpawnChance = 10;
 
-    private long nextSpawnCheckTime = 0;
+    // private long nextSpawnCheckTime = 0;
 
-    private ItemEntity targetFoodItem = null;
+    // private ItemEntity targetFoodItem = null;
 
     @SuppressWarnings("this-escape")
     public FoodgeistEntity(EntityType<? extends FoodgeistEntity> entityType, Level level) {
@@ -288,7 +282,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
-        if (this.isModFoodItem(heldItem)) {
+        if (isModFoodItem(heldItem)) {
             if (!this.level().isClientSide) {
                 if (this.random.nextFloat() < 0.33F) {
                     heldItem.shrink(1);

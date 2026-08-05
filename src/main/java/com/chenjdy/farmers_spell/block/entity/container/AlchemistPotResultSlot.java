@@ -2,7 +2,6 @@ package com.chenjdy.farmers_spell.block.entity.container;
 
 import com.chenjdy.farmers_spell.block.entity.AlchemistPotBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;

@@ -2,4 +2,3 @@
 - 调整 Maven
 - Github Action
 - initializeClient 需要换掉
-- 属性没一个对的

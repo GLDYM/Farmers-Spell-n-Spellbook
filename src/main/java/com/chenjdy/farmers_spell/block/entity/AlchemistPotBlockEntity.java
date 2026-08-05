@@ -394,7 +394,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         for (Map.Entry<ResourceLocation, Integer> entry : usedRecipeTracker.entrySet()) {
             level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
                 list.add(recipe);
-                if (level instanceof ServerLevel serverLevel) {
+                if (level instanceof ServerLevel) {
                     float exp = ((CookingPotRecipe) recipe.value()).getExperience() * entry.getValue();
                     splitAndSpawnExperience(exp);
                 }

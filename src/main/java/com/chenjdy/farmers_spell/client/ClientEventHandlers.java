@@ -6,7 +6,6 @@ import com.chenjdy.farmers_spell.init.ModBlockEntities;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
 import vectorwing.farmersdelight.client.renderer.DefaultStoveRenderer;
 import net.neoforged.fml.common.EventBusSubscriber;
 

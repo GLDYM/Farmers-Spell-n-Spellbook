@@ -18,7 +18,7 @@ public class FancyTabSections {
     public FancyTabSections() {
     }
 
-    public static void addSection(ResourceLocation tab, Section section) {
+    public static void addSection(ResourceLocation tab, Section<?> section) {
         REGISTERED_TABS.computeIfAbsent(tab, k -> new ArrayList<>()).add(section);
     }
 

@@ -1,6 +1,5 @@
 package com.chenjdy.farmers_spell.creativetab;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;

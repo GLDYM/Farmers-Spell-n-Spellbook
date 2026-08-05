@@ -48,7 +48,7 @@ public class BannerRenderer {
         }
     }
 
-    public static boolean isInToggle(CreativeModeInventoryScreen screen, Section section, double mouseX, double mouseY) {
+    public static boolean isInToggle(CreativeModeInventoryScreen screen, Section<?> section, double mouseX, double mouseY) {
         if (!section.collapsible())
             return false;
         int sectionRow = FTSInternal.getRowForSection(section);
