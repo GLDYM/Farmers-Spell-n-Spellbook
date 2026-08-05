@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  
+  "ingredients": [
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    }
+  ],
+  "result": { "item": "minecraft:amethyst_block",
+    "count": 1
+  }
+}

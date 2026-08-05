@@ -1,0 +1,29 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "irons_spellbooks:cinder_essence"
+        },
+        {
+            "item": "irons_spellbooks:cinder_essence"
+        },
+        {
+            "item": "farmers_spell:blood_tofu"
+        },
+        {
+            "item": "farmers_spell:blood_tofu"
+        },
+        {
+            "tag": "forge:vegetables"
+        },
+        {
+            "tag": "forge:vegetables"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:cinderous_hotpot",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

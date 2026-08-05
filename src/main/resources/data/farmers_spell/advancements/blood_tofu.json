@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.blood_tofu.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.blood_tofu.description"
+    },
+    "icon": {
+      "item": "farmers_spell:blood_tofu"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:catacombs_wine",
+  "criteria": {
+    "get_tofu": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:blood_tofu"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_tofu"]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " ##",
+    "#P#",
+    "B# "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:blue_ice"
+    },
+    "P": {
+      "item": "irons_spellbooks:permafrost_shard"
+    },
+    "B": {
+      "item": "irons_spellbooks:frozen_bone"
+    }
+  },
+  "result": { "item": "farmers_spell:permafrost_popsicle",
+    "count": 1
+  }
+}

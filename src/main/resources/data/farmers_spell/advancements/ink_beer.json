@@ -1,0 +1,31 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.ink_beer.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.ink_beer.description"
+    },
+    "icon": {
+      "item": "farmers_spell:ink_beer"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:arcane_cocoa",
+  "criteria": {
+    "drink_ink_beer": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["farmers_spell:ink_beer"]
+        }
+      }
+    }
+  },
+  "requirements": [
+    ["drink_ink_beer"]
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "bites=0,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 90
+    },
+    "bites=0,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch"
+    },
+    "bites=0,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 180
+    },
+    "bites=0,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 270
+    },
+    "bites=1,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 90
+    },
+    "bites=1,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch1"
+    },
+    "bites=1,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 180
+    },
+    "bites=1,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 270
+    },
+    "bites=2,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 90
+    },
+    "bites=2,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch2"
+    },
+    "bites=2,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 180
+    },
+    "bites=2,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 270
+    },
+    "bites=3,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 90
+    },
+    "bites=3,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch3"
+    },
+    "bites=3,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 180
+    },
+    "bites=3,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 270
+    },
+    "bites=4,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 90
+    },
+    "bites=4,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch4"
+    },
+    "bites=4,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 180
+    },
+    "bites=4,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "farmers_spell:glutton_hotchpotch",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "bites": "0"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmers_spell:glutton_hotchpotch"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "block": "farmers_spell:glutton_hotchpotch",
+            "condition": "minecraft:block_state_property",
+            "properties": {
+              "bites": "0"
+            }
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:cooking_pot"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

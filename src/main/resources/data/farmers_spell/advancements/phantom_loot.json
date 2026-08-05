@@ -1,0 +1,26 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.phantom_loot.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.phantom_loot.description"
+    },
+    "icon": {
+      "item": "farmers_spell:glutton_rune"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:root",
+  "criteria": {
+    "steal_loot": {
+      "trigger": "farmers_spell:phantom_loot"
+    }
+  },
+  "requirements": [
+    ["steal_loot"]
+  ]
+}

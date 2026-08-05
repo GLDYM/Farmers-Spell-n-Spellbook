@@ -1,0 +1,24 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:energized_caramel"
+        },
+        {
+            "item": "farmers_spell:energized_caramel"
+        },
+        {
+            "item": "farmers_spell:energized_caramel"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:thunder_cotton_candy",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:lightning_rod"
+    },
+    "experience": 1.0,
+    "required_school": "irons_spellbooks:lightning",
+    "cookingtime": 200
+}

@@ -1,0 +1,10 @@
+{
+  "type": "farmers_spell:append_loot",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "irons_spellbooks:chests/citadel/citadel_vault"
+    }
+  ],
+  "key": "farmers_spell:chests/hell_knife_loot"
+}

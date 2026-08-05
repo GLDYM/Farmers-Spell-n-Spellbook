@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cake",
+  "textures": {
+    "bottom": "farmers_spell:block/red_velvet_cake_bottom",
+    "top": "farmers_spell:block/red_velvet_cake_top",
+    "side": "farmers_spell:block/red_velvet_cake_side",
+    "particle": "farmers_spell:block/red_velvet_cake_top"
+  }
+}

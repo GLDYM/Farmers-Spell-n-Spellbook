@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " GM",
+    "AMG",
+    "MA "
+  ],
+  "key": {
+    "M": {
+      "item": "irons_spellbooks:mithril_ingot"
+    },
+    "G": {
+      "item": "farmers_spell:glutton_rune"
+    },
+    "A": {
+      "item": "irons_spellbooks:arcane_ingot"
+    }
+  },
+  "result": { "item": "farmers_spell:iris_fork",
+    "count": 1
+  }
+}

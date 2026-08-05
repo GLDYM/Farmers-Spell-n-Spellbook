@@ -1,0 +1,32 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:wsip_butter"
+        },
+        {
+            "tag": "forge:milk"
+        },
+        {
+            "item": "farmersdelight:tomato_sauce"
+        },
+        {
+            "tag": "forge:vegetables"
+        },
+        {
+            "item": "minecraft:cooked_chicken"
+        },
+        {
+            "item": "minecraft:cooked_chicken"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:butter_chicken",
+        "count": 2
+    },
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

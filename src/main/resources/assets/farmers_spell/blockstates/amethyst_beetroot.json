@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "age=0,facing=up": { "model": "farmers_spell:block/amethyst_beetroot_stage0" },
+    "age=0,facing=down": { "model": "farmers_spell:block/amethyst_beetroot_stage0", "x": 180 },
+    "age=0,facing=north": { "model": "farmers_spell:block/amethyst_beetroot_stage0", "x": 90 },
+    "age=0,facing=south": { "model": "farmers_spell:block/amethyst_beetroot_stage0", "x": 270 },
+    "age=0,facing=east": { "model": "farmers_spell:block/amethyst_beetroot_stage0", "x": 90, "y": 90 },
+    "age=0,facing=west": { "model": "farmers_spell:block/amethyst_beetroot_stage0", "x": 90, "y": 270 },
+    
+    "age=1,facing=up": { "model": "farmers_spell:block/amethyst_beetroot_stage1" },
+    "age=1,facing=down": { "model": "farmers_spell:block/amethyst_beetroot_stage1", "x": 180 },
+    "age=1,facing=north": { "model": "farmers_spell:block/amethyst_beetroot_stage1", "x": 90 },
+    "age=1,facing=south": { "model": "farmers_spell:block/amethyst_beetroot_stage1", "x": 270 },
+    "age=1,facing=east": { "model": "farmers_spell:block/amethyst_beetroot_stage1", "x": 90, "y": 90 },
+    "age=1,facing=west": { "model": "farmers_spell:block/amethyst_beetroot_stage1", "x": 90, "y": 270 },
+    
+    "age=2,facing=up": { "model": "farmers_spell:block/amethyst_beetroot_stage2" },
+    "age=2,facing=down": { "model": "farmers_spell:block/amethyst_beetroot_stage2", "x": 180 },
+    "age=2,facing=north": { "model": "farmers_spell:block/amethyst_beetroot_stage2", "x": 90 },
+    "age=2,facing=south": { "model": "farmers_spell:block/amethyst_beetroot_stage2", "x": 270 },
+    "age=2,facing=east": { "model": "farmers_spell:block/amethyst_beetroot_stage2", "x": 90, "y": 90 },
+    "age=2,facing=west": { "model": "farmers_spell:block/amethyst_beetroot_stage2", "x": 90, "y": 270 },
+    
+    "age=3,facing=up": { "model": "farmers_spell:block/amethyst_beetroot_stage3" },
+    "age=3,facing=down": { "model": "farmers_spell:block/amethyst_beetroot_stage3", "x": 180 },
+    "age=3,facing=north": { "model": "farmers_spell:block/amethyst_beetroot_stage3", "x": 90 },
+    "age=3,facing=south": { "model": "farmers_spell:block/amethyst_beetroot_stage3", "x": 270 },
+    "age=3,facing=east": { "model": "farmers_spell:block/amethyst_beetroot_stage3", "x": 90, "y": 90 },
+    "age=3,facing=west": { "model": "farmers_spell:block/amethyst_beetroot_stage3", "x": 90, "y": 270 }
+  }
+}

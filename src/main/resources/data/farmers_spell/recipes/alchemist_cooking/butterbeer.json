@@ -1,0 +1,23 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "minecraft:honey_bottle"
+        },
+        {
+            "item": "farmers_spell:wsip_butter"
+        },
+        {
+            "item": "irons_spellbooks:arcane_essence"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:butterbeer",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:glass_bottle"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

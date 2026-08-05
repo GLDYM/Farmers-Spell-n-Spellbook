@@ -1,0 +1,23 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "item": "farmersdelight:pie_crust"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:snowy_tart",
+        "count": 2
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

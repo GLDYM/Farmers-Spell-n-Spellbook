@@ -1,0 +1,32 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:foodgeist_cheese"
+        },
+        {
+            "item": "farmers_spell:foodgeist_cheese"
+        },
+        {
+            "item": "farmersdelight:tomato_sauce"
+        },
+        {
+            "item": "irons_spellbooks:cinder_essence"
+        },
+        {
+            "item": "farmersdelight:minced_beef"
+        },
+        {
+            "item": "minecraft:golden_carrot"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:lasagnowledge",
+        "count": 1
+    },
+    "container": {
+        "item": "farmers_spell:wheat_book"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

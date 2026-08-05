@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.icy_egg.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.icy_egg.description"
+    },
+    "icon": {
+      "item": "farmers_spell:icy_egg"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:root",
+  "criteria": {
+    "get_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:icy_egg"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_egg"]
+  ]
+}

@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -29,6 +30,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.config', 'mixins.farmers_spell.json'
 
             mods {
                 "${mod_id}" {
@@ -52,8 +54,8 @@ minecraft {
 
         data {
             workingDirectory project.file('run-data')
-
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', mod_id, '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            environment 'target', 'fmluserdevdata'
         }
     }
 }
@@ -64,39 +66,34 @@ repositories {
     maven {
         url "https://cursemaven.com"
     }
+    mavenCentral()
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")) {
+        jarJar.ranged(it, "[0.5.0,)")
+    }
+    annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
+
     implementation fg.deobf("curse.maven:kaleidoscope-cookery-1309203:7473809")
-    //implementation fg.deobf("curse.maven:alexs-mobs-426558:5698791")
-    implementation fg.deobf("curse.maven:citadel-331936:6702068")
     implementation fg.deobf("curse.maven:jei-238222:7361881")
     implementation fg.deobf("curse.maven:jade-324717:6855440")
     implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:6172935")
-    //    implementation fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
-
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
-    implementation fg.deobf("curse.maven:radium-reforged-570017:5706069")
-    //    implementation fg.deobf("curse.maven:modern-ui-352491:6956345")
-    //implementation fg.deobf("curse.maven:i18nupdatemod-297404:7173159")
-    //implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:6860192")
-    //implementation fg.deobf("curse.maven:selene-499980:7388296")
-    //implementation fg.deobf("curse.maven:inventory-hud-forge-357540:5639966")
-    //implementation fg.deobf("curse.maven:curios-309927:6418456")
-    //implementation fg.deobf("curse.maven:kaleidoscope-doll-1233277:7201584")
-    //implementation fg.deobf("curse.maven:farmers-delight-398521:6917255")
-    //implementation fg.deobf("curse.maven:kubejs-238086:5853326")
-    //implementation fg.deobf("curse.maven:rhino-416294:6186971")
-    //implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
-    //implementation fg.deobf("curse.maven:lendercataclysm-551586:6906993")
-    //implementation fg.deobf("curse.maven:lionfish-api-1001614:5922047")
-    implementation fg.deobf("curse.maven:screenshot-to-clipboard-326950:3643026")
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
+    implementation fg.deobf("curse.maven:farmers-delight-398521:8083474")
+    implementation fg.deobf("curse.maven:kubejs-238086:8020595")
+    implementation fg.deobf("curse.maven:irons-spellbooks-855414:8364933")
+    implementation fg.deobf("curse.maven:curios-forge-309927:6418456")
+    implementation fg.deobf("curse.maven:irons-lib-1492763:8364892")
+    implementation fg.deobf("curse.maven:geckolib-forge-388172:8285794")
+    implementation fg.deobf("curse.maven:player-animation-lib-forge-658587:4587214")
+    implementation fg.deobf("curse.maven:rhino-forge-416294:6186971")
+    implementation fg.deobf("curse.maven:architectury-419699:5137938")
+    implementation fg.deobf("curse.maven:AdvancedLootInfo-forge-1205426:8168726")
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -152,4 +149,9 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+mixin {
+    add sourceSets.main, "farmers_spell.refmap.json"
+    config "mixins.farmers_spell.json"
 }

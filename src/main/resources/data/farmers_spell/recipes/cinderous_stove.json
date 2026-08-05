@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "N N",
+    "NCN"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "N": {
+      "item": "irons_spellbooks:nether_brick_pillar"
+    },
+    "C": {
+      "item": "irons_spellbooks:cinder_essence"
+    }
+  },
+  "result": { "item": "farmers_spell:cinderous_stove",
+    "count": 1
+  }
+}

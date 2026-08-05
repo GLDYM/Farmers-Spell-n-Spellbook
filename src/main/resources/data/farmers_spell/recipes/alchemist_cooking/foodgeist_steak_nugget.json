@@ -1,0 +1,20 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "tag": "forge:raw_beef"
+        },
+        {
+            "tag": "forge:"
+        },
+        {
+            "item": "farmers_spell:"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:foodgeist_steak_nugget",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}
