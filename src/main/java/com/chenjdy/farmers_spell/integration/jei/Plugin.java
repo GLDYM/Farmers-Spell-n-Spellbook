@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 @JeiPlugin

@@ -6,11 +6,19 @@ import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 
 public class TwilightBlade extends MagicSwordItem {
     public TwilightBlade() {
-        super(Tiers.IRON, new Item.Properties().durability(1561).rarity(Rarity.RARE), SpellDataRegistryHolder.of());
+        super(
+            Tiers.IRON, 
+            new Item.Properties()
+                .durability(1561)
+                .rarity(Rarity.RARE)
+                .attributes(SwordItem.createAttributes(Tiers.IRON, 3, -2.4F)), 
+            SpellDataRegistryHolder.of()
+        );
     }
     
     @Override

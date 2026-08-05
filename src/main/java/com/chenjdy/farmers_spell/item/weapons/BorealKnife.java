@@ -6,11 +6,19 @@ import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 
 public class BorealKnife extends MagicSwordItem {
     public BorealKnife() {
-        super(Tiers.IRON, new Item.Properties().durability(1561).rarity(Rarity.RARE), SpellDataRegistryHolder.of());
+        super(
+            Tiers.IRON, 
+            new Item.Properties()
+                .durability(1561)
+                .rarity(Rarity.RARE)
+                .attributes(SwordItem.createAttributes(Tiers.IRON, 5, -2F)), 
+            SpellDataRegistryHolder.of()
+        );
     }
     
     @Override

@@ -3,8 +3,6 @@ package com.chenjdy.farmers_spell.creativetab;
 import com.chenjdy.farmers_spell.mixins.CreativeModeTabAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.CreativeModeTab;

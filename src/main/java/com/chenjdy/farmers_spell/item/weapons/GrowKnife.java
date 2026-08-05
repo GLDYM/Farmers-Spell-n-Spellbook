@@ -1,6 +1,8 @@
 package com.chenjdy.farmers_spell.item.weapons;
 
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.chenjdy.farmers_spell.init.ModSpells;
+
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import net.minecraft.core.BlockPos;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -27,7 +30,14 @@ import net.minecraft.world.level.block.state.BlockState;
 public class GrowKnife extends MagicSwordItem {
 
     public GrowKnife() {
-        super(Tiers.IRON, new Item.Properties().durability(250).rarity(Rarity.COMMON), SpellDataRegistryHolder.of());
+        super(
+            Tiers.IRON, 
+            new Item.Properties()
+                .durability(250)
+                .rarity(Rarity.COMMON)
+                .attributes(SwordItem.createAttributes(Tiers.IRON, -2, -1.0F)),
+            SpellDataRegistryHolder.of(new SpellDataRegistryHolder(ModSpells.GOODBERRY_SPELL, 1))
+        );
     }
 
     @Override
@@ -67,6 +77,7 @@ public class GrowKnife extends MagicSwordItem {
         }
 
         return InteractionResult.SUCCESS;
+
     }
 
     @Override
