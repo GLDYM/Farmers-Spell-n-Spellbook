@@ -26,51 +26,61 @@ public interface Section<T extends Section<T>> {
 
     void render(GuiGraphics guiGraphics, Font font, int topLeftX, int topLeftY);
 
+    @SuppressWarnings("unchecked")
     default T add(Item item) {
         items().add(item);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T addBlock(Block block) {
         items().addBlock(block);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(ItemStack stack) {
         items().add(stack);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(DeferredHolder<Item, ? extends Item> registryObjectOfItem) {
         items().add(registryObjectOfItem);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T addBlock(DeferredHolder<Block, ? extends Block> registryObjectOfBlock) {
         items().addBlock(registryObjectOfBlock);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(ItemLike itemLike) {
         items().add(itemLike);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(Supplier<ItemStack> itemStackSupplier) {
         items().add(itemStackSupplier);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(List<ItemStack> listOfStacks) {
         items().add(listOfStacks);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T add(ConglomerateOfItems.RegistryDependentEntry entry) {
         items().add(entry);
         return (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     default T addItemTag(TagKey<Item> tag) {
         add((registry) ->
             registry.lookup(Registries.ITEM)

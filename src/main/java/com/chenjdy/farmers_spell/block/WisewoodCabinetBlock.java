@@ -10,7 +10,7 @@ public class WisewoodCabinetBlock extends CabinetBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return (MapCodec<? extends BaseEntityBlock>) (MapCodec<?>) CODEC;
+        return CODEC;
     }
 
     public WisewoodCabinetBlock(BlockBehaviour.Properties properties) {

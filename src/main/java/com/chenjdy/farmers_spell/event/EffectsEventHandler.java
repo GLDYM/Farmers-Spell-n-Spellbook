@@ -63,14 +63,14 @@ public class EffectsEventHandler {
         MobEffectInstance effect = event.getEffectInstance();
         if (effect == null) return;
 
-        if (effect.getEffect().is(MobEffects.POISON) && entity.hasEffect(ModEffects.DRUID_HEAL)) {
+        if (effect.getEffect().equals(MobEffects.POISON) && entity.hasEffect(ModEffects.DRUID_HEAL)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
             return;
         }
 
         if (entity.hasEffect(ModEffects.CLEANSE)) {
             for (Holder<MobEffect> immuneEffect : CLEANSE_IMMUNE_VANILLA_EFFECTS) {
-                if (effect.getEffect().is(immuneEffect)) {
+                if (effect.getEffect().equals(immuneEffect)) {
                     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                     return;
                 }
@@ -91,7 +91,7 @@ public class EffectsEventHandler {
         MobEffectInstance effect = event.getEffectInstance();
         if (effect == null) return;
 
-        if (effect.getEffect().is(ModEffects.GOLDEN_ARMOR)) {
+        if (effect.getEffect().equals(ModEffects.GOLDEN_ARMOR)) {
             if (entity.isOnFire()) {
                 entity.clearFire();
                 entity.igniteForSeconds(0);

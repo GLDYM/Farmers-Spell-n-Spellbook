@@ -220,6 +220,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         }
     }
 
+    @SuppressWarnings("unchecked")
     private Optional<CookingPotRecipe> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
         if (level == null)
             return Optional.empty();

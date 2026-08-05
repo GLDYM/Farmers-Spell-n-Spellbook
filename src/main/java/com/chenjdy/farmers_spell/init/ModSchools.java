@@ -39,8 +39,8 @@ public class ModSchools {
             ModAttributes.GLUTTONY_MAGIC_RESIST,
             BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.GENERIC_EAT),
             GLUTTONY_MAGIC,
-            true,
-            true
+            false,
+            false
     ));
 
     public static void register(IEventBus eventBus) {

@@ -35,6 +35,7 @@ import net.minecraft.world.ItemInteractionResult;
 public class RedVelvetCakeBlock extends CakeBlock {
     public static final MapCodec<RedVelvetCakeBlock> CODEC = simpleCodec(RedVelvetCakeBlock::new);
 
+    @SuppressWarnings("unchecked")
     @Override
     public MapCodec<CakeBlock> codec() {
         return (MapCodec<CakeBlock>) (MapCodec<?>) CODEC;

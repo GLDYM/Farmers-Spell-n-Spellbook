@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 public class CinderousStoveBlock extends StoveBlock {
     public static final MapCodec<CinderousStoveBlock> CODEC = simpleCodec(CinderousStoveBlock::new);
 
+    @SuppressWarnings("unchecked")
     @Override
     public MapCodec<StoveBlock> codec() {
         return (MapCodec<StoveBlock>) (MapCodec<?>) CODEC;

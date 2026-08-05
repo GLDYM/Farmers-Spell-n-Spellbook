@@ -22,6 +22,7 @@ public class ConglomerateOfItems {
         return stacks;
     }
 
+    @SuppressWarnings("unchecked")
     public void resolveStacks(RegistryAccess registryAccess) {
         stacks.clear();
 

@@ -85,5 +85,6 @@ public class PreserveCircleAoe extends AoeEntity {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 }

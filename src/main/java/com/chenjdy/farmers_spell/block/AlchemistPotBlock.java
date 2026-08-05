@@ -243,6 +243,7 @@ public class AlchemistPotBlock extends Block implements SimpleWaterloggedBlock, 
         return createTickerHelper(blockEntity, ModBlockEntities.ALCHEMIST_POT.get(), AlchemistPotBlockEntity::cookingTick);
     }
 
+    @SuppressWarnings("unchecked")
     @Nullable
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
         return clientType == serverType ? (BlockEntityTicker<A>) ticker : null;
