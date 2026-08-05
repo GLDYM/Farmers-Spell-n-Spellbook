@@ -1,5 +1,5 @@
 {
-  "type": "farmers_spell:append_loot",
+  "type": "neoforge:add_table",
   "conditions": [
     {
       "condition": "minecraft:entity_properties",
@@ -9,5 +9,5 @@
       }
     }
   ],
-  "key": "farmers_spell:entities/stray_loot"
+  "table": "farmers_spell:entities/stray_loot"
 }

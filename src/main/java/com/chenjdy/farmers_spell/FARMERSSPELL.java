@@ -34,7 +34,6 @@ public class FarmersSpell {
         ModEffects.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
-        ModLoots.register(modEventBus);
         ModFluids.register(modEventBus);
 
         modEventBus.addListener(ModNetwork::register);

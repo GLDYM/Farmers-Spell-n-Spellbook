@@ -2,3 +2,7 @@
 - 调整 Maven
 - Github Action
 - initializeClient 需要换掉
+- 食灵百味瓶 投喂食灵获得，JEI没写
+- EMI
+- Caged Mobs
+- 植物盆 紫晶甜菜

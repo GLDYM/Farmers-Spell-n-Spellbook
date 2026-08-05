@@ -1,5 +1,5 @@
 {
-  "type": "farmers_spell:append_loot",
+  "type": "neoforge:add_table",
   "conditions": [
     {
       "condition": "minecraft:any_of",
@@ -47,5 +47,5 @@
       ]
     }
   ],
-  "key": "farmers_spell:chests/wheat_book_loot"
+  "table": "farmers_spell:chests/wheat_book_loot"
 }
