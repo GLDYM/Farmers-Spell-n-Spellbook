@@ -1,9 +1,9 @@
 package com.chenjdy.farmers_spell.item.armor;
 
 import com.chenjdy.farmers_spell.init.ModAttributes;
-import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.armor.IronsExtendedArmorMaterial;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements IronsExtendedArmorMaterial {
 
-    GLUTTONY_CHEF("gluttony_chef", 38, schoolArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ModItems.GLUTTON_RUNE.get()), Map.of(
+    GLUTTONY_CHEF("gluttony_chef", 38, schoolArmorMap(), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.of(ItemRegistry.MAGIC_CLOTH.get()), Map.of(
             AttributeRegistry.MAX_MANA.get(), new AttributeModifier("Max Mana", 125, AttributeModifier.Operation.ADDITION),
             AttributeRegistry.SPELL_POWER.get(), new AttributeModifier("Base Power", 0.05, AttributeModifier.Operation.MULTIPLY_BASE),
             ModAttributes.GLUTTONY_SPELL_POWER.get(), new AttributeModifier("Gluttony Power", 0.10, AttributeModifier.Operation.MULTIPLY_BASE)

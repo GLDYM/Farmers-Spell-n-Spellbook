@@ -64,11 +64,11 @@ public class DrinkItem extends DrinkableItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         if (manaRecoveryPercent > 0) {
-            tooltipComponents.add(Component.literal("- ").append(Component.literal("恢复 " + manaRecoveryPercent + "% 最大法力").withStyle(ChatFormatting.DARK_AQUA)).withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.literal("- ").append(Component.translatable("item.farmers_spell.tooltip.mana_recovery", manaRecoveryPercent).withStyle(ChatFormatting.DARK_AQUA)).withStyle(ChatFormatting.GRAY));
         }
         
         if (clearNegativeEffects) {
-            tooltipComponents.add(Component.literal("- ").append(Component.literal("清除所有负面效果").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.literal("- ").append(Component.translatable("item.farmers_spell.tooltip.clear_effects").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.GRAY));
         }
         
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);

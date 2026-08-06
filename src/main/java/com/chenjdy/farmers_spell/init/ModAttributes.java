@@ -20,12 +20,6 @@ public class ModAttributes {
         ATTRIBUTES.register(eventBus);
     }
 
-    public static final RegistryObject<Attribute> MAX_MANA = ATTRIBUTES.register("max_mana",
-            () -> (new MagicRangedAttribute("attribute.farmers_spell.max_mana", 100.0D, 0.0D, 1000000.0D).setSyncable(true)));
-
-    public static final RegistryObject<Attribute> SPELL_POWER = ATTRIBUTES.register("spell_power",
-            () -> (new MagicRangedAttribute("attribute.farmers_spell.spell_power", 1.0D, -100, 100.0D).setSyncable(true)));
-
     public static final RegistryObject<Attribute> GLUTTONY_SPELL_POWER = ATTRIBUTES.register("gluttony_spell_power", 
             () -> (new MagicRangedAttribute("attribute.farmers_spell.gluttony_spell_power", 1.0D, -100, 100.0D).setSyncable(true)));
 

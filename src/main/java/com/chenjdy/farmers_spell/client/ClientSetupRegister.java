@@ -4,10 +4,10 @@ import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.client.renderer.BadAppleRender;
 import com.chenjdy.farmers_spell.client.renderer.ChaosSlashRender;
 import com.chenjdy.farmers_spell.client.renderer.FoodgeistRender;
-import com.chenjdy.farmers_spell.client.renderer.SpellBookCurioRender;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModMenuTypes;
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -27,9 +27,9 @@ public class ClientSetupRegister {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.ALCHEMIST_POT.get(), AlchemistPotScreen::new);
             
-            CuriosRendererRegistry.register(ModItems.TIRAMISU.get(), SpellBookCurioRender::new);
-            CuriosRendererRegistry.register(ModItems.LASAGNOWLEDGE.get(), SpellBookCurioRender::new);
-            CuriosRendererRegistry.register(ModItems.WHEAT_BOOK.get(), SpellBookCurioRender::new);
+            CuriosRendererRegistry.register(ModItems.TIRAMISU.get(), SpellBookCurioRenderer::new);
+            CuriosRendererRegistry.register(ModItems.LASAGNOWLEDGE.get(), SpellBookCurioRenderer::new);
+            CuriosRendererRegistry.register(ModItems.WHEAT_BOOK.get(), SpellBookCurioRenderer::new);
         });
     }
     

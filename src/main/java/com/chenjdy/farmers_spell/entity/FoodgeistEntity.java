@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.entity;
 import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
@@ -32,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
@@ -54,7 +56,10 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public static final TagKey<Item> FOODGEIST_FOOD = TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), 
-            new ResourceLocation("farmers_spell", "foodgeist_food"));
+            ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_food"));
+
+    public static final TagKey<Block> FOODGEIST_FOOD_BLOCKS = TagKey.create(ForgeRegistries.BLOCKS.getRegistryKey(), 
+            ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_food_blocks"));
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -105,7 +110,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FoodgeistPickupItemGoal(this, 0.8D)); // 统一速度
+        this.goalSelector.addGoal(1, new FoodgeistPickupItemGoal(this, 0.8D));
         this.goalSelector.addGoal(2, new FoodgeistFollowPlayerGoal(this, 0.8D, 1.0F)); // 统一速度，1格停止
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 0.5D, 20));
@@ -236,6 +241,17 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             this.spawnItemAtPlayer(nearestPlayer, new ItemStack(Items.NETHERITE_SCRAP));
             for (int i = 0; i < 20; i++) {
                 this.spawnSoulParticles();
+            }
+        }
+
+        if (nearestPlayer instanceof ServerPlayer serverPlayer) {
+            CompoundTag persistentData = serverPlayer.getPersistentData();
+            int satisfiedCount = persistentData.getInt("foodgeist_satisfied_count");
+            satisfiedCount++;
+            persistentData.putInt("foodgeist_satisfied_count", satisfiedCount);
+
+            if (satisfiedCount >= 10) {
+                ModTriggers.FOODGEIST_SATISFIED_TRIGGER.trigger(serverPlayer);
             }
         }
     }
@@ -408,10 +424,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
                         hasCabinet = true;
                     }
 
-                    if (state.is(ModBlocks.RED_VELVET_CAKE.get()) ||
-                            state.is(ModBlocks.GOODBERRY_PIE.get()) ||
-                            state.is(ModBlocks.EDEN_APPLE_TART.get()) ||
-                            state.is(ModBlocks.GLUTTON_HOTCHPOTCH.get())) {
+                    if (state.is(FOODGEIST_FOOD_BLOCKS)) {
                         hasFoodBlock = true;
                     }
                 }

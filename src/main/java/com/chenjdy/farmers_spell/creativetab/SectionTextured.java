@@ -29,7 +29,7 @@ public class SectionTextured extends AbstractSectionWithTitle<SectionTextured> {
 
     public SectionTextured(ResourceLocation id) {
         super(id);
-        this.texture = new ResourceLocation(id.getNamespace(), "textures/gui/fancy_tab_section/" + id.getPath() + ".png");
+        this.texture = ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/fancy_tab_section/" + id.getPath() + ".png");
         this.title = Component.translatable("section." + id.getNamespace() + "." + id.getPath());
     }
 
@@ -48,7 +48,7 @@ public class SectionTextured extends AbstractSectionWithTitle<SectionTextured> {
         return new SectionTextured(
             id,
             title,
-            new ResourceLocation(id.getNamespace(), "textures/gui/fancy_tab_section/" + id.getPath() + ".png"),
+            ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "textures/gui/fancy_tab_section/" + id.getPath() + ".png"),
             textColor,
             textShadow,
             collapsible,
@@ -57,7 +57,7 @@ public class SectionTextured extends AbstractSectionWithTitle<SectionTextured> {
     }
 
     public SectionTextured setTexture(ResourceLocation texture) {
-        this.texture = new ResourceLocation(texture.getNamespace(), "textures/gui/fancy_tab_section/" + texture.getPath() + ".png");
+        this.texture = ResourceLocation.fromNamespaceAndPath(texture.getNamespace(), "textures/gui/fancy_tab_section/" + texture.getPath() + ".png");
         return this;
     }
 

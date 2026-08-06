@@ -36,13 +36,6 @@ public class ModFoods {
             .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR.get(), 5 * 60 * 20, 2), 1.0F)
             .build();
-    // 神圣黄油鸡
-    public static final FoodProperties BUTTER_CHICKEN = (new FoodProperties.Builder())          
-            .nutrition(6)
-            .saturationMod(0.8f)
-            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffectRegistry.HASTENED.get(), 2 * 60 * 20, 4), 1.0F)
-            .build();
     // 碗装龙鳞冻
     public static final FoodProperties BOWL_OF_DRAGON_SKIN_ASPIC = (new FoodProperties.Builder())
             .nutrition(32)
@@ -173,13 +166,6 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(MobEffectRegistry.CHARGED.get(), 600, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE.get(), 3 * 60 * 20, 0), 1.0F)
             .build();
-    // 橡肤南瓜浓汤
-    public static final FoodProperties PUMPKIN_SOUP = new FoodProperties.Builder()
-            .nutrition(20)
-            .saturationMod(0.6f)
-            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffectRegistry.OAKSKIN.get(), 5 * 60 * 20, 3), 1.0F)
-            .build();
     // 神莓
     public static final FoodProperties GOODBERRY = new FoodProperties.Builder()
             .nutrition(6)
@@ -302,5 +288,19 @@ public class ModFoods {
             .saturationMod(1f)
             .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR.get(), 5 * 60 * 20, 2), 1.0F)
+            .build();
+    // 碗装橡肤南瓜汤
+    public static final FoodProperties BOWL_OF_PUMPKIN_SOUP = new FoodProperties.Builder()
+            .nutrition(20)
+            .saturationMod(0.6f)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.OAKSKIN.get(), 5 * 60 * 20, 3), 1.0F)
+            .build();
+    // 碗装成吉思鸡
+    public static final FoodProperties BOWL_OF_SAINGEZI_CHICKEN = new FoodProperties.Builder()
+            .nutrition(30)
+            .saturationMod(1f)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 2), 1.0F)
             .build();
 }

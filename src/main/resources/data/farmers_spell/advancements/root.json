@@ -16,11 +16,13 @@
     "background": "irons_spellbooks:textures/block/wisewood_planks.png"
   },
   "criteria": {
-    "automatic": {
-      "trigger": "minecraft:impossible"
+    "seeds": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
-    ["automatic"]
-  ]
+    ["seeds"]
+  ],
+  "sends_telemetry_event": true
 }

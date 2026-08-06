@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "farmers_spell:root",
+  "parent": "farmers_spell:alchemist_pot",
   "criteria": {
     "get_egg": {
       "trigger": "minecraft:inventory_changed",

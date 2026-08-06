@@ -23,8 +23,8 @@ public class BannerRenderer {
     public static final int VISIBLE_ROWS = 5;
     public static final int BANNER_WIDTH = GRID_COLS * ROW_HEIGHT - 4;
 
-    public static final ResourceLocation EXPANDED_BUTTON = new ResourceLocation(FARMERSSPELL.MODID, "textures/gui/fancy_tab_section/collapse_button/expanded_button.png");
-    public static final ResourceLocation COLLAPSED_BUTTON = new ResourceLocation(FARMERSSPELL.MODID, "textures/gui/fancy_tab_section/collapse_button/collapsed_button.png");
+    public static final ResourceLocation EXPANDED_BUTTON = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/gui/fancy_tab_section/collapse_button/expanded_button.png");
+    public static final ResourceLocation COLLAPSED_BUTTON = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/gui/fancy_tab_section/collapse_button/collapsed_button.png");
 
     public static void render(CreativeModeInventoryScreen screen, GuiGraphics guiGraphics, List<Section<?>> sections, int mouseX, int mouseY) {
         int topLeftX = screen.getGuiLeft() + 8;

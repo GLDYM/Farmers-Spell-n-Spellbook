@@ -5,9 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,8 +25,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
 
 public class AmethystBeetrootBlock extends CropBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -156,7 +151,10 @@ public class AmethystBeetrootBlock extends CropBlock {
         Direction facing = state.getValue(FACING);
         if (direction == facing.getOpposite()) {
             if (!canSurvive(state, level, pos)) {
-                level.scheduleTick(pos, this, 1);
+                if (level instanceof ServerLevel serverLevel) {
+                    serverLevel.destroyBlock(pos, true);
+                }
+                return Blocks.AIR.defaultBlockState();
             } else {
                 int age = state.getValue(AGE);
                 if (age >= getMaxAge() && level instanceof ServerLevel serverLevel) {
@@ -205,10 +203,5 @@ public class AmethystBeetrootBlock extends CropBlock {
             }
         }
         return speed;
-    }
-
-    @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack itemStack) {
-        super.playerDestroy(level, player, pos, state, blockEntity, itemStack);
     }
 }

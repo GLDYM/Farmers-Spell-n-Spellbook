@@ -55,6 +55,13 @@
   "item.farmers_spell.bowl_of_glutton_hotchpotch": "Bowl of Gluttonous Hodgepodge",
   "item.farmers_spell.glutton_hotchpotch.serve": "Serve with %s",
   "item.farmers_spell.pumpkin_soup": "Oakflesh Pumpkin Bisque",
+  "block.farmers_spell.pumpkin_soup": "Oakflesh Pumpkin Bisque",
+  "item.farmers_spell.bowl_of_pumpkin_soup": "Bowl of Oakflesh Pumpkin Bisque",
+  "item.farmers_spell.pumpkin_soup.serve": "Serve pumpkin soup with %s",
+  "item.farmers_spell.saingezi_chicken": "Saingezi Chicken",
+  "block.farmers_spell.saingezi_chicken": "Saingezi Chicken",
+  "item.farmers_spell.bowl_of_saingezi_chicken": "Bowl of Saingezi Chicken",
+  "item.farmers_spell.saingezi_chicken.serve": "Serve with %s",
   "item.farmers_spell.hogskin_slice": "Sliced Hogskin",
 
   "item.farmers_spell.red_velvet_cake": "Red Velvet Cake",
@@ -124,6 +131,7 @@
   "spell.farmers_spell.preserve_circle": "Brining Ritual",
   "spell.farmers_spell.preserve_circle.guide": "Weaken the aggression of all creatures within the targeted area via brining enchantment.",
   "entity.farmers_spell.bad_apple": "Rotten Apple",
+  "entity.farmers_spell.bad_apple.name": "Rotten Apple",
   "entity.farmers_spell.preserve_circle_aoe": "Brining Aura",
   "entity.farmers_spell.foodgeist": "Foodgeist",
   "item.farmers_spell.foodgeist_spawn_egg": "Foodgeist Spawn Egg",
@@ -142,6 +150,9 @@
   "entity.farmers_spell.butter_projectile": "Hallowed Butter",
   "item.farmers_spell.wsip_butter.tooltip": "Throwable",
   "farmers_spell.tooltip.placeable": "Placeable",
+  "item.farmers_spell.tooltip.mana_recovery": "Restores %s%% Maximum Mana",
+  "item.farmers_spell.tooltip.infinite": "Infinite",
+  "item.farmers_spell.tooltip.clear_effects": "Clears all negative effects",
   "attribute.farmers_spell.gluttony_spell_power": "Gluttony Spell Power",
   "message.farmers_spell.foodgeist_recovering": "Foodgeist is recovering, %s seconds remaining...",
   "message.farmers_spell.foodgeist_blessing": "Foodgeist's Blessing! You feel refreshed!",
@@ -180,5 +191,13 @@
   "advancements.farmers_spell.paofu.title": "Matthew's Trap",
   "advancements.farmers_spell.paofu.description": "Obtain Lightning Puff, it really improves your physical abilities",
   "advancements.farmers_spell.phantom_loot.title": "Wait, That's Important...",
-  "advancements.farmers_spell.phantom_loot.description": "This is the power of HYPER! Provided the opponent is weak enough"
+  "advancements.farmers_spell.phantom_loot.description": "This is the power of HYPER! Provided the opponent is weak enough",
+  "advancements.farmers_spell.chef_ratatouille.title": "Chef Ratatouille",
+  "advancements.farmers_spell.chef_ratatouille.description": "Obtain the Foodgeist's secret seasoning, a delicious powder imbued with Gluttony magic",
+  "advancements.farmers_spell.food_shaman.title": "Food Shaman",
+  "advancements.farmers_spell.food_shaman.description": "Satisfy ten Foodgeists, receive a dessert treasured by Foodgeists",
+  
+  "jei.item.farmers_spell.foodgeist_seasoning.info": "Obtained by feeding food to Foodgeists, a seasoning imbued with Gluttony magic",
+  "jei.item.farmers_spell.foodgeist_cheese.info": "Obtained by feeding food to Foodgeists, a delicious cheese",
+  "jei.item.farmers_spell.cinderoous_ham.info": "Obtained by feeding food to Foodgeists, a smoked ham"
 }

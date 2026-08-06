@@ -8,7 +8,9 @@ import com.chenjdy.farmers_spell.network.NetworkHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import software.bernie.geckolib.GeckoLib;
@@ -17,10 +19,13 @@ import software.bernie.geckolib.GeckoLib;
 public class FARMERSSPELL
 {
     public static final String MODID = "farmers_spell";
-    public FARMERSSPELL(FMLJavaModLoadingContext context)
+    
+    @SuppressWarnings("removal")
+    public FARMERSSPELL()
     {
         GeckoLib.initialize();
-        IEventBus modEventBus = context.getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModConfigs.SPEC);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModAttributes.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);

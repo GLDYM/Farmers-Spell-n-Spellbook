@@ -21,6 +21,7 @@ import com.chenjdy.farmers_spell.item.weapons.IrisFork;
 import com.chenjdy.farmers_spell.item.weapons.TwilightBlade;
 import com.chenjdy.farmers_spell.item.armor.*;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -108,9 +109,7 @@ public class ModItems {
     // 过载焦糖
     public static final RegistryObject<Item> ENERGIZED_CARAMEL = ITEMS.register("energized_caramel",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CARAMEL)));
-    // 橡肤南瓜浓汤
-    public static final RegistryObject<Item> PUMPKIN_SOUP = ITEMS.register("pumpkin_soup",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.PUMPKIN_SOUP)));
+
     // 神莓
     public static final RegistryObject<Item> GOODBERRY = ITEMS.register("goodberry",
             () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY)));
@@ -149,9 +148,6 @@ public class ModItems {
     //炽血麻辣烫
     public static final RegistryObject<Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.CINDEROUS_HOTPOT)));
-    // 神圣黄油鸡
-    public static final RegistryObject<Item> BUTTER_CHICKEN = ITEMS.register("butter_chicken",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.BUTTER_CHICKEN)));
     // 碗装龙鳞冻
     public static final RegistryObject<Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
@@ -197,6 +193,12 @@ public class ModItems {
     // 碗装饕餮乱炖
     public static final RegistryObject<Item> BOWL_OF_GLUTTON_HOTCHPOTCH = ITEMS.register("bowl_of_glutton_hotchpotch",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_GLUTTON_HOTCHPOTCH)));
+    // 碗装橡肤南瓜汤
+    public static final RegistryObject<Item> BOWL_OF_PUMPKIN_SOUP = ITEMS.register("bowl_of_pumpkin_soup",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_PUMPKIN_SOUP)));
+    // 碗装成吉思鸡
+    public static final RegistryObject<Item> BOWL_OF_SAINGEZI_CHICKEN = ITEMS.register("bowl_of_saingezi_chicken",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_SAINGEZI_CHICKEN)));
 
     // 紫晶甜菜种子
     public static final RegistryObject<Item> AMETHYST_BEETROOT_SEEDS = ITEMS.register("amethyst_beetroot_seeds",
@@ -249,13 +251,13 @@ public class ModItems {
 
     // 护甲
     public static final RegistryObject<Item> GLUTTONY_CHEF_HAT = ITEMS.register("gluttony_chef_hat",
-            () -> new GluttonyChefHatItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GLUTTONY_CHEF_APRON = ITEMS.register("gluttony_chef_apron",
-            () -> new GluttonyChefApronItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GLUTTONY_CHEF_LEGGINGS = ITEMS.register("gluttony_chef_leggings",
-            () -> new GluttonyChefLeggingsItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GLUTTONY_CHEF_BOOTS = ITEMS.register("gluttony_chef_boots",
-            () -> new GluttonyChefBootsItem(new Item.Properties().stacksTo(1)));
+            () -> new GluttonyChefArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1)));
 
     // 刷怪蛋
     public static final RegistryObject<Item> FOODGEIST_SPAWN_EGG = ITEMS.register("foodgeist_spawn_egg",

@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.spells;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.init.ModConfigs;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
@@ -36,7 +37,7 @@ import static net.minecraft.world.level.storage.loot.parameters.LootContextParam
 public class PhantomLootSpell extends AbstractSpell {
 
     public static final TagKey<EntityType<?>> BLACKLIST = TagKey.create(Registries.ENTITY_TYPE,
-            new ResourceLocation(FARMERSSPELL.MODID, "phantom_loot_blacklist"));
+            ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "phantom_loot_blacklist"));
 
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "phantom_loot");
 
@@ -101,7 +102,7 @@ public class PhantomLootSpell extends AbstractSpell {
 
     private boolean isValidTarget(Mob mob) {
         if (mob.getType().is(BLACKLIST)) return false;
-        if (mob.getMaxHealth() > 100.0f) return false;
+        if (mob.getMaxHealth() > ModConfigs.getPhantomLootMaxHp()) return false;
         if (mob.getBbWidth() > 3.0f && mob.getBbHeight() > 3.0f) return false;
         return true;
     }

@@ -5,9 +5,12 @@ import com.chenjdy.farmers_spell.block.AlchemistPotBlock;
 import com.chenjdy.farmers_spell.block.AmethystBeetrootBlock;
 import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
 import com.chenjdy.farmers_spell.block.GluttonHotchpotchBlock;
+import com.chenjdy.farmers_spell.block.PumpkinSoupBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
+import com.chenjdy.farmers_spell.block.SaingeziChickenBlock;
 import com.chenjdy.farmers_spell.block.WisewoodCabinetBlock;
 import com.chenjdy.farmers_spell.item.PlaceableBlockItem;
+import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -83,6 +86,21 @@ public class ModBlocks {
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F)));
+    // 橡肤南瓜浓汤
+    public static final RegistryObject<PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
+            () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .sound(SoundType.WOOL)
+                    .strength(0.5F)));
+    // 成吉思鸡
+    public static final RegistryObject<SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
+            () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .sound(SoundType.WOOL)
+                    .strength(0.5F)
+                    .noOcclusion()
+                    .isValidSpawn((state, level, pos, type) -> false)),
+            SaingeziChickenItem.class);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -96,6 +114,12 @@ public class ModBlocks {
         return toReturn;
     }
 
+    private static <T extends Block> RegistryObject<T> registerBlockWithCustomItem(String name, Supplier<T> block, Class<? extends BlockItem> itemClass) {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerCustomBlockItem(name, toReturn, itemClass);
+        return toReturn;
+    }
+
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties()));
@@ -104,6 +128,17 @@ public class ModBlocks {
     private static <T extends Block> void registerPlaceableBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new PlaceableBlockItem(block.get(),
                 new Item.Properties()));
+    }
+
+    private static <T extends Block> void registerCustomBlockItem(String name, RegistryObject<T> block, Class<? extends BlockItem> itemClass) {
+        ModItems.ITEMS.register(name, () -> {
+            try {
+                return itemClass.getConstructor(Block.class, Item.Properties.class)
+                        .newInstance(block.get(), new Item.Properties());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public static void register(IEventBus eventBus) {

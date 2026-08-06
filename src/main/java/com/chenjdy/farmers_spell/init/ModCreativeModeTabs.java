@@ -36,10 +36,12 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.BUTTER_POTATO.get());
                         pOutput.accept(ModItems.CERIC_CROSS_BUN.get());
                         pOutput.accept(ModItems.AMETHYST_BURGER.get());
-                        pOutput.accept(ModItems.BUTTER_CHICKEN.get());
                         pOutput.accept(ModBlocks.EDEN_APPLE_TART.get());
                         pOutput.accept(ModItems.EDEN_APPLE_TART_SLICE.get());
-                        pOutput.accept(ModItems.PUMPKIN_SOUP.get());
+                        pOutput.accept(ModBlocks.PUMPKIN_SOUP.get());
+                        pOutput.accept(ModItems.BOWL_OF_PUMPKIN_SOUP.get());
+                        pOutput.accept(ModBlocks.SAINGEZI_CHICKEN.get());
+                        pOutput.accept(ModItems.BOWL_OF_SAINGEZI_CHICKEN.get());
                         pOutput.accept(ModItems.GOODBERRY_MUFFIN.get());
                         pOutput.accept(ModBlocks.GOODBERRY_PIE.get());
                         pOutput.accept(ModItems.GOODBERRY_PIE_SLICE.get());
@@ -49,6 +51,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.ICEBERGCREAM.get());
                         pOutput.accept(ModItems.PERMAFROST_POPSICLE.get());
                         pOutput.accept(ModItems.VEX_GINGER.get());
+                        pOutput.accept(ModBlocks.GLUTTON_HOTCHPOTCH.get());
                         pOutput.accept(ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get());
                         pOutput.accept(ModItems.CINDEROUS_HOTPOT.get());
                         pOutput.accept(ModItems.WINE_BEEF_STEW.get());
@@ -73,7 +76,6 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.AMETHYST_TEQUILA.get());
                         pOutput.accept(ModItems.INK_BEER.get());
                         pOutput.accept(ModItems.MOZHAO.get());
-                        pOutput.accept(ModItems.AMETHYST_BEETROOT_SEEDS.get());
                         pOutput.accept(ModItems.GOSPEL.get());
                         pOutput.accept(ModItems.HELL_KNIFE.get());
                         pOutput.accept(ModItems.TWILIGHT_BLADE.get());
@@ -92,7 +94,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.LASAGNOWLEDGE.get());
                         pOutput.accept(ModItems.CHERRY_SPOON.get());
                         pOutput.accept(ModItems.IRIS_FORK.get());
-                        pOutput.accept(ModBlocks.GLUTTON_HOTCHPOTCH.get());
+                        pOutput.accept(ModItems.AMETHYST_BEETROOT_SEEDS.get());
                         pOutput.accept(ModItems.FOODGEIST_SPAWN_EGG.get());
                     }).build());
 

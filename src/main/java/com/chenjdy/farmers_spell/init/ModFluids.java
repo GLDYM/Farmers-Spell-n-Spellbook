@@ -22,9 +22,9 @@ public class ModFluids {
             DeferredRegister.create(Registries.FLUID, FARMERSSPELL.MODID);
 
     private static final ResourceLocation WATER_STILL_RL =
-            new ResourceLocation("minecraft", "block/water_still");
+            ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_still");
     private static final ResourceLocation WATER_FLOWING_RL =
-            new ResourceLocation("minecraft", "block/water_flow");
+            ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_flow");
 
     public static final RegistryObject<FluidType> ORIGINAL_NECTAR_TYPE =
             FLUID_TYPES.register("original_nectar", () -> new FluidType(FluidType.Properties.create()) {

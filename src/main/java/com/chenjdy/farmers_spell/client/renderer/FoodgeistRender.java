@@ -43,9 +43,9 @@ public class FoodgeistRender extends GeoEntityRenderer<FoodgeistEntity> {
     }
 
     private static class FoodgeistModel extends GeoModel<FoodgeistEntity> {
-        private static final ResourceLocation MODEL = new ResourceLocation(FARMERSSPELL.MODID, "geo/foodgeist.geo.json");
-        private static final ResourceLocation TEXTURE = new ResourceLocation(FARMERSSPELL.MODID, "textures/entity/foodgeist.png");
-        private static final ResourceLocation ANIMATIONS = new ResourceLocation(FARMERSSPELL.MODID, "animations/foodgeist.animation.json");
+        private static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "geo/foodgeist.geo.json");
+        private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/foodgeist.png");
+        private static final ResourceLocation ANIMATIONS = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "animations/foodgeist.animation.json");
 
         @Override
         public ResourceLocation getModelResource(FoodgeistEntity object) {

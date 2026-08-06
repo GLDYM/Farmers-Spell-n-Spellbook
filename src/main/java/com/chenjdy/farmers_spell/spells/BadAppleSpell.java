@@ -84,7 +84,7 @@ public class BadAppleSpell extends AbstractSpell {
         
         if (!level.isClientSide) {
             BadAppleEntity badApple = new BadAppleEntity(level, targetPos, spellLevel);
-            badApple.setCustomName(Component.literal("坏苹果"));
+            badApple.setCustomName(Component.translatable("entity.farmers_spell.bad_apple.name"));
             level.addFreshEntity(badApple);
         }
         

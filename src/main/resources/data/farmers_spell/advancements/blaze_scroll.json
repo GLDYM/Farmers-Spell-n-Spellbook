@@ -7,14 +7,14 @@
       "translate": "advancements.farmers_spell.blaze_scroll.description"
     },
     "icon": {
-      "item": "irons_spellbooks:fire_rune"
+      "item": "minecraft:campfire"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "farmers_spell:root",
+  "parent": "farmers_spell:alchemist_pot",
   "criteria": {
     "place_blaze_scroll": {
       "trigger": "farmers_spell:blaze_scroll"
