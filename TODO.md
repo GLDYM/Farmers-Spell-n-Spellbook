@@ -1,7 +1,4 @@
 - 重新审阅所有代码
-- 调整 Maven
-- Github Action
-- initializeClient 需要换掉
 - 食灵百味瓶 投喂食灵获得，JEI没写
 - EMI
 - Caged Mobs
