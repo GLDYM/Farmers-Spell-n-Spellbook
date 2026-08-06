@@ -1,3 +1,3 @@
-# Farmer's Spell 'n Spellbooks Neoforge
+# Farmer's Spell 'n Spellbook Neoforge
 
 All Right Reserved.
