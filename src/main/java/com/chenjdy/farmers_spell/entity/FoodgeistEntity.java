@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.entity;
 import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
@@ -237,6 +238,15 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             this.spawnItemAtPlayer(nearestPlayer, new ItemStack(Items.NETHERITE_SCRAP));
             for (int i = 0; i < 20; i++) {
                 this.spawnSoulParticles();
+            }
+        }
+
+        if (nearestPlayer instanceof ServerPlayer serverPlayer) {
+            CompoundTag persistentData = serverPlayer.getPersistentData();
+            int satisfiedCount = persistentData.getInt("foodgeist_satisfied_count") + 1;
+            persistentData.putInt("foodgeist_satisfied_count", satisfiedCount);
+            if (satisfiedCount >= 10) {
+                ModTriggers.FOODGEIST_SATISFIED_TRIGGER.get().trigger(serverPlayer);
             }
         }
     }

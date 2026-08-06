@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
+import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
@@ -89,8 +90,6 @@ public class ModItems {
             () -> new ButterItem(normalFoodItem(ModFoods.WSIP_BUTTER)));
     public static final DeferredHolder<Item, Item> ENERGIZED_CARAMEL = ITEMS.register("energized_caramel",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CARAMEL)));
-    public static final DeferredHolder<Item, Item> PUMPKIN_SOUP = ITEMS.register("pumpkin_soup",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.PUMPKIN_SOUP)));
     public static final DeferredHolder<Item, Item> GOODBERRY = ITEMS.register("goodberry",
             () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY)));
     public static final DeferredHolder<Item, Item> ICY_EGG = ITEMS.register("icy_egg",
@@ -148,6 +147,10 @@ public class ModItems {
 
     public static final DeferredHolder<Item, Item> BOWL_OF_GLUTTON_HOTCHPOTCH = ITEMS.register("bowl_of_glutton_hotchpotch",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_GLUTTON_HOTCHPOTCH)));
+    public static final DeferredHolder<Item, Item> BOWL_OF_PUMPKIN_SOUP = ITEMS.register("bowl_of_pumpkin_soup",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_PUMPKIN_SOUP)));
+    public static final DeferredHolder<Item, Item> BOWL_OF_SAINGEZI_CHICKEN = ITEMS.register("bowl_of_saingezi_chicken",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_SAINGEZI_CHICKEN)));
 
     public static final DeferredHolder<Item, Item> AMETHYST_BEETROOT_SEEDS = ITEMS.register("amethyst_beetroot_seeds",
             () -> new CropSeedItem(ModBlocks.AMETHYST_BEETROOT, new Item.Properties()));

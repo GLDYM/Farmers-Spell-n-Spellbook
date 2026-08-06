@@ -1,0 +1,35 @@
+﻿{
+  "display": {
+    "title": {
+      "translate": "advancement.farmers_spell.paofu.title"
+    },
+    "description": {
+      "translate": "advancement.farmers_spell.paofu.description"
+    },
+    "icon": {
+      "id": "farmers_spell:paofu"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:energized_caramel",
+  "criteria": {
+    "get_paofu": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:paofu"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_paofu"]
+  ]
+}
+
+

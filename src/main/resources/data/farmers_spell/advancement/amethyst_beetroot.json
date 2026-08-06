@@ -1,0 +1,35 @@
+﻿{
+  "display": {
+    "title": {
+      "translate": "advancement.farmers_spell.amethyst_beetroot.title"
+    },
+    "description": {
+      "translate": "advancement.farmers_spell.amethyst_beetroot.description"
+    },
+    "icon": {
+      "id": "farmers_spell:amethyst_beetroot"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:alchemist_pot",
+  "criteria": {
+    "get_beetroot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:amethyst_beetroot"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_beetroot"]
+  ]
+}
+
+

@@ -4,13 +4,17 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.client.AlchemistPotScreen;
 import com.chenjdy.farmers_spell.init.ModBlocks;
+import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModMenuTypes;
 import com.chenjdy.farmers_spell.init.ModRecipeTypes;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,6 +40,32 @@ public class Plugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         List<AlchemistCookingRecipe> recipes = getRecipes();
         registration.addRecipes(AlchemistPotRecipeCategory.RECIPE_TYPE, recipes);
+        registration.addRecipes(RecipeTypes.ANVIL, VanillaAnvilRecipeMaker.getAnvilRepairRecipes(registration.getVanillaRecipeFactory()));
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.FOODGEIST_SEASONING.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.foodgeist_seasoning.info")
+        );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.FOODGEIST_CHEESE.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.foodgeist_cheese.info")
+        );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.CINDEROUS_HAM.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.cinderoous_ham.info")
+        );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.AMETHYST_BEETROOT_SEEDS.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.amethyst_beetroot_seeds.info")
+        );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.ICY_EGG.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.icy_egg.info")
+        );
     }
 
     private static List<AlchemistCookingRecipe> getRecipes() {

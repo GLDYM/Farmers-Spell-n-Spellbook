@@ -310,4 +310,16 @@ public class ModFoods {
             .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR, 5 * 60 * 20, 2), 1.0F)
             .build();
+    public static final FoodProperties BOWL_OF_PUMPKIN_SOUP = new FoodProperties.Builder()
+            .nutrition(20)
+            .saturationModifier(0.6f)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.OAKSKIN.get(), 5 * 60 * 20, 3), 1.0F)
+            .build();
+    public static final FoodProperties BOWL_OF_SAINGEZI_CHICKEN = new FoodProperties.Builder()
+            .nutrition(30)
+            .saturationModifier(1f)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 2), 1.0F)
+            .build();
 }

@@ -1,0 +1,35 @@
+﻿{
+  "display": {
+    "title": {
+      "translate": "advancement.farmers_spell.butter.title"
+    },
+    "description": {
+      "translate": "advancement.farmers_spell.butter.description"
+    },
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:alchemist_pot",
+  "criteria": {
+    "get_butter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:wsip_butter"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_butter"]
+  ]
+}
+
+

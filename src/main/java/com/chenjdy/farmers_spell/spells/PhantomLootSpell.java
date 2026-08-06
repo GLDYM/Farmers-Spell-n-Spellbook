@@ -1,6 +1,8 @@
 package com.chenjdy.farmers_spell.spells;
 
 import com.chenjdy.farmers_spell.FarmersSpell;
+import com.chenjdy.farmers_spell.config.ModConfigs;
+import com.chenjdy.farmers_spell.init.ModTriggers;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -13,6 +15,7 @@ import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -93,7 +96,7 @@ public class PhantomLootSpell extends AbstractSpell {
     private boolean isValidTarget(Mob mob) {
         if (mob.getType().is(BLACKLIST))
             return false;
-        if (mob.getMaxHealth() > 100.0f)
+        if (mob.getMaxHealth() > ModConfigs.getPhantomLootMaxHp())
             return false;
         if (mob.getBbWidth() > 3.0f && mob.getBbHeight() > 3.0f)
             return false;
@@ -113,6 +116,10 @@ public class PhantomLootSpell extends AbstractSpell {
                 ItemEntity itemEntity = new ItemEntity(serverLevel, player.getX(), player.getY(), player.getZ(), item);
                 serverLevel.addFreshEntity(itemEntity);
             }
+        }
+
+        if (caster instanceof ServerPlayer serverPlayer) {
+            ModTriggers.PHANTOM_LOOT_TRIGGER.get().trigger(serverPlayer);
         }
     }
 

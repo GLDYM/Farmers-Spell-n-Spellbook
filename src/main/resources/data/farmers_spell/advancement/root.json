@@ -1,0 +1,29 @@
+﻿{
+  "display": {
+    "title": {
+      "translate": "advancement.farmers_spell.root.title"
+    },
+    "description": {
+      "translate": "advancement.farmers_spell.root.description"
+    },
+    "icon": {
+      "id": "farmers_spell:glutton_hotchpotch"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "irons_spellbooks:textures/block/wisewood_planks.png"
+  },
+  "criteria": {
+    "seeds": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    ["seeds"]
+  ],
+  "sends_telemetry_event": true
+}
+

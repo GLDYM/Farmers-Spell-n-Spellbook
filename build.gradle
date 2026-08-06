@@ -9,7 +9,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = 'farmers-spell-1.21.1'
+    archivesName = 'farmers-spell-n-spellbook'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

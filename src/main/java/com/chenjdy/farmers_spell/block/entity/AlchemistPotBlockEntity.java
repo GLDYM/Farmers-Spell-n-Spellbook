@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
 import com.chenjdy.farmers_spell.init.ModRecipeTypes;
+import com.chenjdy.farmers_spell.init.ModTriggers;
 import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import io.redspace.ironsspellbooks.api.item.IScroll;
@@ -126,9 +127,24 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
 
             @Override
             protected void onContentsChanged(int slot) {
+                AlchemistPotBlockEntity.this.checkBlazeScrollAdvancement();
                 inventoryChanged();
             }
         };
+    }
+
+    private void checkBlazeScrollAdvancement() {
+        if (level == null || level.isClientSide() || !isBlazeScroll()) {
+            return;
+        }
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        for (var player : serverLevel.players()) {
+            if (player.distanceToSqr(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()) < 64.0D) {
+                ModTriggers.BLAZE_SCROLL_TRIGGER.get().trigger(player);
+            }
+        }
     }
 
     private ContainerData createIntArray() {

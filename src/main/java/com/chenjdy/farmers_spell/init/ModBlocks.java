@@ -5,9 +5,12 @@ import com.chenjdy.farmers_spell.block.AlchemistPotBlock;
 import com.chenjdy.farmers_spell.block.AmethystBeetrootBlock;
 import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
 import com.chenjdy.farmers_spell.block.GluttonHotchpotchBlock;
+import com.chenjdy.farmers_spell.block.PumpkinSoupBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
+import com.chenjdy.farmers_spell.block.SaingeziChickenBlock;
 import com.chenjdy.farmers_spell.block.WisewoodCabinetBlock;
 import com.chenjdy.farmers_spell.item.PlaceableBlockItem;
+import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -83,6 +86,21 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .strength(2.0F)));
 
+    public static final DeferredHolder<Block, PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
+            () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .sound(SoundType.WOOL)
+                    .strength(0.5F)));
+
+    public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
+            () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .sound(SoundType.WOOL)
+                    .strength(0.5F)
+                    .noOcclusion()
+                    .isValidSpawn((state, level, pos, type) -> false)),
+            SaingeziChickenItem.class);
+
     private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block) {
         DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);
         registerBlockItem(name, deferredBlock);
@@ -95,12 +113,29 @@ public class ModBlocks {
         return deferredBlock;
     }
 
+    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithCustomItem(String name, Supplier<T> block, Class<? extends BlockItem> itemClass) {
+        DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);
+        registerCustomBlockItem(name, deferredBlock, itemClass);
+        return deferredBlock;
+    }
+
     private static <T extends Block> void registerBlockItem(String name, DeferredHolder<Block, T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     private static <T extends Block> void registerPlaceableBlockItem(String name, DeferredHolder<Block, T> block) {
         ModItems.ITEMS.register(name, () -> new PlaceableBlockItem(block.get(), new Item.Properties()));
+    }
+
+    private static <T extends Block> void registerCustomBlockItem(String name, DeferredHolder<Block, T> block, Class<? extends BlockItem> itemClass) {
+        ModItems.ITEMS.register(name, () -> {
+            try {
+                return itemClass.getConstructor(Block.class, Item.Properties.class)
+                        .newInstance(block.get(), new Item.Properties());
+            } catch (Exception exception) {
+                throw new RuntimeException(exception);
+            }
+        });
     }
 
     public static void register(IEventBus eventBus) {

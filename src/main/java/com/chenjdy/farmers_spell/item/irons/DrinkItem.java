@@ -66,13 +66,13 @@ public class DrinkItem extends DrinkableItem {
     public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         if (manaRecoveryPercent > 0) {
             tooltipComponents.add(Component.literal("- ")
-                    .append(Component.translatable("item.farmers_spell.drink_item.mana_recovery", manaRecoveryPercent).withStyle(ChatFormatting.DARK_AQUA))
+                    .append(Component.translatable("item.farmers_spell.tooltip.mana_recovery", manaRecoveryPercent).withStyle(ChatFormatting.DARK_AQUA))
                     .withStyle(ChatFormatting.GRAY));
         }
 
         if (clearNegativeEffects) {
             tooltipComponents.add(Component.literal("- ")
-                    .append(Component.translatable("item.farmers_spell.drink_item.clear_negative_effects").withStyle(ChatFormatting.GOLD))
+                    .append(Component.translatable("item.farmers_spell.tooltip.clear_effects").withStyle(ChatFormatting.GOLD))
                     .withStyle(ChatFormatting.GRAY));
         }
 
