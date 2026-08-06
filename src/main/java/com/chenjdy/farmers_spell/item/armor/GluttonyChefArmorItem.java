@@ -1,8 +1,7 @@
 package com.chenjdy.farmers_spell.item.armor;
 
 import com.chenjdy.farmers_spell.init.ModAttributes;
-import io.redspace.ironsspellbooks.entity.armor.priest.PriestArmorModel;
-import io.redspace.ironsspellbooks.entity.armor.priest.PriestArmorRenderer;
+import com.chenjdy.farmers_spell.client.renderer.GluttonyChefArmorGeoRender;
 import io.redspace.ironsspellbooks.item.armor.ImbuableChestplateArmorItem;
 import io.redspace.ironsspellbooks.registries.ArmorMaterialRegistry;
 import net.minecraft.world.item.ArmorItem;
@@ -18,6 +17,6 @@ public class GluttonyChefArmorItem extends ImbuableChestplateArmorItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public GeoArmorRenderer<?> supplyRenderer() {
-        return new PriestArmorRenderer(new PriestArmorModel());
+        return new GluttonyChefArmorGeoRender();
     }
 }
