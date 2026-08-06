@@ -1,4 +1,5 @@
 - 重新审阅所有代码
+- 补齐 icon 和 banner
 - 食灵百味瓶 投喂食灵获得，JEI没写
 - EMI
 - Caged Mobs
