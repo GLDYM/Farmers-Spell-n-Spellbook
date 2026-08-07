@@ -1,0 +1,10 @@
+{
+  "type": "botanypots:block_derived_crop",
+  "block": "farmers_spell:amethyst_beetroot",
+  "input": {
+    "item": "farmers_spell:amethyst_beetroot_seeds"
+  },
+  "soil": {
+    "tag": "farmers_spell:botanypots_amethyst_beetroot_soil"
+  }
+}

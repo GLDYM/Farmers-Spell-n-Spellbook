@@ -144,6 +144,11 @@ dependencies {
     runtimeOnly "dev.latvian.mods:rhino:2101.2.7-build.72"
     runtimeOnly "dev.latvian.mods:kubejs-neoforge:2101.7.2-build.336"
 
+    // Botany Pots
+    runtimeOnly "maven.modrinth:bookshelf-lib:1sdJl7J1"
+    runtimeOnly "maven.modrinth:prickle:EE1FHDyD"
+    runtimeOnly "maven.modrinth:botany-pots:RjHfHgSn"
+
     // Runtime tools
     // ALI
     runtimeOnly "curse.maven:advanced-loot-info-1205426:7938903"
