@@ -154,6 +154,8 @@ dependencies {
     runtimeOnly "curse.maven:advanced-loot-info-1205426:7938903"
     // Export
     runtimeOnly "curse.maven:let-me-see-see-your-code-1229018:6777654"
+    // Catalogue
+    runtimeOnly "curse.maven:catalogue-459701:6926815"
 
     //runtimeOnly "curse.maven:kaleidoscope-cookery-1309203:7473809"
     //runtimeOnly "curse.maven:jade-324717:5813144"
