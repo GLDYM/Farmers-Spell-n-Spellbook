@@ -120,8 +120,8 @@
   "school.farmers_spell.gluttony": "§6Gluttony",
   "spell.farmers_spell.goodberry": "Goodberry",
   "spell.farmers_spell.goodberry.guide": "Conjure an arcane berry in your palm for emergency consumption. Modified from Druidic magic by Gluttony scholars, this berry tastes incredibly delicious.",
-    "spell.farmers_spell.phantom_loot": "Ubiquitous",
-    "spell.farmers_spell.phantom_loot.guide": "Poppo! Poppopopopopo!",
+  "spell.farmers_spell.phantom_loot": "Ubiquitous",
+  "spell.farmers_spell.phantom_loot.guide": "Poppo! Poppopopopopo!",
   "spell.farmers_spell.seal_coat": "Grease Coating",
   "spell.farmers_spell.seal_coat.guide": "Surround yourself with savory grease to boost inertia and cast duration. Consume butter instantly to restore health when struck.",
   "spell.farmers_spell.bad_apple": "Rotten Apple",
@@ -201,5 +201,12 @@
   "jei.item.farmers_spell.foodgeist_cheese.info": "Obtained by feeding food to Foodgeists, a delicious cheese",
   "jei.item.farmers_spell.cinderoous_ham.info": "Obtained by feeding food to Foodgeists, a smoked ham",
   "jei.item.farmers_spell.amethyst_beetroot_seeds.info": "Use a Harvest Sickle to break grass and tall grass for a 2% chance to get Amethyst Beetroot Seeds; a bad beetroot plant has a 10% chance to drop them",
-  "jei.item.farmers_spell.icy_egg.info": "Wandering Traders: 5% drop 1 / Frost Spiders: guaranteed 1"
+  "jei.item.farmers_spell.icy_egg.info": "Stray have a 5% chance to drop 1; Frost Spiders guaranteed 1",
+
+  "farmers_spell.configuration.title": "Farmers Spell Configuration",
+  "farmers_spell.configuration.section.farmers.spell.common.toml": "General Settings",
+  "farmers_spell.configuration.section.farmers.spell.common.toml.title": "Farmers Spell Common Settings",
+  "farmers_spell.configuration.Spell Settings": "Spell Settings",
+  "farmers_spell.configuration.Spell Settings.button": "Spell Settings",
+  "farmers_spell.configuration.Spell Settings.tooltip": "Settings for the maximum health of mobs affected by the Phantom Loot spell"
 }

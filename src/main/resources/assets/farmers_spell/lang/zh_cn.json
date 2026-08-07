@@ -204,9 +204,16 @@
   "advancement.farmers_spell.food_shaman.title": "食是巫者",
   "advancement.farmers_spell.food_shaman.description": "令十个食灵满意，得到食灵们珍藏的甜点（达成此成就获得提拉米书）",
   
-  "jei.item.farmers_spell.foodgeist_seasoning.info": "通过喂食食物给食灵获得",
-  "jei.item.farmers_spell.foodgeist_cheese.info": "通过喂食食物给食灵获得",
-  "jei.item.farmers_spell.cinderoous_ham.info": "远古骑士击杀猪50%掉落1个",
-  "jei.item.farmers_spell.amethyst_beetroot_seeds.info": "使用丰收弯刀破坏草、高草丛，2%掉落紫晶甜菜种子；坏甜菜植株10%掉落紫晶甜菜种子",
-  "jei.item.farmers_spell.icy_egg.info": "击杀流浪者5%掉落1个/霜冻蜘蛛必定掉落1个"
+  "jei.item.farmers_spell.foodgeist_seasoning.info": "给食灵喂食本模组的食物获得。",
+  "jei.item.farmers_spell.foodgeist_cheese.info": "给食灵喂食本模组的食物获得。",
+  "jei.item.farmers_spell.cinderoous_ham.info": "远古骑士击杀猪后，50%概率掉落1个。",
+  "jei.item.farmers_spell.amethyst_beetroot_seeds.info": "使用丰收弯刀破坏草、高草丛后，2%概率掉落1个；破坏坏甜菜植株后，10%概率掉落1个",
+  "jei.item.farmers_spell.icy_egg.info": "击杀流浪者后，5%概率掉落1个；击杀霜冻蜘蛛后，必定掉落1个。",
+
+  "farmers_spell.configuration.title": "农夫法术配置",
+  "farmers_spell.configuration.section.farmers.spell.common.toml": "通用设置",
+  "farmers_spell.configuration.section.farmers.spell.common.toml.title": "农夫法术通用设置",
+  "farmers_spell.configuration.Spell Settings": "法术设置",
+  "farmers_spell.configuration.Spell Settings.button": "法术设置",
+  "farmers_spell.configuration.Spell Settings.tooltip": "用于设置“神出鬼没”法术可影响生物的最大生命值"
 }
