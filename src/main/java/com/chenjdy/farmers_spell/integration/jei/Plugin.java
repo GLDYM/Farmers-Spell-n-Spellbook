@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import vectorwing.farmersdelight.integration.jei.FDRecipeTypes;
 
 import java.util.List;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -79,16 +80,24 @@ public class Plugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         ItemStack catalyst = new ItemStack(ModBlocks.ALCHEMIST_POT.get());
+        registration.addRecipeCatalyst(catalyst, FDRecipeTypes.COOKING);
         registration.addRecipeCatalyst(catalyst, AlchemistPotRecipeCategory.RECIPE_TYPE);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(AlchemistPotScreen.class, 89, 25, 24, 17, AlchemistPotRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeClickArea(AlchemistPotScreen.class, 89, 25, 24, 17, AlchemistPotRecipeCategory.RECIPE_TYPE, FDRecipeTypes.COOKING);
     }
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(
+                AlchemistPotMenu.class,
+                ModMenuTypes.ALCHEMIST_POT.get(),
+                FDRecipeTypes.COOKING,
+                0, 6,
+                9, 36
+        );
         registration.addRecipeTransferHandler(
                 AlchemistPotMenu.class,
                 ModMenuTypes.ALCHEMIST_POT.get(),
