@@ -24,3 +24,14 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+
+src/generated/resources/.cache
+backup/
+
+hs_err_pid*
+replay_pid*
+
+.venv
+.tmp
+
+build*.txt
