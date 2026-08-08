@@ -134,9 +134,12 @@ dependencies {
 
     // Integration with other mods
     // JEI
-    compileOnly "mezz.jei:jei-1.21.1-common-api:19.27.0.340"
-    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.27.0.340"
-    runtimeOnly "mezz.jei:jei-1.21.1-neoforge:19.27.0.340"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    // EMI
+    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     // KubeJS
     // compileOnly "dev.latvian.mods:rhino:2101.2.7-build.72"

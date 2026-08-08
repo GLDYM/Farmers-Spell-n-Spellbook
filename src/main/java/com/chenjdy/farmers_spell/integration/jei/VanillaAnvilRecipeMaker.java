@@ -3,6 +3,8 @@ package com.chenjdy.farmers_spell.integration.jei;
 import com.chenjdy.farmers_spell.init.ModItems;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
 import mezz.jei.api.recipe.vanilla.IVanillaRecipeFactory;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,12 +33,14 @@ public class VanillaAnvilRecipeMaker {
                     ItemStack damagedHalf = new ItemStack(item);
                     damagedHalf.setDamageValue(damagedHalf.getMaxDamage() / 2);
 
-                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedThreeQuarters), List.of(damagedThreeQuarters), List.of(damagedHalf)));
+                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedThreeQuarters),
+                            List.of(damagedThreeQuarters), List.of(damagedHalf), getAnvilRecipeId(item, "self_repair")));
 
                     List<ItemStack> repairMaterials = Arrays.stream(item.getTier().getRepairIngredient().getItems()).toList();
                     ItemStack damagedFully = new ItemStack(item);
                     damagedFully.setDamageValue(damagedFully.getMaxDamage());
-                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedFully), repairMaterials, List.of(damagedThreeQuarters)));
+                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedFully), repairMaterials,
+                            List.of(damagedThreeQuarters), getAnvilRecipeId(item, "material_repair")));
                 });
     }
 
@@ -50,12 +54,14 @@ public class VanillaAnvilRecipeMaker {
                     ItemStack damagedHalf = new ItemStack(item);
                     damagedHalf.setDamageValue(damagedHalf.getMaxDamage() / 2);
 
-                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedThreeQuarters), List.of(damagedThreeQuarters), List.of(damagedHalf)));
+                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedThreeQuarters),
+                            List.of(damagedThreeQuarters), List.of(damagedHalf), getAnvilRecipeId(item, "self_repair")));
 
                     List<ItemStack> repairMaterials = Arrays.stream(item.getMaterial().value().repairIngredient().get().getItems()).toList();
                     ItemStack damagedFully = new ItemStack(item);
                     damagedFully.setDamageValue(damagedFully.getMaxDamage());
-                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedFully), repairMaterials, List.of(damagedThreeQuarters)));
+                    consumer.accept(vanillaRecipeFactory.createAnvilRecipe(List.of(damagedFully), repairMaterials,
+                            List.of(damagedThreeQuarters), getAnvilRecipeId(item, "material_repair")));
                 });
     }
 
@@ -79,5 +85,10 @@ public class VanillaAnvilRecipeMaker {
         items.add(ModItems.GLUTTONY_CHEF_LEGGINGS.get());
         items.add(ModItems.GLUTTONY_CHEF_BOOTS.get());
         return items;
+    }
+
+    private static ResourceLocation getAnvilRecipeId(Item item, String suffix) {
+        return ResourceLocation.fromNamespaceAndPath("farmers_spell",
+                "jei/anvil/" + BuiltInRegistries.ITEM.getKey(item).getPath() + "/" + suffix);
     }
 }
