@@ -7,6 +7,7 @@ import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.core.Holder;
 @EventBusSubscriber(modid = FarmersSpell.MODID)
 public class EffectsEventHandler {
@@ -181,6 +184,9 @@ public class EffectsEventHandler {
                 float manaRegenAmount = maxMana * 0.15f;
                 float newMana = Math.min(currentMana + manaRegenAmount, maxMana);
                 magicData.setMana(newMana);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    PacketDistributor.sendToPlayer(serverPlayer, new SyncManaPacket(magicData));
+                }
 
                 player.getPersistentData().putInt(CLEANSE_MANA_COOLDOWN, 300);
 

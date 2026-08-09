@@ -6,6 +6,7 @@ import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraft.core.registries.Registries;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -285,6 +287,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
                     MagicData magicData = MagicData.getPlayerMagicData(serverPlayer);
                     float maxMana = (float) serverPlayer.getAttributeValue(AttributeRegistry.MAX_MANA);
                     magicData.setMana(maxMana);
+                    PacketDistributor.sendToPlayer(serverPlayer, new SyncManaPacket(magicData));
                 }
                 this.entityData.set(DATA_BLESSING_COOLDOWN, currentTime + 300L);
                 player.displayClientMessage(Component.translatable("message.farmers_spell.foodgeist_blessing"), true);
