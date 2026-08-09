@@ -273,10 +273,12 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             long lastHurtTime = player.getLastHurtByMobTimestamp();
             boolean notInCombat = (currentTime - lastHurtTime > 100L);
             if (notInCombat) {
-                for (MobEffectInstance effect : player.getActiveEffects()) {
-                    if (!effect.getEffect().value().isBeneficial()) {
-                        player.removeEffect(effect.getEffect());
-                    }
+                // removeEffect mutates the active-effects map, so do not remove while iterating it
+                List<MobEffectInstance> harmfulEffects = player.getActiveEffects().stream()
+                        .filter(effect -> !effect.getEffect().value().isBeneficial())
+                        .toList();
+                for (MobEffectInstance effect : harmfulEffects) {
+                    player.removeEffect(effect.getEffect());
                 }
                 player.setHealth(player.getMaxHealth());
                 if (player instanceof ServerPlayer serverPlayer) {

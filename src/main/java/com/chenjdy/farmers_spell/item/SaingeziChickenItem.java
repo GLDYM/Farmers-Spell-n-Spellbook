@@ -35,7 +35,8 @@ public class SaingeziChickenItem extends BlockItem {
     protected boolean placeBlock(BlockPlaceContext context, BlockState state) {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
-        Direction facing = context.getHorizontalDirection().getOpposite();
+        // Direction facing = context.getHorizontalDirection().getOpposite();
+        Direction facing = context.getHorizontalDirection();
 
         BlockPos[] positionsOption1 = {
                 clickedPos,
