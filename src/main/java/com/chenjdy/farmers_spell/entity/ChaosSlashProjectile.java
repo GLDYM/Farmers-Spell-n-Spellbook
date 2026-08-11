@@ -36,9 +36,6 @@ public class ChaosSlashProjectile extends Projectile {
     private float damage;
     private int effectDuration = 10;
     private List<Entity> victims;
-    private float initialYRot;
-    private float initialXRot;
-    private boolean rotationInitialized = false;
 
     public ChaosSlashProjectile(EntityType<? extends ChaosSlashProjectile> entityType, Level level) {
         super(entityType, level);
@@ -53,28 +50,7 @@ public class ChaosSlashProjectile extends Projectile {
         setOwner(shooter);
         setYRot(shooter.getYRot());
         setXRot(shooter.getXRot());
-        this.initialYRot = shooter.getYRot();
-        this.initialXRot = shooter.getXRot();
-        this.rotationInitialized = true;
         setSlashType(getNextSlashType());
-    }
-
-    public float getInitialYRot() {
-        if (!rotationInitialized) {
-            this.initialYRot = getYRot();
-            this.initialXRot = getXRot();
-            this.rotationInitialized = true;
-        }
-        return initialYRot;
-    }
-
-    public float getInitialXRot() {
-        if (!rotationInitialized) {
-            this.initialYRot = getYRot();
-            this.initialXRot = getXRot();
-            this.rotationInitialized = true;
-        }
-        return initialXRot;
     }
 
     public ChaosSlashProjectile(Level levelIn, LivingEntity shooter) {

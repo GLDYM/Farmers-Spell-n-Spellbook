@@ -112,8 +112,8 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.WINE_RICE)));
     public static final DeferredHolder<Item, Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.CINDEROUS_HOTPOT)));
-    public static final DeferredHolder<Item, Item> BUTTER_CHICKEN = ITEMS.register("butter_chicken",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.BUTTER_CHICKEN)));
+    // public static final DeferredHolder<Item, Item> BUTTER_CHICKEN = ITEMS.register("butter_chicken",
+    //         () -> new ConsumableItem(bowlFoodItem(ModFoods.BUTTER_CHICKEN)));
     public static final DeferredHolder<Item, Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> ICEBERGCREAM = ITEMS.register("icebergcream",

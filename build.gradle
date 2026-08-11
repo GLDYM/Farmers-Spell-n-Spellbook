@@ -141,6 +141,10 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
+    // Patchouli
+    compileOnly "vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE:api"
+    runtimeOnly "vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE"
+
     // KubeJS
     // compileOnly "dev.latvian.mods:rhino:2101.2.7-build.72"
     // compileOnly "dev.latvian.mods:kubejs-neoforge:2101.7.2-build.336"

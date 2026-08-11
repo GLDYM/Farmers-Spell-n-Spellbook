@@ -17,6 +17,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.ModContainer;
 import com.chenjdy.farmers_spell.network.ModNetwork;
 import com.chenjdy.farmers_spell.block.entity.AlchemistPotBlockEntity;
+import com.chenjdy.farmers_spell.block.entity.WisewoodCabinetBlockEntity;
 import net.neoforged.fml.loading.FMLEnvironment;
 
 
@@ -30,6 +31,7 @@ public class FarmersSpell {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         modEventBus.addListener(AlchemistPotBlockEntity::registerCapabilities);
+        modEventBus.addListener(WisewoodCabinetBlockEntity::registerCapabilities);
         ModMenuTypes.register(modEventBus);
         ModRecipeTypes.register(modEventBus);
         ModItems.register(modEventBus);

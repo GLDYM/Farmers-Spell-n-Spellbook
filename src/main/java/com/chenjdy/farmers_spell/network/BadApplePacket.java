@@ -28,35 +28,39 @@ public class BadApplePacket implements CustomPacketPayload {
     
     private final BlockPos pos;
     private final boolean play;
+    private final int entityId;
     
-    public BadApplePacket(BlockPos pos, boolean play) {
+    public BadApplePacket(BlockPos pos, boolean play, int entityId) {
         this.pos = pos;
         this.play = play;
+        this.entityId = entityId;
     }
     
     public BadApplePacket(FriendlyByteBuf buf) {
         this.pos = buf.readBlockPos();
         this.play = buf.readBoolean();
+        this.entityId = buf.readVarInt();
     }
     
     public void encode(FriendlyByteBuf buf) {
         buf.writeBlockPos(pos);
         buf.writeBoolean(play);
+        buf.writeVarInt(entityId);
     }
     
     public void handle(IPayloadContext context) {
         context.enqueueWork(() -> {
             if (play) {
-                BadAppleInstance.play(pos);
+                BadAppleInstance.start(entityId, pos);
             } else {
-                BadAppleInstance.stopCurrent();
+                BadAppleInstance.stop(entityId);
             }
         });
     }
     
-    public static void sendToAll(Level level, BlockPos pos, boolean play) {
+    public static void sendToAll(Level level, BlockPos pos, boolean play, int entityId) {
         if (level instanceof ServerLevel serverLevel) {
-            BadApplePacket packet = new BadApplePacket(pos, play);
+            BadApplePacket packet = new BadApplePacket(pos, play, entityId);
             for (ServerPlayer player : serverLevel.players()) {
                 PacketDistributor.sendToPlayer(player, packet);
             }

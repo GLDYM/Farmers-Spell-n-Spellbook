@@ -176,7 +176,7 @@ public class BadAppleEntity extends LivingEntity {
     
     @Override
     public void remove(RemovalReason reason) {
-        if (musicPlaying) {
+        if (!level().isClientSide) {
             stopMusic();
         }
         super.remove(reason);
@@ -198,11 +198,11 @@ public class BadAppleEntity extends LivingEntity {
     }
     
     private void playMusic() {
-        BadApplePacket.sendToAll(level(), this.blockPosition(), true);
+        BadApplePacket.sendToAll(level(), this.blockPosition(), true, getId());
     }
     
     private void stopMusic() {
-        BadApplePacket.sendToAll(level(), this.blockPosition(), false);
+        BadApplePacket.sendToAll(level(), this.blockPosition(), false, getId());
         musicPlaying = false;
     }
     

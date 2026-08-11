@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "textures/entity/chaos_slash.png");
@@ -25,8 +26,8 @@ public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
     public void render(ChaosSlashProjectile entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
         poseStack.pushPose();
 
-        float entityYaw = entity.getInitialYRot();
-        float entityPitch = entity.getInitialXRot();
+        float entityYaw = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
+        float entityPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
         poseStack.mulPose(Axis.XP.rotationDegrees(-entityPitch));
