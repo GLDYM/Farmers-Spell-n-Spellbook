@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "farmers_spell:ember_block",
+    "id": "farmers_spell:ember_block",
     "count": 1
   }
 }
