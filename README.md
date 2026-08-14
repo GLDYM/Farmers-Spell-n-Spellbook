@@ -1,4 +1,4 @@
-# Farmer's Spell 'n Spellbook Neoforge
+# Farmer's Spell 'n Spellbook
 
 > [!IMPORTANT]
 > 
