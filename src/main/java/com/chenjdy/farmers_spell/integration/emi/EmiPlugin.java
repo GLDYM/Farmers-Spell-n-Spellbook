@@ -62,6 +62,10 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
                 new ItemStack(ModItems.ICY_EGG.get()),
                 "emi.item.farmers_spell.icy_egg.info",
                 "icy_egg");
+        addIngredientInfo(registry,
+                new ItemStack(ModItems.DECREPIT_SCRAP.get()),
+                "emi.item.farmers_spell.decrepit_scrap.info",
+                "decrepit_scrap");
 
         addAnvilRecipes(registry);
         registry.addWorkstation(EmiAlchemistPotRecipe.CATEGORY, EmiStack.of(ModBlocks.ALCHEMIST_POT.get()));

@@ -1,3 +1,3 @@
 - 重新审阅所有代码
 - 加个传说稀有度
-- 自动化输入
+- 自动化输入 https://github.com/GLDYM/Tsuki/blob/1.21.1/src/main/java/cn/mcmod/tsuki/block/capability/CookingPotItemHandler.java

@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.entity;
 
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModEntities;
+import com.chenjdy.farmers_spell.init.ModSpells;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -147,7 +148,7 @@ public class ChaosSlashProjectile extends Projectile {
 
     private void damageEntity(Entity entity) {
         if (!victims.contains(entity)) {
-            entity.hurt(this.damageSources().magic(), damage);
+            entity.hurt(ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()), damage);
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(
                         ModEffects.CLAW_BREAK,

@@ -44,43 +44,43 @@ public class RedVelvetCakeBlock extends CakeBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected static final VoxelShape[] SHAPES_NORTH = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 13.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 11.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 9.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 7.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 5.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 3.0)
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 13.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 11.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 9.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 7.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 5.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 3.0)
     };
 
     protected static final VoxelShape[] SHAPES_SOUTH = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 3.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 5.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 7.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 9.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 11.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 13.0, 15.0, 8.0, 15.0)
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 3.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 5.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 7.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 9.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 11.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 13.0, 15.0, 6.0, 15.0)
     };
 
     protected static final VoxelShape[] SHAPES_WEST = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 13.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 11.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 9.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 7.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 5.0, 8.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 3.0, 8.0, 15.0)
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 13.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 11.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 9.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 7.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 5.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 3.0, 6.0, 15.0)
     };
 
     protected static final VoxelShape[] SHAPES_EAST = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(3.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(5.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(7.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(9.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(11.0, 0.0, 1.0, 15.0, 8.0, 15.0),
-            Block.box(13.0, 0.0, 1.0, 15.0, 8.0, 15.0)
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(3.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(5.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(7.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(9.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(11.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(13.0, 0.0, 1.0, 15.0, 6.0, 15.0)
     };
 
     public RedVelvetCakeBlock(Properties properties) {

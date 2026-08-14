@@ -161,6 +161,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> GLUTTON_RUNE = ITEMS.register("glutton_rune",
             () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DECREPIT_SCRAP = ITEMS.register("decrepit_scrap",
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> GOSPEL = ITEMS.register("gospel", GospelButterKnife::new);
     public static final DeferredHolder<Item, Item> HELL_KNIFE = ITEMS.register("hell_knife", HellKnife::new);

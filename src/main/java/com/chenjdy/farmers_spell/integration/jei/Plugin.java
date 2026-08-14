@@ -67,6 +67,11 @@ public class Plugin implements IModPlugin {
                 VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.item.farmers_spell.icy_egg.info")
         );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.DECREPIT_SCRAP.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.item.farmers_spell.decrepit_scrap.info")
+        );
     }
 
     private static List<AlchemistCookingRecipe> getRecipes() {

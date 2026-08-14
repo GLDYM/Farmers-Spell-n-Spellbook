@@ -96,6 +96,10 @@
   "item.farmers_spell.original_nectar": "源初琼浆",
   "item.farmers_spell.foodgeist_seasoning": "食灵百味瓶",
   "item.farmers_spell.glutton_rune": "饕魔符文",
+  "item.farmers_spell.decrepit_scrap": "破败残片",
+  "block.farmers_spell.ember_block": "残焰块",
+  "block.farmers_spell.ember_pillar": "残焰柱",
+  "block.farmers_spell.ember_bars": "残焰栅栏",
   "item.farmers_spell.gluttony_chef_hat": "伏魔御厨帽",
   "item.farmers_spell.gluttony_chef_apron": "伏魔御厨围裙",
   "item.farmers_spell.gluttony_chef_leggings": "伏魔御厨裤",
@@ -105,6 +109,7 @@
   "item.farmers_spell.foodgeist_ring": "食灵戒指",
   "item.farmers_spell.foodgeist_ring.tooltip": "§d当拥有滋养效果时，最大魔力+75",
   "item.farmers_spell.wheat_book": "书面",
+  "item.farmers_spell.wheat_book.tooltip":"因为熟入法冲突，烹饪前请取出其中的卷轴",
   "item.farmers_spell.tiramisu": "提拉米书",
   "item.farmers_spell.lasagnowledge": "知识千层意面",
 
@@ -218,6 +223,8 @@
   "emi.item.farmers_spell.amethyst_beetroot_seeds.info": "使用丰收弯刀破坏草、高草丛后，2%概率掉落1个；破坏坏甜菜植株后，10%概率掉落1个",
   "jei.item.farmers_spell.icy_egg.info": "击杀流浪者后，5%概率掉落1个；击杀霜冻蜘蛛后，必定掉落1个。",
   "emi.item.farmers_spell.icy_egg.info": "击杀流浪者后，5%概率掉落1个；击杀霜冻蜘蛛后，必定掉落1个。",
+  "jei.item.farmers_spell.decrepit_scrap.info": "击杀远古骑士必定掉落1个",
+  "emi.item.farmers_spell.decrepit_scrap.info": "击杀远古骑士必定掉落1个",
 
   "farmers_spell.configuration.title": "农夫法术配置",
   "farmers_spell.configuration.section.farmers.spell.common.toml": "通用设置",

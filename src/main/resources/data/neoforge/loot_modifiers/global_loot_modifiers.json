@@ -5,6 +5,7 @@
     "farmers_spell:stray_loot_modifier",
     "farmers_spell:ice_spider_loot_modifier",
     "farmers_spell:wheat_book_chest_modifier",
-    "farmers_spell:cinderous_vault_modifier"
+    "farmers_spell:cinderous_vault_modifier",
+    "farmers_spell:citadel_keeper_loot_modifier"
   ]
 }

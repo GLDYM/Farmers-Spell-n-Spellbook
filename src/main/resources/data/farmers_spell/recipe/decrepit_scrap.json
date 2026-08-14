@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:ember_block"
+    }
+  ],
+  "result": {
+    "item": "farmers_spell:decrepit_scrap",
+    "count": 4
+  }
+}

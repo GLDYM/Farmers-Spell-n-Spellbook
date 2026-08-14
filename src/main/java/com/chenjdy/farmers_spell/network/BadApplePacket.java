@@ -12,6 +12,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.UUID;
+
 
 public class BadApplePacket implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<BadApplePacket> TYPE =
@@ -28,39 +30,39 @@ public class BadApplePacket implements CustomPacketPayload {
     
     private final BlockPos pos;
     private final boolean play;
-    private final int entityId;
+    private final UUID entityUuid;
     
-    public BadApplePacket(BlockPos pos, boolean play, int entityId) {
+    public BadApplePacket(UUID entityUuid, BlockPos pos, boolean play) {
+        this.entityUuid = entityUuid;
         this.pos = pos;
         this.play = play;
-        this.entityId = entityId;
     }
     
     public BadApplePacket(FriendlyByteBuf buf) {
+        this.entityUuid = buf.readUUID();
         this.pos = buf.readBlockPos();
         this.play = buf.readBoolean();
-        this.entityId = buf.readVarInt();
     }
     
     public void encode(FriendlyByteBuf buf) {
+        buf.writeUUID(entityUuid);
         buf.writeBlockPos(pos);
         buf.writeBoolean(play);
-        buf.writeVarInt(entityId);
     }
     
     public void handle(IPayloadContext context) {
         context.enqueueWork(() -> {
             if (play) {
-                BadAppleInstance.start(entityId, pos);
+                BadAppleInstance.start(entityUuid, pos);
             } else {
-                BadAppleInstance.stop(entityId);
+                BadAppleInstance.stop(entityUuid);
             }
         });
     }
     
-    public static void sendToAll(Level level, BlockPos pos, boolean play, int entityId) {
+    public static void sendToAll(Level level, UUID entityUuid, BlockPos pos, boolean play) {
         if (level instanceof ServerLevel serverLevel) {
-            BadApplePacket packet = new BadApplePacket(pos, play, entityId);
+            BadApplePacket packet = new BadApplePacket(entityUuid, pos, play);
             for (ServerPlayer player : serverLevel.players()) {
                 PacketDistributor.sendToPlayer(player, packet);
             }
