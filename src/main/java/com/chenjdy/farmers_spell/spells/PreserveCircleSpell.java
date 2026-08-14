@@ -106,6 +106,7 @@ public class PreserveCircleSpell extends AbstractSpell {
             if (previewEntity != null) {
                 float currentRadius = getRadius(spellLevel, entity, playerMagicData.getCastDurationRemaining());
                 previewEntity.setRadius(currentRadius);
+                previewEntity.setPos(entity.position());
             }
         }
         super.onServerCastTick(level, spellLevel, entity, playerMagicData);
@@ -113,19 +114,14 @@ public class PreserveCircleSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        Vec3 spawn = null;
+        Vec3 spawn = entity.position();
         TargetedAreaEntity previewEntity = null;
 
         if (playerMagicData.getAdditionalCastData() instanceof TargetAreaCastData castData) {
-            spawn = castData.getCenter();
             previewEntity = castData.getCastingEntity();
             if (previewEntity != null) {
                 previewEntity.discard();
             }
-        }
-
-        if (spawn == null) {
-            spawn = getTargetPosition(world, entity);
         }
 
         spawn = Utils.moveToRelativeGroundLevel(world, spawn, 6);

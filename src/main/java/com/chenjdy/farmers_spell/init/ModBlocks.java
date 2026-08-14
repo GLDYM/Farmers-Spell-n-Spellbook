@@ -14,6 +14,8 @@ import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.SoundType;
@@ -101,6 +103,25 @@ public class ModBlocks {
                     .noOcclusion()
                     .isValidSpawn((state, level, pos, type) -> false)),
             SaingeziChickenItem.class);
+    // 残焰块
+    public static final RegistryObject<Block> EMBER_BLOCK = registerBlock("ember_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
+    // 残焰柱
+    public static final RegistryObject<RotatedPillarBlock> EMBER_PILLAR = registerBlock("ember_pillar",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
+    // 残焰栅栏
+    public static final RegistryObject<IronBarsBlock> EMBER_BARS = registerBlock("ember_bars",
+            () -> new IronBarsBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)
+                    .noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

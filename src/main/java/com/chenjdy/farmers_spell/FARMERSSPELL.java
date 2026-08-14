@@ -52,6 +52,7 @@ public class FARMERSSPELL
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ModEntities.BAD_APPLE_ENTITY.get(), BadAppleEntity.createAttributes().build());
         event.put(ModEntities.FOODGEIST.get(), FoodgeistEntity.createAttributes().build());
+        //event.put(ModEntities.PAN.get(), PanEntity.prepareAttributes().build());
     }
     
     private void onCommonSetup(FMLCommonSetupEvent event) {

@@ -22,15 +22,14 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.FarmersDelight;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -43,29 +42,61 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
 {
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "alchemist_cooking");
     public static final RecipeType<AlchemistCookingRecipe> RECIPE_TYPE = RecipeType.create(FARMERSSPELL.MODID, "alchemist_cooking", AlchemistCookingRecipe.class);
+    private static final ResourceLocation JEI_TEXTURE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/gui/arc_cooking_pot_jei.png");
+    private static final int BACKGROUND_WIDTH = 165;
+    private static final int BACKGROUND_HEIGHT = 68;
+    private static final int INPUT_START_X = 26;
+    private static final int INPUT_START_Y = 13;
+    private static final int SLOT_SPACING = 18;
+    private static final int DISPLAY_X = 119;
+    private static final int DISPLAY_Y = 21;
+    private static final int CONTAINER_X = 88;
+    private static final int CONTAINER_Y = 51;
+    private static final int OUTPUT_X = 120;
+    private static final int OUTPUT_Y = 51;
+    private static final int SCHOOL_X = 148;
+    private static final int SCHOOL_Y = 51;
+    private static final int ARROW_X = 85;
+    private static final int ARROW_Y = 21;
+    private static final int ARROW_ORIGIN_X = 165;
+    private static final int ARROW_ORIGIN_Y = 15;
+    private static final int ARROW_WIDTH = 26;
+    private static final int ARROW_HEIGHT = 17;
+    private static final int FIRE_X = 43;
+    private static final int FIRE_Y = 51;
+    private static final int FIRE_ORIGIN_X = 165;
+    private static final int FIRE_ORIGIN_Y = 0;
+    private static final int FIRE_WIDTH = 17;
+    private static final int FIRE_HEIGHT = 15;
+    private static final int INFO_X = 85;
+    private static final int INFO_Y = 21;
+    private static final int INFO_WIDTH = 26;
+    private static final int INFO_HEIGHT = 17;
 
-    private final IDrawable heatIndicator;
-    private final IDrawable timeIcon;
-    private final IDrawable expIcon;
-    private final IDrawableAnimated arrow;
     private final Component title;
-    private final IDrawable background;
     private final IDrawable icon;
+    private final IDrawable heatIndicator;
+    private final IDrawableAnimated arrow;
 
     public AlchemistPotRecipeCategory(IGuiHelper helper) {
         this.title = Component.translatable("jei." + FARMERSSPELL.MODID + ".alchemist_cooking");
-
-        ResourceLocation widgetBackgroundImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/jei/cooking_pot.png");
-        ResourceLocation interfaceImage = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
-
-        this.background = helper.createDrawable(widgetBackgroundImage, 0, 0, 116, 56);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ALCHEMIST_POT.get()));
-
-        this.heatIndicator = helper.createDrawable(interfaceImage, 176, 0, 17, 15);
-        this.timeIcon = helper.createDrawable(interfaceImage, 176, 32, 8, 11);
-        this.expIcon = helper.createDrawable(interfaceImage, 176, 43, 9, 9);
-        this.arrow = helper.drawableBuilder(interfaceImage, 176, 15, 24, 17)
-                .buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
+        this.heatIndicator = helper.drawableBuilder(
+                JEI_TEXTURE,
+                FIRE_ORIGIN_X,
+                FIRE_ORIGIN_Y,
+                FIRE_WIDTH,
+                FIRE_HEIGHT
+        ).setTextureSize(256, 256)
+         .build();
+        this.arrow = helper.drawableBuilder(
+                JEI_TEXTURE,
+                ARROW_ORIGIN_X,
+                ARROW_ORIGIN_Y,
+                ARROW_WIDTH,
+                ARROW_HEIGHT
+        ).setTextureSize(256, 256)
+         .buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
     }
 
     @Override
@@ -80,17 +111,24 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
 
     @Override
     public int getWidth() {
-        return 116;
+        return BACKGROUND_WIDTH;
     }
 
     @Override
     public int getHeight() {
-        return 56;
+        return BACKGROUND_HEIGHT;
     }
 
     @Override
     public IDrawable getIcon() {
         return this.icon;
+    }
+
+    @Override
+    public void draw(AlchemistCookingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        guiGraphics.blit(JEI_TEXTURE, 0, 0, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, 256, 256);
+        this.arrow.draw(guiGraphics, ARROW_X, ARROW_Y);
+        this.heatIndicator.draw(guiGraphics, FIRE_X, FIRE_Y);
     }
 
     @Override
@@ -102,48 +140,35 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
         ItemStack resultStack = recipe.getResultItem(registryAccess);
         ItemStack containerStack = recipe.getOutputContainer();
 
-        int borderSlotSize = 18;
         for (int row = 0; row < 2; ++row) {
             for (int column = 0; column < 3; ++column) {
                 int inputIndex = row * 3 + column;
                 if (inputIndex < recipeIngredients.size()) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, column * borderSlotSize + 1, row * borderSlotSize + 1)
+                    builder.addSlot(RecipeIngredientRole.INPUT, INPUT_START_X + column * SLOT_SPACING, INPUT_START_Y + row * SLOT_SPACING)
                             .addItemStacks(Arrays.asList(recipeIngredients.get(inputIndex).getItems()));
                 }
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 10).addItemStack(resultStack);
+        builder.addSlot(RecipeIngredientRole.CATALYST, DISPLAY_X, DISPLAY_Y).addItemStack(resultStack);
 
         if (!containerStack.isEmpty()) {
-            builder.addSlot(RecipeIngredientRole.CATALYST, 63, 39).addItemStack(containerStack);
+            builder.addSlot(RecipeIngredientRole.CATALYST, CONTAINER_X, CONTAINER_Y).addItemStack(containerStack);
         }
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_X, OUTPUT_Y).addItemStack(resultStack);
 
         if (recipe.getRequiredSchool() != null) {
             List<ItemStack> scrollStacks = createScrollItemStacks(recipe.getRequiredSchool());
             if (!scrollStacks.isEmpty()) {
-                builder.addSlot(RecipeIngredientRole.CATALYST, 95, 39).addItemStacks(scrollStacks);
+                builder.addSlot(RecipeIngredientRole.CATALYST, SCHOOL_X, SCHOOL_Y).addItemStacks(scrollStacks);
             }
-        } else {
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 95, 39).addItemStack(resultStack);
-        }
-    }
-
-    @Override
-    public void draw(AlchemistCookingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        background.draw(guiGraphics, 0, 0);
-        arrow.draw(guiGraphics, 60, 9);
-        heatIndicator.draw(guiGraphics, 18, 39);
-        timeIcon.draw(guiGraphics, 64, 2);
-
-        if (recipe.getExperience() > 0) {
-            expIcon.draw(guiGraphics, 63, 21);
         }
     }
 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, AlchemistCookingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        if (isCursorInsideBounds(61, 2, 22, 28, mouseX, mouseY)) {
+        if (isCursorInsideBounds(INFO_X, INFO_Y, INFO_WIDTH, INFO_HEIGHT, mouseX, mouseY)) {
             int cookTime = recipe.getCookTime();
             if (cookTime > 0) {
                 int cookTimeSeconds = cookTime / 20;
@@ -162,7 +187,7 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
 
     private static List<ItemStack> createScrollItemStacks(ResourceLocation schoolId) {
         List<ItemStack> scrollStacks = new ArrayList<>();
-        
+
         Item scrollItem = ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath("irons_spellbooks", "scroll"));
         if (scrollItem == null) {
             return scrollStacks;
@@ -183,7 +208,7 @@ public class AlchemistPotRecipeCategory implements IRecipeCategory<AlchemistCook
             ISpellContainer.createScrollContainer(spell, spell.getMinLevel(), scrollStack);
             scrollStacks.add(scrollStack);
         }
-        
+
         return scrollStacks;
     }
 }

@@ -1,10 +1,57 @@
 {
-  "parent": "minecraft:block/cake_slice6",
-  "textures": {
-    "bottom": "farmers_spell:block/red_velvet_cake_bottom",
-    "top": "farmers_spell:block/red_velvet_cake_top",
-    "side": "farmers_spell:block/red_velvet_cake_side",
-    "inside": "farmers_spell:block/red_velvet_cake_inner",
-    "particle": "farmers_spell:block/red_velvet_cake_top"
-  }
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "farmers_spell:block/redead",
+		"particle": "farmers_spell:block/redead"
+	},
+	"elements": [
+		{
+			"from": [13, 0, 1],
+			"to": [15, 6, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 0, 1]},
+			"faces": {
+				"north": {"uv": [11.25, 3.75, 11.75, 5.25], "texture": "#0"},
+				"east": {"uv": [11.25, 3.75, 14.75, 5.25], "texture": "#0"},
+				"south": {"uv": [14.25, 3.75, 14.75, 5.25], "texture": "#0"},
+				"west": {"uv": [7.5, 3.75, 11, 5.25], "texture": "#0"},
+				"up": {"uv": [0.5, 3.5, 0, 0], "texture": "#0"},
+				"down": {"uv": [4.25, 0, 3.75, 3.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [13, 6, 15],
+			"to": [15, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 6, 15]},
+			"faces": {
+				"north": {"uv": [4, 13.5, 4.5, 15], "texture": "#0"},
+				"south": {"uv": [10.75, 13.5, 11.25, 15], "texture": "#0"}
+			}
+		},
+		{
+			"from": [15, 6, 1],
+			"to": [15, 12, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 6, 15]},
+			"faces": {
+				"east": {"uv": [11.5, 13.5, 15, 15], "texture": "#0"},
+				"west": {"uv": [0.25, 13.5, 3.75, 15], "texture": "#0"}
+			}
+		},
+		{
+			"name": "cube_outline",
+			"from": [15.25, 6.25, 15.25],
+			"to": [12.85, -0.15, 0.85],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3.95, -0.05, 0.95]},
+			"faces": {
+				"north": {"uv": [11.25, 5.5, 14.75, 7], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [11.25, 5.5, 14.75, 7], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [11.25, 5.5, 14.75, 7], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [11.25, 5.5, 14.75, 7], "rotation": 180, "texture": "#0"},
+				"up": {"uv": [11, 0, 7.5, 3.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [14.75, 3.5, 11.25, 0], "rotation": 180, "texture": "#0"}
+			}
+		}
+	]
 }

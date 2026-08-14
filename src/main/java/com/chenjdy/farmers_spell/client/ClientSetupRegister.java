@@ -40,5 +40,6 @@ public class ClientSetupRegister {
         event.registerEntityRenderer(ModEntities.BUTTER_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntities.PRESERVE_CIRCLE_AOE.get(), NoopRenderer::new);
         event.registerEntityRenderer(ModEntities.FOODGEIST.get(), FoodgeistRender::new);
+        //event.registerEntityRenderer(ModEntities.PAN.get(), PanRenderer::new);
     }
 }

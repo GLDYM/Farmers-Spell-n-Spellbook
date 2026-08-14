@@ -2,6 +2,8 @@ package com.chenjdy.farmers_spell.item.irons;
 
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -74,6 +76,7 @@ public class PermafrostPopsicle extends ConsumableItem {
         float currentMana = magicData.getMana();
         float newMana = (float) Math.min(currentMana + manaRecovery, maxMana);
         magicData.setMana(newMana);
+        PacketDistributor.sendToPlayer(player, new SyncManaPacket(magicData));
         
         player.level().playSound(null, player.blockPosition(), SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 1.0F, 1.0F);
         

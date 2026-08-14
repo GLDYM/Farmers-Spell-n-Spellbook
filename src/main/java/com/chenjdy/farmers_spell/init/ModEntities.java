@@ -59,6 +59,13 @@ public class ModEntities {
                     .updateInterval(3)
                     .build("foodgeist"));
 
+    /*public static final RegistryObject<EntityType<PanEntity>> PAN = ENTITIES.register("pan",
+            () -> EntityType.Builder.<PanEntity>of(PanEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(8)
+                    .updateInterval(20)
+                    .build("pan"));*/
+
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }

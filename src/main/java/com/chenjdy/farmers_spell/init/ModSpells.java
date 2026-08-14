@@ -24,6 +24,7 @@ public class ModSpells {
     public static final RegistryObject<AbstractSpell> BAD_APPLE_SPELL = SPELLS.register("bad_apple", BadAppleSpell::new);
     public static final RegistryObject<AbstractSpell> CHAOS_SLASH_SPELL = SPELLS.register("chaos_slash", ChaosSlashSpell::new);
     public static final RegistryObject<AbstractSpell> PRESERVE_CIRCLE_SPELL = SPELLS.register("preserve_circle", PreserveCircleSpell::new);
+    //public static final RegistryObject<AbstractSpell> PAN_SPELL = SPELLS.register("pan", PanSpell::new);
 
     public static void register(IEventBus eventBus) {
         SPELLS.register(eventBus);

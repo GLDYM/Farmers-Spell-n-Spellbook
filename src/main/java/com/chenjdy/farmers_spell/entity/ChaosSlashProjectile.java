@@ -2,6 +2,8 @@ package com.chenjdy.farmers_spell.entity;
 
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModEntities;
+import com.chenjdy.farmers_spell.init.ModSpells;
+import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -171,7 +173,10 @@ public class ChaosSlashProjectile extends Projectile {
 
     private void damageEntity(Entity entity) {
         if (!victims.contains(entity)) {
-            entity.hurt(this.damageSources().magic(), damage);
+            // 使用 Iron's Spellbooks 的 DamageSources.applyDamage 配合 SpellDamageSource
+            // 这样伤害会正确归因于施法者（玩家），并且触发 SpellDamageEvent 处理增伤/抗性
+            DamageSources.applyDamage(entity, damage,
+                    ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()));
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
                         ModEffects.CLAW_BREAK.get(),

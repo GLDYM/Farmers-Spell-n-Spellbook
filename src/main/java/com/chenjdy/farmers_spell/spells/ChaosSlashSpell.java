@@ -29,7 +29,7 @@ public class ChaosSlashSpell extends AbstractSpell {
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation(getDamage(spellLevel), 2))
+                Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation(getSpellPower(spellLevel, caster), 2))
         );
     }
 
@@ -42,8 +42,8 @@ public class ChaosSlashSpell extends AbstractSpell {
 
     public ChaosSlashSpell() {
         this.manaCostPerLevel = 2;
-        this.baseSpellPower = 0;
-        this.spellPowerPerLevel = 0;
+        this.baseSpellPower = 5;
+        this.spellPowerPerLevel = 1;
         this.castTime = 0;
         this.baseManaCost = 8;
     }
@@ -78,13 +78,9 @@ public class ChaosSlashSpell extends AbstractSpell {
         ChaosSlashProjectile chaosSlash = new ChaosSlashProjectile(world, entity);
         chaosSlash.setPos(entity.getEyePosition());
         chaosSlash.shoot(entity.getLookAngle());
-        chaosSlash.setDamage(getDamage(spellLevel));
+        chaosSlash.setDamage(getSpellPower(spellLevel, entity));
         world.addFreshEntity(chaosSlash);
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
-    }
-
-    private float getDamage(int spellLevel) {
-        return 5.0f + spellLevel * 0.5f;
     }
 
     @Override

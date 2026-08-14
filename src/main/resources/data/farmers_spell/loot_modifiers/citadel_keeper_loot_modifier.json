@@ -1,0 +1,13 @@
+{
+  "type": "farmers_spell:append_loot",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "irons_spellbooks:citadel_keeper"
+      }
+    }
+  ],
+  "key": "farmers_spell:entities/citadel_keeper_loot"
+}

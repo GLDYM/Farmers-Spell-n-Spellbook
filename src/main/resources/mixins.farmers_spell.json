@@ -7,14 +7,10 @@
   "mixins": [
     "LivingEntityMixin",
     "AbstractSpellCastTimeMixin",
-    "EntityMixin",
-    "creativetab.CreativeModeTabAccessor",
-    "creativetab.CreativeModeTabMixin"
+    "EntityMixin"
   ],
   "client": [
-    "creativetab.CreativeModeInventoryScreenMixin",
-    "creativetab.CustomCreativeSlotMixin",
-    "creativetab.ItemPickerMenuMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1

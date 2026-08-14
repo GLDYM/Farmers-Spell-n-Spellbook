@@ -96,6 +96,10 @@
   "item.farmers_spell.original_nectar": "Primal Nectar",
   "item.farmers_spell.foodgeist_seasoning": "Foodwraith Seasoning Vial",
   "item.farmers_spell.glutton_rune": "Gluttony Rune",
+  "item.farmers_spell.decrepit_scrap": "Decrepit Scrap",
+  "block.farmers_spell.ember_block": "Ember Block",
+  "block.farmers_spell.ember_pillar": "Ember Pillar",
+  "block.farmers_spell.ember_bars": "Ember Bars",
   "item.farmers_spell.gluttony_chef_hat": "Demon-Binding Chef's Toque",
   "item.farmers_spell.gluttony_chef_apron": "Demon-Binding Chef's Apron",
   "item.farmers_spell.gluttony_chef_leggings": "Demon-Binding Chef's Leggings",
@@ -199,5 +203,6 @@
   
   "jei.item.farmers_spell.foodgeist_seasoning.info": "Obtained by feeding food to Foodgeists, a seasoning imbued with Gluttony magic",
   "jei.item.farmers_spell.foodgeist_cheese.info": "Obtained by feeding food to Foodgeists, a delicious cheese",
-  "jei.item.farmers_spell.cinderoous_ham.info": "Obtained by feeding food to Foodgeists, a smoked ham"
+  "jei.item.farmers_spell.cinderoous_ham.info": "Obtained by feeding food to Foodgeists, a smoked ham",
+  "jei.item.farmers_spell.decrepit_scrap.info": "Dropped by Citadel Keepers (guaranteed 1)"
 }

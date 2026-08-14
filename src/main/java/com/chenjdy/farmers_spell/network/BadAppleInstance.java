@@ -6,13 +6,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class BadAppleInstance extends AbstractTickableSoundInstance {
     
     private final BlockPos pos;
-    private static BadAppleInstance instance = null;
+    private final UUID entityUUID;
+    private static final Map<UUID, BadAppleInstance> instances = new HashMap<>();
     
-    private BadAppleInstance(BlockPos pos) {
+    private BadAppleInstance(UUID entityUUID, BlockPos pos) {
         super(ModSounds.BAD_APPLE.get(), SoundSource.NEUTRAL, RandomSource.create());
+        this.entityUUID = entityUUID;
         this.pos = pos;
         this.x = pos.getX() + 0.5;
         this.y = pos.getY() + 0.5;
@@ -24,20 +30,29 @@ public class BadAppleInstance extends AbstractTickableSoundInstance {
         this.attenuation = Attenuation.LINEAR;
     }
     
-    public static void play(BlockPos pos) {
-        stopCurrent();
-        instance = new BadAppleInstance(pos);
+    public static void play(UUID entityUUID, BlockPos pos) {
+        stop(entityUUID);
+        BadAppleInstance instance = new BadAppleInstance(entityUUID, pos);
+        instances.put(entityUUID, instance);
         net.minecraft.client.Minecraft.getInstance().getSoundManager().play(instance);
     }
     
-    public static void stopCurrent() {
+    public static void stop(UUID entityUUID) {
+        BadAppleInstance instance = instances.remove(entityUUID);
         if (instance != null) {
             instance.stop();
-            instance = null;
         }
     }
     
-    public static boolean isPlaying() {
+    public static void stopAll() {
+        for (BadAppleInstance instance : instances.values()) {
+            instance.stop();
+        }
+        instances.clear();
+    }
+    
+    public static boolean isPlaying(UUID entityUUID) {
+        BadAppleInstance instance = instances.get(entityUUID);
         return instance != null && !instance.isStopped();
     }
     

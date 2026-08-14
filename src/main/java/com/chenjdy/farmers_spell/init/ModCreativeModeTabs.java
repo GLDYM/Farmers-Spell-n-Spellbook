@@ -18,9 +18,13 @@ public class ModCreativeModeTabs {
                     .icon(() -> new ItemStack(ModBlocks.ALCHEMIST_POT.get()))
                     .title(Component.translatable("itemGroup.farmers_spell_tab"))
                     .displayItems((pParameters,pOutput) -> {
+                        pOutput.accept(ModBlocks.EMBER_BLOCK.get());
+                        pOutput.accept(ModBlocks.EMBER_PILLAR.get());
+                        pOutput.accept(ModBlocks.EMBER_BARS.get());
                         pOutput.accept(ModBlocks.WISEWOOD_CABINET.get());
                         pOutput.accept(ModBlocks.CINDEROUS_STOVE.get());
                         pOutput.accept(ModBlocks.ALCHEMIST_POT.get());
+                        pOutput.accept(ModItems.DECREPIT_SCRAP.get()); 
                         pOutput.accept(ModItems.GOODBERRY.get());
                         pOutput.accept(ModItems.AMETHYST_BEETROOT.get());
                         pOutput.accept(ModItems.ICY_EGG.get());

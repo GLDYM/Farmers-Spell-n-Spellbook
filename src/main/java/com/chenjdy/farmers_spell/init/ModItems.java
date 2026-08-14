@@ -216,6 +216,9 @@ public class ModItems {
     // 饕魔符文
     public static final RegistryObject<Item> GLUTTON_RUNE = ITEMS.register("glutton_rune",
             () -> new Item(new Item.Properties()));
+    // 破败残片
+    public static final RegistryObject<Item> DECREPIT_SCRAP = ITEMS.register("decrepit_scrap",
+            () -> new Item(new Item.Properties()));
 
     // 武器
     public static final RegistryObject<Item> GOSPEL = ITEMS.register("gospel",

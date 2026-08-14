@@ -21,6 +21,7 @@ import net.minecraftforge.network.NetworkHooks;
 import com.chenjdy.farmers_spell.network.BadApplePacket;
 
 import java.util.List;
+import java.util.UUID;
 
 import static java.awt.Color.getHSBColor;
 
@@ -132,6 +133,12 @@ public class BadAppleEntity extends LivingEntity {
                 playMusic();
                 musicPlaying = true;
             }
+
+            if (this.dead || !this.isAlive()) {
+                if (musicPlaying) {
+                    stopMusic();
+                }
+            }
         } else {
             clientTick++;
             spawnRainbowParticles();
@@ -177,6 +184,14 @@ public class BadAppleEntity extends LivingEntity {
     }
     
     @Override
+    public void die(DamageSource cause) {
+        if (musicPlaying) {
+            stopMusic();
+        }
+        super.die(cause);
+    }
+    
+    @Override
     public void remove(RemovalReason reason) {
         if (musicPlaying) {
             stopMusic();
@@ -189,9 +204,15 @@ public class BadAppleEntity extends LivingEntity {
         if (level().isClientSide) {
             return false;
         }
+        if (this.invulnerableTime > 0) {
+            return false;
+        }
         float health = this.entityData.get(DATA_HEALTH);
         health -= amount;
+        this.invulnerableTime = 10;
         if (health <= 0) {
+            this.dead = true;
+            this.die(source);
             this.discard();
         } else {
             this.entityData.set(DATA_HEALTH, health);
@@ -200,11 +221,13 @@ public class BadAppleEntity extends LivingEntity {
     }
     
     private void playMusic() {
-        BadApplePacket.sendToAll(level(), this.blockPosition(), true);
+        UUID uuid = this.getUUID();
+        BadApplePacket.sendToAll(level(), uuid, this.blockPosition(), true);
     }
     
     private void stopMusic() {
-        BadApplePacket.sendToAll(level(), this.blockPosition(), false);
+        UUID uuid = this.getUUID();
+        BadApplePacket.sendToAll(level(), uuid, this.blockPosition(), false);
         musicPlaying = false;
     }
     

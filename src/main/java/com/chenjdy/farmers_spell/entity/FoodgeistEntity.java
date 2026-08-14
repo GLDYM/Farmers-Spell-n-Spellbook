@@ -6,6 +6,8 @@ import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -49,6 +51,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -284,10 +287,14 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             boolean notInCombat = (currentTime - lastHurtTime > 100L);
 
             if (notInCombat) {
+                List<MobEffectInstance> effectsToRemove = new ArrayList<>();
                 for (MobEffectInstance effect : player.getActiveEffects()) {
                     if (!effect.getEffect().isBeneficial()) {
-                        player.removeEffect(effect.getEffect());
+                        effectsToRemove.add(effect);
                     }
+                }
+                for (MobEffectInstance effect : effectsToRemove) {
+                    player.removeEffect(effect.getEffect());
                 }
 
                 player.setHealth(player.getMaxHealth());
@@ -296,6 +303,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
                     MagicData magicData = MagicData.getPlayerMagicData(serverPlayer);
                     float maxMana = (float) serverPlayer.getAttributeValue(AttributeRegistry.MAX_MANA.get());
                     magicData.setMana(maxMana);
+                    PacketDistributor.sendToPlayer(serverPlayer, new SyncManaPacket(magicData));
                 }
 
                 this.entityData.set(DATA_BLESSING_COOLDOWN, currentTime + 300L);
