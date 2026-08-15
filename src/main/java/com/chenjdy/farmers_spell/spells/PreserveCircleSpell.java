@@ -149,12 +149,12 @@ public class PreserveCircleSpell extends AbstractSpell {
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
 
-    private Vec3 getTargetPosition(Level level, LivingEntity entity) {
-        Vec3 startPos = entity.getEyePosition();
-        Vec3 lookAngle = entity.getLookAngle();
-        Vec3 endPos = startPos.add(lookAngle.multiply(32, 32, 32));
-        return Utils.raycastForBlock(level, startPos, endPos, ClipContext.Fluid.NONE).getLocation();
-    }
+    // private Vec3 getTargetPosition(Level level, LivingEntity entity) {
+    //     Vec3 startPos = entity.getEyePosition();
+    //     Vec3 lookAngle = entity.getLookAngle();
+    //     Vec3 endPos = startPos.add(lookAngle.multiply(32, 32, 32));
+    //     return Utils.raycastForBlock(level, startPos, endPos, ClipContext.Fluid.NONE).getLocation();
+    // }
 
     private float getRadius(int spellLevel, LivingEntity caster, int castTimeRemaining) {
         float baseRadius = 1.0f + spellLevel * 0.5f;

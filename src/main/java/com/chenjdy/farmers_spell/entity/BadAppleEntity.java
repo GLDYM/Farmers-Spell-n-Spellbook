@@ -16,8 +16,6 @@ import net.minecraft.world.phys.Vec3;
 import com.chenjdy.farmers_spell.network.BadApplePacket;
 
 import java.util.List;
-import java.util.UUID;
-
 import static java.awt.Color.getHSBColor;
 import net.minecraft.core.particles.ColorParticleOption;
 

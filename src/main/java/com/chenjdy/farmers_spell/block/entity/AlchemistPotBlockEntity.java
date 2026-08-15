@@ -45,6 +45,7 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
+import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
 import vectorwing.farmersdelight.common.block.entity.HeatableBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -90,6 +91,8 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
 
     private final Map<ResourceLocation, Integer> usedRecipeTracker;
 
+    private final Map<ResourceLocation, Float> usedExperienceTracker;
+
     private ResourceLocation lastRecipeID;
 
     private boolean checkNewRecipe;
@@ -101,6 +104,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         this.mealContainerStack = ItemStack.EMPTY;
         this.cookingPotData = createIntArray();
         this.usedRecipeTracker = new HashMap<>();
+        this.usedExperienceTracker = new HashMap<>();
         this.checkNewRecipe = true;
     }
 
@@ -186,13 +190,13 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         boolean didInventoryChange = false;
         if (canCook && cookingPot.hasInput()) {
             RecipeWrapper inventoryWrapper = new RecipeWrapper(cookingPot.inventory);
-            Optional<AlchemistCookingRecipe> magicRecipe = cookingPot.getMatchingMagicRecipe(inventoryWrapper);
-            if (magicRecipe.isPresent() && cookingPot.canCook(magicRecipe.get())) {
-                didInventoryChange = cookingPot.processCooking(magicRecipe.get(), cookingPot);
+            Optional<RecipeHolder<AlchemistCookingRecipe>> magicRecipe = cookingPot.getMatchingMagicRecipe(inventoryWrapper);
+            if (magicRecipe.isPresent() && cookingPot.canCook(magicRecipe.get().value())) {
+                didInventoryChange = cookingPot.processCooking(magicRecipe.get().value(), magicRecipe.get().id(), cookingPot);
             } else {
-                Optional<CookingPotRecipe> recipe = cookingPot.getMatchingRecipe(inventoryWrapper);
-                if (recipe.isPresent() && cookingPot.canCook(recipe.get())) {
-                    didInventoryChange = cookingPot.processCooking(recipe.get(), cookingPot);
+                Optional<RecipeHolder<CookingPotRecipe>> recipe = cookingPot.getMatchingRecipe(inventoryWrapper);
+                if (recipe.isPresent() && cookingPot.canCook(recipe.get().value())) {
+                    didInventoryChange = cookingPot.processCooking(recipe.get().value(), recipe.get().id(), cookingPot);
                 } else {
                     cookingPot.cookTime = Mth.clamp(cookingPot.cookTime - 2, 0, cookingPot.cookTimeTotal);
                 }
@@ -237,7 +241,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @SuppressWarnings("unchecked")
-    private Optional<CookingPotRecipe> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
+    private Optional<RecipeHolder<CookingPotRecipe>> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
         if (level == null)
             return Optional.empty();
         if (lastRecipeID != null) {
@@ -245,7 +249,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
             if (recipe.isPresent()) {
                 CookingPotRecipe cookingRecipe = recipe.get().value();
                 if (cookingRecipe.matches(inventoryWrapper, level)) {
-                    return Optional.of(cookingRecipe);
+                    return Optional.of(recipe.get());
                 }
                 if (ItemStack.isSameItem(cookingRecipe.getResultItem(this.level.registryAccess()), getMeal())) {
                     return Optional.empty();
@@ -260,14 +264,14 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
                     cookTime = 0;
                 }
                 lastRecipeID = newRecipeID;
-                return Optional.of(recipe.get().value());
+                return Optional.of(recipe.get());
             }
         }
         checkNewRecipe = false;
         return Optional.empty();
     }
 
-    private Optional<AlchemistCookingRecipe> getMatchingMagicRecipe(RecipeWrapper inventoryWrapper) {
+    private Optional<RecipeHolder<AlchemistCookingRecipe>> getMatchingMagicRecipe(RecipeWrapper inventoryWrapper) {
         if (level == null)
             return Optional.empty();
         Optional<RecipeHolder<AlchemistCookingRecipe>> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALCHEMIST_COOKING.get(), inventoryWrapper, level);
@@ -275,9 +279,9 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
             AlchemistCookingRecipe magicRecipe = recipe.get().value();
             SchoolType scrollSchool = getScrollSchool();
             if (magicRecipe.getRequiredSchool() == null) {
-                return Optional.of(magicRecipe);
+                return Optional.of(recipe.get());
             } else if (scrollSchool != null && magicRecipe.getRequiredSchool().equals(scrollSchool.getId())) {
-                return Optional.of(magicRecipe);
+                return Optional.of(recipe.get());
             }
         }
         return Optional.empty();
@@ -326,7 +330,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         return canCook((CookingPotRecipe) recipe);
     }
 
-    private boolean processCooking(CookingPotRecipe recipe, AlchemistPotBlockEntity cookingPot) {
+    private boolean processCooking(CookingPotRecipe recipe, ResourceLocation recipeId, AlchemistPotBlockEntity cookingPot) {
         if (cookingPot.level == null)
             return false;
         float speedMultiplier = cookingPot.isGluttonyScroll() ? 1.5F : 1.0F;
@@ -338,9 +342,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         cookingPot.cookTime = 0;
         cookingPot.cookTimeTotal = recipe.getCookTime();
         cookingPot.mealContainerStack = recipe.getOutputContainer();
-        if (cookingPot.lastRecipeID != null) {
-            cookingPot.usedRecipeTracker.merge(cookingPot.lastRecipeID, 1, Integer::sum);
-        }
+        cookingPot.usedRecipeTracker.merge(recipeId, 1, Integer::sum);
         ItemStack resultStack = recipe.assemble(new RecipeWrapper(cookingPot.inventory), this.level.registryAccess());
         ItemStack storedMealStack = cookingPot.inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
         if (storedMealStack.isEmpty()) {
@@ -362,7 +364,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         if (cookingPot.isGluttonyScroll()) {
             experience *= 3.0F;
         }
-        cookingPot.splitAndSpawnExperience(experience);
+        cookingPot.usedExperienceTracker.merge(recipeId, experience, Float::sum);
         return true;
     }
 
@@ -412,12 +414,13 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
             level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
                 list.add(recipe);
                 if (level instanceof ServerLevel) {
-                    float exp = ((CookingPotRecipe) recipe.value()).getExperience() * entry.getValue();
+                    float exp = usedExperienceTracker.getOrDefault(entry.getKey(), 0.0F);
                     splitAndSpawnExperience(exp);
                 }
             });
         }
         usedRecipeTracker.clear();
+        usedExperienceTracker.clear();
         return list;
     }
 
@@ -640,6 +643,10 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         for (String key : compoundRecipes.getAllKeys()) {
             usedRecipeTracker.put(ResourceLocation.parse(key), compoundRecipes.getInt(key));
         }
+        CompoundTag compoundExperience = compound.getCompound("ExperienceUsed");
+        for (String key : compoundExperience.getAllKeys()) {
+            usedExperienceTracker.put(ResourceLocation.parse(key), compoundExperience.getFloat(key));
+        }
     }
 
     @Override
@@ -656,6 +663,9 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         CompoundTag compoundRecipes = new CompoundTag();
         usedRecipeTracker.forEach((recipeId, craftedAmount) -> compoundRecipes.putInt(recipeId.toString(), craftedAmount));
         compound.put("RecipesUsed", compoundRecipes);
+        CompoundTag compoundExperience = new CompoundTag();
+        usedExperienceTracker.forEach((recipeId, experience) -> compoundExperience.putFloat(recipeId.toString(), experience));
+        compound.put("ExperienceUsed", compoundExperience);
     }
 
     @Override

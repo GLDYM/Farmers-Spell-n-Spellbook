@@ -3,7 +3,6 @@ package com.chenjdy.farmers_spell.recipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.codec.StreamCodec;
@@ -91,47 +90,47 @@ public class AlchemistCookingRecipe extends CookingPotRecipe {
             return STREAM_CODEC;
         }
 
-        public AlchemistCookingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            String s = GsonHelper.getAsString(json, "group", "");
+        // public AlchemistCookingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+        //     String s = GsonHelper.getAsString(json, "group", "");
 
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-            for (int i = 0; i < GsonHelper.getAsJsonArray(json, "ingredients").size(); ++i) {
-                nonnulllist.add(Ingredient.CODEC_NONEMPTY.parse(JsonOps.INSTANCE, GsonHelper.getAsJsonArray(json, "ingredients").get(i)).getOrThrow());
-            }
+        //     NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        //     for (int i = 0; i < GsonHelper.getAsJsonArray(json, "ingredients").size(); ++i) {
+        //         nonnulllist.add(Ingredient.CODEC_NONEMPTY.parse(JsonOps.INSTANCE, GsonHelper.getAsJsonArray(json, "ingredients").get(i)).getOrThrow());
+        //     }
 
-            if (nonnulllist.isEmpty()) {
-                throw new JsonParseException("No ingredients for alchemist cooking recipe");
-            } else if (nonnulllist.size() > CookingPotRecipe.INPUT_SLOTS) {
-                throw new JsonParseException(
-                        "Too many ingredients for alchemist cooking recipe! The maximum is " + CookingPotRecipe.INPUT_SLOTS);
-            } else {
-                JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
-                ItemStack output = readItemStack(resultJson);
-                ItemStack container = ItemStack.EMPTY;
-                if (json.has("container")) {
-                    container = readItemStack(GsonHelper.getAsJsonObject(json, "container"));
-                }
-                float f = GsonHelper.getAsFloat(json, "experience", 0.2F);
-                int i = GsonHelper.getAsInt(json, "cookingtime", 200);
+        //     if (nonnulllist.isEmpty()) {
+        //         throw new JsonParseException("No ingredients for alchemist cooking recipe");
+        //     } else if (nonnulllist.size() > CookingPotRecipe.INPUT_SLOTS) {
+        //         throw new JsonParseException(
+        //                 "Too many ingredients for alchemist cooking recipe! The maximum is " + CookingPotRecipe.INPUT_SLOTS);
+        //     } else {
+        //         JsonObject resultJson = GsonHelper.getAsJsonObject(json, "result");
+        //         ItemStack output = readItemStack(resultJson);
+        //         ItemStack container = ItemStack.EMPTY;
+        //         if (json.has("container")) {
+        //             container = readItemStack(GsonHelper.getAsJsonObject(json, "container"));
+        //         }
+        //         float f = GsonHelper.getAsFloat(json, "experience", 0.2F);
+        //         int i = GsonHelper.getAsInt(json, "cookingtime", 200);
 
-                ResourceLocation school = null;
-                if (json.has("required_school")) {
-                    school = ResourceLocation.parse(GsonHelper.getAsString(json, "required_school"));
-                }
+        //         ResourceLocation school = null;
+        //         if (json.has("required_school")) {
+        //             school = ResourceLocation.parse(GsonHelper.getAsString(json, "required_school"));
+        //         }
 
-                return new AlchemistCookingRecipe(s, nonnulllist, output, container, f, i, school);
-            }
-        }
+        //         return new AlchemistCookingRecipe(s, nonnulllist, output, container, f, i, school);
+        //     }
+        // }
 
-        private static ItemStack readItemStack(JsonObject json) {
-            String itemId = GsonHelper.getAsString(json, "item");
-            int count = GsonHelper.getAsInt(json, "count", 1);
-            Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemId));
-            if (item == null) {
-                throw new JsonParseException("Unknown item: " + itemId);
-            }
-            return new ItemStack(item, count);
-        }
+        // private static ItemStack readItemStack(JsonObject json) {
+        //     String itemId = GsonHelper.getAsString(json, "item");
+        //     int count = GsonHelper.getAsInt(json, "count", 1);
+        //     Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemId));
+        //     if (item == null) {
+        //         throw new JsonParseException("Unknown item: " + itemId);
+        //     }
+        //     return new ItemStack(item, count);
+        // }
 
         private static AlchemistCookingRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
             String s = buf.readUtf();
