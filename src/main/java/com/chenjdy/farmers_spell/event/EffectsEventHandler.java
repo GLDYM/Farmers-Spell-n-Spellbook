@@ -187,9 +187,9 @@ public class EffectsEventHandler {
             double y = livingEntity.getY() + livingEntity.getBbHeight() / 2;
             double z = livingEntity.getZ();
             for (int i = 0; i < 10; i++) {
-                double offsetX = (Math.random() - 0.5) * 0.5;
-                double offsetY = Math.random() * 0.5;
-                double offsetZ = (Math.random() - 0.5) * 0.5;
+                double offsetX = (livingEntity.getRandom().nextDouble() - 0.5) * 0.5;
+                double offsetY = livingEntity.getRandom().nextDouble() * 0.5;
+                double offsetZ = (livingEntity.getRandom().nextDouble() - 0.5) * 0.5;
                 serverLevel.sendParticles(
                         ParticleTypes.HAPPY_VILLAGER,
                         x + offsetX, y + offsetY, z + offsetZ,
@@ -222,9 +222,9 @@ public class EffectsEventHandler {
                     double y = livingEntity.getY() + livingEntity.getBbHeight() / 2;
                     double z = livingEntity.getZ();
                     for (int i = 0; i < 8; i++) {
-                        double offsetX = (Math.random() - 0.5) * 0.5;
-                        double offsetY = Math.random() * 0.3;
-                        double offsetZ = (Math.random() - 0.5) * 0.5;
+                        double offsetX = (livingEntity.getRandom().nextDouble() - 0.5) * 0.5;
+                        double offsetY = livingEntity.getRandom().nextDouble() * 0.3;
+                        double offsetZ = (livingEntity.getRandom().nextDouble() - 0.5) * 0.5;
                         serverLevel.sendParticles(
                                 ParticleTypes.EFFECT,
                                 x + offsetX, y + offsetY, z + offsetZ,
@@ -292,9 +292,9 @@ public class EffectsEventHandler {
             double y = entity.getY() + entity.getBbHeight() / 2;
             double z = entity.getZ();
             for (int i = 0; i < 15; i++) {
-                double offsetX = (Math.random() - 0.5) * 0.5;
-                double offsetY = Math.random() * 0.5;
-                double offsetZ = (Math.random() - 0.5) * 0.5;
+                double offsetX = (entity.getRandom().nextDouble() - 0.5) * 0.5;
+                double offsetY = entity.getRandom().nextDouble() * 0.5;
+                double offsetZ = (entity.getRandom().nextDouble() - 0.5) * 0.5;
                 serverLevel.sendParticles(
                         ParticleHelper.SNOWFLAKE,
                         x + offsetX, y + offsetY, z + offsetZ,

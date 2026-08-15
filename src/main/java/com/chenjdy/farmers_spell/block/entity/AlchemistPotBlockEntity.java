@@ -383,7 +383,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     private void splitAndSpawnExperience(float experience) {
         int expTotal = Mth.floor(experience);
         float expFraction = Mth.frac(experience);
-        if (expFraction != 0.0F && Math.random() < (double) expFraction) {
+        if (expFraction != 0.0F && level != null && level.random.nextFloat() < expFraction) {
             ++expTotal;
         }
         if (expTotal > 0 && level instanceof ServerLevel serverLevel) {

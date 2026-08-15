@@ -120,9 +120,9 @@ public class BadAppleEntity extends LivingEntity {
         
         if (clientTick % 3 == 0) {
             double offset = 0.5;
-            double x = this.getX() + (Math.random() - 0.5) * offset;
-            double y = this.getY() + 0.5 + (Math.random() - 0.5) * 0.2;
-            double z = this.getZ() + (Math.random() - 0.5) * offset;
+            double x = this.getX() + (this.getRandom().nextDouble() - 0.5) * offset;
+            double y = this.getY() + 0.5 + (this.getRandom().nextDouble() - 0.5) * 0.2;
+            double z = this.getZ() + (this.getRandom().nextDouble() - 0.5) * offset;
             
             float[] rgb = getHSBColor(hue, 1.0f, 1.0f).getRGBColorComponents(null);
             level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, (float)(rgb[0]), (float)(rgb[1]), (float)(rgb[2])), x, y, z, 0.0D, 0.0D, 0.0D);
@@ -144,9 +144,9 @@ public class BadAppleEntity extends LivingEntity {
         }
 
         if (clientTick % 10 == 0) {
-            double x = this.getX() + (Math.random() - 0.5) * 0.3;
+            double x = this.getX() + (this.getRandom().nextDouble() - 0.5) * 0.3;
             double y = this.getY() + 0.5;
-            double z = this.getZ() + (Math.random() - 0.5) * 0.3;
+            double z = this.getZ() + (this.getRandom().nextDouble() - 0.5) * 0.3;
             
             float[] rgb = getHSBColor(hue + 0.3f, 1.0f, 0.8f).getRGBColorComponents(null);
             level().addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, (float)(rgb[0]), (float)(rgb[1]), (float)(rgb[2])), x, y, z, 0.0D, 0.0D, 0.0D);
