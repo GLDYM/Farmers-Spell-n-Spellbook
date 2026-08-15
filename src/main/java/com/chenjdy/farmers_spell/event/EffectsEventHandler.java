@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.event;
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModSchools;
+import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -27,6 +28,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +102,31 @@ public class EffectsEventHandler {
                 entity.igniteForSeconds(0);
             }
         }
+
+        if (entity instanceof Player player && effect.getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+            RingManaBonusHelper.syncAll(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectRemoved(MobEffectEvent.Remove event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (event.getEntity() instanceof Player player && event.getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+            RingManaBonusHelper.clearAll(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectExpired(MobEffectEvent.Expired event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+            RingManaBonusHelper.clearAll(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        RingManaBonusHelper.syncAll(event.getEntity());
     }
 
     @SubscribeEvent
