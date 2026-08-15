@@ -40,6 +40,9 @@ public class CinderousStoveBlock extends StoveBlock {
         if (level.isClientSide && state.getValue(LIT)) {
             return createTickerHelper(blockEntityType, ModBlockEntities.CINDEROUS_STOVE.get(), CinderousStoveBlockEntity::particleTick);
         }
-        return createStoveTicker(level, blockEntityType, ModBlockEntities.CINDEROUS_STOVE.get());
+        if (!level.isClientSide) {
+            return createTickerHelper(blockEntityType, ModBlockEntities.CINDEROUS_STOVE.get(), CinderousStoveBlockEntity::serverTick);
+        }
+        return null;
     }
 }

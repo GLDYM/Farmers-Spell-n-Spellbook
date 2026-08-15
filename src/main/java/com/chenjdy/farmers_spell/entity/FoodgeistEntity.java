@@ -1,6 +1,5 @@
 package com.chenjdy.farmers_spell.entity;
 
-import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModTriggers;
@@ -37,9 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.minecraft.core.registries.Registries;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -383,115 +380,6 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         return null;
     }
 
-    public static void checkSpawnCondition(ServerLevel level, Player player) {
-        long gameTime = level.getGameTime();
-        boolean hasMainBlock = false;
-        boolean hasFoodBlock = false;
-        boolean hasCabinet = false;
-        int checkRange = 10;
-        int yRange = 5;
-        for (int x = -checkRange; x <= checkRange && !hasMainBlock; x++) {
-            for (int y = -yRange; y <= yRange && !hasMainBlock; y++) {
-                for (int z = -checkRange; z <= checkRange && !hasMainBlock; z++) {
-                    BlockPos pos = player.blockPosition().offset(x, y, z);
-                    BlockState state = level.getBlockState(pos);
-                    if (state.is(ModBlocks.ALCHEMIST_POT.get()) || state.is(ModBlocks.CINDEROUS_STOVE.get())) {
-                        hasMainBlock = true;
-                    }
-                    if (state.is(ModBlocks.WISEWOOD_CABINET.get())) {
-                        hasCabinet = true;
-                    }
-                    if (state.is(ModBlocks.RED_VELVET_CAKE.get()) || state.is(ModBlocks.GOODBERRY_PIE.get()) || state.is(ModBlocks.EDEN_APPLE_TART.get()) || state.is(ModBlocks.GLUTTON_HOTCHPOTCH.get())) {
-                        hasFoodBlock = true;
-                    }
-                }
-            }
-        }
-        if (!hasMainBlock) {
-            return;
-        }
-        int baseInterval = 1200;
-        int actualInterval = baseInterval;
-        if (hasCabinet)
-            actualInterval -= 300;
-        if (hasFoodBlock)
-            actualInterval -= 300;
-        CompoundTag persistentData = player.getPersistentData();
-        long nextCheckTime = persistentData.getLong("foodgeist_next_check_time");
-        int spawnChance = persistentData.getInt("foodgeist_spawn_chance");
-        if (spawnChance == 0)
-            spawnChance = 10;
-        int spawnAttempts = persistentData.getInt("foodgeist_spawn_attempts");
-        if (gameTime >= nextCheckTime) {
-            if (spawnAttempts >= 5) {
-                spawnFoodgeist(level, player);
-                persistentData.putInt("foodgeist_spawn_attempts", 0);
-                persistentData.putInt("foodgeist_spawn_chance", 10);
-            } else {
-                float roll = level.getRandom().nextFloat() * 100.0F;
-                if (roll < spawnChance) {
-                    spawnFoodgeist(level, player);
-                    persistentData.putInt("foodgeist_spawn_attempts", 0);
-                    persistentData.putInt("foodgeist_spawn_chance", 10);
-                } else {
-                    spawnAttempts++;
-                    spawnChance += 10;
-                    persistentData.putInt("foodgeist_spawn_attempts", spawnAttempts);
-                    persistentData.putInt("foodgeist_spawn_chance", Math.min(spawnChance, 40));
-                }
-            }
-            persistentData.putLong("foodgeist_next_check_time", gameTime + actualInterval);
-        }
-    }
-
-    private static void spawnFoodgeist(ServerLevel level, Player player) {
-        for (int attempt = 0; attempt < 20; attempt++) {
-            int offsetX = level.getRandom().nextInt(11) - 5;
-            int offsetZ = level.getRandom().nextInt(11) - 5;
-            BlockPos spawnPos = player.blockPosition().offset(offsetX, 0, offsetZ);
-            spawnPos = findGroundPosition(level, spawnPos);
-            if (spawnPos != null && level.getBlockState(spawnPos).canBeReplaced()) {
-                FoodgeistEntity foodgeist = new FoodgeistEntity(ModEntities.FOODGEIST.get(), level);
-                foodgeist.setPos(spawnPos.getX() + 0.5, spawnPos.getY() + 0.5, spawnPos.getZ() + 0.5);
-                level.addFreshEntity(foodgeist);
-                level.sendParticles(ParticleTypes.HAPPY_VILLAGER, spawnPos.getX() + 0.5, spawnPos.getY() + 1, spawnPos.getZ() + 0.5, 10, 0.5, 0.5, 0.5, 0.1);
-                player.playSound(SoundEvents.VILLAGER_CELEBRATE, 1.0F, 1.0F);
-                return;
-            }
-        }
-    }
-
-    @Nullable
-    private static BlockPos findGroundPosition(ServerLevel level, BlockPos startPos) {
-        BlockPos.MutableBlockPos mutable = startPos.mutable();
-        for (int y = 0; y < 64; y++) {
-            mutable.setY(startPos.getY() - y);
-            if (mutable.getY() >= level.getMinBuildHeight()) {
-                BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
-                    mutable.setY(mutable.getY() + 1);
-                    if (mutable.getY() < level.getMaxBuildHeight() && level.getBlockState(mutable).canBeReplaced()) {
-                        return mutable.immutable();
-                    }
-                }
-            }
-        }
-        mutable = startPos.mutable();
-        for (int y = 1; y < 64; y++) {
-            mutable.setY(startPos.getY() + y);
-            if (mutable.getY() < level.getMaxBuildHeight()) {
-                BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
-                    mutable.setY(mutable.getY() + 1);
-                    if (mutable.getY() < level.getMaxBuildHeight() && level.getBlockState(mutable).canBeReplaced()) {
-                        return mutable.immutable();
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -674,18 +562,4 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         }
     }
 
-    @SubscribeEvent
-    public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (event.getEntity().level().isClientSide)
-            return;
-        if (event.getEntity().tickCount % 20 != 0)
-            return;
-        Player player = event.getEntity();
-        ServerLevel serverLevel = (ServerLevel) player.level();
-        boolean hasNearbyFoodgeist = serverLevel.getEntitiesOfClass(FoodgeistEntity.class, player.getBoundingBox().inflate(16.0D)).size() > 0;
-        if (hasNearbyFoodgeist) {
-            return;
-        }
-        checkSpawnCondition(serverLevel, player);
-    }
 }

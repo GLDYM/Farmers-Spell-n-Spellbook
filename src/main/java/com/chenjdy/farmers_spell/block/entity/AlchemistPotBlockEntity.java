@@ -7,6 +7,7 @@ import com.chenjdy.farmers_spell.init.ModRecipeTypes;
 import com.chenjdy.farmers_spell.init.ModTriggers;
 import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
+import com.chenjdy.farmers_spell.entity.FoodgeistSpawnHelper;
 import io.redspace.ironsspellbooks.api.item.IScroll;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
@@ -184,6 +185,9 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     }
 
     public static void cookingTick(Level level, BlockPos pos, BlockState state, AlchemistPotBlockEntity cookingPot) {
+        if (level instanceof ServerLevel serverLevel) {
+            FoodgeistSpawnHelper.tick(serverLevel, pos, cookingPot);
+        }
         boolean isHeated = cookingPot.isPotHeated();
         boolean hasBlazeScroll = cookingPot.isBlazeScroll();
         boolean canCook = isHeated || hasBlazeScroll;

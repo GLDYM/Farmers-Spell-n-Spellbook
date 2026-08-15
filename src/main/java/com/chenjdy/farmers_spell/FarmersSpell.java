@@ -54,7 +54,6 @@ public class FarmersSpell {
         modEventBus.addListener(this::onCommonSetup);
         
         NeoForge.EVENT_BUS.register(FTSInternal.class);
-        NeoForge.EVENT_BUS.addListener(FoodgeistEntity::onPlayerTick);
     }
 
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
