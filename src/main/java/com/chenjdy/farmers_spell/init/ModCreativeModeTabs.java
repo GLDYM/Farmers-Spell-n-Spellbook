@@ -44,7 +44,7 @@ public class ModCreativeModeTabs {
         FancyTabSections.addSection(tabId, new SectionTextured(EQUIPMENT).setTitle(Component.translatable("section.farmers_spell.equipment")).setCollapsible(false).setTextColor(0xFFFFFFFF) // 武器
         .add(ModItems.CHERRY_SPOON).add(ModItems.IRIS_FORK).add(ModItems.GROW_KNIFE).add(ModItems.GOSPEL).add(ModItems.HELL_KNIFE).add(ModItems.TWILIGHT_BLADE).add(ModItems.BOREAL_KNIFE).add(ModItems.ECHOING_KNIFE) // 防具
         .add(ModItems.GLUTTONY_CHEF_HAT).add(ModItems.GLUTTONY_CHEF_APRON).add(ModItems.GLUTTONY_CHEF_LEGGINGS).add(ModItems.GLUTTONY_CHEF_BOOTS) // 饰品
-        .add(ModItems.AFFINITY_RING_GLUTTON).add(ModItems.FOODGEIST_RING).add(ModItems.WHEAT_BOOK).add(ModItems.LASAGNOWLEDGE).add(ModItems.TIRAMISU).add(ModItems.GLUTTON_RUNE).add(ModItems.DECREPIT_SCRAP) // 其他
+        .add(ModItems.AFFINITY_RING_GLUTTON).add(ModItems.FOODGEIST_RING).add(ModItems.WHEAT_BOOK).add(ModItems.LASAGNOWLEDGE).add(ModItems.TIRAMISU).add(ModItems.GLUTTON_RUNE).add(ModItems.UPGRADE_ORB_GLUTTONY).add(ModItems.DECREPIT_SCRAP) // 其他
         .add(ModItems.AMETHYST_BEETROOT_SEEDS).add(ModItems.FOODGEIST_SPAWN_EGG));
     }
 }

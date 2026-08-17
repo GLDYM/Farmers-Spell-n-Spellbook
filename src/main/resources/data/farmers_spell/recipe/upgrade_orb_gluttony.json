@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": { "item": "irons_spellbooks:upgrade_orb" },
+    "R": { "item": "farmers_spell:glutton_rune" }
+  },
+  "pattern": ["RRR", "ROR", "RRR"],
+  "result": { "count": 1, "id": "farmers_spell:upgrade_orb_gluttony" }
+}

@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
+import com.chenjdy.farmers_spell.item.GluttonyUpgradeOrbItem;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
@@ -163,6 +164,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DECREPIT_SCRAP = ITEMS.register("decrepit_scrap",
             () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> UPGRADE_ORB_GLUTTONY = ITEMS.register("upgrade_orb_gluttony",
+            () -> new GluttonyUpgradeOrbItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> GOSPEL = ITEMS.register("gospel", GospelButterKnife::new);
     public static final DeferredHolder<Item, Item> HELL_KNIFE = ITEMS.register("hell_knife", HellKnife::new);
