@@ -4,7 +4,9 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModAttributes;
 import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import io.redspace.ironsspellbooks.item.armor.UpgradeType;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 
@@ -13,7 +15,7 @@ import java.util.Optional;
 public class GluttonyUpgradeOrbItem extends UpgradeOrbItem {
     public static final UpgradeType TYPE = new UpgradeType() {
         @Override
-        public net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute> getAttribute() {
+        public Holder<Attribute> getAttribute() {
             return ModAttributes.GLUTTONY_SPELL_POWER;
         }
 
@@ -33,7 +35,7 @@ public class GluttonyUpgradeOrbItem extends UpgradeOrbItem {
         }
 
         @Override
-        public Optional<net.minecraft.core.Holder<Item>> getContainerItem() {
+        public Optional<Holder<Item>> getContainerItem() {
             return Optional.empty();
         }
     };

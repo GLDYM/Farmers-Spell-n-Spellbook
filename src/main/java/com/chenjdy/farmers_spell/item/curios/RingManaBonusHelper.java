@@ -11,9 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import top.theillusivec4.curios.api.CuriosApi;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 public final class RingManaBonusHelper {
     private static final ResourceLocation FOODGEIST_BONUS_ID = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "spirit_ring_mana_bonus");
     private static final ResourceLocation AFFINITY_BONUS_ID = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "glutton_ring_mana_bonus");
+    private static final Map<Player, Boolean> NOURISHMENT_STATE = new WeakHashMap<>();
 
     private RingManaBonusHelper() {
     }
@@ -44,6 +48,15 @@ public final class RingManaBonusHelper {
     public static void clearAll(Player player) {
         updateBonus(player, FOODGEIST_BONUS_ID, 75.0D, false);
         updateBonus(player, AFFINITY_BONUS_ID, 150.0D, false);
+        NOURISHMENT_STATE.put(player, false);
+    }
+
+    public static void syncNourishmentTransition(Player player) {
+        boolean hasNourishment = player.hasEffect(ModEffects.NOURISHMENT);
+        Boolean previous = NOURISHMENT_STATE.put(player, hasNourishment);
+        if (previous == null || previous != hasNourishment) {
+            syncAll(player);
+        }
     }
 
     private static void updateBonus(Player player, ResourceLocation id, double amount, boolean shouldApply) {

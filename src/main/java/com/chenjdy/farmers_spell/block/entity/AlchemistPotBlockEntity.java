@@ -51,6 +51,8 @@ import vectorwing.farmersdelight.common.block.entity.HeatableBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+
+import static vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -261,7 +263,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
             }
         }
         if (checkNewRecipe) {
-            Optional<RecipeHolder<CookingPotRecipe>> recipe = level.getRecipeManager().getRecipeFor(vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING.get(), inventoryWrapper, level);
+            Optional<RecipeHolder<CookingPotRecipe>> recipe = level.getRecipeManager().getRecipeFor(COOKING.get(), inventoryWrapper, level);
             if (recipe.isPresent()) {
                 ResourceLocation newRecipeID = recipe.get().id();
                 if (lastRecipeID != null && !lastRecipeID.equals(newRecipeID)) {

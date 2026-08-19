@@ -11,6 +11,7 @@ import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
+import static vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
@@ -103,7 +104,7 @@ public class EffectsEventHandler {
             }
         }
 
-        if (entity instanceof Player player && effect.getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+        if (entity instanceof Player player && effect.getEffect().equals(NOURISHMENT)) {
             RingManaBonusHelper.syncAll(player);
         }
     }
@@ -111,7 +112,7 @@ public class EffectsEventHandler {
     @SubscribeEvent
     public static void onMobEffectRemoved(MobEffectEvent.Remove event) {
         if (event.getEntity().level().isClientSide) return;
-        if (event.getEntity() instanceof Player player && event.getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+        if (event.getEntity() instanceof Player player && event.getEffect().equals(NOURISHMENT)) {
             RingManaBonusHelper.clearAll(player);
         }
     }
@@ -119,7 +120,7 @@ public class EffectsEventHandler {
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         if (event.getEntity().level().isClientSide) return;
-        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().equals(vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT)) {
+        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().equals(NOURISHMENT)) {
             RingManaBonusHelper.clearAll(player);
         }
     }
@@ -133,6 +134,11 @@ public class EffectsEventHandler {
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity livingEntity)) return;
         if (livingEntity.level().isClientSide) return;
+
+        // Some Nourishment applications update an existing effect without emitting Added.
+        if (livingEntity instanceof ServerPlayer player) {
+            RingManaBonusHelper.syncNourishmentTransition(player);
+        }
 
         if (livingEntity.hasEffect(ModEffects.GOLDEN_ARMOR) && livingEntity.isOnFire()) {
             livingEntity.clearFire();
