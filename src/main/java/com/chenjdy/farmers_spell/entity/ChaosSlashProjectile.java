@@ -104,10 +104,20 @@ public class ChaosSlashProjectile extends Projectile {
         this.setPos(d0, d1, d2);
     }
 
-        public void tick() {
+    public void tick() {
         super.tick();
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
+        // The movement vector may be changed after spawning (for example by
+        // Irons Spellbooks' divine guidance). Keep the projectile's base
+        // orientation in sync with that vector; SlashType is only the fixed
+        // initial slash tilt applied by the renderer.
+        Vec3 movement = this.getDeltaMovement();
+        if (movement.lengthSqr() > 1.0E-7D) {
+            double horizontalLength = Math.sqrt(movement.x * movement.x + movement.z * movement.z);
+            this.setYRot((float) (Mth.atan2(movement.x, movement.z) * (180.0D / Math.PI)));
+            this.setXRot((float) (Mth.atan2(movement.y, horizontalLength) * (180.0D / Math.PI)));
+        }
         if (++age > EXPIRE_TIME) {
             discard();
             return;

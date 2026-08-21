@@ -13,6 +13,11 @@
     ],
     "result": {
         "id": "farmers_spell:gospel",
-        "count": 1
+        "count": 1,
+        "components": {
+            "minecraft:enchantments": {
+                "minecraft:smite": 1
+            }
+        }
     }
 }
