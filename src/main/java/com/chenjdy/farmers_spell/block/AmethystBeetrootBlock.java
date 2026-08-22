@@ -170,7 +170,10 @@ public class AmethystBeetrootBlock extends CropBlock {
         Direction facing = state.getValue(FACING);
         if (direction == facing.getOpposite()) {
             if (!canSurvive(state, level, pos)) {
-                level.scheduleTick(pos, this, 1);
+                if (level instanceof Level actualLevel && !actualLevel.isClientSide()) {
+                    actualLevel.destroyBlock(pos, true);
+                }
+                return Blocks.AIR.defaultBlockState();
             } else {
                 int age = state.getValue(AGE);
                 if (age >= getMaxAge() && level instanceof ServerLevel serverLevel) {
