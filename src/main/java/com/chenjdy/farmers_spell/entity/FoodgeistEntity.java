@@ -19,11 +19,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -91,6 +93,21 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     public FoodgeistEntity(EntityType<? extends FoodgeistEntity> entityType, Level level) {
         super(entityType, level);
         this.setCanPickUpLoot(false);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ALLAY_AMBIENT_WITHOUT_ITEM;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.ALLAY_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ALLAY_DEATH;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -226,6 +243,8 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         Player nearestPlayer = this.level().getNearestPlayer(this, 10.0D);
         if (nearestPlayer == null)
             return;
+        // Receiving the reward starts the blessing cooldown immediately.
+        this.entityData.set(DATA_BLESSING_COOLDOWN, this.level().getGameTime() + 300L);
         this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ModItems.FOODGEIST_SEASONING.get(), 2));
         if (this.random.nextFloat() < 0.5F) {
             this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ModItems.FOODGEIST_CHEESE.get()));
