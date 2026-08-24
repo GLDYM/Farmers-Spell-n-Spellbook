@@ -7,5 +7,14 @@
         "stream": false
       }
     ]
+  },
+  "baian": {
+    "subtitle": "Baian",
+    "sounds": [
+      {
+        "name": "farmers_spell:baian",
+        "stream": false
+      }
+    ]
   }
 }

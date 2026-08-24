@@ -21,6 +21,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModBlocks.EMBER_BLOCK.get());
                         pOutput.accept(ModBlocks.EMBER_PILLAR.get());
                         pOutput.accept(ModBlocks.EMBER_BARS.get());
+                        pOutput.accept(ModBlocks.GOODBERRY_CRATE.get());
+                        pOutput.accept(ModBlocks.ICY_EGG_CRATE.get());
                         pOutput.accept(ModBlocks.WISEWOOD_CABINET.get());
                         pOutput.accept(ModBlocks.CINDEROUS_STOVE.get());
                         pOutput.accept(ModBlocks.ALCHEMIST_POT.get());
@@ -51,7 +53,8 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.GOODBERRY_PIE_SLICE.get());
                         pOutput.accept(ModItems.SALMON_BURGER.get());
                         pOutput.accept(ModItems.SNOWY_TART.get());
-                        pOutput.accept(ModItems.ICEBREAKER_BREAD.get());
+                        pOutput.accept(ModBlocks.ICEBREAKER_BREAD.get());
+                        pOutput.accept(ModItems.ICEBERGCREAM_SANDWICH.get());
                         pOutput.accept(ModItems.ICEBERGCREAM.get());
                         pOutput.accept(ModItems.PERMAFROST_POPSICLE.get());
                         pOutput.accept(ModItems.VEX_GINGER.get());
@@ -89,6 +92,7 @@ public class ModCreativeModeTabs {
                         pOutput.accept(ModItems.AFFINITY_RING_GLUTTON.get());
                         pOutput.accept(ModItems.FOODGEIST_RING.get());
                         pOutput.accept(ModItems.GLUTTON_RUNE.get());
+                        pOutput.accept(ModItems.GLUTTONY_UPGRADE_ORB.get());
                         pOutput.accept(ModItems.GLUTTONY_CHEF_HAT.get());
                         pOutput.accept(ModItems.GLUTTONY_CHEF_APRON.get());
                         pOutput.accept(ModItems.GLUTTONY_CHEF_LEGGINGS.get());

@@ -48,6 +48,13 @@ public class ModFoods {
             .saturationMod(0.1f)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD.get(), 5 * 60 * 20, 0), 1.0F)
             .build();
+    // 冰山淇淋三明治
+    public static final FoodProperties ICEBERGCREAM_SANDWICH = new FoodProperties.Builder()
+            .nutrition(8)
+            .saturationMod(0.75f)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD.get(), 5 * 60 * 20, 2), 1.0F)
+            .build();
     // 神圣奶酪焗土豆
     public static final FoodProperties BUTTER_POTATO = (new FoodProperties.Builder())
             .nutrition(16)
@@ -117,13 +124,6 @@ public class ModFoods {
             .nutrition(8)
             .saturationMod(0.8f)
             .effect(() -> new MobEffectInstance(MobEffectRegistry.CHARGED.get(), 3000, 2), 1.0F)
-            .build();
-    // 破冰面包
-    public static final FoodProperties ICEBREAKER_BREAD = new FoodProperties.Builder()
-            .nutrition(16)
-            .saturationMod(0.75f)
-            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD.get(), 5 * 60 * 20, 2), 1.0F)
             .build();
     // 火腿
     public static final FoodProperties CINDEROUS_HAM = new FoodProperties.Builder()

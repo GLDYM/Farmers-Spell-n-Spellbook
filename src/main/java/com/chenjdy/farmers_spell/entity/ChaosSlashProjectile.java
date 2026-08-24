@@ -4,48 +4,45 @@ import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModSpells;
 import io.redspace.ironsspellbooks.damage.DamageSources;
+import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-
+import net.minecraftforge.event.ForgeEventFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class ChaosSlashProjectile extends Projectile {
+public class ChaosSlashProjectile extends AbstractMagicProjectile {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_SLASH_TYPE = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.INT);
-    private static final double SPEED = 1d;
+    private static final float SPEED = 1f;
     private static final int EXPIRE_TIME = 4 * 20;
     private static int slashCounter = 0;
     public AABB oldBB;
-    private int age;
-    private float damage;
     private int effectDuration = 10;
-    private List<Entity> victims;
-    private float initialYRot;
-    private float initialXRot;
-    private boolean rotationInitialized = false;
+    private final List<Entity> victims = new ArrayList<>();
 
     public ChaosSlashProjectile(EntityType<? extends ChaosSlashProjectile> entityType, Level level) {
         super(entityType, level);
         setRadius(.6f);
         oldBB = getBoundingBox();
-        victims = new ArrayList<>();
         this.setNoGravity(true);
     }
 
@@ -54,28 +51,7 @@ public class ChaosSlashProjectile extends Projectile {
         setOwner(shooter);
         setYRot(shooter.getYRot());
         setXRot(shooter.getXRot());
-        this.initialYRot = shooter.getYRot();
-        this.initialXRot = shooter.getXRot();
-        this.rotationInitialized = true;
         setSlashType(getNextSlashType());
-    }
-
-    public float getInitialYRot() {
-        if (!rotationInitialized) {
-            this.initialYRot = getYRot();
-            this.initialXRot = getXRot();
-            this.rotationInitialized = true;
-        }
-        return initialYRot;
-    }
-
-    public float getInitialXRot() {
-        if (!rotationInitialized) {
-            this.initialYRot = getYRot();
-            this.initialXRot = getXRot();
-            this.rotationInitialized = true;
-        }
-        return initialXRot;
     }
 
     public ChaosSlashProjectile(Level levelIn, LivingEntity shooter) {
@@ -96,16 +72,27 @@ public class ChaosSlashProjectile extends Projectile {
         this.getEntityData().set(DATA_SLASH_TYPE, type);
     }
 
-    public void shoot(Vec3 rotation) {
-        setDeltaMovement(rotation.scale(SPEED));
+    @Override
+    public float getSpeed() {
+        return SPEED;
     }
 
-    public void setDamage(float damage) {
-        this.damage = damage;
+    @Override
+    public void trailParticles() {
+    }
+
+    @Override
+    public void impactParticles(double x, double y, double z) {
+    }
+
+    @Override
+    public Optional<Supplier<SoundEvent>> getImpactSound() {
+        return Optional.empty();
     }
 
     @Override
     protected void defineSynchedData() {
+        super.defineSynchedData();
         this.getEntityData().define(DATA_RADIUS, 0.5F);
         this.getEntityData().define(DATA_SLASH_TYPE, 0);
     }
@@ -120,6 +107,7 @@ public class ChaosSlashProjectile extends Projectile {
         return this.getEntityData().get(DATA_RADIUS);
     }
 
+    @Override
     public void refreshDimensions() {
         double d0 = this.getX();
         double d1 = this.getY();
@@ -129,40 +117,46 @@ public class ChaosSlashProjectile extends Projectile {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        this.yRotO = this.getYRot();
-        this.xRotO = this.getXRot();
-        if (++age > EXPIRE_TIME) {
-            discard();
-            return;
-        }
-        oldBB = getBoundingBox();
-        setRadius(getRadius() + 0.12f);
-
-        if (!level().isClientSide()) {
-            HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-            if (hitresult.getType() == HitResult.Type.BLOCK) {
-                onHitBlock((BlockHitResult) hitresult);
-            }
-            for (Entity entity : level().getEntities(this, this.getBoundingBox()).stream().filter(target -> canHitEntity(target) && !victims.contains(target)).collect(Collectors.toSet())) {
-                damageEntity(entity);
-            }
-        }
-
-        setPos(position().add(getDeltaMovement()));
-    }
-
     public EntityDimensions getDimensions(Pose p_19721_) {
         this.getBoundingBox();
         return EntityDimensions.scalable(this.getRadius() * 2.0F, 0.5F);
     }
 
+    @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_19729_) {
         if (DATA_RADIUS.equals(p_19729_)) {
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(p_19729_);
+    }
+
+    @Override
+    public void tick() {
+        if (this.tickCount > EXPIRE_TIME) {
+            this.discard();
+            return;
+        }
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getXRot();
+        this.oldBB = this.getBoundingBox();
+        this.setRadius(this.getRadius() + 0.12f);
+        super.tick();
+    }
+
+    @Override
+    public void handleHitDetection() {
+        if (!level().isClientSide()) {
+            HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+            if (hitresult.getType() == HitResult.Type.BLOCK
+                    && !ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+                onHitBlock((BlockHitResult) hitresult);
+            }
+            for (Entity entity : level().getEntities(this, this.getBoundingBox()).stream()
+                    .filter(target -> canHitEntity(target) && !victims.contains(target))
+                    .collect(Collectors.toSet())) {
+                damageEntity(entity);
+            }
+        }
     }
 
     @Override
@@ -173,12 +167,10 @@ public class ChaosSlashProjectile extends Projectile {
 
     private void damageEntity(Entity entity) {
         if (!victims.contains(entity)) {
-            // 使用 Iron's Spellbooks 的 DamageSources.applyDamage 配合 SpellDamageSource
-            // 这样伤害会正确归因于施法者（玩家），并且触发 SpellDamageEvent 处理增伤/抗性
-            DamageSources.applyDamage(entity, damage,
+            DamageSources.applyDamage(entity, getDamage(),
                     ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()));
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                livingEntity.addEffect(new MobEffectInstance(
                         ModEffects.CLAW_BREAK.get(),
                         effectDuration * 20,
                         0,
@@ -199,7 +191,6 @@ public class ChaosSlashProjectile extends Projectile {
     @Override
     protected void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putFloat("Damage", this.damage);
         pCompound.putInt("EffectDuration", this.effectDuration);
         pCompound.putInt("SlashType", this.getSlashType());
     }
@@ -207,7 +198,6 @@ public class ChaosSlashProjectile extends Projectile {
     @Override
     protected void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.damage = pCompound.getFloat("Damage");
         this.effectDuration = pCompound.getInt("EffectDuration");
         this.setSlashType(pCompound.getInt("SlashType"));
     }

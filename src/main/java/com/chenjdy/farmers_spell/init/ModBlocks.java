@@ -4,11 +4,14 @@ import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.block.AlchemistPotBlock;
 import com.chenjdy.farmers_spell.block.AmethystBeetrootBlock;
 import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
+import com.chenjdy.farmers_spell.block.EdenAppleTartBlock;
 import com.chenjdy.farmers_spell.block.GluttonHotchpotchBlock;
+import com.chenjdy.farmers_spell.block.IcebreakerBreadBlock;
 import com.chenjdy.farmers_spell.block.PumpkinSoupBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
 import com.chenjdy.farmers_spell.block.SaingeziChickenBlock;
 import com.chenjdy.farmers_spell.block.WisewoodCabinetBlock;
+import com.chenjdy.farmers_spell.item.IcebreakerBreadItem;
 import com.chenjdy.farmers_spell.item.PlaceableBlockItem;
 import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import net.minecraft.world.item.BlockItem;
@@ -16,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.SoundType;
@@ -58,7 +62,7 @@ public class ModBlocks {
     public static final RegistryObject<RedVelvetCakeBlock> RED_VELVET_CAKE = registerBlockWithPlaceableItem("red_velvet_cake",
             () -> new RedVelvetCakeBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_RED)
-                    .sound(SoundType.WOOL)
+                    .sound(SoundType.WOOL)     
                     .strength(0.5F)));
     // 神莓派
     public static final RegistryObject<PieBlock> GOODBERRY_PIE = registerBlockWithPlaceableItem("goodberry_pie",
@@ -68,8 +72,8 @@ public class ModBlocks {
                     .strength(0.5F),
                     ModItems.GOODBERRY_PIE_SLICE));
     // 黄油金苹果派
-    public static final RegistryObject<PieBlock> EDEN_APPLE_TART = registerBlockWithPlaceableItem("eden_apple_tart",
-            () -> new PieBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<EdenAppleTartBlock> EDEN_APPLE_TART = registerBlockWithPlaceableItem("eden_apple_tart",
+            () -> new EdenAppleTartBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
                     .sound(SoundType.WOOL)
                     .strength(0.5F),
@@ -122,6 +126,27 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .strength(3.0F, 6.0F)
                     .noOcclusion()));
+    // 箱装神莓
+    public static final RegistryObject<Block> GOODBERRY_CRATE = registerBlock("goodberry_crate",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .sound(SoundType.WOOD)
+                    .strength(0.5F, 1.0F)));
+    // 箱装霜皮蛋
+    public static final RegistryObject<SlabBlock> ICY_EGG_CRATE = registerBlock("icy_egg_crate",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .sound(SoundType.WOOD)
+                    .strength(0.3F)));
+    // 破冰面包
+    public static final RegistryObject<IcebreakerBreadBlock> ICEBREAKER_BREAD = registerBlockWithCustomItem("icebreaker_bread",
+            () -> new IcebreakerBreadBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .sound(SoundType.WOOL)
+                    .strength(0.5F)
+                    .noOcclusion()
+                    .isValidSpawn((state, level, pos, type) -> false)),
+            IcebreakerBreadItem.class);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

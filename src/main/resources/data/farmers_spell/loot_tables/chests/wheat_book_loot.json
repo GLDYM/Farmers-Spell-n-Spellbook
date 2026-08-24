@@ -6,7 +6,7 @@
         {
           "type": "minecraft:item",
           "name": "farmers_spell:wheat_book",
-          "weight": 1
+          "weight": 0.3
         }
       ]
     }

@@ -18,7 +18,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,11 +30,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
-public class RedVelvetCakeBlock extends CakeBlock {
+public class RedVelvetCakeBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 6);
+    public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 7);
 
     protected static final VoxelShape[] SHAPES_NORTH = new VoxelShape[]{
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 13.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 11.0),
@@ -47,6 +47,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     protected static final VoxelShape[] SHAPES_SOUTH = new VoxelShape[]{
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 3.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 5.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 7.0, 15.0, 6.0, 15.0),
@@ -57,6 +58,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     protected static final VoxelShape[] SHAPES_WEST = new VoxelShape[]{
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 13.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 11.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 9.0, 6.0, 15.0),
@@ -66,6 +68,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     };
 
     protected static final VoxelShape[] SHAPES_EAST = new VoxelShape[]{
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(3.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(5.0, 0.0, 1.0, 15.0, 6.0, 15.0),
@@ -84,7 +87,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
         int bites = state.getValue(BITES);
-        
+
         switch (facing) {
             case SOUTH:
                 return SHAPES_SOUTH[bites];
@@ -106,7 +109,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
-        
+
         if (ItemUtils.isKnife(heldStack)) {
             return cutSlice(level, pos, state, player, heldStack.getItem());
         }
@@ -166,7 +169,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     }
 
     public int getMaxBites() {
-        return 7;
+        return 8;
     }
 
     @Override

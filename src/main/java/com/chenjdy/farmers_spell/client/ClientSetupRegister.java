@@ -1,18 +1,21 @@
 package com.chenjdy.farmers_spell.client;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.client.particle.GoldenSparkleProvider;
 import com.chenjdy.farmers_spell.client.renderer.BadAppleRender;
 import com.chenjdy.farmers_spell.client.renderer.ChaosSlashRender;
 import com.chenjdy.farmers_spell.client.renderer.FoodgeistRender;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModMenuTypes;
+import com.chenjdy.farmers_spell.init.ModParticles;
 import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -41,5 +44,10 @@ public class ClientSetupRegister {
         event.registerEntityRenderer(ModEntities.PRESERVE_CIRCLE_AOE.get(), NoopRenderer::new);
         event.registerEntityRenderer(ModEntities.FOODGEIST.get(), FoodgeistRender::new);
         //event.registerEntityRenderer(ModEntities.PAN.get(), PanRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticles.GOLDEN_SPARKLE.get(), GoldenSparkleProvider::new);
     }
 }

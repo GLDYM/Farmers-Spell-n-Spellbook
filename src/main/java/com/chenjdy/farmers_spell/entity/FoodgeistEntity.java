@@ -49,7 +49,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumSet;

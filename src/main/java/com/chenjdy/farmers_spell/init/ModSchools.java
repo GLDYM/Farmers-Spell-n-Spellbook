@@ -3,8 +3,6 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
-import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
@@ -37,7 +35,7 @@ public class ModSchools {
             GLUTTONY_RESOURCE,
             GLUTTONY_FOCUS,
             Component.translatable("school.farmers_spell.gluttony").withStyle(Style.EMPTY.withColor(0xFFD700)),
-            LazyOptional.empty(),
+            LazyOptional.of(ModAttributes.GLUTTONY_SPELL_POWER::get),
             LazyOptional.empty(),
             LazyOptional.of(() -> SoundEvents.GENERIC_EAT),
             GLUTTONY_MAGIC

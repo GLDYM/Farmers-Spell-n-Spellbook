@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#$#",
+    "###"
+  ],
+  "key": {
+    "$": {
+      "item": "irons_spellbooks:upgrade_orb"
+    },
+    "#": {
+      "item": "farmers_spell:glutton_rune"
+    }
+  },
+  "result": { "item": "farmers_spell:gluttony_upgrade_orb",
+    "count": 1
+  }
+}

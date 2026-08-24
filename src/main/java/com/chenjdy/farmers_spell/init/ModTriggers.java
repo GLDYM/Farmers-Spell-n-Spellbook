@@ -98,7 +98,7 @@ public class ModTriggers {
 
 
     public static class PhantomLootTrigger extends SimpleCriterionTrigger<PhantomLootTrigger.Instance> {
-        private static final ResourceLocation ID = new ResourceLocation("farmers_spell", "phantom_loot");
+        private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("farmers_spell", "phantom_loot");
 
         @Override
         public ResourceLocation getId() {
@@ -130,7 +130,7 @@ public class ModTriggers {
     }
 
     public static class FoodgeistSatisfiedTrigger extends SimpleCriterionTrigger<FoodgeistSatisfiedTrigger.Instance> {
-        private static final ResourceLocation ID = new ResourceLocation("farmers_spell", "foodgeist_satisfied");
+        private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_satisfied");
 
         @Override
         public ResourceLocation getId() {

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "farmers_spell:block/icy_egg_crate_side",
+    "top": "farmers_spell:block/icy_egg_crate_top",
+    "bottom": "farmers_spell:block/crate_bottom"
+  }
+}

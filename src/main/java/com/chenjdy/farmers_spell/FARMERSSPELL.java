@@ -19,7 +19,6 @@ import software.bernie.geckolib.GeckoLib;
 public class FARMERSSPELL
 {
     public static final String MODID = "farmers_spell";
-    
     @SuppressWarnings("removal")
     public FARMERSSPELL()
     {
@@ -32,6 +31,7 @@ public class FARMERSSPELL
         ModMenuTypes.register(modEventBus);
         ModRecipeTypes.register(modEventBus);
         ModItems.register(modEventBus);
+        ModParticles.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModSchools.register(modEventBus);
         ModSpells.register(modEventBus);
@@ -41,7 +41,6 @@ public class FARMERSSPELL
         ModLoots.register(modEventBus);
         ModFluids.register(modEventBus);
         ModTriggers.register(modEventBus);
-
         modEventBus.addListener(this::onEntityAttributeCreation);
         modEventBus.addListener(this::onCommonSetup);
         MinecraftForge.EVENT_BUS.register(this);

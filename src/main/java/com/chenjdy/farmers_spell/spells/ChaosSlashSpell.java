@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.spells;
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
 import com.chenjdy.farmers_spell.init.ModSchools;
+import com.chenjdy.farmers_spell.init.ModSounds;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
@@ -16,10 +17,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -65,7 +64,7 @@ public class ChaosSlashSpell extends AbstractSpell {
 
     @Override
     public Optional<SoundEvent> getCastStartSound() {
-        return Optional.of(SoundEvents.PLAYER_ATTACK_SWEEP);
+        return Optional.of(ModSounds.BIAN.get());
     }
 
     @Override

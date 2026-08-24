@@ -20,6 +20,11 @@ import com.chenjdy.farmers_spell.item.weapons.HellKnife;
 import com.chenjdy.farmers_spell.item.weapons.IrisFork;
 import com.chenjdy.farmers_spell.item.weapons.TwilightBlade;
 import com.chenjdy.farmers_spell.item.armor.*;
+import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
+import io.redspace.ironsspellbooks.item.armor.UpgradeOrbType;
+import io.redspace.ironsspellbooks.registries.UpgradeOrbTypeRegistry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -85,9 +90,6 @@ public class ModItems {
     // 泡芙
     public static final RegistryObject<Item> PAOFU = ITEMS.register("paofu",
             () -> new ConsumableItem(normalFoodItem(ModFoods.PAOFU)));
-    // 破冰面包
-    public static final RegistryObject<Item> ICEBREAKER_BREAD = ITEMS.register("icebreaker_bread",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBREAKER_BREAD)));
     // 火腿
     public static final RegistryObject<Item> CINDEROUS_HAM = ITEMS.register("cinderoous_ham",
             () -> new ConsumableItem(normalFoodItem(ModFoods.CINDEROUS_HAM)));
@@ -154,6 +156,9 @@ public class ModItems {
     // 冰山奶霜
     public static final RegistryObject<Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
+    // 冰山淇淋三明治
+    public static final RegistryObject<Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
 
     // 神莓汁
     public static final RegistryObject<Item> GOODBERRY_JUICE = ITEMS.register("goodberry_juice",
@@ -216,6 +221,11 @@ public class ModItems {
     // 饕魔符文
     public static final RegistryObject<Item> GLUTTON_RUNE = ITEMS.register("glutton_rune",
             () -> new Item(new Item.Properties()));
+    //法球
+    public static final ResourceKey<UpgradeOrbType> GLUTTONY_UPGRADE_ORB_TYPE = ResourceKey.create(UpgradeOrbTypeRegistry.UPGRADE_ORB_REGISTRY_KEY,
+            ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "gluttony_power"));
+    public static final RegistryObject<Item> GLUTTONY_UPGRADE_ORB = ITEMS.register("gluttony_upgrade_orb",
+            () -> new UpgradeOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), GLUTTONY_UPGRADE_ORB_TYPE));
     // 破败残片
     public static final RegistryObject<Item> DECREPIT_SCRAP = ITEMS.register("decrepit_scrap",
             () -> new Item(new Item.Properties()));
