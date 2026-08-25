@@ -8,13 +8,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class BadAppleInstance extends AbstractTickableSoundInstance {
     
     private final BlockPos pos;
     private static final Map<UUID, BadAppleInstance> INSTANCES = new HashMap<>();
+    private static final Set<UUID> ACTIVE_ENTITIES = new HashSet<>();
     
     private BadAppleInstance(BlockPos pos) {
         super(ModSounds.BAD_APPLE.get(), SoundSource.NEUTRAL, RandomSource.create());
@@ -30,16 +33,22 @@ public class BadAppleInstance extends AbstractTickableSoundInstance {
     }
     
     public static void start(UUID entityUuid, BlockPos pos) {
-        stop(entityUuid);
+        ACTIVE_ENTITIES.add(entityUuid);
+        if (!INSTANCES.isEmpty()) {
+            return;
+        }
         BadAppleInstance instance = new BadAppleInstance(pos);
         INSTANCES.put(entityUuid, instance);
         Minecraft.getInstance().getSoundManager().play(instance);
     }
 
     public static void stop(UUID entityUuid) {
-        BadAppleInstance instance = INSTANCES.remove(entityUuid);
-        if (instance != null) {
-            instance.stop();
+        ACTIVE_ENTITIES.remove(entityUuid);
+        if (ACTIVE_ENTITIES.isEmpty()) {
+            for (BadAppleInstance instance : INSTANCES.values()) {
+                instance.stop();
+            }
+            INSTANCES.clear();
         }
     }
     

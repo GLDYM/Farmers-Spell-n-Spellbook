@@ -26,3 +26,11 @@
 - the models of Ember Bars have z-fighting
 - AmethystBeetrootBlock do not break after the supporting block breaking
 - localized death messages for Gluttony magic damage lost
+- the Foodgeist use the sound of the Zombie
+- The Bad Apple Music do not stop after the entity died
+
+### Refactor
+
+- [1.21.1] move Foodgeist Spawn from Player to BlockEntity
+- [1.21.1] move curios check from tick to events
+- [1.21.1]move from Math.random() to ramdomSource

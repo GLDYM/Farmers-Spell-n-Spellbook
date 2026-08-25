@@ -82,6 +82,13 @@ public class BadAppleEntity extends LivingEntity {
         super.tick();
         
         if (!level().isClientSide) {
+            if (!isAlive() || isRemoved()) {
+                if (musicPlaying) {
+                    stopMusic();
+                }
+                return;
+            }
+
             if (spawnPos != null) {
                 this.setPos(spawnPos.x + 0.5, spawnPos.y, spawnPos.z + 0.5);
             }
@@ -105,7 +112,7 @@ public class BadAppleEntity extends LivingEntity {
                 }
             }
             
-            if (!musicPlaying) {
+            if (!musicPlaying && isAlive() && !isRemoved()) {
                 playMusic();
                 musicPlaying = true;
             }
