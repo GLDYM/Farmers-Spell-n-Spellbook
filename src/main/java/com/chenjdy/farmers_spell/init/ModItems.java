@@ -74,8 +74,8 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CANDY)));
     public static final DeferredHolder<Item, Item> PAOFU = ITEMS.register("paofu",
             () -> new ConsumableItem(normalFoodItem(ModFoods.PAOFU)));
-    public static final DeferredHolder<Item, Item> ICEBREAKER_BREAD = ITEMS.register("icebreaker_bread",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBREAKER_BREAD)));
+    public static final DeferredHolder<Item, Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
     public static final DeferredHolder<Item, Item> CINDEROUS_HAM = ITEMS.register("cinderoous_ham",
             () -> new ConsumableItem(normalFoodItem(ModFoods.CINDEROUS_HAM)));
     public static final DeferredHolder<Item, Item> SALMON_BURGER = ITEMS.register("salmon_burger",
@@ -113,8 +113,6 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.WINE_RICE)));
     public static final DeferredHolder<Item, Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.CINDEROUS_HOTPOT)));
-    // public static final DeferredHolder<Item, Item> BUTTER_CHICKEN = ITEMS.register("butter_chicken",
-    //         () -> new ConsumableItem(bowlFoodItem(ModFoods.BUTTER_CHICKEN)));
     public static final DeferredHolder<Item, Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> ICEBERGCREAM = ITEMS.register("icebergcream",

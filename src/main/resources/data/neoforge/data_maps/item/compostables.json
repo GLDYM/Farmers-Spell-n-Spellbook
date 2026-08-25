@@ -1,0 +1,10 @@
+{
+  "values": {
+    "farmers_spell:goodberry": {
+      "chance": 0.3
+    },
+    "farmers_spell:goodberry_crate": {
+      "chance": 1.0
+    }
+  }
+}

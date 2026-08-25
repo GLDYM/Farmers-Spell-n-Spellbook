@@ -21,6 +21,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +32,16 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_SLASH_TYPE = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.INT);
     private static final float SPEED = 1f;
+    private static final int EXPIRE_TIME = 4 * 20;
     private static int slashCounter = 0;
     public AABB oldBB;
-    private int age;
     private int effectDuration = 10;
-    private List<Entity> victims;
+    private final List<Entity> victims = new ArrayList<>();
 
     public ChaosSlashProjectile(EntityType<? extends ChaosSlashProjectile> entityType, Level level) {
         super(entityType, level);
         setRadius(.6f);
         oldBB = getBoundingBox();
-        victims = new ArrayList<>();
         this.setNoGravity(true);
     }
 
@@ -91,6 +92,7 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
         return this.getEntityData().get(DATA_RADIUS);
     }
 
+    @Override
     public void refreshDimensions() {
         double d0 = this.getX();
         double d1 = this.getY();
@@ -99,15 +101,17 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
         this.setPos(d0, d1, d2);
     }
 
+    @Override
     public void tick() {
-        super.tick();
-        if (++age > EXPIRE_TIME) {
+        if (this.tickCount > EXPIRE_TIME) {
             discard();
             return;
         }
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getXRot();
         oldBB = getBoundingBox();
         setRadius(getRadius() + 0.12f);
-
+        super.tick();
     }
 
     @Override
@@ -118,8 +122,11 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
 
         HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (hitResult.getType() == HitResult.Type.BLOCK) {
-            onHitBlock((BlockHitResult) hitResult);
-            return;
+            ProjectileImpactEvent event = new ProjectileImpactEvent(this, hitResult);
+            NeoForge.EVENT_BUS.post(event);
+            if (!event.isCanceled()) {
+                onHitBlock((BlockHitResult) hitResult);
+            }
         }
 
         for (Entity entity : level().getEntities(this, getBoundingBox()).stream()
@@ -129,11 +136,13 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
         }
     }
 
+    @Override
     public EntityDimensions getDimensions(Pose p_19721_) {
         this.getBoundingBox();
         return EntityDimensions.scalable(this.getRadius() * 2.0F, 0.5F);
     }
 
+    @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_19729_) {
         if (DATA_RADIUS.equals(p_19729_)) {
             this.refreshDimensions();
@@ -149,7 +158,7 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
 
     private void damageEntity(Entity entity) {
         if (!victims.contains(entity)) {
-            entity.hurt(ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()), damage);
+            entity.hurt(ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()), getDamage());
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(
                         ModEffects.CLAW_BREAK,

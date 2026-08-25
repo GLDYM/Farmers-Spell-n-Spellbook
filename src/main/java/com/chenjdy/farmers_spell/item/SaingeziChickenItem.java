@@ -1,34 +1,18 @@
 package com.chenjdy.farmers_spell.item;
 
-import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.block.SaingeziChickenBlock;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
 
-public class SaingeziChickenItem extends BlockItem {
-    private static final Component PLACEABLE = Component.translatable(FarmersSpell.MODID + ".tooltip.placeable")
-            .withStyle(ChatFormatting.DARK_GRAY)
-            .withStyle(ChatFormatting.ITALIC);
+public class SaingeziChickenItem extends PlaceableBlockItem {
 
     public SaingeziChickenItem(Block block, Properties properties) {
         super(block, properties);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext level, List<Component> tooltipComponents, TooltipFlag flag) {
-        tooltipComponents.add(PLACEABLE);
     }
 
     @Override

@@ -19,11 +19,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -32,18 +32,19 @@ import net.neoforged.neoforge.event.EventHooks;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 import net.minecraft.world.ItemInteractionResult;
 
-public class RedVelvetCakeBlock extends CakeBlock {
+public class RedVelvetCakeBlock extends Block {
     public static final MapCodec<RedVelvetCakeBlock> CODEC = simpleCodec(RedVelvetCakeBlock::new);
 
-    @SuppressWarnings("unchecked")
     @Override
-    public MapCodec<CakeBlock> codec() {
-        return (MapCodec<CakeBlock>) (MapCodec<?>) CODEC;
+    public MapCodec<RedVelvetCakeBlock> codec() {
+        return CODEC;
     }
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final IntegerProperty BITES = IntegerProperty.create("bites", 0, 7);
 
     protected static final VoxelShape[] SHAPES_NORTH = new VoxelShape[]{
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 13.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 11.0),
@@ -55,6 +56,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     protected static final VoxelShape[] SHAPES_SOUTH = new VoxelShape[]{
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 3.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 5.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 7.0, 15.0, 6.0, 15.0),
@@ -64,6 +66,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     };
 
     protected static final VoxelShape[] SHAPES_WEST = new VoxelShape[]{
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 13.0, 6.0, 15.0),
             Block.box(1.0, 0.0, 1.0, 11.0, 6.0, 15.0),
@@ -75,6 +78,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     protected static final VoxelShape[] SHAPES_EAST = new VoxelShape[]{
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
+            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(3.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(5.0, 0.0, 1.0, 15.0, 6.0, 15.0),
             Block.box(7.0, 0.0, 1.0, 15.0, 6.0, 15.0),
@@ -85,13 +89,13 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     public RedVelvetCakeBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CakeBlock.BITES, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(BITES, 0));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction facing = state.getValue(FACING);
-        int bites = state.getValue(CakeBlock.BITES);
+        int bites = state.getValue(BITES);
         
         switch (facing) {
             case SOUTH:
@@ -114,7 +118,6 @@ public class RedVelvetCakeBlock extends CakeBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = itemstack;
-        
         if (ItemUtils.isKnife(heldStack)) {
             return switch (cutSlice(level, pos, state, player, heldStack.getItem())) {
                 case SUCCESS -> ItemInteractionResult.SUCCESS;
@@ -126,14 +129,12 @@ public class RedVelvetCakeBlock extends CakeBlock {
             };
         }
 
-        return switch (this.consumeBite(level, pos, state, player)) {
-            case SUCCESS -> ItemInteractionResult.SUCCESS;
-            case SUCCESS_NO_ITEM_USED -> ItemInteractionResult.SUCCESS;
-            case CONSUME -> ItemInteractionResult.CONSUME;
-            case CONSUME_PARTIAL -> ItemInteractionResult.CONSUME_PARTIAL;
-            case FAIL -> ItemInteractionResult.FAIL;
-            default -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        };
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        return this.consumeBite(level, pos, state, player);
     }
 
     protected InteractionResult consumeBite(Level level, BlockPos pos, BlockState state, Player player) {
@@ -160,9 +161,9 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
         EventHooks.onItemUseFinish(player, sliceCopy, 0, ItemStack.EMPTY);
 
-        int bites = state.getValue(CakeBlock.BITES);
+        int bites = state.getValue(BITES);
         if (bites < getMaxBites() - 1) {
-            level.setBlock(pos, state.setValue(CakeBlock.BITES, bites + 1), 3);
+            level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
         } else {
             level.removeBlock(pos, false);
         }
@@ -171,9 +172,9 @@ public class RedVelvetCakeBlock extends CakeBlock {
     }
 
     protected InteractionResult cutSlice(Level level, BlockPos pos, BlockState state, Player player, Item knife) {
-        int bites = state.getValue(CakeBlock.BITES);
+        int bites = state.getValue(BITES);
         if (bites < getMaxBites() - 1) {
-            level.setBlock(pos, state.setValue(CakeBlock.BITES, bites + 1), 3);
+            level.setBlock(pos, state.setValue(BITES, bites + 1), 3);
         } else {
             level.removeBlock(pos, false);
         }
@@ -187,7 +188,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
     }
 
     public int getMaxBites() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -202,12 +203,12 @@ public class RedVelvetCakeBlock extends CakeBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, CakeBlock.BITES);
+        builder.add(FACING, BITES);
     }
 
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        return getMaxBites() - state.getValue(CakeBlock.BITES);
+        return getMaxBites() - state.getValue(BITES);
     }
 
     @Override
@@ -215,8 +216,7 @@ public class RedVelvetCakeBlock extends CakeBlock {
         return true;
     }
 
-    @Override
-    public boolean isPathfindable(BlockState state, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 }

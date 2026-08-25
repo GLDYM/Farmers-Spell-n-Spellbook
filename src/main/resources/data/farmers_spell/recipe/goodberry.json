@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:goodberry_crate"
+    }
+  ],
+  "result": { "id": "farmers_spell:goodberry",
+    "count": 9
+  }
+}

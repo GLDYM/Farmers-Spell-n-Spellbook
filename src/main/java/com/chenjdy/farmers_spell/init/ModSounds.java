@@ -12,6 +12,8 @@ public class ModSounds {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> BAD_APPLE = SOUND_EVENTS.register("bad_apple",
             () -> SoundEvent.createFixedRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "bad_apple"), 100.0f));
+    public static final DeferredHolder<SoundEvent, SoundEvent> BAIAN = SOUND_EVENTS.register("baian",
+            () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "baian")));
 
     public static void register(net.neoforged.bus.api.IEventBus eventBus) {
         SOUND_EVENTS.register(eventBus);

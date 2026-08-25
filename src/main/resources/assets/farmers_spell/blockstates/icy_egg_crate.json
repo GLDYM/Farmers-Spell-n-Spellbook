@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "farmers_spell:block/icy_egg_crate_slab" },
+    "type=top": { "model": "farmers_spell:block/icy_egg_crate_slab_top" },
+    "type=double": { "model": "farmers_spell:block/icy_egg_crate" }
+  }
+}

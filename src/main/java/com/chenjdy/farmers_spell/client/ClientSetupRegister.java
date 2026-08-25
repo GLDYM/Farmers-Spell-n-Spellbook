@@ -20,10 +20,17 @@ import net.neoforged.bus.api.SubscribeEvent;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import com.chenjdy.farmers_spell.init.ModParticles;
+import com.chenjdy.farmers_spell.client.particle.GoldenSparkleParticle;
 
 
 @EventBusSubscriber(modid = FarmersSpell.MODID, value = Dist.CLIENT)
 public class ClientSetupRegister {
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticles.GOLDEN_SPARKLE.get(), GoldenSparkleParticle.Provider::new);
+    }
 
     @SubscribeEvent
     public static void clientSetup(RegisterMenuScreensEvent event) {

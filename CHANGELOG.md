@@ -1,0 +1,28 @@
+# Changelog
+
+## 1.0.5
+
+### Feature
+
+- Icebreaker Bread: two-part food block contains two type of food, Iceberg Cream & Iceberg Cream Sandwich
+- Goodberry Crate & Icy Egg Crate
+- Upgrade Orb Gluttony
+- Golden Sparkle particles for Eden Apple Tart
+- New Chaos Slash Sound Effect
+
+### Changed
+
+- Improve the model of Red Velvet Cake, Pumpkin Soup, Eden Apple Tart
+- Updated Chaos Slash projectile logic
+- Make loot chance of wheat book from 1 to 0.3
+- Gospel will get Smite 1 when crafting
+
+### Fixed
+
+- the Alchemist pot recipe may give experience twice
+- The Gluttony Armors cannot enchanting on the enchanting table
+- the Affinity ring lost its texture
+- the model of Gluttony Armors has a wrong group, making the belt render wrong
+- the models of Ember Bars have z-fighting
+- AmethystBeetrootBlock do not break after the supporting block breaking
+- localized death messages for Gluttony magic damage lost

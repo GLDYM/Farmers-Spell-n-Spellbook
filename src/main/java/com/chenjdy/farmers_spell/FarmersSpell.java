@@ -29,6 +29,7 @@ public class FarmersSpell {
     public FarmersSpell(IEventBus modEventBus, ModContainer modContainer) {
         ModAttributes.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModParticles.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         modEventBus.addListener(AlchemistPotBlockEntity::registerCapabilities);
         modEventBus.addListener(WisewoodCabinetBlockEntity::registerCapabilities);

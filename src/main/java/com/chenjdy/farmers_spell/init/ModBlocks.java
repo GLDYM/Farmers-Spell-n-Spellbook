@@ -7,14 +7,18 @@ import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
 import com.chenjdy.farmers_spell.block.GluttonHotchpotchBlock;
 import com.chenjdy.farmers_spell.block.PumpkinSoupBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
+import com.chenjdy.farmers_spell.block.EdenAppleTartBlock;
+import com.chenjdy.farmers_spell.block.IcebreakerBreadBlock;
 import com.chenjdy.farmers_spell.block.SaingeziChickenBlock;
 import com.chenjdy.farmers_spell.block.WisewoodCabinetBlock;
 import com.chenjdy.farmers_spell.item.PlaceableBlockItem;
 import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
+import com.chenjdy.farmers_spell.item.IcebreakerBreadItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -29,8 +33,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS =
-            DeferredRegister.create(Registries.BLOCK, FarmersSpell.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, FarmersSpell.MODID);
 
     public static final DeferredHolder<Block, WisewoodCabinetBlock> WISEWOOD_CABINET = registerBlock("wisewood_cabinet",
             () -> new WisewoodCabinetBlock(BlockBehaviour.Properties.of()
@@ -51,10 +54,12 @@ public class ModBlocks {
                     .sound(SoundType.METAL)
                     .strength(3.0F)));
 
-    public static final DeferredHolder<Block, AmethystBeetrootBlock> AMETHYST_BEETROOT = BLOCKS.register("amethyst_beetroot",
+    public static final DeferredHolder<Block, AmethystBeetrootBlock> AMETHYST_BEETROOT = BLOCKS.register(
+            "amethyst_beetroot",
             () -> new AmethystBeetrootBlock());
 
-    public static final DeferredHolder<Block, RedVelvetCakeBlock> RED_VELVET_CAKE = registerBlockWithPlaceableItem("red_velvet_cake",
+    public static final DeferredHolder<Block, RedVelvetCakeBlock> RED_VELVET_CAKE = registerBlockWithPlaceableItem(
+            "red_velvet_cake",
             () -> new RedVelvetCakeBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_RED)
                     .sound(SoundType.WOOL)
@@ -67,8 +72,9 @@ public class ModBlocks {
                     .strength(0.5F),
                     ModItems.GOODBERRY_PIE_SLICE));
 
-    public static final DeferredHolder<Block, PieBlock> EDEN_APPLE_TART = registerBlockWithPlaceableItem("eden_apple_tart",
-            () -> new PieBlock(BlockBehaviour.Properties.of()
+    public static final DeferredHolder<Block, EdenAppleTartBlock> EDEN_APPLE_TART = registerBlockWithPlaceableItem(
+            "eden_apple_tart",
+            () -> new EdenAppleTartBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
                     .sound(SoundType.WOOL)
                     .strength(0.5F),
@@ -82,19 +88,22 @@ public class ModBlocks {
                     .sound(SoundType.GRASS)
                     .strength(0.0F)));
 
-    public static final DeferredHolder<Block, GluttonHotchpotchBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem("glutton_hotchpotch",
+    public static final DeferredHolder<Block, GluttonHotchpotchBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem(
+            "glutton_hotchpotch",
             () -> new GluttonHotchpotchBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F)));
 
-    public static final DeferredHolder<Block, PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
+    public static final DeferredHolder<Block, PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
+            "pumpkin_soup",
             () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F)));
 
-    public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
+    public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem(
+            "saingezi_chicken",
             () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
                     .sound(SoundType.WOOL)
@@ -122,19 +131,32 @@ public class ModBlocks {
                     .strength(3.0F, 6.0F)
                     .noOcclusion()));
 
+    public static final DeferredHolder<Block, Block> GOODBERRY_CRATE = registerBlock("goodberry_crate",
+            () -> new Block(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(0.5F, 1F)));
+    public static final DeferredHolder<Block, SlabBlock> ICY_EGG_CRATE = registerBlock("icy_egg_crate",
+            () -> new SlabBlock(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(0.3F)));
+    public static final DeferredHolder<Block, IcebreakerBreadBlock> ICEBREAKER_BREAD = registerBlockWithCustomItem(
+            "icebreaker_bread", () -> new IcebreakerBreadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
+                    .sound(SoundType.WOOL).strength(0.5F).noOcclusion().isValidSpawn((state, level, pos, type) -> false)),
+            IcebreakerBreadItem.class);
+
     private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block) {
         DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);
         registerBlockItem(name, deferredBlock);
         return deferredBlock;
     }
 
-    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithPlaceableItem(String name, Supplier<T> block) {
+    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithPlaceableItem(String name,
+            Supplier<T> block) {
         DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);
         registerPlaceableBlockItem(name, deferredBlock);
         return deferredBlock;
     }
 
-    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithCustomItem(String name, Supplier<T> block, Class<? extends BlockItem> itemClass) {
+    private static <T extends Block> DeferredHolder<Block, T> registerBlockWithCustomItem(String name,
+            Supplier<T> block, Class<? extends BlockItem> itemClass) {
         DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);
         registerCustomBlockItem(name, deferredBlock, itemClass);
         return deferredBlock;
@@ -148,7 +170,8 @@ public class ModBlocks {
         ModItems.ITEMS.register(name, () -> new PlaceableBlockItem(block.get(), new Item.Properties()));
     }
 
-    private static <T extends Block> void registerCustomBlockItem(String name, DeferredHolder<Block, T> block, Class<? extends BlockItem> itemClass) {
+    private static <T extends Block> void registerCustomBlockItem(String name, DeferredHolder<Block, T> block,
+            Class<? extends BlockItem> itemClass) {
         ModItems.ITEMS.register(name, () -> {
             try {
                 return itemClass.getConstructor(Block.class, Item.Properties.class)

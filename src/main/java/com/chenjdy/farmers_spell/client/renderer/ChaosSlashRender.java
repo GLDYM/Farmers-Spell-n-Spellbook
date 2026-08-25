@@ -26,7 +26,7 @@ public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
     public void render(ChaosSlashProjectile entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
         poseStack.pushPose();
 
-        float entityYaw = Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot());
+        float entityYaw = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
         float entityPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));

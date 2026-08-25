@@ -33,6 +33,11 @@
     "bites=6,facing=north": {"model":"farmers_spell:block/red_velvet_cake_slice6","y":270},
     "bites=6,facing=south": {"model":"farmers_spell:block/red_velvet_cake_slice6","y":90},
     "bites=6,facing=east": {"model":"farmers_spell:block/red_velvet_cake_slice6","y":0},
-    "bites=6,facing=west": {"model":"farmers_spell:block/red_velvet_cake_slice6","y":180}
+    "bites=6,facing=west": {"model":"farmers_spell:block/red_velvet_cake_slice6","y":180},
+
+    "bites=7,facing=north": {"model":"farmers_spell:block/red_velvet_cake_slice7","y":270},
+    "bites=7,facing=south": {"model":"farmers_spell:block/red_velvet_cake_slice7","y":90},
+    "bites=7,facing=east": {"model":"farmers_spell:block/red_velvet_cake_slice7","y":0},
+    "bites=7,facing=west": {"model":"farmers_spell:block/red_velvet_cake_slice7","y":180}
   }
 }
