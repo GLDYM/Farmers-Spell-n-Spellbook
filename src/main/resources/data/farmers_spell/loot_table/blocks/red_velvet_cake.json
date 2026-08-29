@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "farmers_spell:red_velvet_cake",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "farmers_spell:red_velvet_cake",
+                  "properties": { "bites": "0" }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "farmers_spell:red_velvet_cake_slice",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": { "type": "minecraft:uniform", "min": 1, "max": 1 }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

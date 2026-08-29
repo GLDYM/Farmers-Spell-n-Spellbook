@@ -156,29 +156,6 @@ public class SaingeziChickenBlock extends Block {
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && state.is(this)) {
-            int stage = state.getValue(STAGE);
-            BlockPos originPos = getOriginPos(pos, state.getValue(POSITION));
-
-            if (stage == 1) {
-                Block.popResource(level, pos, new ItemStack(ModBlocks.SAINGEZI_CHICKEN.get().asItem()));
-            } else {
-                Block.popResource(level, pos, new ItemStack(Items.BOWL));
-            }
-
-            for (int i = 0; i < 4; i++) {
-                BlockPos blockPos = getBlockPos(originPos, i);
-                if (!blockPos.equals(pos) && level.getBlockState(blockPos).is(this)) {
-                    level.removeBlock(blockPos, false);
-                }
-            }
-        }
-
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         if (direction == Direction.DOWN && !canSurvive(state, level, currentPos) && !level.isClientSide()) {
             BlockPos originPos = getOriginPos(currentPos, state.getValue(POSITION));

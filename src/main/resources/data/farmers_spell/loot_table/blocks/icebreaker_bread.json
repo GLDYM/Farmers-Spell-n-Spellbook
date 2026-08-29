@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "farmers_spell:icebreaker_bread",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "farmers_spell:icebreaker_bread",
+              "properties": { "stage": "0" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

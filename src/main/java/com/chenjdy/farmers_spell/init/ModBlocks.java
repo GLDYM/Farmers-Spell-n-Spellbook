@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -63,13 +64,15 @@ public class ModBlocks {
             () -> new RedVelvetCakeBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_RED)
                     .sound(SoundType.WOOL)
-                    .strength(0.5F)));
+                    .strength(0.5F)
+                    .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredHolder<Block, PieBlock> GOODBERRY_PIE = registerBlockWithPlaceableItem("goodberry_pie",
             () -> new PieBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_PINK)
                     .sound(SoundType.WOOL)
-                    .strength(0.5F),
+                    .strength(0.5F)
+                    .pushReaction(PushReaction.DESTROY),
                     ModItems.GOODBERRY_PIE_SLICE));
 
     public static final DeferredHolder<Block, EdenAppleTartBlock> EDEN_APPLE_TART = registerBlockWithPlaceableItem(
@@ -77,7 +80,8 @@ public class ModBlocks {
             () -> new EdenAppleTartBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
                     .sound(SoundType.WOOL)
-                    .strength(0.5F),
+                    .strength(0.5F)
+                    .pushReaction(PushReaction.DESTROY),
                     ModItems.EDEN_APPLE_TART_SLICE));
 
     public static final DeferredHolder<Block, Block> BAD_APPLE = BLOCKS.register("bad_apple",
@@ -93,14 +97,16 @@ public class ModBlocks {
             () -> new GluttonHotchpotchBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(2.0F)));
+                    .strength(2.0F)
+                    .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredHolder<Block, PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
             "pumpkin_soup",
             () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
-                    .strength(0.5F)));
+                    .strength(0.5F)
+                    .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem(
             "saingezi_chicken",
@@ -109,6 +115,7 @@ public class ModBlocks {
                     .sound(SoundType.WOOL)
                     .strength(0.5F)
                     .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY)
                     .isValidSpawn((state, level, pos, type) -> false)),
             SaingeziChickenItem.class);
 
@@ -139,7 +146,8 @@ public class ModBlocks {
                     BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(0.3F)));
     public static final DeferredHolder<Block, IcebreakerBreadBlock> ICEBREAKER_BREAD = registerBlockWithCustomItem(
             "icebreaker_bread", () -> new IcebreakerBreadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
-                    .sound(SoundType.WOOL).strength(0.5F).noOcclusion().isValidSpawn((state, level, pos, type) -> false)),
+                    .sound(SoundType.WOOL).strength(0.5F).noOcclusion().pushReaction(PushReaction.DESTROY)
+                    .isValidSpawn((state, level, pos, type) -> false)),
             IcebreakerBreadItem.class);
 
     private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block) {

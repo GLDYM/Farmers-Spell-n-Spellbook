@@ -207,14 +207,6 @@ public class IcebreakerBreadBlock extends Block {
         super.onRemove(state, level, pos, newState, isMoving);
     }
 
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && state.is(this) && state.getValue(STAGE) == 0) {
-            Block.popResource(level, pos, new ItemStack(ModBlocks.ICEBREAKER_BREAD.get().asItem()));
-        }
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
     public static BlockPos getOriginPos(BlockPos pos, int position, Direction facing) {
         return position == 0 ? pos : pos.relative(facing);
     }

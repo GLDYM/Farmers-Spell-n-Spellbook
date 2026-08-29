@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.0.5
+## 1.0.5.1
+
+### Fixed
+
+- [Critical] Block Form Food could be duplicated by the sticky piston, see https://github.com/vectorwing/FarmersDelight/issues/1382
+
+## 1.0.5.0
 
 ### Feature
 
