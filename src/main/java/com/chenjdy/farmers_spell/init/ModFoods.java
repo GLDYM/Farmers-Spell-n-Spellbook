@@ -130,7 +130,7 @@ public class ModFoods {
     public static final FoodProperties AMETHYST_SUGAR = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.6f)
-            .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 1 * 60 * 20, 0), 1.0F)
             .build();
     // 泡芙
     public static final FoodProperties PAOFU = new FoodProperties.Builder()
@@ -155,6 +155,7 @@ public class ModFoods {
             .nutrition(6)
             .saturationModifier(0.5f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 2 * 60 * 20, 4), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2 * 60 * 20, 1), 1.0F)
             .build();
     // 血豆腐
     public static final FoodProperties BLOOD_TOFU = new FoodProperties.Builder()
@@ -215,6 +216,7 @@ public class ModFoods {
     public static final FoodProperties PUMPKIN_JUICE = (new FoodProperties.Builder())
             .alwaysEdible()
             .effect(() -> nourishment(FoodValues.MEDIUM_DURATION ), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.OAKSKIN.get(), 1 * 60 * 20, 2), 1.0F)
             .build();
     // 紫水晶龙舌兰
     public static final FoodProperties AMETHYST_TEQUILA = new FoodProperties.Builder()
@@ -247,17 +249,19 @@ public class ModFoods {
     // 墨水啤酒
     public static final FoodProperties INK_BEER = new FoodProperties.Builder()
             .alwaysEdible()
-            .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 3 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 1 * 60 * 20, 0), 1.0F)
             .build();
     // 雷爪
     public static final FoodProperties MOZHAO = new FoodProperties.Builder()
             .alwaysEdible()
             .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 600, 4), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1 * 60 * 20, 1), 1.0F)
             .build();
     // 闪避拿铁
     public static final FoodProperties EVASION_MILK = new FoodProperties.Builder()
             .alwaysEdible()
             .effect(() -> ironsEffect(() -> MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1 * 60 * 20, 0), 1.0F)
             .build();
     // 红丝绒蛋糕
     public static final FoodProperties RED_VELVET_CAKE = new FoodProperties.Builder()
