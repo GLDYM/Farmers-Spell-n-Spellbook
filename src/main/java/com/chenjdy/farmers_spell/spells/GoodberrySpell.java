@@ -11,6 +11,8 @@ import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -19,7 +21,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -27,6 +31,10 @@ import java.util.Optional;
 public class GoodberrySpell extends AbstractSpell {
 
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "goodberry");
+    private static final TagKey<Item> BERRY_TAG = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "foods/berry")
+    );
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)
@@ -74,9 +82,14 @@ public class GoodberrySpell extends AbstractSpell {
                 player.addEffect(new MobEffectInstance(MobEffects.LUCK, 200, 0));
                 player.playSound(SoundEvents.GENERIC_EAT, 1.0f, 1.0f);
             } else {
-                ItemStack goodberry = new ItemStack(ModItems.GOODBERRY.get());
-                if (!player.getInventory().add(goodberry)) {
-                    player.drop(goodberry, false);
+                ItemStack heldStack = player.getMainHandItem();
+                if (heldStack.is(BERRY_TAG) && !heldStack.is(ModItems.GOODBERRY.get())) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.GOODBERRY.get(), heldStack.getCount()));
+                } else {
+                    ItemStack goodberries = new ItemStack(ModItems.GOODBERRY.get(), 10);
+                    if (!player.getInventory().add(goodberries)) {
+                        player.drop(goodberries, false);
+                    }
                 }
                 player.playSound(SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, 1.0f, 1.0f);
             }
