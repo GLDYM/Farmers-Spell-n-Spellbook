@@ -11,6 +11,6 @@ public class GoldenArmorEffect extends MobEffect {
 
     public GoldenArmorEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
-        this.addAttributeModifier(Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "golden_armor_bonus"), 2.0, AttributeModifier.Operation.ADD_VALUE);
+        this.addAttributeModifier(Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "golden_armor_bonus"), 3.0, AttributeModifier.Operation.ADD_VALUE);
     }
 }

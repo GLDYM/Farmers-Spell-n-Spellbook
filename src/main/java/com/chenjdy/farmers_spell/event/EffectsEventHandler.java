@@ -9,10 +9,12 @@ import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
 import static vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,7 +22,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BoneMealItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,6 +42,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.core.Holder;
+import top.theillusivec4.curios.api.CuriosApi;
+
 @EventBusSubscriber(modid = FarmersSpell.MODID)
 public class EffectsEventHandler {
 
@@ -102,6 +109,24 @@ public class EffectsEventHandler {
                 entity.clearFire();
                 entity.igniteForSeconds(0);
             }
+        }
+
+        if (effect.getEffect().equals(ModEffects.CLEANSE)
+                && entity instanceof Player player
+                && CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.isEquipped(ItemRegistry.VISIBILITY_RING.get()))
+                .orElse(false)) {
+            int duration = effect.getDuration();
+            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, duration, 0));
+            player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, duration, 0));
+        }
+
+        if (effect.getEffect().equals(ModEffects.DRUID_HEAL)
+                && entity instanceof Player player
+                && CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.isEquipped(ItemRegistry.POISONWARD_RING.get()))
+                .orElse(false)) {
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, effect.getDuration(), 0));
         }
 
         if (entity instanceof Player player && effect.getEffect().equals(NOURISHMENT)) {
@@ -184,6 +209,24 @@ public class EffectsEventHandler {
         MobEffectInstance lastHarmful = harmfulEffects.get(harmfulEffects.size() - 1);
         livingEntity.removeEffect(lastHarmful.getEffect());
 
+        if (livingEntity.level() instanceof ServerLevel serverLevel) {
+            BlockPos center = livingEntity.blockPosition();
+            for (int x = -5; x <= 5; x++) {
+                for (int y = -5; y <= 5; y++) {
+                    for (int z = -5; z <= 5; z++) {
+                        if (Math.abs(x) + Math.abs(y) + Math.abs(z) <= 5) {
+                            BoneMealItem.applyBonemeal(
+                                    new ItemStack(Items.BONE_MEAL),
+                                    serverLevel,
+                                    center.offset(x, y, z),
+                                    player
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
         player.getFoodData().eat(-2, 0);
 
         livingEntity.getPersistentData().putInt(DRUID_HEAL_COOLDOWN, 60);
@@ -246,6 +289,13 @@ public class EffectsEventHandler {
     public static void onLivingDamage(LivingDamageEvent.Pre event) {
         if (!(event.getEntity() instanceof LivingEntity entity)) return;
         if (entity.level().isClientSide) return;
+
+        MobEffectInstance goldenArmor = entity.getEffect(ModEffects.GOLDEN_ARMOR);
+        if (goldenArmor != null && entity.level().dimension() == Level.NETHER) {
+            int level = goldenArmor.getAmplifier() + 1;
+            float reducedDamage = event.getNewDamage() * (1.0f - level * 0.03f);
+            event.setNewDamage(reducedDamage);
+        }
 
         if (entity.hasEffect(ModEffects.FROST_SHIELD)) {
             if (event.getSource().is(DamageTypes.FREEZE)) {
