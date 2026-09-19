@@ -14,7 +14,7 @@ import net.minecraft.world.item.Tiers;
 public class GospelButterKnife extends MagicSwordItem {
     public GospelButterKnife() {
         super(
-            Tiers.IRON, 
+            WeaponRepairTiers.GOSPEL,
             new Item.Properties()
                 .durability(1561)
                 .rarity(Rarity.RARE)

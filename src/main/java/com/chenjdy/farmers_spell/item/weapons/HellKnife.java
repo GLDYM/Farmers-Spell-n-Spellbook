@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.item.weapons;
 import com.chenjdy.farmers_spell.init.ModSpells;
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.item.weapons.ExtendedWeaponTier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.Tiers;
 public class HellKnife extends MagicSwordItem {
     public HellKnife() {
         super(
-            Tiers.NETHERITE, 
+            ExtendedWeaponTier.HELLRAZOR,
             new Item.Properties()
                 .rarity(Rarity.EPIC)
                 .attributes(SwordItem.createAttributes(Tiers.NETHERITE, 3, -2.0F)),

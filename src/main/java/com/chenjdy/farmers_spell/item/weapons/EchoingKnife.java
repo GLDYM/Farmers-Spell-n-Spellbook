@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.item.weapons;
 
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.item.weapons.ExtendedWeaponTier;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.Tiers;
 public class EchoingKnife extends MagicSwordItem {
     public EchoingKnife() {
         super(
-            Tiers.IRON, 
+            ExtendedWeaponTier.AMETHYST_RAPIER,
             new Item.Properties()
                 .durability(1561)
                 .rarity(Rarity.RARE)

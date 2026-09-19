@@ -5,6 +5,7 @@ import com.chenjdy.farmers_spell.init.ModSpells;
 
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.item.weapons.ExtendedWeaponTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -31,7 +32,7 @@ public class GrowKnife extends MagicSwordItem {
 
     public GrowKnife() {
         super(
-            Tiers.IRON, 
+            ExtendedWeaponTier.AMETHYST_RAPIER,
             new Item.Properties()
                 .durability(250)
                 .rarity(Rarity.COMMON)
