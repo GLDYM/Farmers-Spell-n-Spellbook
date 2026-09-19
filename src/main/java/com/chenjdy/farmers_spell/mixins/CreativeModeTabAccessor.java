@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Mixin(CreativeModeTab.class)
 public interface CreativeModeTabAccessor {
@@ -13,5 +14,5 @@ public interface CreativeModeTabAccessor {
     void setDisplayItems(Collection<ItemStack> items);
 
     @Accessor("displayItemsSearchTab")
-    void setDisplayItemsSearchTab(java.util.Set<ItemStack> items);
+    void setDisplayItemsSearchTab(Set<ItemStack> items);
 }

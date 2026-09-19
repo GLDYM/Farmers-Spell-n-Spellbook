@@ -1,6 +1,7 @@
 package com.chenjdy.farmers_spell.init;
 
 import com.chenjdy.farmers_spell.FarmersSpell;
+import net.neoforged.bus.api.IEventBus;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -15,7 +16,7 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> BAIAN = SOUND_EVENTS.register("baian",
             () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "baian")));
 
-    public static void register(net.neoforged.bus.api.IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         SOUND_EVENTS.register(eventBus);
     }
 }

@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.event;
 
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModEffects;
+import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModSchools;
 import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -12,6 +13,7 @@ import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
+import static vectorwing.farmersdelight.common.registry.ModEffects.COMFORT;
 import static vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.level.Level;
@@ -32,6 +34,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -132,27 +135,50 @@ public class EffectsEventHandler {
         if (entity instanceof Player player && effect.getEffect().equals(NOURISHMENT)) {
             RingManaBonusHelper.syncAll(player);
         }
+        if (entity instanceof Player player
+                && (effect.getEffect().equals(ModEffects.CLEANSE)
+                || effect.getEffect().equals(COMFORT))) {
+            RingManaBonusHelper.syncAll(player);
+        }
     }
 
     @SubscribeEvent
     public static void onMobEffectRemoved(MobEffectEvent.Remove event) {
         if (event.getEntity().level().isClientSide) return;
-        if (event.getEntity() instanceof Player player && event.getEffect().equals(NOURISHMENT)) {
-            RingManaBonusHelper.clearAll(player);
+        if (event.getEntity() instanceof Player player
+                && (event.getEffect().equals(NOURISHMENT)
+                || event.getEffect().equals(ModEffects.CLEANSE)
+                || event.getEffect().equals(COMFORT))) {
+            RingManaBonusHelper.syncAll(player);
         }
     }
 
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         if (event.getEntity().level().isClientSide) return;
-        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().equals(NOURISHMENT)) {
-            RingManaBonusHelper.clearAll(player);
+        if (event.getEntity() instanceof Player player
+                && (event.getEffectInstance().getEffect().equals(NOURISHMENT)
+                || event.getEffectInstance().getEffect().equals(ModEffects.CLEANSE)
+                || event.getEffectInstance().getEffect().equals(COMFORT))) {
+            RingManaBonusHelper.syncAll(player);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         RingManaBonusHelper.syncAll(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onItemUseStart(LivingEntityUseItemEvent.Start event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        if (event.getItem().getFoodProperties(player) == null) return;
+        if (CuriosApi.getCuriosInventory(player)
+                .map(handler -> handler.isEquipped(ModItems.FOODGEIST_RING.get())
+                        || handler.isEquipped(ModItems.AFFINITY_RING_GLUTTON.get()))
+                .orElse(false)) {
+            event.setDuration(Math.max(1, event.getDuration() / 2));
+        }
     }
 
     @SubscribeEvent

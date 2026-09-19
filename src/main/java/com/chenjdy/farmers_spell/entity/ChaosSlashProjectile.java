@@ -5,9 +5,11 @@ import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModSpells;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -26,6 +28,7 @@ import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ChaosSlashProjectile extends AbstractMagicProjectile {
@@ -187,8 +190,8 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
     }
 
     @Override
-    public java.util.Optional<net.minecraft.core.Holder<net.minecraft.sounds.SoundEvent>> getImpactSound() {
-        return java.util.Optional.empty();
+    public Optional<Holder<SoundEvent>> getImpactSound() {
+        return Optional.empty();
     }
 
     @Override
