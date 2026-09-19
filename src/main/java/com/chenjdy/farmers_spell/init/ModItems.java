@@ -4,6 +4,7 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
 import com.chenjdy.farmers_spell.item.GluttonyUpgradeOrbItem;
+import com.chenjdy.farmers_spell.item.TiramisuBook;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
@@ -182,9 +183,9 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> WHEAT_BOOK = ITEMS.register("wheat_book",
             () -> new SpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> TIRAMISU = ITEMS.register("tiramisu",
-            () -> new SpellBook(12, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
+            () -> new TiramisuBook(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
                     .withSpellbookAttributes(
-                        new AttributeContainer(AttributeRegistry.SPELL_POWER, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), 
+                        new AttributeContainer(ModAttributes.GLUTTONY_SPELL_POWER, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                         new AttributeContainer(AttributeRegistry.MAX_MANA, 150, AttributeModifier.Operation.ADD_VALUE),
                         new AttributeContainer(AttributeRegistry.COOLDOWN_REDUCTION, 0.10, AttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ));
