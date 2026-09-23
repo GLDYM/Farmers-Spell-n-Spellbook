@@ -1,0 +1,9 @@
+{
+  "amount": 0.05,
+  "attribute": "farmers_spell:gluttony_spell_power",
+  "containerItem": {
+    "Count": 1,
+    "id": "farmers_spell:gluttony_upgrade_orb"
+  },
+  "operation": "MULTIPLY_BASE"
+}

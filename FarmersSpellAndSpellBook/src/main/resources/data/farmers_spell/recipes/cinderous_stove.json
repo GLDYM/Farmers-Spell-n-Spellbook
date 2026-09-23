@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "N N",
+    "NCN"
+  ],
+  "key": {
+    "D": {
+      "item": "farmers_spell:decrepit_scrap"
+    },
+    "N": {
+      "item": "irons_spellbooks:nether_brick_pillar"
+    },
+    "C": {
+      "item": "irons_spellbooks:cinder_essence"
+    }
+  },
+  "result": { "item": "farmers_spell:cinderous_stove",
+    "count": 1
+  }
+}

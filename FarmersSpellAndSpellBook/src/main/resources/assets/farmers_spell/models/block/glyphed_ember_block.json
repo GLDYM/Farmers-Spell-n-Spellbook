@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "farmers_spell:block/glyphed_ember_block"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.food_shaman.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.food_shaman.description"
+    },
+    "icon": {
+      "item": "farmers_spell:tiramisu"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:chef_ratatouille",
+  "criteria": {
+    "satisfy_ten_foodgeists": {
+      "trigger": "farmers_spell:foodgeist_satisfied"
+    }
+  },
+  "requirements": [
+    ["satisfy_ten_foodgeists"]
+  ],
+  "rewards": {
+    "loot": ["farmers_spell:rewards/tiramisu_book"]
+  }
+}

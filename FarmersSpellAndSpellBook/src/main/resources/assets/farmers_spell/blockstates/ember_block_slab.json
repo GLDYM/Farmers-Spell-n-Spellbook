@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "farmers_spell:block/ember_block_slab"
+    },
+    "type=top": {
+      "model": "farmers_spell:block/ember_block_slab_top",
+      "uvlock": true
+    },
+    "type=double": {
+      "model": "farmers_spell:block/ember_block_slab_double"
+    }
+  }
+}

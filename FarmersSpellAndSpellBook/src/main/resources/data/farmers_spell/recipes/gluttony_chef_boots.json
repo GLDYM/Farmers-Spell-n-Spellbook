@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  
+  "ingredients": [
+    {
+      "item": "irons_spellbooks:wizard_boots"
+    },
+    {
+      "item": "farmers_spell:glutton_rune"
+    },
+    {
+      "item": "irons_spellbooks:arcane_essence"
+    }
+  ],
+  "result": { "item": "farmers_spell:gluttony_chef_boots",
+    "count": 1
+  }
+}

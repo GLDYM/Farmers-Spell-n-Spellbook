@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "farmers_spell:item/eden_apple_tart_slice"
+  }
+}

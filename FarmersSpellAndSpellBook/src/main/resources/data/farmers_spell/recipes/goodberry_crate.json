@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    },
+    {
+      "item": "farmers_spell:goodberry"
+    }
+  ],
+  "result": { "item": "farmers_spell:goodberry_crate",
+    "count": 1
+  }
+}

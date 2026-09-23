@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.alchemist_pot.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.alchemist_pot.description"
+    },
+    "icon": {
+      "item": "farmers_spell:alchemist_pot"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:root",
+  "criteria": {
+    "get_alchemist_pot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:alchemist_pot"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_alchemist_pot"]
+  ]
+}

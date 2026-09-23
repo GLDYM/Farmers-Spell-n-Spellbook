@@ -1,0 +1,23 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:goodberry"
+        },
+        {
+            "item": "farmers_spell:goodberry"
+        },
+        {
+            "tag": "forge:dough"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:goodberry_muffin",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

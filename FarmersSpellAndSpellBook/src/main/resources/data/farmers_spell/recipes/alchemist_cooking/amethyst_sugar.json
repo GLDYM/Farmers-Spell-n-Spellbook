@@ -1,0 +1,32 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        },
+        {
+            "item": "farmers_spell:amethyst_beetroot"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:amethyst_sugar",
+        "count": 3
+    },
+    "container": {
+        "item": "minecraft:glass_bottle"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

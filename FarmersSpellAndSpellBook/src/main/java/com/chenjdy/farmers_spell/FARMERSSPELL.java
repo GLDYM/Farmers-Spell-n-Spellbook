@@ -1,0 +1,63 @@
+package com.chenjdy.farmers_spell;
+
+import com.chenjdy.farmers_spell.entity.BadAppleEntity;
+import com.chenjdy.farmers_spell.entity.FoodgeistEntity;
+import com.chenjdy.farmers_spell.init.*;
+import com.chenjdy.farmers_spell.network.NetworkHandler;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib.GeckoLib;
+
+@Mod(FARMERSSPELL.MODID)
+public class FARMERSSPELL
+{
+    public static final String MODID = "farmers_spell";
+    public static final Logger LOGGER = LogManager.getLogger();
+    @SuppressWarnings("removal")
+    public FARMERSSPELL()
+    {
+        GeckoLib.initialize();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ModConfigs.SPEC);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModAttributes.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
+        ModRecipeTypes.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModParticles.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
+        ModSchools.register(modEventBus);
+        ModSpells.register(modEventBus);
+        ModEffects.register(modEventBus);
+        ModEntities.register(modEventBus);
+        ModSounds.register(modEventBus);
+        ModFluids.register(modEventBus);
+        ModTriggers.register(modEventBus);
+        modEventBus.addListener(this::onEntityAttributeCreation);
+        modEventBus.addListener(this::onCommonSetup);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+    
+    private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.BAD_APPLE_ENTITY.get(), BadAppleEntity.createAttributes().build());
+        event.put(ModEntities.FOODGEIST.get(), FoodgeistEntity.createAttributes().build());
+        //event.put(ModEntities.PAN.get(), PanEntity.prepareAttributes().build());
+    }
+    
+    private void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            NetworkHandler.register();
+            ModTriggers.registerTriggers();
+        });
+    }
+
+}

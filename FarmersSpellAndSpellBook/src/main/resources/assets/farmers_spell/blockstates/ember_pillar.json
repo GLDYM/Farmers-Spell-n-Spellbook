@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "farmers_spell:block/ember_pillar"
+    },
+    "axis=x": {
+      "model": "farmers_spell:block/ember_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "farmers_spell:block/ember_pillar",
+      "x": 90
+    }
+  }
+}

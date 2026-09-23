@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:icy_egg_crate"
+    }
+  ],
+  "result": { "item": "farmers_spell:icy_egg",
+    "count": 6
+  }
+}

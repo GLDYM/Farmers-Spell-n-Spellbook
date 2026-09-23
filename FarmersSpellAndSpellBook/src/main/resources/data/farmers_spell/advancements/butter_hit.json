@@ -1,0 +1,26 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.butter_hit.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.butter_hit.description"
+    },
+    "icon": {
+      "item": "farmers_spell:wsip_butter"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:butter",
+  "criteria": {
+    "hit_entity": {
+      "trigger": "farmers_spell:butter_hit"
+    }
+  },
+  "requirements": [
+    ["hit_entity"]
+  ]
+}

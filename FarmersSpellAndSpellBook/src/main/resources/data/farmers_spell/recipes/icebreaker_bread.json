@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "&C&",
+    "# #",
+    "BBB"
+  ],
+  "key": {
+    "&": {
+      "tag": "forge:berries"
+    },
+    "#": {
+      "item": "farmers_spell:frostbranded_cream"
+    },
+    "B": {
+      "item": "minecraft:bread"
+    },
+    "C": {
+      "item": "minecraft:cookie"
+    }
+  },
+  "result": { "item": "farmers_spell:icebreaker_bread",
+    "count": 1
+  }
+}

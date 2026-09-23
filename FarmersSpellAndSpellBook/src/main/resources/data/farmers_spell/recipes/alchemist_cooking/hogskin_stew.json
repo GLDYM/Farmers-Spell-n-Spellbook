@@ -1,0 +1,23 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:hogskin_slice"
+        },
+        {
+            "item": "farmers_spell:"
+        },
+        {
+            "tag": "forge:fruits"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:hogskin_stew",
+        "count": 1
+    },
+    "container": {
+        "item": "minecraft:bowl"
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

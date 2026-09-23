@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HaH",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "H": {
+      "item": "farmers_spell:hogskin_slice"
+    },
+    "a": {
+      "item": "irons_spellbooks:arcane_essence"
+    },
+    "A": {
+      "item": "irons_spellbooks:arcane_ingot"
+    },
+    "C": {
+      "item": "farmersdelight:cooking_pot"
+    }
+  },
+  "result": { "item": "farmers_spell:alchemist_pot",
+    "count": 1
+  }
+}

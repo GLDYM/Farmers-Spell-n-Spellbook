@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "  F",
+    "  a"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "F": {
+      "item": "farmersdelight:flint_knife"
+    },
+    "a": {
+      "item": "irons_spellbooks:arcane_essence"
+    }
+  },
+  "result": { "item": "farmers_spell:grow_knife",
+    "count": 1
+  }
+}

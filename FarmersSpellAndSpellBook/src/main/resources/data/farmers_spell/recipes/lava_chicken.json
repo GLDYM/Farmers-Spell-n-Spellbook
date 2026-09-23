@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  
+  "ingredients": [
+    {
+      "item": "irons_spellbooks:cinder_essence"
+    },
+    {
+      "item": "irons_spellbooks:fire_ale"
+    },
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "minecraft:crimson_fungus"
+    }
+  ],
+  "result": { "item": "farmers_spell:lava_chicken",
+    "count": 1
+  }
+}

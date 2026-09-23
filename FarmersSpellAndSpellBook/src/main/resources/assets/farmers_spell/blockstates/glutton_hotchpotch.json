@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "servings=4,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 90
+    },
+    "servings=4,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch"
+    },
+    "servings=4,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 180
+    },
+    "servings=4,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch",
+      "y": 270
+    },
+    "servings=3,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 90
+    },
+    "servings=3,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch1"
+    },
+    "servings=3,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 180
+    },
+    "servings=3,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch1",
+      "y": 270
+    },
+    "servings=2,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 90
+    },
+    "servings=2,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch2"
+    },
+    "servings=2,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 180
+    },
+    "servings=2,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch2",
+      "y": 270
+    },
+    "servings=1,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 90
+    },
+    "servings=1,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch3"
+    },
+    "servings=1,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 180
+    },
+    "servings=1,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch3",
+      "y": 270
+    },
+    "servings=0,facing=east": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 90
+    },
+    "servings=0,facing=north": {
+      "model": "farmers_spell:block/glutton_hotchpotch4"
+    },
+    "servings=0,facing=south": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 180
+    },
+    "servings=0,facing=west": {
+      "model": "farmers_spell:block/glutton_hotchpotch4",
+      "y": 270
+    }
+  }
+}

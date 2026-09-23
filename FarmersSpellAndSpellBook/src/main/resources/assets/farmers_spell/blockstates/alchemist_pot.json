@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "farmers_spell:block/alchemist_pot",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "farmers_spell:block/alchemist_pot",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "farmers_spell:block/alchemist_pot",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "farmers_spell:block/alchemist_pot"
+    }
+  }
+}

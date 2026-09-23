@@ -1,0 +1,20 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "irons_spellbooks:blood_vial"
+        },
+        {
+            "item": "irons_spellbooks:blood_vial"
+        },
+        {
+            "item": "farmersdelight:bone_broth"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:blood_tofu",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

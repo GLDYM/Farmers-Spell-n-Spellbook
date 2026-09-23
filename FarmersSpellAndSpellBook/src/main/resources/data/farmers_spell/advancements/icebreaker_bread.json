@@ -1,0 +1,33 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.icebreaker_bread.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.icebreaker_bread.description"
+    },
+    "icon": {
+      "item": "farmers_spell:icebreaker_bread"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:icy_egg",
+  "criteria": {
+    "get_bread": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["farmers_spell:icebreaker_bread"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_bread"]
+  ]
+}

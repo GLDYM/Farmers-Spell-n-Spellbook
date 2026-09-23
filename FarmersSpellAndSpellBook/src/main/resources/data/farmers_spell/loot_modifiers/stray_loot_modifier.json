@@ -1,0 +1,13 @@
+{
+  "type": "irons_spellbooks:append_loot",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "minecraft:stray"
+      }
+    }
+  ],
+  "key": "farmers_spell:entities/stray_loot"
+}

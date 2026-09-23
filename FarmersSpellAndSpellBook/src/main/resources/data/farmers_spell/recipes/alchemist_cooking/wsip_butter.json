@@ -1,0 +1,24 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "irons_spellbooks:divine_pearl"
+        },
+        {
+            "tag": "forge:milk"
+        },
+        {
+            "tag": "forge:milk"
+        },
+        {
+            "tag": "forge:milk"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:wsip_butter",
+        "count": 2
+    },
+    "experience": 1.0,
+    "required_school": "irons_spellbooks:holy",
+    "cookingtime": 200
+}

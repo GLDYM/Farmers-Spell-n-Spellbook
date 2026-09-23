@@ -1,0 +1,20 @@
+{
+  "bad_apple": {
+    "subtitle": "Bad Apple",
+    "sounds": [
+      {
+        "name": "farmers_spell:bad_apple",
+        "stream": false
+      }
+    ]
+  },
+  "baian": {
+    "subtitle": "Baian",
+    "sounds": [
+      {
+        "name": "farmers_spell:baian",
+        "stream": false
+      }
+    ]
+  }
+}
