@@ -196,6 +196,11 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 100, 0), 1.0F)
             .build();
+    public static final FoodProperties CERIC_HEART = new FoodProperties.Builder()
+            .nutrition(4)
+            .saturationModifier(0.1f)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
+            .build();
     // 霜皮蛋
     public static final FoodProperties ICY_EGG = new FoodProperties.Builder()
             .nutrition(6)

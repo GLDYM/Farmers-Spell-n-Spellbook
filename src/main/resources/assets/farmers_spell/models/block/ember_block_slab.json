@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "farmers_spell:block/ember_block_slab",
+    "side": "farmers_spell:block/ember_block_slab",
+    "top": "farmers_spell:block/ember_block_slab"
+  }
+}

@@ -23,6 +23,11 @@
 		},
 		{
 			"name": "cube_outline",
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [15.3, 6.01797, 15.3],
 			"to": [2.7, 0.01797, 0.7],
 			"rotation": {"angle": 0, "axis": "y", "origin": [4, -0.28203, 1]},

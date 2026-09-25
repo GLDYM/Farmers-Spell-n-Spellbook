@@ -125,6 +125,12 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .strength(3.0F, 6.0F)));
 
+    public static final DeferredHolder<Block, Block> GLYPHED_EMBER_BLOCK = registerBlock("glyphed_ember_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
+
     public static final DeferredHolder<Block, RotatedPillarBlock> EMBER_PILLAR = registerBlock("ember_pillar",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
@@ -137,6 +143,24 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .strength(3.0F, 6.0F)
                     .noOcclusion()));
+
+    public static final DeferredHolder<Block, Block> POLISHED_EMBER_BLOCK = registerBlock("polished_ember_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
+
+    public static final DeferredHolder<Block, Block> CHISELED_EMBER_BLOCK = registerBlock("chiseled_ember_block",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
+
+    public static final DeferredHolder<Block, SlabBlock> EMBER_BLOCK_SLAB = registerBlock("ember_block_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .sound(SoundType.STONE)
+                    .strength(3.0F, 6.0F)));
 
     public static final DeferredHolder<Block, Block> GOODBERRY_CRATE = registerBlock("goodberry_crate",
             () -> new Block(

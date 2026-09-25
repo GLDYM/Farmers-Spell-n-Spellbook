@@ -93,6 +93,8 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CARAMEL)));
     public static final DeferredHolder<Item, Item> GOODBERRY = ITEMS.register("goodberry",
             () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY)));
+    public static final DeferredHolder<Item, Item> CERIC_HEART = ITEMS.register("cleric_heart",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_HEART)));
     public static final DeferredHolder<Item, Item> ICY_EGG = ITEMS.register("icy_egg",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ICY_EGG)));
     public static final DeferredHolder<Item, Item> AMETHYST_SUGAR = ITEMS.register("amethyst_sugar",

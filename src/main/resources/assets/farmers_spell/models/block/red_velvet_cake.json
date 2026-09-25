@@ -22,32 +22,37 @@
 			}
 		},
 		{
-			"name": "cube_outline",
-			"from": [14.95195, 12, 12.27836],
-			"to": [0.95195, 6, 6.27836],
-			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.95195, 9, 9.27836]},
+			"from": [0.65195, 6, 1.57836],
+			"to": [14.65195, 12, 14.57836],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.65195, 9, 6.57836]},
 			"faces": {
-				"north": {"uv": [9, 5.5, 5.5, 7], "rotation": 180, "texture": "#0"},
-				"east": {"uv": [9.25, 5.5, 10.75, 7], "rotation": 180, "texture": "#0"},
-				"south": {"uv": [1.75, 5.5, 5.25, 7], "rotation": 180, "texture": "#0"},
-				"west": {"uv": [0, 5.5, 1.5, 7], "rotation": 180, "texture": "#0"}
+				"north": {"uv": [5.5, 5.5, 9, 7], "texture": "#0"},
+				"east": {"uv": [8.75, 7.25, 5.5, 8.75], "texture": "#0"},
+				"south": {"uv": [5.25, 5.5, 1.75, 7], "texture": "#0"},
+				"west": {"uv": [3.25, 7.25, 0, 8.75], "texture": "#0"}
 			}
 		},
 		{
-			"from": [0.95195, 6, 6.27836],
-			"to": [14.95195, 12, 12.27836],
-			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.95195, 9, 9.27836]},
+			"name": "cube_outline",
+			"from": [14.65195, 12, 14.57836],
+			"to": [0.65195, 6, 1.57836],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.65195, 9, 6.57836]},
 			"faces": {
-				"north": {"uv": [5.25, 5.5, 1.75, 7], "texture": "#0"},
-				"east": {"uv": [1.5, 5.5, 0, 7], "texture": "#0"},
-				"south": {"uv": [5.5, 5.5, 9, 7], "texture": "#0"},
-				"west": {"uv": [10.75, 5.5, 9.25, 7], "texture": "#0"}
+				"north": {"uv": [5.25, 5.5, 1.75, 7], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [0, 7.25, 3.25, 8.75], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [5.5, 5.5, 9, 7], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [5.5, 7.25, 8.75, 8.75], "rotation": 180, "texture": "#0"}
 			}
 		},
 		{
 			"name": "cube_outline",
 			"from": [15.3, 6.01797, 15.3],
 			"to": [0.7, 0.01797, 0.7],
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"rotation": {"angle": 0, "axis": "y", "origin": [4, -0.28203, 1]},
 			"faces": {
 				"north": {"uv": [11.25, 5.5, 14.75, 7], "rotation": 180, "texture": "#0"},
