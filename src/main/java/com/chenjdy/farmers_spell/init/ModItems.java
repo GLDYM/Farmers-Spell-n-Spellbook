@@ -4,7 +4,6 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
 import com.chenjdy.farmers_spell.item.GluttonyUpgradeOrbItem;
-import com.chenjdy.farmers_spell.item.TiramisuBook;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
@@ -20,7 +19,9 @@ import com.chenjdy.farmers_spell.item.weapons.HellKnife;
 import com.chenjdy.farmers_spell.item.weapons.IrisFork;
 import com.chenjdy.farmers_spell.item.weapons.TwilightBlade;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.SpellBook;
+import io.redspace.ironsspellbooks.item.UniqueSpellBook;
 import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
@@ -185,7 +186,12 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> WHEAT_BOOK = ITEMS.register("wheat_book",
             () -> new SpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> TIRAMISU = ITEMS.register("tiramisu",
-            () -> new TiramisuBook(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
+                () -> new UniqueSpellBook(
+                    new SpellDataRegistryHolder[]{
+                        new SpellDataRegistryHolder(ModSpells.PHANTOM_LOOT_SPELL, 1)
+                    },
+                    11,
+                    new Item.Properties().stacksTo(1).rarity(Rarity.EPIC))
                     .withSpellbookAttributes(
                         new AttributeContainer(ModAttributes.GLUTTONY_SPELL_POWER, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                         new AttributeContainer(AttributeRegistry.MAX_MANA, 150, AttributeModifier.Operation.ADD_VALUE),
