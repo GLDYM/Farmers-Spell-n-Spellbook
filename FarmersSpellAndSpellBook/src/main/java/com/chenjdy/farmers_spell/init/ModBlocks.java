@@ -133,7 +133,7 @@ public class ModBlocks {
                     .mapColor(MapColor.COLOR_GRAY)
                     .sound(SoundType.STONE)
                     .strength(3.0F, 6.0F)));
-    // 残焰块半砖
+    // 残焰块台阶
     public static final RegistryObject<SlabBlock> EMBER_BLOCK_SLAB = registerBlock("ember_block_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)

@@ -2,21 +2,21 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "item": "farmers_spell:amethyst_beetroot"
+            "item": "farmers_spell:wsip_butter"
         },
         {
-            "item": "farmers_spell:amethyst_beetroot"
+            "item": "minecraft:golden_carrot"
         },
         {
             "item": "farmers_spell:amethyst_beetroot"
         }
     ],
     "result": {
-        "item": "farmers_spell:amethyst_sugar",
+        "item": "farmers_spell:villager_chrism",
         "count": 1
     },
     "container": {
-        "item": "minecraft:glass_bottle"
+        "item": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

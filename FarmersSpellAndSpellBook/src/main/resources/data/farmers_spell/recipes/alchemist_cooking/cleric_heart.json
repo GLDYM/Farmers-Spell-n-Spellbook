@@ -2,23 +2,20 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "tag": "forge:dough"
-        },
-        {
-            "item": "farmers_spell:wsip_butter"
+            "item": "irons_spellbooks:greater_healing_potion"
         },
         {
             "item": "farmers_spell:amethyst_sugar"
         },
         {
-            "tag": "forge:eggs"
+            "tag": "forge:milk"
         },
         {
-            "tag": "forge:milk"
+            "item": "farmersdelight:apple_cider"
         }
     ],
     "result": {
-        "item": "farmers_spell:ceric_cross_bun",
+        "item": "farmers_spell:cleric_heart",
         "count": 2
     },
     "experience": 1.0,

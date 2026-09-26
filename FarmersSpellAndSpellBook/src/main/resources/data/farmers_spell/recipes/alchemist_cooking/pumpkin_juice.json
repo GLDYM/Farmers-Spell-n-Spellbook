@@ -5,12 +5,18 @@
             "item": "farmersdelight:pumpkin_slice"
         },
         {
+            "item": "farmersdelight:pumpkin_slice"
+        },
+        {
             "item": "irons_spellbooks:arcane_essence"
+        },
+        {
+            "item": "irons_spellbooks:oakskin_elixir"
         }
     ],
     "result": {
         "item": "farmers_spell:pumpkin_juice",
-        "count": 1
+        "count": 2
     },
     "container": {
         "item": "minecraft:glass_bottle"

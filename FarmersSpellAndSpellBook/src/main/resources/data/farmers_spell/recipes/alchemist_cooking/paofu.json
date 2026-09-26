@@ -6,11 +6,17 @@
         },
         {
             "tag": "forge:dough"
+        },
+        {
+            "tag": "forge:eggs"
+        },
+        {
+            "tag": "forge:milk"
         }
     ],
     "result": {
         "item": "farmers_spell:paofu",
-        "count": 1
+        "count": 2
     },
     "experience": 1.0,
     "cookingtime": 200

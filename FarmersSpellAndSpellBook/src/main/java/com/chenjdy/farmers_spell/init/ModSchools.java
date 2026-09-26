@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
@@ -26,7 +27,7 @@ public class ModSchools {
     public static final TagKey<Item> GLUTTONY_FOCUS = ItemTags.create(ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "gluttony_focus"));
 
     public static final ResourceKey<DamageType> GLUTTONY_MAGIC = ResourceKey.create(
-            net.minecraft.core.registries.Registries.DAMAGE_TYPE,
+            Registries.DAMAGE_TYPE,
             ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "gluttony_magic")
     );
 

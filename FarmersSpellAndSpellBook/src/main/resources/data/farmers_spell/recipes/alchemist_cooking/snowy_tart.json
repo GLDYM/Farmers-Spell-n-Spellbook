@@ -12,11 +12,14 @@
         },
         {
             "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "tag": "forge:milk"
         }
     ],
     "result": {
         "item": "farmers_spell:snowy_tart",
-        "count": 2
+        "count": 4
     },
     "experience": 1.0,
     "cookingtime": 200

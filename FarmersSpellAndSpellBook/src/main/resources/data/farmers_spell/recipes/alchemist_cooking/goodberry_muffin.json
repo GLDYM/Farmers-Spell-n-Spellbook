@@ -12,11 +12,17 @@
         },
         {
             "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "tag": "forge:eggs"
+        },
+        {
+            "tag": "forge:milk"
         }
     ],
     "result": {
         "item": "farmers_spell:goodberry_muffin",
-        "count": 1
+        "count": 2
     },
     "experience": 1.0,
     "cookingtime": 200

@@ -12,7 +12,7 @@ import java.util.Map;
 public class GospelButterKnife extends MagicSwordItem {
     public GospelButterKnife() {
         super(Tiers.IRON, 3.5f, -2.0f,
-            SpellDataRegistryHolder.of(new SpellDataRegistryHolder(SpellRegistry.WISP_SPELL, 5)),
+            SpellDataRegistryHolder.of(new SpellDataRegistryHolder(SpellRegistry.WISP_SPELL, 8)),
             Map.of(),
             new Item.Properties().durability(1561).rarity(Rarity.RARE));
     }

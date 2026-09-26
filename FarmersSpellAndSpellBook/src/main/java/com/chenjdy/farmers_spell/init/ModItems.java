@@ -6,6 +6,8 @@ import com.chenjdy.farmers_spell.item.curios.*;
 import com.google.common.collect.ImmutableMultimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.item.UniqueSpellBook;
 import io.redspace.ironsspellbooks.item.spell_books.SimpleAttributeSpellBook;
 import com.chenjdy.farmers_spell.item.irons.*;
 import com.chenjdy.farmers_spell.item.weapons.*;
@@ -250,8 +252,9 @@ public class ModItems {
     public static final RegistryObject<Item> WHEAT_BOOK = ITEMS.register("wheat_book",
             () -> new WheatSpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> TIRAMISU = ITEMS.register("tiramisu",
-            () -> new SimpleAttributeSpellBook(12, SpellRarity.LEGENDARY, ImmutableMultimap.<Attribute, AttributeModifier>builder()
-                    .put(AttributeRegistry.SPELL_POWER.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c0"), "Tiramisu Spell Power", 0.10, AttributeModifier.Operation.MULTIPLY_BASE))
+            () -> new UniqueSpellBook(SpellRarity.LEGENDARY,
+                    new SpellDataRegistryHolder[]{ new SpellDataRegistryHolder(ModSpells.PHANTOM_LOOT_SPELL, 1) },10,() -> ImmutableMultimap.<Attribute, AttributeModifier>builder()
+                    .put(ModAttributes.GLUTTONY_SPELL_POWER.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c0"), "Tiramisu Gluttony Spell Power", 0.15, AttributeModifier.Operation.MULTIPLY_BASE))
                     .put(AttributeRegistry.MAX_MANA.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c1"), "Tiramisu Max Mana", 150.0, AttributeModifier.Operation.ADDITION))
                     .put(AttributeRegistry.COOLDOWN_REDUCTION.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c2"), "Tiramisu Cooldown", 0.10, AttributeModifier.Operation.MULTIPLY_BASE))
                     .build()));

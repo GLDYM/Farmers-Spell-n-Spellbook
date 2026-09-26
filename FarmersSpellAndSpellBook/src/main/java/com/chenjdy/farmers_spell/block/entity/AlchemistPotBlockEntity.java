@@ -2,11 +2,8 @@ package com.chenjdy.farmers_spell.block.entity;
 
 import com.chenjdy.farmers_spell.block.entity.container.AlchemistPotMenu;
 import com.chenjdy.farmers_spell.entity.FoodgeistSpawnHelper;
-import com.chenjdy.farmers_spell.init.ModItems;
+import com.chenjdy.farmers_spell.init.*;
 import com.google.common.collect.Lists;
-import com.chenjdy.farmers_spell.init.ModTriggers;
-import com.chenjdy.farmers_spell.init.ModBlockEntities;
-import com.chenjdy.farmers_spell.init.ModRecipeTypes;
 import com.chenjdy.farmers_spell.recipe.AlchemistCookingRecipe;
 import io.redspace.ironsspellbooks.api.item.IScroll;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
@@ -525,8 +522,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     public boolean isGluttonyScroll() {
         SchoolType school = getScrollSchool();
         if (school == null) return false;
-        ResourceLocation schoolId = school.getId();
-        return schoolId.getNamespace().equals("irons_spellbooks") && schoolId.getPath().equals("holy");
+        return school.getId().equals(ModSchools.GLUTTONY_RESOURCE);
     }
 
     public ItemStack getMeal() {
