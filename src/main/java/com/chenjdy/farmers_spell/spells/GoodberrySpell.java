@@ -47,13 +47,13 @@ public class GoodberrySpell extends AbstractSpell {
         this.manaCostPerLevel = 0;
         this.baseSpellPower = 0;
         this.spellPowerPerLevel = 0;
-        this.castTime = 0;
-        this.baseManaCost = 30;
+        this.castTime = 60;
+        this.baseManaCost = 50;
     }
 
     @Override
     public CastType getCastType() {
-        return CastType.INSTANT;
+        return CastType.LONG;
     }
 
     @Override

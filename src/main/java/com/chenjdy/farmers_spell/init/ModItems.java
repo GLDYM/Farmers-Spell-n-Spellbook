@@ -60,6 +60,8 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.BUTTER_POTATO)));
     public static final DeferredHolder<Item, Item> AMETHYST_BURGER = ITEMS.register("amethyst_burger",
             () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_BURGER)));
+    public static final DeferredHolder<Item, Item> EDEN_BAK_APPLE = ITEMS.register("eden_baked_apple",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.EDEN_BAK_APPLE)));
     public static final DeferredHolder<Item, Item> CERIC_CROSS_BUN = ITEMS.register("ceric_cross_bun",
             () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_CROSS_BUN)));
     public static final DeferredHolder<Item, Item> GOODBERRY_MUFFIN = ITEMS.register("goodberry_muffin",
@@ -121,6 +123,8 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
+    public static final DeferredHolder<Item, Item> VILLAGER_CHRISM = ITEMS.register("villager_chrism",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.VILLAGER_CHRISM)));
 
     public static final DeferredHolder<Item, Item> GOODBERRY_JUICE = ITEMS.register("goodberry_juice",
             () -> new DrinkItem(drinkItem(ModFoods.GOODBERRY_JUICE), 10, false));
@@ -140,6 +144,8 @@ public class ModItems {
             () -> new DrinkItem(drinkItem(ModFoods.INK_BEER), 50, false));
     public static final DeferredHolder<Item, Item> EVASION_MILK = ITEMS.register("evasion_milk",
             () -> new DrinkItem(drinkItem(ModFoods.EVASION_MILK), 15, false));
+    public static final DeferredHolder<Item, Item> HOLY_MILKSHAKE = ITEMS.register("holy_milkshake",
+            () -> new DrinkableItem(drinkItem(ModFoods.HOLY_MILKSHAKE)));
     public static final DeferredHolder<Item, Item> MOZHAO = ITEMS.register("mozhao",
             () -> new DrinkItem(drinkItem(ModFoods.MOZHAO), 15, false));
     public static final DeferredHolder<Item, Item> PERMAFROST_POPSICLE = ITEMS.register("permafrost_popsicle",

@@ -62,6 +62,9 @@ public class ModFoods {
             .saturationModifier(0.1f)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 0), 1.0F)
             .build();
+    public static final FoodProperties VILLAGER_CHRISM = new FoodProperties.Builder()
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 0), 1.0F)
+            .build();
     // 破冰面包三明治
     public static final FoodProperties ICEBERGCREAM_SANDWICH = new FoodProperties.Builder()
             .nutrition(8).saturationModifier(.75f)
@@ -80,6 +83,10 @@ public class ModFoods {
             .saturationModifier(0.8f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 1 * 60 * 20, 0), 1.0F)
+            .build();
+    public static final FoodProperties EDEN_BAK_APPLE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationModifier(0.6f)
             .build();
     // 闪烁十字面包
     public static final FoodProperties CERIC_CROSS_BUN = (new FoodProperties.Builder())
@@ -267,6 +274,12 @@ public class ModFoods {
             .alwaysEdible()
             .effect(() -> ironsEffect(() -> MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1 * 60 * 20, 0), 1.0F)
+            .build();
+    public static final FoodProperties HOLY_MILKSHAKE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationModifier(0.36f)
+            .alwaysEdible()
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 1), 1.0F)
             .build();
     // 红丝绒蛋糕
     public static final FoodProperties RED_VELVET_CAKE = new FoodProperties.Builder()

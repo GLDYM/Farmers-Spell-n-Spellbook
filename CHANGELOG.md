@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.0.6.0
+
+## Feature
+
+- Add more ember blocks
+- Add Ceric Heart
+- Add Holy Spirit oil Effect
+- Add Pan Spell
+
+## Changed
+
+- Empower some effects
+- Adjust Food effects
+- Eden Apple Tart & Red Vlevet Cake have light model
+- Change Foodgeist Gift to Loot Table
+- Rework Goodberry spell: 50 mana, 5s cast time , give 10 Goodberry or tranform berry to Goodberry 
+- Rework rings: improve eat speed
+- Adjust Gospel Knife: add 2.5 damage on undead, remove Smite I
+- Adjust TiramisuBook: Add Ubiquitous I
+
+## Fixed
+
+- The repair material of mod's weapon is always iron ingot
+
 ## 1.0.5.1
 
 ### Fixed
