@@ -60,6 +60,9 @@ public class ModItems {
     // 宝石汉堡
     public static final RegistryObject<Item> AMETHYST_BURGER = ITEMS.register("amethyst_burger",
             () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_BURGER)));
+    // 伊甸烤苹果
+    public static final RegistryObject<Item> EDEN_BAK_APPLE = ITEMS.register("eden_baked_apple",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.EDEN_BAK_APPLE)));
     // 闪烁十字面包
     public static final RegistryObject<Item> CERIC_CROSS_BUN = ITEMS.register("ceric_cross_bun",
             () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_CROSS_BUN)));
@@ -150,6 +153,9 @@ public class ModItems {
     // 冰山奶霜
     public static final RegistryObject<Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
+    // 村民圣膏
+    public static final RegistryObject<Item> VILLAGER_CHRISM = ITEMS.register("villager_chrism",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.VILLAGER_CHRISM)));
     // 冰山淇淋三明治
     public static final RegistryObject<Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
@@ -180,6 +186,9 @@ public class ModItems {
     // 闪避拿铁
     public static final RegistryObject<Item> EVASION_MILK = ITEMS.register("evasion_milk",
             () -> new DrinkItem(drinkItem(ModFoods.EVASION_MILK), 15, false));
+    // 神圣奶昔
+    public static final RegistryObject<Item> HOLY_MILKSHAKE = ITEMS.register("holy_milkshake",
+            () -> new DrinkableItem(drinkItem(ModFoods.HOLY_MILKSHAKE)));
     // 雷爪
     public static final RegistryObject<Item> MOZHAO = ITEMS.register("mozhao",
             () -> new DrinkItem(drinkItem(ModFoods.MOZHAO), 15, false));

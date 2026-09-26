@@ -1,18 +1,35 @@
 package com.chenjdy.farmers_spell.block;
 
+import com.chenjdy.farmers_spell.block.entity.EdenAppleTartGlowBlockEntity;
 import com.chenjdy.farmers_spell.init.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import vectorwing.farmersdelight.common.block.PieBlock;
 import java.util.function.Supplier;
 
-public class EdenAppleTartBlock extends PieBlock {
+import javax.annotation.Nullable;
+
+public class EdenAppleTartBlock extends PieBlock implements EntityBlock {
 
     public EdenAppleTartBlock(Properties properties, Supplier<Item> pieSlice) {
         super(properties, pieSlice);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new EdenAppleTartGlowBlockEntity(pos, state);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override

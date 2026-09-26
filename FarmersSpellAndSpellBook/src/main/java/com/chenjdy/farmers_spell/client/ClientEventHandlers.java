@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.client;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.block.entity.CinderousStoveBlockEntity;
+import com.chenjdy.farmers_spell.client.renderer.GlowOverlayBlockRenderer;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -16,5 +17,7 @@ public class ClientEventHandlers {
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.CINDEROUS_STOVE.get(), DefaultStoveRenderer<CinderousStoveBlockEntity>::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.RED_VELVET_CAKE_GLOW.get(),context -> new GlowOverlayBlockRenderer(ModBlockEntities.RED_VELVET_CAKE_GLOW.get()));
+        event.registerBlockEntityRenderer(ModBlockEntities.EDEN_APPLE_TART_GLOW.get(),context -> new GlowOverlayBlockRenderer(ModBlockEntities.EDEN_APPLE_TART_GLOW.get()));
     }
 }

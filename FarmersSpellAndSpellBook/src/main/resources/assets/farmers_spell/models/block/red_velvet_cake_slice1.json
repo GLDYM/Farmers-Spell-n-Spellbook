@@ -4,8 +4,8 @@
 	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "farmers_spell:block/redead",
-		"particle": "farmers_spell:block/redead"
+		"0": "farmers_spell:block/red_velvet_cake_glow",
+		"particle": "farmers_spell:block/red_velvet_cake_glow"
 	},
 	"elements": [
 		{

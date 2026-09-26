@@ -51,6 +51,7 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.EDEN_APPLE_TART_SLICE.get());
         accept(output, FOOD_ITEMS, ModItems.BOWL_OF_PUMPKIN_SOUP.get());
         accept(output, FOOD_ITEMS, ModItems.BOWL_OF_SAINGEZI_CHICKEN.get());
+        accept(output, FOOD_ITEMS, ModItems.VILLAGER_CHRISM.get());
         accept(output, FOOD_ITEMS, ModItems.GOODBERRY_MUFFIN.get());
         accept(output, FOOD_ITEMS, ModItems.GOODBERRY_PIE_SLICE.get());
         accept(output, FOOD_ITEMS, ModItems.SALMON_BURGER.get());
@@ -75,10 +76,12 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModBlocks.GLUTTON_HOTCHPOTCH.get());
         accept(output, FOOD_ITEMS, ModItems.ENERGIZED_CARAMEL.get());
         accept(output, FOOD_ITEMS, ModItems.PAOFU.get());
-        accept(output, FOOD_ITEMS, ModItems.CERIC_HEART.get());
         accept(output, FOOD_ITEMS, ModItems.THUNDER_COTTON_CANDY.get());
+        accept(output, FOOD_ITEMS, ModItems.CERIC_HEART.get());
+        accept(output, FOOD_ITEMS, ModItems.EDEN_BAK_APPLE.get());
         accept(output, FOOD_ITEMS, ModItems.ENERGIZED_CANDY.get());
         accept(output, FOOD_ITEMS, ModItems.AMETHYST_MOONCAKE.get());
+        accept(output, FOOD_ITEMS, ModItems.HOLY_MILKSHAKE.get());
         accept(output, FOOD_ITEMS, ModItems.BUTTERBEER.get());
         accept(output, FOOD_ITEMS, ModItems.GOODBERRY_JUICE.get());
         accept(output, FOOD_ITEMS, ModItems.ICE_VENOM_WINE.get());
@@ -90,7 +93,6 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.INK_BEER.get());
         accept(output, FOOD_ITEMS, ModItems.MOZHAO.get());
         accept(output, FOOD_ITEMS, ModItems.AMETHYST_BEETROOT_SEEDS.get());
-        accept(output, FOOD_ITEMS, ModItems.FOODGEIST_SPAWN_EGG.get());
     }
 
     private static void addBlockItems(CreativeModeTab.Output output) {

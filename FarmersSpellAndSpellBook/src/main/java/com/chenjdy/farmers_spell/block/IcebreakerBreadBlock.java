@@ -108,9 +108,8 @@ public class IcebreakerBreadBlock extends Block {
             return InteractionResult.PASS;
         }
 
-        if (stage < 9) {
+        if (stage <= 9) {
             if (!level.isClientSide) {
-                int newStage = stage + 1;
                 int position = state.getValue(POSITION);
                 Direction facing = state.getValue(FACING);
 
@@ -119,9 +118,10 @@ public class IcebreakerBreadBlock extends Block {
                     Block.popResource(level, pos, sandwich);
                 }
 
-                if (newStage == 9) {
+                if (stage == 9) {
                     destroyStructure(level, pos, state);
                 } else {
+                    int newStage = stage + 1;
                     updateAllBlocksStage(level, pos, state, newStage);
                     if (newStage == 7) {
                         BlockPos originPos = getOriginPos(pos, position, facing);

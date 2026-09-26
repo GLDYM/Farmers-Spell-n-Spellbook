@@ -150,6 +150,16 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(MobEffectRegistry.CHARGED.get(), 2 * 60 * 20, 4), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1 * 60 * 20, 1), 1.0F)
             .build();
+    // 村民圣膏
+    public static final FoodProperties VILLAGER_CHRISM = new FoodProperties.Builder()
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL.get(), 5 * 60 * 20, 0), 1.0F)
+            .build();
+    // 伊甸烤苹果
+    public static final FoodProperties EDEN_BAK_APPLE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationMod(0.6f)
+            //.effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL.get(), 5 * 60 * 20, 0), 1.0F)
+            .build();
     // 血豆腐
     public static final FoodProperties BLOOD_TOFU = new FoodProperties.Builder()
             .nutrition(6)
@@ -223,6 +233,13 @@ public class ModFoods {
             .alwaysEat()
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 3), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffectRegistry.VIGOR.get(), 3 * 60 * 20, 2), 1.0F)
+            .build();
+    // 神圣奶昔
+    public static final FoodProperties HOLY_MILKSHAKE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationMod(0.36f)
+            .alwaysEat()
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL.get(), 5 * 60 * 20, 1), 1.0F)
             .build();
     // 蛛牙冰酒
     public static final FoodProperties ICE_VENOM_WINE = new FoodProperties.Builder()
