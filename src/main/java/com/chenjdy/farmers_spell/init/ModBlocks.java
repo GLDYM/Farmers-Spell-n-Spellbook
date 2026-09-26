@@ -69,7 +69,7 @@ public class ModBlocks {
 
     public static final DeferredHolder<Block, PieBlock> GOODBERRY_PIE = registerBlockWithPlaceableItem("goodberry_pie",
             () -> new PieBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_PINK)
+                    .mapColor(MapColor.COLOR_PURPLE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F)
                     .pushReaction(PushReaction.DESTROY),
@@ -112,7 +112,7 @@ public class ModBlocks {
             "saingezi_chicken",
             () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
-                    .sound(SoundType.WOOL)
+                    .sound(SoundType.WOOD)
                     .strength(0.5F)
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY)
@@ -164,10 +164,10 @@ public class ModBlocks {
 
     public static final DeferredHolder<Block, Block> GOODBERRY_CRATE = registerBlock("goodberry_crate",
             () -> new Block(
-                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(0.5F, 1F)));
+                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(2.0F, 3.0F)));
     public static final DeferredHolder<Block, SlabBlock> ICY_EGG_CRATE = registerBlock("icy_egg_crate",
             () -> new SlabBlock(
-                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(0.3F)));
+                    BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(2.0F, 3.0F)));
     public static final DeferredHolder<Block, IcebreakerBreadBlock> ICEBREAKER_BREAD = registerBlockWithCustomItem(
             "icebreaker_bread", () -> new IcebreakerBreadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
                     .sound(SoundType.WOOL).strength(0.5F).noOcclusion().pushReaction(PushReaction.DESTROY)

@@ -1,14 +1,11 @@
 package com.chenjdy.farmers_spell.entity;
 
-import com.chenjdy.farmers_spell.init.ModEntities;
-import com.chenjdy.farmers_spell.init.ModItems;
+
 import com.chenjdy.farmers_spell.init.ModTriggers;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
-import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -37,6 +35,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.core.registries.Registries;
@@ -65,6 +67,10 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     private static final RawAnimation HAPPY = RawAnimation.begin().thenLoop("happy");
 
     private static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
+
+    private static final ResourceKey<LootTable> FOODGEIST_GIFT_TABLE = ResourceKey.create(
+            Registries.LOOT_TABLE,
+            ResourceLocation.fromNamespaceAndPath("farmers_spell", "gameplay/foodgeist_gift"));
 
     private static final EntityDataAccessor<Boolean> DATA_SATISFIED = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -245,17 +251,25 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             return;
         // Receiving the reward starts the blessing cooldown immediately.
         this.entityData.set(DATA_BLESSING_COOLDOWN, this.level().getGameTime() + 300L);
-        this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ModItems.FOODGEIST_SEASONING.get(), 2));
-        if (this.random.nextFloat() < 0.5F) {
-            this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ModItems.FOODGEIST_CHEESE.get()));
-        }
-        int inkCount = 1 + this.random.nextInt(2);
-        this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ItemRegistry.INK_EPIC.get(), inkCount));
-        this.spawnItemAtPlayer(nearestPlayer, new ItemStack(ItemRegistry.ARCANE_ESSENCE.get()));
-        if (this.random.nextFloat() < 0.125F) {
-            this.spawnItemAtPlayer(nearestPlayer, new ItemStack(Items.NETHERITE_SCRAP));
-            for (int i = 0; i < 20; i++) {
-                this.spawnSoulParticles();
+        if (this.level() instanceof ServerLevel serverLevel) {
+            LootParams lootParams = new LootParams.Builder(serverLevel)
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.THIS_ENTITY, this)
+                    .withLuck(nearestPlayer.getLuck())
+                    .create(LootContextParamSets.GIFT);
+            List<ItemStack> gifts = serverLevel.getServer().reloadableRegistries()
+                    .getLootTable(FOODGEIST_GIFT_TABLE)
+                    .getRandomItems(lootParams);
+
+            boolean rareGift = false;
+            for (ItemStack gift : gifts) {
+                rareGift |= gift.is(Items.NETHERITE_SCRAP);
+                this.spawnItemAtPlayer(nearestPlayer, gift);
+            }
+            if (rareGift) {
+                for (int i = 0; i < 20; i++) {
+                    this.spawnSoulParticles();
+                }
             }
         }
 

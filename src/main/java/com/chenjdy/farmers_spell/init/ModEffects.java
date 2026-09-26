@@ -6,6 +6,7 @@ import com.chenjdy.farmers_spell.effects.ClawBreakEffect;
 import com.chenjdy.farmers_spell.effects.DruidHealEffect;
 import com.chenjdy.farmers_spell.effects.FrostShieldEffect;
 import com.chenjdy.farmers_spell.effects.GoldenArmorEffect;
+import com.chenjdy.farmers_spell.effects.HolySpiritOilEffect;
 import com.chenjdy.farmers_spell.effects.MagicalIngredientEffect;
 import com.chenjdy.farmers_spell.effects.SealOilEffect;
 import net.minecraft.world.effect.MobEffect;
@@ -34,6 +35,8 @@ public class ModEffects {
             () -> new GoldenArmorEffect(MobEffectCategory.BENEFICIAL, 0xFFD700));
     public static final DeferredHolder<MobEffect, MobEffect> MAGICAL_INGREDIENT = MOB_EFFECTS.register("magical_ingredient",
             () -> new MagicalIngredientEffect(MobEffectCategory.HARMFUL, 0x9966CC));
+    public static final DeferredHolder<MobEffect, MobEffect> HOLY_SPIRIT_OIL = MOB_EFFECTS.register("holy_spirit_oil",
+            () -> new HolySpiritOilEffect(MobEffectCategory.BENEFICIAL, 0xFFFACD));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

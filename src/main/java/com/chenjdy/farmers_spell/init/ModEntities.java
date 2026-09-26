@@ -5,6 +5,7 @@ import com.chenjdy.farmers_spell.entity.BadAppleEntity;
 import com.chenjdy.farmers_spell.entity.ButterProjectile;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
 import com.chenjdy.farmers_spell.entity.FoodgeistEntity;
+import com.chenjdy.farmers_spell.entity.PanEntity;
 import com.chenjdy.farmers_spell.entity.PreserveCircleAoe;
 
 import net.minecraft.world.entity.EntityType;
@@ -50,6 +51,13 @@ public class ModEntities {
                     .clientTrackingRange(10)
                     .updateInterval(3)
                     .build("foodgeist"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<PanEntity>> PAN = ENTITIES.register("pan",
+            () -> EntityType.Builder.<PanEntity>of(PanEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(8)
+                    .updateInterval(20)
+                    .build("pan"));
 
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);

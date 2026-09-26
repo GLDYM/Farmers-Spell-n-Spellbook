@@ -8,6 +8,7 @@ import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
@@ -16,6 +17,10 @@ import io.redspace.ironsspellbooks.util.ParticleHelper;
 import static vectorwing.farmersdelight.common.registry.ModEffects.COMFORT;
 import static vectorwing.farmersdelight.common.registry.ModEffects.NOURISHMENT;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
@@ -34,6 +39,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -308,6 +314,45 @@ public class EffectsEventHandler {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingAttack(LivingIncomingDamageEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.level().isClientSide) return;
+
+        MobEffectInstance oil = entity.getEffect(ModEffects.HOLY_SPIRIT_OIL);
+        if (oil == null) return;
+
+        DamageSource source = event.getSource();
+        if (source.is(DamageTypeTags.IS_FALL)
+                || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                || source.is(DamageTypeTagGenerator.BYPASS_EVASION)) {
+            return;
+        }
+
+        event.setCanceled(true);
+        int amplifier = oil.getAmplifier();
+        int duration = oil.getDuration();
+        entity.removeEffect(ModEffects.HOLY_SPIRIT_OIL);
+        if (amplifier > 0) {
+            entity.addEffect(new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL,
+                    duration, amplifier - 1, oil.isAmbient(), oil.isVisible(), oil.showIcon()));
+        }
+
+        if (entity.level() instanceof ServerLevel serverLevel) {
+            DustParticleOptions goldDust = new DustParticleOptions(new org.joml.Vector3f(1.0F, 0.84F, 0.0F), 1.5F);
+            double x = entity.getX();
+            double y = entity.getY() + entity.getBbHeight() / 2.0;
+            double z = entity.getZ();
+            for (int i = 0; i < 16; i++) {
+                double ox = (entity.getRandom().nextDouble() - 0.5) * 0.8;
+                double oy = (entity.getRandom().nextDouble() - 0.5) * 0.8;
+                double oz = (entity.getRandom().nextDouble() - 0.5) * 0.8;
+                serverLevel.sendParticles(goldDust, x + ox, y + oy, z + oz, 1, 0, 0, 0, 0.0);
+            }
+            entity.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.0F, 1.5F);
         }
     }
 

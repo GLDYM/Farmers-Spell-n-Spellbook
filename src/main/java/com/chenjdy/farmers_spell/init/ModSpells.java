@@ -5,6 +5,7 @@ import com.chenjdy.farmers_spell.spells.BadAppleSpell;
 import com.chenjdy.farmers_spell.spells.ChaosSlashSpell;
 import com.chenjdy.farmers_spell.spells.GoodberrySpell;
 import com.chenjdy.farmers_spell.spells.PhantomLootSpell;
+import com.chenjdy.farmers_spell.spells.PanSpell;
 import com.chenjdy.farmers_spell.spells.PreserveCircleSpell;
 import com.chenjdy.farmers_spell.spells.SealCoatSpell;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
@@ -22,6 +23,7 @@ public class ModSpells {
     public static final DeferredHolder<AbstractSpell, AbstractSpell> BAD_APPLE_SPELL = SPELLS.register("bad_apple", BadAppleSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> CHAOS_SLASH_SPELL = SPELLS.register("chaos_slash", ChaosSlashSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> PRESERVE_CIRCLE_SPELL = SPELLS.register("preserve_circle", PreserveCircleSpell::new);
+    public static final DeferredHolder<AbstractSpell, AbstractSpell> PAN_SPELL = SPELLS.register("pan", PanSpell::new);
 
     public static void register(IEventBus eventBus) {
         SPELLS.register(eventBus);

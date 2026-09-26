@@ -4,6 +4,7 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.client.renderer.BadAppleRender;
 import com.chenjdy.farmers_spell.client.renderer.ChaosSlashRender;
 import com.chenjdy.farmers_spell.client.renderer.FoodgeistRender;
+import com.chenjdy.farmers_spell.client.renderer.PanRenderer;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModFluids;
 import com.chenjdy.farmers_spell.init.ModItems;
@@ -48,6 +49,7 @@ public class ClientSetupRegister {
         event.registerEntityRenderer(ModEntities.BUTTER_PROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(ModEntities.PRESERVE_CIRCLE_AOE.get(), NoopRenderer::new);
         event.registerEntityRenderer(ModEntities.FOODGEIST.get(), FoodgeistRender::new);
+        event.registerEntityRenderer(ModEntities.PAN.get(), PanRenderer::new);
     }
 
     @SubscribeEvent
