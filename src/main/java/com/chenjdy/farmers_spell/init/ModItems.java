@@ -134,8 +134,8 @@ public class ModItems {
             () -> new DrinkableItem(drinkItem(ModFoods.AMETHYST_TEQUILA)));
     public static final DeferredHolder<Item, Item> ARCANE_COCOA = ITEMS.register("arcane_cocoa",
             () -> new DrinkItem(drinkItem(ModFoods.ARCANE_COCOA), 15, true));
-    public static final DeferredHolder<Item, Item> BUTTERBEER = ITEMS.register("butterbeer",
-            () -> new DrinkItem(drinkItem(ModFoods.BUTTERBEER), 10, false));
+    public static final DeferredHolder<Item, Item> BUTTER_BEER = ITEMS.register("butter_beer",
+            () -> new DrinkItem(drinkItem(ModFoods.BUTTER_BEER), 10, false));
     public static final DeferredHolder<Item, Item> CATACOMBS_WINE = ITEMS.register("catacombs_wine",
             () -> new DrinkableItem(drinkItem(ModFoods.CATACOMBS_WINE)));
     public static final DeferredHolder<Item, Item> ICE_VENOM_WINE = ITEMS.register("ice_venom_wine",

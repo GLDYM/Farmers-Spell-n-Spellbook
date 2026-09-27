@@ -5,6 +5,7 @@
 ## Feature
 
 - Add more ember blocks
+- Add more food
 - Add Ceric Heart
 - Add Holy Spirit oil Effect
 - Add Pan Spell

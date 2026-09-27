@@ -114,7 +114,7 @@ public class ModCreativeModeTabs {
         FancyTabSections.addSection(tabId,
                 new SectionTextured(DRINKS).setTitle(Component.translatable("section.farmers_spell.drinks"))
                         .setCollapsible(false).setTextColor(0xFFFFFFFF)
-                        .add(ModItems.BUTTERBEER)
+                        .add(ModItems.BUTTER_BEER)
                         .add(ModItems.GOODBERRY_JUICE)
                         .add(ModItems.ICE_VENOM_WINE)
                         .add(ModItems.CATACOMBS_WINE)

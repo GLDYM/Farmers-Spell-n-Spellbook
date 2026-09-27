@@ -1,13 +1,13 @@
 ﻿{
   "display": {
     "title": {
-      "translate": "advancement.farmers_spell.drink_butterbeer.title"
+      "translate": "advancement.farmers_spell.drink_butter_beer.title"
     },
     "description": {
-      "translate": "advancement.farmers_spell.drink_butterbeer.description"
+      "translate": "advancement.farmers_spell.drink_butter_beer.description"
     },
     "icon": {
-      "id": "farmers_spell:butterbeer"
+      "id": "farmers_spell:butter_beer"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,17 +16,17 @@
   },
   "parent": "farmers_spell:butter",
   "criteria": {
-    "drink_butterbeer": {
+    "drink_butter_beer": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "items": ["farmers_spell:butterbeer"]
+          "items": ["farmers_spell:butter_beer"]
         }
       }
     }
   },
   "requirements": [
-    ["drink_butterbeer"]
+    ["drink_butter_beer"]
   ]
 }
 

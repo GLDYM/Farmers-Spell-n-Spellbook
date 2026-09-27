@@ -62,6 +62,7 @@ public class ModFoods {
             .saturationModifier(0.1f)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 0), 1.0F)
             .build();
+    // 村民圣膏
     public static final FoodProperties VILLAGER_CHRISM = new FoodProperties.Builder()
             .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 0), 1.0F)
             .build();
@@ -84,6 +85,7 @@ public class ModFoods {
             .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 1 * 60 * 20, 0), 1.0F)
             .build();
+    // 伊甸烤苹果
     public static final FoodProperties EDEN_BAK_APPLE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.6f)
@@ -203,6 +205,7 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 0), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 100, 0), 1.0F)
             .build();
+    // 牧师之心
     public static final FoodProperties CERIC_HEART = new FoodProperties.Builder()
             .nutrition(4)
             .saturationModifier(0.1f)
@@ -241,7 +244,7 @@ public class ModFoods {
             .alwaysEdible()
             .build();
     // 黄油啤酒
-    public static final FoodProperties BUTTERBEER = new FoodProperties.Builder()
+    public static final FoodProperties BUTTER_BEER = new FoodProperties.Builder()
             .alwaysEdible()
             .effect(() -> ironsEffect(() -> MobEffectRegistry.FORTIFY.get(), 3 * 60 * 20, 4), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.SEAL_OIL, 5 * 60 * 20, 0), 1.0F)
@@ -275,6 +278,7 @@ public class ModFoods {
             .effect(() -> ironsEffect(() -> MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
             .effect(() -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1 * 60 * 20, 0), 1.0F)
             .build();
+    // 神圣奶昔
     public static final FoodProperties HOLY_MILKSHAKE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.36f)
