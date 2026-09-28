@@ -2,7 +2,7 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "item": "minecraft:porkchop"
+            "tag": "forge:raw_ham"
         },
         {
             "item": "minecraft:beef"
@@ -17,7 +17,7 @@
             "tag": "forge:raw_fishes"
         },
         {
-            "item": "farmers_spell:original_nectar"
+            "item": "farmers_spell:foodgeist_seasoning"
         }
     ],
     "result": {

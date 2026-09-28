@@ -7,7 +7,6 @@
   "mixins": [
     "LivingEntityMixin",
     "accessor.LivingEntityAccessor",
-    "AbstractSpellCastTimeMixin",
     "PlayerMiningSpeedMixin"
   ],
   "client": [

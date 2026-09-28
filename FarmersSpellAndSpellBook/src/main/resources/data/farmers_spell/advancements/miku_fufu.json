@@ -1,0 +1,26 @@
+{
+  "display": {
+    "title": {
+      "translate": "advancements.farmers_spell.miku_fufu.title"
+    },
+    "description": {
+      "translate": "advancements.farmers_spell.miku_fufu.description"
+    },
+    "icon": {
+      "item": "farmers_spell:frosted_ice_cream_bucket"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "farmers_spell:root",
+  "criteria": {
+    "place_fufu": {
+      "trigger": "farmers_spell:miku_fufu"
+    }
+  },
+  "requirements": [
+    ["place_fufu"]
+  ]
+}

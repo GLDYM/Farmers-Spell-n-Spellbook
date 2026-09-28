@@ -155,9 +155,12 @@ public class ModItems {
     // 冰山奶霜
     public static final RegistryObject<Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
-    // 村民圣膏
-    public static final RegistryObject<Item> VILLAGER_CHRISM = ITEMS.register("villager_chrism",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.VILLAGER_CHRISM)));
+    // 镀金神圣冰淇淋
+    public static final RegistryObject<Item> GLIDED_DIVINE_ICE_CREAM = ITEMS.register("glided_divine_ice_cream",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.GLIDED_DIVINE_ICE_CREAM)));
+    // 镀金神圣酱
+    public static final RegistryObject<Item> GILDED_DIVINE_SAUCE = ITEMS.register("gilded_divine_sauce",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.GILDED_DIVINE_SAUCE)));
     // 冰山淇淋三明治
     public static final RegistryObject<Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
@@ -191,6 +194,15 @@ public class ModItems {
     // 神圣奶昔
     public static final RegistryObject<Item> HOLY_MILKSHAKE = ITEMS.register("holy_milkshake",
             () -> new DrinkableItem(drinkItem(ModFoods.HOLY_MILKSHAKE)));
+    // 霜皮刨冰杯
+    public static final RegistryObject<Item> FROSTED_SHAVED_ICE = ITEMS.register("frosted_shaved_ice",
+            () -> new DrinkableItem(drinkItem(ModFoods.FROSTED_SHAVED_ICE)));
+    // 霜皮雪糕桶
+    public static final RegistryObject<Item> FROSTED_ICE_CREAM_BUCKET = ITEMS.register("frosted_ice_cream_bucket",
+            () -> new FrostedIceCreamBucketItem(new Item.Properties()
+                    .food(ModFoods.FROSTED_ICE_CREAM_BUCKET)
+                    .craftRemainder(Items.BUCKET)
+                    .stacksTo(1)));
     // 雷爪
     public static final RegistryObject<Item> MOZHAO = ITEMS.register("mozhao",
             () -> new DrinkItem(drinkItem(ModFoods.MOZHAO), 15, false));

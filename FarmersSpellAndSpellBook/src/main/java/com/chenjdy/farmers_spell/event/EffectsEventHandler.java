@@ -4,6 +4,8 @@ import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.init.*;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
@@ -46,6 +48,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = FARMERSSPELL.MODID)
 public class EffectsEventHandler {
@@ -53,6 +56,8 @@ public class EffectsEventHandler {
     private static final String DRUID_HEAL_COOLDOWN = "druid_heal_cooldown";
     private static final String SEAL_OIL_COOLDOWN = "seal_oil_cooldown";
     private static final String CLEANSE_MANA_COOLDOWN = "cleanse_mana_cooldown";
+
+    private static final UUID SEAL_OIL_CAST_TIME_UUID = UUID.fromString("9C0D1E2F-3A4B-4C0D-D5E6-F7A8B9C0D1E2");
 
     private static final List<MobEffect> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
             MobEffects.MOVEMENT_SLOWDOWN,
@@ -158,6 +163,23 @@ public class EffectsEventHandler {
             }
         }
 
+        syncSealOilCastTime(livingEntity);
+
+    }
+
+    private static void syncSealOilCastTime(LivingEntity livingEntity) {
+        AttributeInstance castTimeAttr = livingEntity.getAttribute(AttributeRegistry.CAST_TIME_REDUCTION.get());
+        if (castTimeAttr == null) {
+            return;
+        }
+        boolean shouldApply = livingEntity.hasEffect(ModEffects.SEAL_OIL.get());
+        boolean applied = castTimeAttr.getModifier(SEAL_OIL_CAST_TIME_UUID) != null;
+        if (shouldApply && !applied) {
+            castTimeAttr.addPermanentModifier(new AttributeModifier(SEAL_OIL_CAST_TIME_UUID,
+                    "Seal Oil Cast Time Penalty", -0.25D, AttributeModifier.Operation.ADDITION));
+        } else if (!shouldApply && applied) {
+            castTimeAttr.removeModifier(SEAL_OIL_CAST_TIME_UUID);
+        }
     }
 
     private static void handleDruidHeal(LivingEntity livingEntity) {

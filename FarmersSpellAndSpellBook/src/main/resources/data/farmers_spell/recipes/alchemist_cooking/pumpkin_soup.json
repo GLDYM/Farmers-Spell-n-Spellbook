@@ -8,13 +8,16 @@
             "item": "farmersdelight:pumpkin_slice"
         },
         {
-            "item": "farmersdelight:pumpkin_slice"
-        },
-        {
             "item": "minecraft:brown_mushroom"
         },
         {
             "item": "minecraft:brown_mushroom"
+        },
+        {
+            "item": "minecraft:potato"
+        },
+        {
+            "tag": "forge:crops/onion"
         }
     ],
     "result": {

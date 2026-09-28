@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.init;
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.block.*;
 import com.chenjdy.farmers_spell.item.IcebreakerBreadItem;
+import net.minecraft.world.level.material.PushReaction;
 import vectorwing.farmersdelight.common.item.PlaceableItem;
 import com.chenjdy.farmers_spell.item.SaingeziChickenItem;
 import net.minecraft.world.item.BlockItem;
@@ -19,6 +20,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
+import vectorwing.farmersdelight.common.block.FeastBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
 
 import java.util.function.Supplier;
@@ -77,17 +79,19 @@ public class ModBlocks {
                     .sound(SoundType.GRASS)
                     .strength(0.0F)));
     // 饕餮乱炖
-    public static final RegistryObject<GluttonHotchpotchBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem("glutton_hotchpotch",
-            () -> new GluttonHotchpotchBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<FeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem("glutton_hotchpotch",
+            () -> new FeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(2.0F,0.5F)));
+                    .strength(2.0F,0.5F),
+                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), false));
     // 橡肤南瓜浓汤
-    public static final RegistryObject<PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
-            () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<FeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
+            () -> new FeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
-                    .strength(0.5F)));
+                    .strength(0.5F),
+                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), false));
     // 成吉思鸡
     public static final RegistryObject<SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
             () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
@@ -159,6 +163,16 @@ public class ModBlocks {
                     .strength(0.5F)
                     .noOcclusion()),
                     IcebreakerBreadItem.class);
+    // fufu
+    public static final RegistryObject<FufuBlock> FUFU = BLOCKS.register("fufu",
+            () -> new FufuBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.SNOW)
+                    .strength(0.2F, 0.2F)
+                    .sound(SoundType.POWDER_SNOW)
+                    .noOcclusion()
+                    .isSuffocating((state, level, pos) -> false)
+                    .isViewBlocking((state, level, pos) -> false)
+                    .pushReaction(PushReaction.DESTROY)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

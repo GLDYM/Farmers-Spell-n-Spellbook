@@ -68,7 +68,8 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.ENERGIZED_CARAMEL.get());
         accept(output, FOOD_ITEMS, ModItems.ICEBERGCREAM.get());
         accept(output, FOOD_ITEMS, ModItems.DRAGON_PIZZA.get());
-        accept(output, FOOD_ITEMS, ModItems.VILLAGER_CHRISM.get());
+        accept(output, FOOD_ITEMS, ModItems.GILDED_DIVINE_SAUCE.get());
+        accept(output, FOOD_ITEMS, ModItems.GLIDED_DIVINE_ICE_CREAM.get());
         accept(output, FOOD_ITEMS, ModItems.WINE_BEEF_STEW.get());
         accept(output, FOOD_ITEMS, ModItems.CINDEROUS_HOTPOT.get());
         accept(output, FOOD_ITEMS, ModItems.WINE_RICE.get());
@@ -81,6 +82,8 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.BOWL_OF_SAINGEZI_CHICKEN.get());
         accept(output, FOOD_ITEMS, ModBlocks.ICEBREAKER_BREAD.get());
         accept(output, FOOD_ITEMS, ModItems.ICEBERGCREAM_SANDWICH.get());
+        accept(output, FOOD_ITEMS, ModItems.FROSTED_ICE_CREAM_BUCKET.get());
+        accept(output, FOOD_ITEMS, ModItems.FROSTED_SHAVED_ICE.get());
         accept(output, FOOD_ITEMS, ModItems.HOLY_MILKSHAKE.get());
         accept(output, FOOD_ITEMS, ModItems.BUTTERBEER.get());
         accept(output, FOOD_ITEMS, ModItems.GOODBERRY_JUICE.get());

@@ -20,6 +20,7 @@ public class ModTriggers {
         CriteriaTriggers.register(BUTTER_HIT_TRIGGER);
         CriteriaTriggers.register(PHANTOM_LOOT_TRIGGER);
         CriteriaTriggers.register(FOODGEIST_SATISFIED_TRIGGER);
+        CriteriaTriggers.register(MIKU_FUFU_TRIGGER);
     }
 
     public static final BlazeScrollTrigger BLAZE_SCROLL_TRIGGER = new BlazeScrollTrigger();
@@ -29,6 +30,8 @@ public class ModTriggers {
     public static final PhantomLootTrigger PHANTOM_LOOT_TRIGGER = new PhantomLootTrigger();
 
     public static final FoodgeistSatisfiedTrigger FOODGEIST_SATISFIED_TRIGGER = new FoodgeistSatisfiedTrigger();
+
+    public static final MikuFufuTrigger MIKU_FUFU_TRIGGER = new MikuFufuTrigger();
 
 
     public static class BlazeScrollTrigger extends SimpleCriterionTrigger<BlazeScrollTrigger.Instance> {
@@ -148,6 +151,38 @@ public class ModTriggers {
 
         public static FoodgeistSatisfiedTrigger.Instance instance() {
             return new FoodgeistSatisfiedTrigger.Instance(ContextAwarePredicate.ANY);
+        }
+
+        public static class Instance extends AbstractCriterionTriggerInstance {
+            public Instance(ContextAwarePredicate player) {
+                super(ID, player);
+            }
+
+            public boolean matches() {
+                return true;
+            }
+        }
+    }
+
+    public static class MikuFufuTrigger extends SimpleCriterionTrigger<MikuFufuTrigger.Instance> {
+        private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("farmers_spell", "miku_fufu");
+
+        @Override
+        public ResourceLocation getId() {
+            return ID;
+        }
+
+        public void trigger(ServerPlayer player) {
+            this.trigger(player, instance -> true);
+        }
+
+        @Override
+        public MikuFufuTrigger.Instance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext context) {
+            return new MikuFufuTrigger.Instance(player);
+        }
+
+        public static MikuFufuTrigger.Instance instance() {
+            return new MikuFufuTrigger.Instance(ContextAwarePredicate.ANY);
         }
 
         public static class Instance extends AbstractCriterionTriggerInstance {

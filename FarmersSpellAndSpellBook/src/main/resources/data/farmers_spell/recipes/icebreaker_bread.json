@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "&C&",
-    "# #",
+    "#I#",
     "BBB"
   ],
   "key": {
@@ -17,6 +17,9 @@
     },
     "C": {
       "item": "minecraft:cookie"
+    },
+    "I": {
+      "item": "farmers_spell:frosted_ice_cream_bucket"
     }
   },
   "result": { "item": "farmers_spell:icebreaker_bread",

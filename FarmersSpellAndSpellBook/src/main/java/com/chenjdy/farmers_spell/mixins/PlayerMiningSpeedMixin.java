@@ -17,8 +17,21 @@ public abstract class PlayerMiningSpeedMixin {
     @Inject(method = "getDigSpeed", at = @At("RETURN"), cancellable = true, remap = false)
     private void farmers_spell$applyRingMiningSpeed(BlockState state, @Nullable BlockPos pos, CallbackInfoReturnable<Float> cir) {
         Player player = (Player) (Object) this;
-        if (RingManaBonusHelper.isAnyRingEquipped(player) && RingManaBonusHelper.hasNourishmentOrComfort(player)) {
-            cir.setReturnValue(cir.getReturnValue() * 1.40F);
+        if (!RingManaBonusHelper.hasNourishmentOrComfort(player)) {
+            return;
+        }
+        float speed = cir.getReturnValue();
+        boolean changed = false;
+        if (RingManaBonusHelper.isFoodgeistRingEquipped(player)) {
+            speed *= 1.30F;
+            changed = true;
+        }
+        if (RingManaBonusHelper.isAffinityRingEquipped(player)) {
+            speed *= 1.40F;
+            changed = true;
+        }
+        if (changed) {
+            cir.setReturnValue(speed);
         }
     }
 }

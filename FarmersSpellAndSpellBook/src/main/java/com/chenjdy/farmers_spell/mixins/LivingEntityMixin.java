@@ -3,7 +3,6 @@ package com.chenjdy.farmers_spell.mixins;
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import com.chenjdy.farmers_spell.mixins.accessor.LivingEntityAccessor;
-
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
