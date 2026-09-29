@@ -6,11 +6,17 @@
         },
         {
             "tag": "c:foods/dough"
+        },
+        {
+            "tag": "c:eggs"
+        },
+        {
+            "tag": "c:drinks/milk"
         }
     ],
     "result": {
-        "id": "farmers_spell:paofu",
-        "count": 1
+        "count": 2,
+        "id": "farmers_spell:paofu"
     },
     "experience": 1.0,
     "cookingtime": 200

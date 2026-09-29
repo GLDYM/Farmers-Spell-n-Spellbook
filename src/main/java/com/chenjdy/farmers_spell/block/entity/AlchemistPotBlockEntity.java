@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.block.entity;
 
 import com.google.common.collect.Lists;
 import com.chenjdy.farmers_spell.init.ModItems;
+import com.chenjdy.farmers_spell.init.ModSchools;
 import com.chenjdy.farmers_spell.init.ModBlockEntities;
 import com.chenjdy.farmers_spell.init.ModRecipeTypes;
 import com.chenjdy.farmers_spell.init.ModTriggers;
@@ -508,8 +509,7 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         SchoolType school = getScrollSchool();
         if (school == null)
             return false;
-        ResourceLocation schoolId = school.getId();
-        return schoolId.getNamespace().equals("irons_spellbooks") && schoolId.getPath().equals("holy");
+        return school.getId().equals(ModSchools.GLUTTONY_RESOURCE);
     }
 
     public ItemStack getMeal() {

@@ -5,15 +5,15 @@
             "item": "irons_spellbooks:evasion_elixir"
         },
         {
-            "tag": "c:drinks/milk"
+            "item": "minecraft:chorus_fruit"
         },
         {
             "item": "irons_spellbooks:arcane_essence"
         }
     ],
     "result": {
-        "id": "farmers_spell:evasion_milk",
-        "count": 1
+        "count": 1,
+        "id": "farmers_spell:evasion_milk"
     },
     "container": {
         "id": "minecraft:glass_bottle"

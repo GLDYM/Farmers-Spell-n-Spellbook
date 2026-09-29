@@ -9,20 +9,11 @@
         },
         {
             "item": "farmers_spell:amethyst_beetroot"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot"
         }
     ],
     "result": {
-        "id": "farmers_spell:amethyst_sugar",
-        "count": 3
+        "count": 1,
+        "id": "farmers_spell:amethyst_sugar"
     },
     "container": {
         "id": "minecraft:glass_bottle"

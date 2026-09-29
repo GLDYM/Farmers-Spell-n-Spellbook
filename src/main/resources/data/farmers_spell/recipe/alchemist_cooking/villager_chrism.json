@@ -2,24 +2,21 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "tag": "c:foods/dough"
-        },
-        {
             "item": "farmers_spell:wsip_butter"
         },
         {
-            "item": "farmers_spell:amethyst_sugar"
+            "item": "minecraft:golden_carrot"
         },
         {
-            "tag": "c:eggs"
-        },
-        {
-            "tag": "c:drinks/milk"
+            "item": "farmers_spell:amethyst_beetroot"
         }
     ],
     "result": {
-        "count": 2,
-        "id": "farmers_spell:ceric_cross_bun"
+        "count": 1,
+        "id": "farmers_spell:villager_chrism"
+    },
+    "container": {
+        "id": "minecraft:bowl"
     },
     "experience": 1.0,
     "cookingtime": 200

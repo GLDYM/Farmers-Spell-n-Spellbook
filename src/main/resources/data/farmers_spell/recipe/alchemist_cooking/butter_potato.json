@@ -14,15 +14,15 @@
             "item": "farmers_spell:wsip_butter"
         },
         {
-            "item": "farmers_spell:foodgeist_cheese"
+            "item": "farmers_spell:villager_chrism"
         },
         {
             "item": "minecraft:cooked_beef"
         }
     ],
     "result": {
-        "id": "farmers_spell:butter_potato",
-        "count": 3
+        "count": 3,
+        "id": "farmers_spell:butter_potato"
     },
     "experience": 1.0,
     "cookingtime": 200

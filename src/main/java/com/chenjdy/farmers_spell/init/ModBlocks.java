@@ -156,6 +156,7 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .strength(3.0F, 6.0F)));
 
+    // 残焰块台阶
     public static final DeferredHolder<Block, SlabBlock> EMBER_BLOCK_SLAB = registerBlock("ember_block_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)

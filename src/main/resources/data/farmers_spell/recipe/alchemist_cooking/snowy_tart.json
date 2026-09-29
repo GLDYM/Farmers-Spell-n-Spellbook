@@ -12,11 +12,14 @@
         },
         {
             "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "tag": "c:drinks/milk"
         }
     ],
     "result": {
-        "id": "farmers_spell:snowy_tart",
-        "count": 2
+        "count": 4,
+        "id": "farmers_spell:snowy_tart"
     },
     "experience": 1.0,
     "cookingtime": 200

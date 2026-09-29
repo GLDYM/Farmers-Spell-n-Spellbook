@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "BB",
+        "BB"
+    ],
+    "key": {
+        "B": {
+            "item": "farmers_spell:ember_block"
+        }
+    },
+    "result": {
+        "count": 4,
+        "id": "farmers_spell:polished_ember_block"
+    }
+}
