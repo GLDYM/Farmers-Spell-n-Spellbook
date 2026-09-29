@@ -1,0 +1,30 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "container": {
+        "id": "minecraft:bucket"
+    },
+    "ingredients": [
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "item": "farmers_spell:icy_egg"
+        },
+        {
+            "tag": "c:drinks/milk"
+        },
+        {
+            "item": "minecraft:sugar"
+        },
+        {
+            "item": "farmers_spell:amethyst_sugar"
+        }
+    ],
+    "result": {
+        "count": 1,
+        "id": "farmers_spell:frosted_ice_cream_bucket"
+    },
+    "experience": 1.0,
+    "cookingtime": 200,
+    "required_school": "irons_spellbooks:ice"
+}

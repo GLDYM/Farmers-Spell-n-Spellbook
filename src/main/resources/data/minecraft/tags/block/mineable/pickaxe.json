@@ -5,6 +5,10 @@
     "farmers_spell:glutton_hotchpotch",
     "farmers_spell:ember_bars",
     "farmers_spell:ember_block",
-    "farmers_spell:ember_pillar"
+    "farmers_spell:ember_pillar",
+    "farmers_spell:polished_ember_block",
+    "farmers_spell:chiseled_ember_block",
+    "farmers_spell:ember_block_slab",
+    "farmers_spell:glyphed_ember_block"
   ]
 }

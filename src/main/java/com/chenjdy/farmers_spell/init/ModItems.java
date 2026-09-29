@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.init;
 
 import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.item.ButterItem;
+import com.chenjdy.farmers_spell.item.FrostedIceCreamBucketItem;
 import com.chenjdy.farmers_spell.item.CropSeedItem;
 import com.chenjdy.farmers_spell.item.GluttonyUpgradeOrbItem;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
@@ -123,8 +124,10 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
-    public static final DeferredHolder<Item, Item> VILLAGER_CHRISM = ITEMS.register("villager_chrism",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.VILLAGER_CHRISM)));
+    public static final DeferredHolder<Item, Item> GILDED_DIVINE_SAUCE = ITEMS.register("gilded_divine_sauce",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.GILDED_DIVINE_SAUCE)));
+    public static final DeferredHolder<Item, Item> GLIDED_DIVINE_ICE_CREAM = ITEMS.register("glided_divine_ice_cream",
+            () -> new ConsumableItem(bowlFoodItem(ModFoods.GLIDED_DIVINE_ICE_CREAM)));
 
     public static final DeferredHolder<Item, Item> GOODBERRY_JUICE = ITEMS.register("goodberry_juice",
             () -> new DrinkItem(drinkItem(ModFoods.GOODBERRY_JUICE), 10, false));
@@ -146,6 +149,11 @@ public class ModItems {
             () -> new DrinkItem(drinkItem(ModFoods.EVASION_MILK), 15, false));
     public static final DeferredHolder<Item, Item> HOLY_MILKSHAKE = ITEMS.register("holy_milkshake",
             () -> new DrinkableItem(drinkItem(ModFoods.HOLY_MILKSHAKE)));
+    public static final DeferredHolder<Item, Item> FROSTED_SHAVED_ICE = ITEMS.register("frosted_shaved_ice",
+            () -> new DrinkableItem(drinkItem(ModFoods.FROSTED_SHAVED_ICE)));
+    public static final DeferredHolder<Item, Item> FROSTED_ICE_CREAM_BUCKET = ITEMS.register("frosted_ice_cream_bucket",
+            () -> new FrostedIceCreamBucketItem(new Item.Properties().food(ModFoods.FROSTED_ICE_CREAM_BUCKET)
+                    .craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final DeferredHolder<Item, Item> MOZHAO = ITEMS.register("mozhao",
             () -> new DrinkItem(drinkItem(ModFoods.MOZHAO), 15, false));
     public static final DeferredHolder<Item, Item> PERMAFROST_POPSICLE = ITEMS.register("permafrost_popsicle",

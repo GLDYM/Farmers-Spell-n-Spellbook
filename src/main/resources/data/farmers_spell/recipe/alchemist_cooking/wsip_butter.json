@@ -2,21 +2,18 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "item": "irons_spellbooks:divine_pearl"
+            "item": "minecraft:gold_nugget"
         },
         {
-            "tag": "c:drinks/milk"
-        },
-        {
-            "tag": "c:drinks/milk"
+            "item": "farmers_spell:amethyst_beetroot_seeds"
         },
         {
             "tag": "c:drinks/milk"
         }
     ],
     "result": {
-        "id": "farmers_spell:wsip_butter",
-        "count": 2
+        "count": 1,
+        "id": "farmers_spell:wsip_butter"
     },
     "experience": 1.0,
     "required_school": "irons_spellbooks:holy",

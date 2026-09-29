@@ -94,7 +94,8 @@ public class ModCreativeModeTabs {
                         .add(ModItems.ENERGIZED_CARAMEL)
                         .add(ModItems.ICEBERGCREAM)
                         .add(ModItems.DRAGON_PIZZA)
-                        .add(ModItems.VILLAGER_CHRISM)
+                        .add(ModItems.GILDED_DIVINE_SAUCE)
+                        .add(ModItems.GLIDED_DIVINE_ICE_CREAM)
                         .add(ModItems.WINE_BEEF_STEW)
                         .add(ModItems.CINDEROUS_HOTPOT)
                         .add(ModItems.WINE_RICE)
@@ -108,6 +109,7 @@ public class ModCreativeModeTabs {
                         .add(ModItems.BOWL_OF_SAINGEZI_CHICKEN)
                         .addBlock(ModBlocks.ICEBREAKER_BREAD)
                         .add(ModItems.ICEBERGCREAM_SANDWICH)
+                        .add(ModItems.FROSTED_ICE_CREAM_BUCKET)
                         
                         );
         // 饮品 - 所有饮料
@@ -115,6 +117,7 @@ public class ModCreativeModeTabs {
                 new SectionTextured(DRINKS).setTitle(Component.translatable("section.farmers_spell.drinks"))
                         .setCollapsible(false).setTextColor(0xFFFFFFFF)
                         .add(ModItems.HOLY_MILKSHAKE)
+                        .add(ModItems.FROSTED_SHAVED_ICE)
                         .add(ModItems.BUTTER_BEER)
                         .add(ModItems.GOODBERRY_JUICE)
                         .add(ModItems.ICE_VENOM_WINE)

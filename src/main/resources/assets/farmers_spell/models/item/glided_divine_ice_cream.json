@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "farmers_spell:item/villager_chrism"
+    "layer0": "farmers_spell:item/glided_divine_ice_cream"
   }
 }

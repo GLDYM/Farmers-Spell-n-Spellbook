@@ -1,27 +1,85 @@
 {
-  "type": "minecraft:block",
-  "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "name": "farmers_spell:eden_apple_tart",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "farmers_spell:eden_apple_tart",
-                  "properties": { "bites": "0" }
-                }
-              ]
-            },
-            { "type": "minecraft:item", "name": "farmers_spell:eden_apple_tart_slice" }
-          ]
-        }
-      ]
-    }
-  ]
+    "pools":  [
+                  {
+                      "entries":  [
+                                      {
+                                          "type":  "minecraft:alternatives",
+                                          "children":  [
+                                                           {
+                                                               "conditions":  [
+                                                                                  {
+                                                                                      "properties":  {
+                                                                                                         "bites":  "0"
+                                                                                                     },
+                                                                                      "condition":  "minecraft:block_state_property",
+                                                                                      "block":  "farmers_spell:eden_apple_tart"
+                                                                                  }
+                                                                              ],
+                                                               "name":  "farmers_spell:eden_apple_tart",
+                                                               "type":  "minecraft:item"
+                                                           },
+                                                           {
+                                                               "conditions":  [
+                                                                                  {
+                                                                                      "properties":  {
+                                                                                                         "bites":  "1"
+                                                                                                     },
+                                                                                      "condition":  "minecraft:block_state_property",
+                                                                                      "block":  "farmers_spell:eden_apple_tart"
+                                                                                  }
+                                                                              ],
+                                                               "name":  "farmers_spell:eden_apple_tart_slice",
+                                                               "functions":  [
+                                                                                 {
+                                                                                     "function":  "minecraft:set_count",
+                                                                                     "count":  3
+                                                                                 }
+                                                                             ],
+                                                               "type":  "minecraft:item"
+                                                           },
+                                                           {
+                                                               "conditions":  [
+                                                                                  {
+                                                                                      "properties":  {
+                                                                                                         "bites":  "2"
+                                                                                                     },
+                                                                                      "condition":  "minecraft:block_state_property",
+                                                                                      "block":  "farmers_spell:eden_apple_tart"
+                                                                                  }
+                                                                              ],
+                                                               "name":  "farmers_spell:eden_apple_tart_slice",
+                                                               "functions":  [
+                                                                                 {
+                                                                                     "function":  "minecraft:set_count",
+                                                                                     "count":  2
+                                                                                 }
+                                                                             ],
+                                                               "type":  "minecraft:item"
+                                                           },
+                                                           {
+                                                               "conditions":  [
+                                                                                  {
+                                                                                      "properties":  {
+                                                                                                         "bites":  "3"
+                                                                                                     },
+                                                                                      "condition":  "minecraft:block_state_property",
+                                                                                      "block":  "farmers_spell:eden_apple_tart"
+                                                                                  }
+                                                                              ],
+                                                               "name":  "farmers_spell:eden_apple_tart_slice",
+                                                               "functions":  [
+                                                                                 {
+                                                                                     "function":  "minecraft:set_count",
+                                                                                     "count":  1
+                                                                                 }
+                                                                             ],
+                                                               "type":  "minecraft:item"
+                                                           }
+                                                       ]
+                                      }
+                                  ],
+                      "rolls":  1
+                  }
+              ],
+    "type":  "minecraft:block"
 }

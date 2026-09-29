@@ -27,6 +27,8 @@ public class ModTriggers {
             TRIGGERS.register("phantom_loot", PhantomLootTrigger::new);
     public static final DeferredHolder<CriterionTrigger<?>, FoodgeistSatisfiedTrigger> FOODGEIST_SATISFIED_TRIGGER =
             TRIGGERS.register("foodgeist_satisfied", FoodgeistSatisfiedTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, MikuFufuTrigger> MIKU_FUFU_TRIGGER =
+            TRIGGERS.register("miku_fufu", MikuFufuTrigger::new);
 
     public static void register(IEventBus eventBus) {
         TRIGGERS.register(eventBus);
@@ -93,6 +95,17 @@ public class ModTriggers {
             this.trigger(player, instance -> true);
         }
 
+        public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance {
+            public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
+                    instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player))
+                            .apply(instance, TriggerInstance::new));
+        }
+    }
+
+    public static class MikuFufuTrigger extends SimpleCriterionTrigger<MikuFufuTrigger.TriggerInstance> {
+        @Override
+        public Codec<TriggerInstance> codec() { return TriggerInstance.CODEC; }
+        public void trigger(ServerPlayer player) { trigger(player, instance -> true); }
         public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance {
             public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
                     instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player))

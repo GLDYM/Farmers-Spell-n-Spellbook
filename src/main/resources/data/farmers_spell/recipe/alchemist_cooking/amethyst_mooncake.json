@@ -6,11 +6,14 @@
         },
         {
             "item": "farmers_spell:amethyst_sugar"
+        },
+        {
+            "item": "minecraft:amethyst_cluster"
         }
     ],
     "result": {
-        "id": "farmers_spell:amethyst_mooncake",
-        "count": 1
+        "count": 2,
+        "id": "farmers_spell:amethyst_mooncake"
     },
     "experience": 1.0,
     "cookingtime": 200

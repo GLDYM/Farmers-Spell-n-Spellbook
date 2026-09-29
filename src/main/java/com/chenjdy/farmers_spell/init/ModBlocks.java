@@ -4,8 +4,7 @@ import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.block.AlchemistPotBlock;
 import com.chenjdy.farmers_spell.block.AmethystBeetrootBlock;
 import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
-import com.chenjdy.farmers_spell.block.GluttonHotchpotchBlock;
-import com.chenjdy.farmers_spell.block.PumpkinSoupBlock;
+import com.chenjdy.farmers_spell.block.FufuBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
 import com.chenjdy.farmers_spell.block.EdenAppleTartBlock;
 import com.chenjdy.farmers_spell.block.IcebreakerBreadBlock;
@@ -28,6 +27,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.common.block.PieBlock;
+import vectorwing.farmersdelight.common.block.FeastBlock;
 
 import java.util.function.Supplier;
 
@@ -92,21 +92,21 @@ public class ModBlocks {
                     .sound(SoundType.GRASS)
                     .strength(0.0F)));
 
-    public static final DeferredHolder<Block, GluttonHotchpotchBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem(
+    public static final DeferredHolder<Block, FeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem(
             "glutton_hotchpotch",
-            () -> new GluttonHotchpotchBlock(BlockBehaviour.Properties.of()
+            () -> new FeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F)
-                    .pushReaction(PushReaction.DESTROY)));
+                    .pushReaction(PushReaction.DESTROY), () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true));
 
-    public static final DeferredHolder<Block, PumpkinSoupBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
+    public static final DeferredHolder<Block, FeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
             "pumpkin_soup",
-            () -> new PumpkinSoupBlock(BlockBehaviour.Properties.of()
+            () -> new FeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F)
-                    .pushReaction(PushReaction.DESTROY)));
+                    .pushReaction(PushReaction.DESTROY), () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true));
 
     public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem(
             "saingezi_chicken",
@@ -174,6 +174,12 @@ public class ModBlocks {
                     .sound(SoundType.WOOL).strength(0.5F).noOcclusion().pushReaction(PushReaction.DESTROY)
                     .isValidSpawn((state, level, pos, type) -> false)),
             IcebreakerBreadItem.class);
+
+    public static final DeferredHolder<Block, FufuBlock> FUFU = BLOCKS.register("fufu",
+            () -> new FufuBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW)
+                    .strength(0.2F, 0.2F).sound(SoundType.POWDER_SNOW).noOcclusion()
+                    .isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)
+                    .pushReaction(PushReaction.DESTROY)));
 
     private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block) {
         DeferredHolder<Block, T> deferredBlock = BLOCKS.register(name, block);

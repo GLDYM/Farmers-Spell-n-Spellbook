@@ -9,6 +9,11 @@
 	},
 	"elements": [
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [6, 0, 5],
 			"to": [10, 4, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [9, 2, 7]},
@@ -22,6 +27,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [5, 0, 6],
 			"to": [11, 4, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2, 8]},
@@ -35,6 +45,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [6, -1, 6],
 			"to": [10, 5, 10],
 			"rotation": {"angle": 0, "axis": "z", "origin": [9, 1, 8]},
@@ -48,6 +63,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [8, 5, 7],
 			"to": [8, 7, 9],
 			"rotation": {"angle": 0, "axis": "y", "origin": [9, 5, 8]},
@@ -61,6 +81,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [10.2, 4.2, 11.2],
 			"to": [5.8, -0.2, 4.8],
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 1, 9]},
@@ -74,6 +99,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [10.2, 5.2, 10.2],
 			"to": [5.8, -1.2, 5.8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2, 8]},
@@ -87,6 +117,11 @@
 			}
 		},
 		{
+            "neoforge_data": {
+                "block_light": 15,
+                "sky_light": 15,
+                "ambient_occlusion": false
+            },
 			"from": [11.2, 4.2, 10.2],
 			"to": [4.8, -0.2, 5.8],
 			"rotation": {"angle": 0, "axis": "z", "origin": [9, 1, 8]},

@@ -1,8 +1,14 @@
 {
   "type": "irons_spellbooks:alchemist_cauldron_brew",
   "base_fluid": {
-    "amount": 250,
-    "id": "minecraft:water"
+    "amount": 500,
+    "components": {
+      "irons_spellbooks:potion_bottle_type": "regular",
+      "minecraft:potion_contents": {
+        "potion": "irons_spellbooks:instant_mana_one"
+      }
+    },
+    "id": "irons_spellbooks:potion"
   },
   "input": {
     "item": "farmers_spell:amethyst_beetroot"

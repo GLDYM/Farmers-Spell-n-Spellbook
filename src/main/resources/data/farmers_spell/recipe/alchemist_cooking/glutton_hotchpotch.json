@@ -2,7 +2,7 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "item": "minecraft:porkchop"
+            "tag": "c:raw_ham"
         },
         {
             "item": "minecraft:beef"
@@ -17,12 +17,12 @@
             "tag": "c:foods/raw_fish"
         },
         {
-            "item": "farmers_spell:original_nectar"
+            "item": "farmers_spell:foodgeist_seasoning"
         }
     ],
     "result": {
-        "id": "farmers_spell:glutton_hotchpotch",
-        "count": 1
+        "count": 1,
+        "id": "farmers_spell:glutton_hotchpotch"
     },
     "container": {
         "id": "farmersdelight:cooking_pot"

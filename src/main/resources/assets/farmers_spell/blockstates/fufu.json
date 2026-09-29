@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "farmers_spell:block/fufu", "y": 0 },
+    "facing=east":  { "model": "farmers_spell:block/fufu", "y": 90 },
+    "facing=south": { "model": "farmers_spell:block/fufu", "y": 180 },
+    "facing=west":  { "model": "farmers_spell:block/fufu", "y": 270 }
+  }
+}

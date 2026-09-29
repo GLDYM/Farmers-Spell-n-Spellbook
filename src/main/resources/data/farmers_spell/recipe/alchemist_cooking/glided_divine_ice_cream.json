@@ -2,10 +2,13 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "item": "farmers_spell:wsip_butter"
+            "item": "farmers_spell:gilded_divine_sauce"
         },
         {
-            "item": "minecraft:golden_carrot"
+            "tag": "c:drinks/milk"
+        },
+        {
+            "item": "minecraft:ice"
         },
         {
             "item": "farmers_spell:amethyst_beetroot"
@@ -13,7 +16,7 @@
     ],
     "result": {
         "count": 1,
-        "id": "farmers_spell:villager_chrism"
+        "id": "farmers_spell:glided_divine_ice_cream"
     },
     "container": {
         "id": "minecraft:bowl"

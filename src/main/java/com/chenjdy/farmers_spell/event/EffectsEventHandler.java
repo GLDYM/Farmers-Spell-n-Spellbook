@@ -34,6 +34,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -59,6 +60,8 @@ public class EffectsEventHandler {
     private static final String DRUID_HEAL_COOLDOWN = "druid_heal_cooldown";
     private static final String SEAL_OIL_COOLDOWN = "seal_oil_cooldown";
     private static final String CLEANSE_MANA_COOLDOWN = "cleanse_mana_cooldown";
+    private static final ResourceLocation SEAL_OIL_CAST_TIME_ID = ResourceLocation.fromNamespaceAndPath(
+            FarmersSpell.MODID, "seal_oil_cast_time_penalty");
 
     private static final List<Holder<MobEffect>> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
             MobEffects.MOVEMENT_SLOWDOWN,
@@ -191,6 +194,7 @@ public class EffectsEventHandler {
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity livingEntity)) return;
         if (livingEntity.level().isClientSide) return;
+        syncSealOilCastTime(livingEntity);
 
         // Some Nourishment applications update an existing effect without emitting Added.
         if (livingEntity instanceof ServerPlayer player) {
@@ -217,6 +221,20 @@ public class EffectsEventHandler {
             }
         }
 
+    }
+
+    private static void syncSealOilCastTime(LivingEntity entity) {
+        var attribute = entity.getAttributes().getInstance(AttributeRegistry.CAST_TIME_REDUCTION);
+        if (attribute == null) return;
+        boolean active = entity.hasEffect(ModEffects.SEAL_OIL);
+        boolean applied = attribute.getModifier(SEAL_OIL_CAST_TIME_ID) != null;
+        if (active && !applied) {
+            attribute.addPermanentModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
+                    SEAL_OIL_CAST_TIME_ID, -0.25D,
+                    net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+        } else if (!active && applied) {
+            attribute.removeModifier(SEAL_OIL_CAST_TIME_ID);
+        }
     }
 
     private static void handleDruidHeal(LivingEntity livingEntity) {
