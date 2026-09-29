@@ -2,6 +2,9 @@
   "values": [
     "farmers_spell:cinderous_stove",
     "farmers_spell:alchemist_pot",
-    "farmers_spell:glutton_hotchpotch"
+    "farmers_spell:glutton_hotchpotch",
+    "farmers_spell:ember_bars",
+    "farmers_spell:ember_block",
+    "farmers_spell:ember_pillar"
   ]
 }
