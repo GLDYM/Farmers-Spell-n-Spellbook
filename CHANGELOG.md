@@ -4,26 +4,28 @@
 
 ## Feature
 
-- Add more ember blocks
-- Add more food
-- Add Ceric Heart
-- Add Holy Spirit oil Effect
-- Add Pan Spell
+- New Ember block variants
+- Frosted Ice Cream Bucket & Fufu block
+- More food with effects
+- Holy Spirit oil Effect
+- Pan Spell (WIP)
 
 ## Changed
 
 - Empower some effects
 - Adjust Food effects
-- Eden Apple Tart & Red Vlevet Cake have light model
+- Eden Apple Tart & Red Velvet Cake have emissive models
 - Change Foodgeist Gift to Loot Table
-- Rework Goodberry spell: 50 mana, 5s cast time , give 10 Goodberry or tranform berry to Goodberry 
+- Rework Goodberry Spell: 50 mana, 5s cast time, give 10 Goodberries or transform berries to Goodberries
 - Rework rings: improve eat speed
 - Adjust Gospel Knife: add 2.5 damage on undead, remove Smite I
-- Adjust TiramisuBook: Add Ubiquitous I
+- Adjust Tiramisu Book: Add Ubiquitous I
+- Update feast block serving, food block loot, and Foodgeist food tags
+- Update Chaos Slash and Foodgeist behavior
 
 ## Fixed
 
-- The repair material of mod's weapon is always iron ingot
+- The repair material of the mod's weapon is always iron ingots
 
 ## 1.0.5.1
 
