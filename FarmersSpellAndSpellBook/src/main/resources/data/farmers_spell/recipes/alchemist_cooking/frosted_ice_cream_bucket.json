@@ -6,10 +6,10 @@
   "ingredients": [
     {"item": "farmers_spell:icy_egg"},
     {"item": "farmers_spell:icy_egg"},
-    {"item": "farmers_spell:icy_egg"},
     {"tag": "forge:milk"},
-    {"item": "farmers_spell:amethyst_sugar"},
-    {"item": "minecraft:snow_block"}
+    {"item": "minecraft:sugar"},
+    {"item": "farmers_spell:amethyst_sugar"}
+
   ],
   "result": {
     "item": "farmers_spell:frosted_ice_cream_bucket",

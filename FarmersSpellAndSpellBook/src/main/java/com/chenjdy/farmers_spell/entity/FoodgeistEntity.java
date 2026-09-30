@@ -150,6 +150,10 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         super.aiStep();
 
         if (!this.level().isClientSide) {
+            if (this.tickCount % 20 == 0 && this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth()) {
+                this.heal(1.0F);
+            }
+
             if (this.isGifted()) {
                 long giftTime = this.entityData.get(DATA_GIFT_TIME);
                 long currentTime = this.level().getGameTime();

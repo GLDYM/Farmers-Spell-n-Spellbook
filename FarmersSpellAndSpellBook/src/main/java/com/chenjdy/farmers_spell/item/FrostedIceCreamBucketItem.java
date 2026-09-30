@@ -6,7 +6,6 @@ import com.chenjdy.farmers_spell.init.ModTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,14 +29,6 @@ public class FrostedIceCreamBucketItem extends Item {
         Level level = context.getLevel();
         BlockPos clickedPos = context.getClickedPos();
         Player player = context.getPlayer();
-
-        if (level.dimensionType().ultraWarm()) {
-            level.playSound(player, clickedPos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS,
-                    0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-            level.levelEvent(player, 1009, clickedPos, 0);
-            consumeBucket(context);
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
 
         BlockPos targetPos = findPlacementPos(level, context, clickedPos);
         if (targetPos == null) {

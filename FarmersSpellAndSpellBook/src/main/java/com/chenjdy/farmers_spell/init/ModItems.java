@@ -152,7 +152,7 @@ public class ModItems {
     // 碗装龙鳞冻
     public static final RegistryObject<Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
-    // 冰山奶霜
+    // 冰山淇淋
     public static final RegistryObject<Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
     // 镀金神圣冰淇淋
@@ -161,7 +161,7 @@ public class ModItems {
     // 镀金神圣酱
     public static final RegistryObject<Item> GILDED_DIVINE_SAUCE = ITEMS.register("gilded_divine_sauce",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.GILDED_DIVINE_SAUCE)));
-    // 冰山淇淋三明治
+    // 破冰船面包三明治
     public static final RegistryObject<Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
             () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
     // 神莓汁
@@ -265,7 +265,7 @@ public class ModItems {
             () -> new WheatSpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> TIRAMISU = ITEMS.register("tiramisu",
             () -> new UniqueSpellBook(SpellRarity.LEGENDARY,
-                    new SpellDataRegistryHolder[]{ new SpellDataRegistryHolder(ModSpells.PHANTOM_LOOT_SPELL, 1) },10,() -> ImmutableMultimap.<Attribute, AttributeModifier>builder()
+                    new SpellDataRegistryHolder[]{ new SpellDataRegistryHolder(ModSpells.PHANTOM_LOOT_SPELL, 1) },11,() -> ImmutableMultimap.<Attribute, AttributeModifier>builder()
                     .put(ModAttributes.GLUTTONY_SPELL_POWER.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c0"), "Tiramisu Gluttony Spell Power", 0.15, AttributeModifier.Operation.MULTIPLY_BASE))
                     .put(AttributeRegistry.MAX_MANA.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c1"), "Tiramisu Max Mana", 150.0, AttributeModifier.Operation.ADDITION))
                     .put(AttributeRegistry.COOLDOWN_REDUCTION.get(), new AttributeModifier(UUID.fromString("b5a6c7d8-e9f0-41a2-b3c4-d5e6f7a8b9c2"), "Tiramisu Cooldown", 0.10, AttributeModifier.Operation.MULTIPLY_BASE))

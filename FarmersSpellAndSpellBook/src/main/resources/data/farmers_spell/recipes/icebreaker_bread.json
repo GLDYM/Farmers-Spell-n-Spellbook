@@ -1,16 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "&C&",
-    "#I#",
-    "BBB"
+    "&&&",
+    "III",
+    "BCB"
   ],
   "key": {
     "&": {
       "tag": "forge:berries"
-    },
-    "#": {
-      "item": "farmers_spell:icebergcream"
     },
     "B": {
       "item": "minecraft:bread"

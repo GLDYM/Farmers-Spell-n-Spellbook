@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,6 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import vectorwing.farmersdelight.common.utility.TextUtils;
 
 public class IcebreakerBreadBlock extends Block {
 
@@ -104,8 +106,29 @@ public class IcebreakerBreadBlock extends Block {
         ItemStack heldStack = player.getItemInHand(hand);
         int stage = state.getValue(STAGE);
 
-        if (!heldStack.isEmpty()) {
-            return InteractionResult.PASS;
+        if (stage <= 2) {
+            if (heldStack.is(Items.BOWL)) {
+                if (!level.isClientSide) {
+                    if (!player.getAbilities().instabuild) {
+                        heldStack.shrink(1);
+                    }
+                    ItemStack icebergcream = new ItemStack(ModItems.ICEBERGCREAM.get());
+                    if (!player.getInventory().add(icebergcream)) {
+                        Block.popResource(level, pos, icebergcream);
+                    }
+
+                    updateAllBlocksStage(level, pos, state, stage + 1);
+                    level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_IRON,
+                            SoundSource.BLOCKS, 1.0f, 1.0f);
+                }
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            } else {
+                if (!level.isClientSide) {
+                    player.displayClientMessage(TextUtils.block("feast.use_container",
+                            new ItemStack(Items.BOWL).getHoverName()), true);
+                }
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
         }
 
         if (stage <= 9) {

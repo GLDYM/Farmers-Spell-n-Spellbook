@@ -38,7 +38,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "irons_spellbooks:uncommon_ink",
+          "name": "irons_spellbooks:rare_ink",
           "functions": [
             {
               "function": "minecraft:set_count",

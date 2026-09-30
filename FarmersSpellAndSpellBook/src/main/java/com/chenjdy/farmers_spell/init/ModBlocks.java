@@ -84,14 +84,14 @@ public class ModBlocks {
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F,0.5F),
-                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), false));
+                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true));
     // 橡肤南瓜浓汤
     public static final RegistryObject<FeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
             () -> new FeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F),
-                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), false));
+                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true));
     // 成吉思鸡
     public static final RegistryObject<SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
             () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()
