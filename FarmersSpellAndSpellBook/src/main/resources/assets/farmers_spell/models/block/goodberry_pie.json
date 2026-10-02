@@ -2,7 +2,7 @@
   "parent": "farmersdelight:block/template_pie",
   "textures": {
     "bottom": "farmersdelight:block/pie_bottom",
-    "side": "farmersdelight:block/pie_side",
+    "side": "farmers_spell:block/goodberry_pie_side",
     "top": "farmers_spell:block/goodberry_pie_top"
   }
 }
