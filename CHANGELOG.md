@@ -2,7 +2,7 @@
 
 ## 1.0.6.0
 
-## Feature
+### Feature
 
 - New Ember block variants
 - Frosted Ice Cream Bucket & Fufu block
@@ -10,7 +10,7 @@
 - Holy Spirit oil Effect
 - Pan Spell (WIP)
 
-## Changed
+### Changed
 
 - Empower some effects
 - Adjust Food effects
@@ -23,7 +23,7 @@
 - Update feast block serving, food block loot, and Foodgeist food tags
 - Update Chaos Slash and Foodgeist behavior
 
-## Fixed
+### Fixed
 
 - The repair material of the mod's weapon is always iron ingots
 

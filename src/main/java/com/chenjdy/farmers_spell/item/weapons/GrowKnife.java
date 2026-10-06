@@ -27,6 +27,8 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 
 public class GrowKnife extends MagicSwordItem {
 
@@ -92,8 +94,11 @@ public class GrowKnife extends MagicSwordItem {
 
     private boolean isValidHarvestPlant(BlockState state) {
         Block block = state.getBlock();
-        if (block instanceof CropBlock || block instanceof BushBlock) {
-            return true;
+        if (block instanceof CropBlock crop) {
+            return crop.isMaxAge(state);
+        }
+        if (block instanceof BushBlock) {
+            return isMaxAge(state);
         }
         return state.is(Blocks.SUGAR_CANE)
                 || state.is(Blocks.BAMBOO)
@@ -101,6 +106,20 @@ public class GrowKnife extends MagicSwordItem {
                 || state.is(Blocks.VINE)
                 || state.is(Blocks.KELP)
                 || state.is(Blocks.SEAGRASS);
+    }
+
+    private boolean isMaxAge(BlockState state) {
+        for (Property<?> property : state.getProperties()) {
+            if (property instanceof IntegerProperty integerProperty && property.getName().equals("age")) {
+                int age = state.getValue(integerProperty);
+                int maxAge = integerProperty.getPossibleValues().stream()
+                        .mapToInt(Integer::intValue)
+                        .max()
+                        .orElse(age);
+                return age >= maxAge;
+            }
+        }
+        return true;
     }
 
     private void tryDropSpecialSeed(Level level, BlockPos pos, BlockState state) {

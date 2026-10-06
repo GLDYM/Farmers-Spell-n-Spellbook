@@ -56,6 +56,9 @@ import java.util.List;
 
 public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
+    private static final long HEAL_INTERVAL_TICKS = 20L;
+    private static final float HEAL_AMOUNT = 1.0F;
+
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public static final TagKey<Item> FOODGEIST_FOOD = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("farmers_spell", "foodgeist_food"));
@@ -167,9 +170,12 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     public void aiStep() {
         super.aiStep();
         if (!this.level().isClientSide) {
+            long currentTime = this.level().getGameTime();
+            if (currentTime % HEAL_INTERVAL_TICKS == 0) {
+                this.heal(HEAL_AMOUNT);
+            }
             if (this.isGifted()) {
                 long giftTime = this.entityData.get(DATA_GIFT_TIME);
-                long currentTime = this.level().getGameTime();
                 if (currentTime % 5 == 0) {
                     this.spawnGreenParticles();
                 }
@@ -179,7 +185,6 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             }
             long blessingCooldown = this.entityData.get(DATA_BLESSING_COOLDOWN);
             if (blessingCooldown > 0) {
-                long currentTime = this.level().getGameTime();
                 if (currentTime >= blessingCooldown) {
                     this.entityData.set(DATA_BLESSING_COOLDOWN, 0L);
                 }
