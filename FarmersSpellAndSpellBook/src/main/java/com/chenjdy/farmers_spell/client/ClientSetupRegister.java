@@ -5,22 +5,28 @@ import com.chenjdy.farmers_spell.client.particle.GoldenSparkleProvider;
 import com.chenjdy.farmers_spell.client.renderer.BadAppleRender;
 import com.chenjdy.farmers_spell.client.renderer.ChaosSlashRender;
 import com.chenjdy.farmers_spell.client.renderer.FoodgeistRender;
+import com.chenjdy.farmers_spell.client.shaders.FarmersSpellRenderTypes;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModMenuTypes;
 import com.chenjdy.farmers_spell.init.ModParticles;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+
+import java.io.IOException;
 
 @Mod.EventBusSubscriber(modid = FARMERSSPELL.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class ClientSetupRegister {
@@ -49,5 +55,15 @@ public class ClientSetupRegister {
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModParticles.GOLDEN_SPARKLE.get(), GoldenSparkleProvider::new);
+    }
+
+    @SubscribeEvent
+    public static void registerShaders(RegisterShadersEvent event) throws IOException {
+        event.registerShader(
+                new ShaderInstance(event.getResourceProvider(),
+                        FARMERSSPELL.MODID + ":chaos_slash",
+                        DefaultVertexFormat.NEW_ENTITY),
+                shader -> FarmersSpellRenderTypes.chaosSlashShader = shader
+        );
     }
 }

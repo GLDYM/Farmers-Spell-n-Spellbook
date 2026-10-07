@@ -63,10 +63,21 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     private static final ResourceLocation FOODGEIST_GIFT_TABLE =
             ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "gameplay/foodgeist_gift");
 
-    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
-    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
-    private static final RawAnimation HAPPY = RawAnimation.begin().thenLoop("happy");
-    private static final RawAnimation WAVE = RawAnimation.begin().thenPlay("wave");
+    private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("move");
+    private static final RawAnimation STAY = RawAnimation.begin().thenLoop("stay");
+    private static final RawAnimation STAY1 = RawAnimation.begin().thenLoop("stay1");
+    private static final RawAnimation WANT_START = RawAnimation.begin().thenPlayAndHold("wantstart");
+    private static final RawAnimation WANT = RawAnimation.begin().thenLoop("want");
+    private static final RawAnimation GIVING = RawAnimation.begin().thenPlayAndHold("giving");
+
+    private static final int WANT_START_TICKS = 10;
+    private static final int GIVING_TICKS = 20;
+    private static final double FOOD_DETECT_RANGE = 8.0D;
+
+    public static final int ANIM_NORMAL = 0;
+    public static final int ANIM_WANT_START = 1;
+    public static final int ANIM_WANT = 2;
+    public static final int ANIM_GIVING = 3;
 
     private static final EntityDataAccessor<Boolean> DATA_SATISFIED = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_WAITING = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.BOOLEAN);
@@ -74,8 +85,13 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<Long> DATA_SPAWN_TIME = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.LONG);
     private static final EntityDataAccessor<Boolean> DATA_GIFTED = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> DATA_GIFT_TIME = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.LONG);
-    private static final EntityDataAccessor<Integer> DATA_WAVE_TICKS = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Long> DATA_BLESSING_COOLDOWN = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.LONG);
+    private static final EntityDataAccessor<Integer> DATA_ANIM_STATE = SynchedEntityData.defineId(FoodgeistEntity.class, EntityDataSerializers.INT);
+
+    private long wantStartUntil;
+    private long givingUntil;
+    private int idleAnimVariant;
+    private long nextIdleSwitchTick = -1L;
 
     public FoodgeistEntity(EntityType<? extends FoodgeistEntity> entityType, Level level) {
         super(entityType, level);
@@ -113,7 +129,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         this.entityData.define(DATA_SPAWN_TIME, 0L);
         this.entityData.define(DATA_GIFTED, false);
         this.entityData.define(DATA_GIFT_TIME, 0L);
-        this.entityData.define(DATA_WAVE_TICKS, 0);
+        this.entityData.define(DATA_ANIM_STATE, ANIM_NORMAL);
         this.entityData.define(DATA_BLESSING_COOLDOWN, 0L);
     }
 
@@ -122,7 +138,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new FoodgeistPickupItemGoal(this, 0.8D));
-        this.goalSelector.addGoal(2, new FoodgeistFollowPlayerGoal(this, 0.8D, 1.0F)); // 统一速度，1格停止
+        this.goalSelector.addGoal(2, new FoodgeistFollowPlayerGoal(this, 0.8D, 1.5F));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 0.5D, 20));
     }
@@ -175,9 +191,9 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
                 }
             }
 
-            int waveTicks = this.entityData.get(DATA_WAVE_TICKS);
-            if (waveTicks > 0) {
-                this.entityData.set(DATA_WAVE_TICKS, waveTicks - 1);
+            if (this.getAnimState() == ANIM_GIVING && this.level().getGameTime() >= this.givingUntil) {
+                this.setAnimState(ANIM_NORMAL);
+                this.giveGiftsToPlayer();
             }
         } else {
             if (this.isGifted()) {
@@ -214,27 +230,27 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
 
         if (this.random.nextFloat() < 0.33F) {
             itemEntity.discard();
-            this.setSatisfied(true);
-            this.setGifted(true);
-            this.entityData.set(DATA_GIFT_TIME, this.level().getGameTime());
-            this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-
-            this.giveGiftsToPlayer();
+            this.startGiving();
         } else {
             itemEntity.discard();
             this.entityData.set(DATA_SPAWN_ATTEMPT, this.entityData.get(DATA_SPAWN_ATTEMPT) + 1);
 
             if (this.entityData.get(DATA_SPAWN_ATTEMPT) >= 5) {
-                this.setSatisfied(true);
-                this.setGifted(true);
-                this.entityData.set(DATA_GIFT_TIME, this.level().getGameTime());
-                this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-                this.giveGiftsToPlayer();
+                this.startGiving();
             } else {
-                this.entityData.set(DATA_WAVE_TICKS, 20);
+                this.setAnimState(ANIM_NORMAL);
             }
         }
         return true;
+    }
+
+    private void startGiving() {
+        this.setSatisfied(true);
+        this.setGifted(true);
+        this.entityData.set(DATA_GIFT_TIME, this.level().getGameTime());
+        this.givingUntil = this.level().getGameTime() + GIVING_TICKS;
+        this.setAnimState(ANIM_GIVING);
+        this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
     }
 
     private void giveGiftsToPlayer() {
@@ -283,8 +299,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
     private void spawnItemAtPlayer(Player player, ItemStack stack) {
         if (this.level().isClientSide) return;
 
-        ItemEntity itemEntity = new ItemEntity(this.level(),
-                this.getX(), this.getY() + 0.5D, this.getZ(), stack);
+        ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY() + 0.5D, this.getZ(), stack);
         itemEntity.setDefaultPickUpDelay();
         this.level().addFreshEntity(itemEntity);
     }
@@ -344,31 +359,20 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             if (!this.level().isClientSide) {
                 if (this.random.nextFloat() < 0.33F) {
                     heldItem.shrink(1);
-                    this.setSatisfied(true);
-                    this.setGifted(true);
-                    this.entityData.set(DATA_GIFT_TIME, this.level().getGameTime());
-                    this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-                    this.giveGiftsToPlayer();
+                    this.startGiving();
                 } else {
                     heldItem.shrink(1);
                     this.entityData.set(DATA_SPAWN_ATTEMPT, this.entityData.get(DATA_SPAWN_ATTEMPT) + 1);
 
                     if (this.entityData.get(DATA_SPAWN_ATTEMPT) >= 5) {
-                        this.setSatisfied(true);
-                        this.setGifted(true);
-                        this.entityData.set(DATA_GIFT_TIME, this.level().getGameTime());
-                        this.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F);
-                        this.giveGiftsToPlayer();
+                        this.startGiving();
                     } else {
-                        this.entityData.set(DATA_WAVE_TICKS, 20);
+                        this.setAnimState(ANIM_NORMAL);
                     }
                 }
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (!heldItem.isEmpty()) {
-            if (!this.level().isClientSide) {
-                this.entityData.set(DATA_WAVE_TICKS, 20);
-            }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
@@ -412,8 +416,25 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         return false;
     }
 
-    public boolean isWaving() {
-        return this.entityData.get(DATA_WAVE_TICKS) > 0;
+    public int getAnimState() {
+        return this.entityData.get(DATA_ANIM_STATE);
+    }
+
+    public void setAnimState(int animState) {
+        this.entityData.set(DATA_ANIM_STATE, animState);
+    }
+
+    public void triggerWantStart() {
+        if (this.level().isClientSide) return;
+        if (this.getAnimState() != ANIM_NORMAL) return;
+        this.wantStartUntil = this.level().getGameTime() + WANT_START_TICKS;
+        this.setAnimState(ANIM_WANT_START);
+    }
+
+    public boolean isWantStartLocked() {
+        return !this.level().isClientSide
+                && this.getAnimState() == ANIM_WANT_START
+                && this.level().getGameTime() < this.wantStartUntil;
     }
 
     @Nullable
@@ -435,6 +456,9 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         compound.putBoolean("Gifted", this.isGifted());
         compound.putLong("GiftTime", this.entityData.get(DATA_GIFT_TIME));
         compound.putLong("BlessingCooldown", this.entityData.get(DATA_BLESSING_COOLDOWN));
+        if (this.getAnimState() == ANIM_GIVING) {
+            compound.putLong("GivingUntil", this.givingUntil);
+        }
     }
 
     @Override
@@ -444,19 +468,35 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         this.setGifted(compound.getBoolean("Gifted"));
         this.entityData.set(DATA_GIFT_TIME, compound.getLong("GiftTime"));
         this.entityData.set(DATA_BLESSING_COOLDOWN, compound.getLong("BlessingCooldown"));
+        if (compound.contains("GivingUntil")) {
+            this.givingUntil = compound.getLong("GivingUntil");
+            this.setAnimState(ANIM_GIVING);
+        }
     }
 
     private <E extends GeoEntity> PlayState predicate(AnimationState<E> state) {
-        if (this.isWaving()) {
-            state.getController().setAnimation(WAVE);
-        } else if (this.isGifted()) {
-            state.getController().setAnimation(HAPPY);
-        } else if (state.isMoving()) {
-            state.getController().setAnimation(WALK);
-        } else {
-            state.getController().setAnimation(IDLE);
+        switch (this.getAnimState()) {
+            case ANIM_GIVING -> state.getController().setAnimation(GIVING);
+            case ANIM_WANT -> state.getController().setAnimation(WANT);
+            case ANIM_WANT_START -> state.getController().setAnimation(WANT_START);
+            default -> {
+                if (state.isMoving()) {
+                    state.getController().setAnimation(MOVE);
+                } else {
+                    state.getController().setAnimation(this.pickIdleAnimation());
+                }
+            }
         }
         return PlayState.CONTINUE;
+    }
+
+    private RawAnimation pickIdleAnimation() {
+        long now = this.level().getGameTime();
+        if (now >= this.nextIdleSwitchTick) {
+            this.idleAnimVariant = this.random.nextBoolean() ? 0 : 1;
+            this.nextIdleSwitchTick = now + 60L + this.random.nextInt(101);
+        }
+        return this.idleAnimVariant == 0 ? STAY : STAY1;
     }
 
     @Override
@@ -493,7 +533,7 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         @Override
         public boolean canUse() {
             if (foodgeist.isGifted()) return false;
-            targetItem = foodgeist.findNearbyFoodItem(2.0D);
+            targetItem = foodgeist.findNearbyFoodItem(FOOD_DETECT_RANGE);
             return targetItem != null;
         }
 
@@ -502,17 +542,30 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             if (foodgeist.isGifted()) return false;
             if (targetItem == null || !targetItem.isAlive()) return false;
             if (!isModFoodItem(targetItem.getItem())) return false;
+            if (foodgeist.getAnimState() == ANIM_WANT_START) return true;
             return foodgeist.distanceTo(targetItem) > 1.5D;
         }
 
         @Override
         public void start() {
             foodgeist.setWaiting(false);
+            // 暂时关闭 wantstart
+            // foodgeist.triggerWantStart();
         }
 
         @Override
         public void tick() {
             if (targetItem == null) return;
+
+            // wantstart 暂时关闭
+            // if (foodgeist.isWantStartLocked()) {
+            //     foodgeist.getNavigation().stop();
+            //     foodgeist.lookAt(targetItem, 10.0F, foodgeist.getMaxHeadXRot());
+            //     return;
+            // }
+            // if (foodgeist.getAnimState() == ANIM_WANT_START) {
+            //     foodgeist.setAnimState(ANIM_NORMAL);
+            // }
 
             double distance = foodgeist.distanceTo(targetItem);
 
@@ -529,6 +582,9 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         public void stop() {
             foodgeist.setWaiting(false);
             foodgeist.getNavigation().stop();
+            if (foodgeist.getAnimState() == ANIM_WANT_START) {
+                foodgeist.setAnimState(ANIM_NORMAL);
+            }
             this.targetItem = null;
         }
     }
@@ -550,9 +606,9 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         public boolean canUse() {
             if (foodgeist.isGifted()) return false;
 
-            if (foodgeist.findNearbyFoodItem(2.0D) != null) return false;
+            if (foodgeist.findNearbyFoodItem(FOOD_DETECT_RANGE) != null) return false;
 
-            Player player = foodgeist.level().getNearestPlayer(foodgeist, 8.0D);
+            Player player = foodgeist.level().getNearestPlayer(foodgeist, FOOD_DETECT_RANGE);
             if (player == null) return false;
 
             if (hasModFoodItem(player)) {
@@ -568,25 +624,45 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
             if (foodgeist.isGifted()) return false;
             if (targetPlayer == null || !targetPlayer.isAlive()) return false;
             if (!hasModFoodItem(targetPlayer)) return false;
+            int state = foodgeist.getAnimState();
+            if (state == ANIM_WANT_START || state == ANIM_WANT) return true;
             return foodgeist.distanceTo(targetPlayer) > stopDistance;
         }
 
         @Override
         public void start() {
             foodgeist.setWaiting(false);
+            // 暂时关闭 wantstart
+            // foodgeist.triggerWantStart();
         }
 
         @Override
         public void tick() {
             if (targetPlayer == null) return;
 
+            // wantstart 暂时关闭
+            // if (foodgeist.isWantStartLocked()) {
+            //     foodgeist.getNavigation().stop();
+            //     foodgeist.lookAt(targetPlayer, 10.0F, foodgeist.getMaxHeadXRot());
+            //     return;
+            // }
+            // if (foodgeist.getAnimState() == ANIM_WANT_START) {
+            //     foodgeist.setAnimState(ANIM_NORMAL);
+            // }
+
             double distance = foodgeist.distanceTo(targetPlayer);
 
             if (distance <= stopDistance) {
+                if (foodgeist.getAnimState() != ANIM_WANT) {
+                    foodgeist.setAnimState(ANIM_WANT);
+                }
                 foodgeist.setWaiting(true);
                 foodgeist.getNavigation().stop();
                 foodgeist.lookAt(targetPlayer, 90.0F, 90.0F);
             } else {
+                if (foodgeist.getAnimState() == ANIM_WANT) {
+                    foodgeist.setAnimState(ANIM_NORMAL);
+                }
                 foodgeist.setWaiting(false);
                 foodgeist.getNavigation().moveTo(targetPlayer, speedModifier);
                 foodgeist.lookAt(targetPlayer, 10.0F, foodgeist.getMaxHeadXRot());
@@ -597,6 +673,10 @@ public class FoodgeistEntity extends PathfinderMob implements GeoEntity {
         public void stop() {
             foodgeist.setWaiting(false);
             foodgeist.getNavigation().stop();
+            int state = foodgeist.getAnimState();
+            if (state == ANIM_WANT_START || state == ANIM_WANT) {
+                foodgeist.setAnimState(ANIM_NORMAL);
+            }
             this.targetPlayer = null;
         }
     }

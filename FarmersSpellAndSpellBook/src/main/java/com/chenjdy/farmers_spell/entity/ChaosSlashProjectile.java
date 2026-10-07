@@ -21,18 +21,27 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.ForgeEventFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class ChaosSlashProjectile extends AbstractMagicProjectile {
+public class ChaosSlashProjectile extends AbstractMagicProjectile implements GeoEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_SLASH_TYPE = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.INT);
     private static final float SPEED = 1f;
     private static final int EXPIRE_TIME = 4 * 20;
     private static int slashCounter = 0;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation ANIMATION = RawAnimation.begin().thenLoop("animation");
     public AABB oldBB;
     private int effectDuration = 10;
     private final List<Entity> victims = new ArrayList<>();
@@ -198,5 +207,18 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
         super.readAdditionalSaveData(pCompound);
         this.effectDuration = pCompound.getInt("EffectDuration");
         this.setSlashType(pCompound.getInt("SlashType"));
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controller", 0, state -> {
+            state.getController().setAnimation(ANIMATION);
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

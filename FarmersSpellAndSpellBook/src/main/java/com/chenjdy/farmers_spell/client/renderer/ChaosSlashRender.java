@@ -1,74 +1,82 @@
 package com.chenjdy.farmers_spell.client.renderer;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
+import com.chenjdy.farmers_spell.client.shaders.FarmersSpellRenderTypes;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.PoseStack.Pose;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class ChaosSlashRender extends EntityRenderer<ChaosSlashProjectile> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/chaos_slash.png");
+public class ChaosSlashRender extends GeoEntityRenderer<ChaosSlashProjectile> {
 
-    public ChaosSlashRender(Context context) {
-        super(context);
+    private static final float PLANE_Y = 3.0F / 16.0F;
+
+    public ChaosSlashRender(EntityRendererProvider.Context context) {
+        super(context, new ChaosSlashModel());
+        this.shadowRadius = 0.0F;
     }
 
     @Override
-    public void render(ChaosSlashProjectile entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
-        poseStack.pushPose();
+    public RenderType getRenderType(ChaosSlashProjectile animatable, ResourceLocation texture,@Nullable MultiBufferSource bufferSource, float partialTick) {
+        return FarmersSpellRenderTypes.CHAOS_SLASH;
+    }
 
-        float entityYaw = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
-        float entityPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+    @Override
+    public void preRender(PoseStack poseStack, ChaosSlashProjectile animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        float oldWidth = (float) animatable.oldBB.getXsize();
+        float width = animatable.getBbWidth();
+        float scale = Mth.lerp(Math.min(partialTick, 1.0F), oldWidth, width);
+        poseStack.translate(0.0F, PLANE_Y * (1.0F - scale), 0.0F);
+        poseStack.scale(scale, scale, scale);
+        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+    }
 
-        poseStack.mulPose(Axis.YP.rotationDegrees(entityYaw));
-        poseStack.mulPose(Axis.XP.rotationDegrees(-entityPitch));
-
-        float oldWidth = (float) entity.oldBB.getXsize();
-        float width = entity.getBbWidth();
-        width = oldWidth + (width - oldWidth) * Math.min(partialTicks, 1);
-
-        int slashType = entity.getSlashType();
-        float tiltAngle = switch (slashType) {
-            case 1 -> -22.5f;
-            case 2 -> 22.5f;
-            default -> 0f;
+    @Override
+    protected void applyRotations(ChaosSlashProjectile animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+        float yaw = Mth.lerp(partialTick, animatable.yRotO, animatable.getYRot());
+        float pitch = Mth.lerp(partialTick, animatable.xRotO, animatable.getXRot());
+        float tiltAngle = switch (animatable.getSlashType()) {
+            case 1 -> -22.5F;
+            case 2 -> 22.5F;
+            default -> 0.0F;
         };
-
+        poseStack.mulPose(Axis.YP.rotationDegrees(yaw));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-pitch));
         poseStack.mulPose(Axis.ZP.rotationDegrees(tiltAngle));
-
-        Pose pose = poseStack.last();
-        drawSlash(pose, bufferSource, light, width);
-
-        poseStack.popPose();
-
-        super.render(entity, yaw, partialTicks, poseStack, bufferSource, light);
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
     }
 
-    private void drawSlash(Pose pose, MultiBufferSource bufferSource, int light, float width) {
-        Matrix4f poseMatrix = pose.pose();
-        Matrix3f normalMatrix = pose.normal();
+    private static class ChaosSlashModel extends GeoModel<ChaosSlashProjectile> {
+        private static final ResourceLocation MODEL =
+                ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "geo/chaos_slash.geo.json");
+        private static final ResourceLocation TEXTURE =
+                ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/chaos_slash.png");
+        private static final ResourceLocation ANIMATIONS =
+                ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "animations/chaos_slash.animation.json");
 
-        VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
-        float halfWidth = width * .5f;
+        @Override
+        public ResourceLocation getModelResource(ChaosSlashProjectile animatable) {
+            return MODEL;
+        }
 
-        consumer.vertex(poseMatrix, -halfWidth, -.1f, -halfWidth).color(255, 255, 255, 255).uv(0f, 1f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(normalMatrix, 0f, 1f, 0f).endVertex();
-        consumer.vertex(poseMatrix, halfWidth, -.1f, -halfWidth).color(255, 255, 255, 255).uv(1f, 1f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(normalMatrix, 0f, 1f, 0f).endVertex();
-        consumer.vertex(poseMatrix, halfWidth, -.1f, halfWidth).color(255, 255, 255, 255).uv(1f, 0f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(normalMatrix, 0f, 1f, 0f).endVertex();
-        consumer.vertex(poseMatrix, -halfWidth, -.1f, halfWidth).color(255, 255, 255, 255).uv(0f, 0f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(normalMatrix, 0f, 1f, 0f).endVertex();
-    }
+        @Override
+        public ResourceLocation getTextureResource(ChaosSlashProjectile animatable) {
+            return TEXTURE;
+        }
 
-    @Override
-    public ResourceLocation getTextureLocation(ChaosSlashProjectile entity) {
-        return TEXTURE;
+        @Override
+        public ResourceLocation getAnimationResource(ChaosSlashProjectile animatable) {
+            return ANIMATIONS;
+        }
     }
 }
+
