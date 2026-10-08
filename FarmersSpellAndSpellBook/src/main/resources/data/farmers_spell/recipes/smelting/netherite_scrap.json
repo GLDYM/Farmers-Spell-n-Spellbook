@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 1200,
+  "experience": 0.35,
+  "ingredient": { 
+    "item": "farmers_spell:ember_block"
+  },
+  "result": { 
+    "item": "minecraft:netherite_scrap",
+    "count": 1
+  }
+}

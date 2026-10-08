@@ -11,6 +11,6 @@ public class SealOilEffect extends MobEffect {
 
     public SealOilEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
-        this.addAttributeModifier(Attributes.ATTACK_SPEED, ATTACK_SPEED_MODIFIER_ID, -0.25, AttributeModifier.Operation.MULTIPLY_BASE);
+        this.addAttributeModifier(Attributes.ATTACK_SPEED, ATTACK_SPEED_MODIFIER_ID, -0.50, AttributeModifier.Operation.MULTIPLY_BASE);
     }
 }

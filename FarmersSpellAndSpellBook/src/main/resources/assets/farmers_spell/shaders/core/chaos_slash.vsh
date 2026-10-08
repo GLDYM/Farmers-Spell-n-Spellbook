@@ -28,9 +28,9 @@ void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
 
     vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
-    // 与原版 entity shader 的唯一区别：不做 minecraft_mix_light 法线方向光。
-    // 零厚度 / 交叉面片的顶面(+Y)与底面(-Y)拿到完全相同的全亮顶点色，
-    // 斜视角深度冲突时无论哪一面胜出颜色都一致，不会出现黑斑。
+    // 不做 minecraft_mix_light 法线方向光
+    // 零厚度 / 交叉面片的顶面(+Y)与底面(-Y)拿到完全相同的全亮顶点色
+    // 斜视角深度冲突时无论哪一面胜出颜色都一致，不会出现黑斑
     vertexColor = Color;
     lightMapColor = texelFetch(Sampler2, UV2 / 16, 0);
     overlayColor = texelFetch(Sampler1, UV1, 0);

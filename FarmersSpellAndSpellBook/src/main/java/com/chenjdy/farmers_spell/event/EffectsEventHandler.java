@@ -4,8 +4,10 @@ import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.init.*;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
@@ -29,13 +31,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -54,10 +56,15 @@ import java.util.UUID;
 public class EffectsEventHandler {
 
     private static final String DRUID_HEAL_COOLDOWN = "druid_heal_cooldown";
-    private static final String SEAL_OIL_COOLDOWN = "seal_oil_cooldown";
     private static final String CLEANSE_MANA_COOLDOWN = "cleanse_mana_cooldown";
+    private static final String GOLDEN_ARMOR_RES_FLAG = "golden_armor_resistance_active";
+    private static final String DRUID_HEAL_REGEN_FLAG = "druid_heal_regeneration_active";
 
-    private static final UUID SEAL_OIL_CAST_TIME_UUID = UUID.fromString("9C0D1E2F-3A4B-4C0D-D5E6-F7A8B9C0D1E2");
+    private static final int CLEANSE_INTERCEPT_PENALTY_TICKS = 30 * 20;
+
+    private static final UUID SEAL_OIL_COOLDOWN_UUID = UUID.fromString("9C0D1E2F-3A4B-4C0D-D5E6-F7A8B9C0D1E2");
+    private static final UUID GOLDEN_ARMOR_ARMOR_UUID = UUID.fromString("7C2F9A1B-4D6E-4B03-9E5A-1F2D8C6B0A77");
+    private static final UUID GOLDEN_ARMOR_TOUGHNESS_UUID = UUID.fromString("8d3a0b2c-5e7f-4c14-aaf6-b2e7d9c40f18");
 
     private static final List<MobEffect> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
             MobEffects.MOVEMENT_SLOWDOWN,
@@ -90,17 +97,34 @@ public class EffectsEventHandler {
         }
 
         if (entity.hasEffect(ModEffects.CLEANSE.get())) {
+            boolean immune = false;
             for (MobEffect immuneEffect : CLEANSE_IMMUNE_VANILLA_EFFECTS) {
                 if (effect.getEffect().equals(immuneEffect)) {
-                    event.setResult(Event.Result.DENY);
-                    return;
+                    immune = true;
+                    break;
                 }
             }
             MobEffect ironSlowed = getIronSlowedEffect();
-            if (ironSlowed != null && effect.getEffect().equals(ironSlowed)) {
+            if (!immune && ironSlowed != null && effect.getEffect().equals(ironSlowed)) {
+                immune = true;
+            }
+            if (immune) {
+                shortenEffect(entity, ModEffects.CLEANSE.get(), CLEANSE_INTERCEPT_PENALTY_TICKS);
                 event.setResult(Event.Result.DENY);
                 return;
             }
+        }
+    }
+
+    private static void shortenEffect(LivingEntity entity, MobEffect effectType, int ticks) {
+        MobEffectInstance current = entity.getEffect(effectType);
+        if (current == null) return;
+        int newDuration = current.getDuration() - ticks;
+        if (newDuration <= 0) {
+            entity.removeEffect(effectType);
+        } else {
+            entity.addEffect(new MobEffectInstance(effectType, newDuration, current.getAmplifier(),
+                    current.isAmbient(), current.isVisible(), current.showIcon()));
         }
     }
 
@@ -118,24 +142,6 @@ public class EffectsEventHandler {
                 entity.setSecondsOnFire(0);
             }
         }
-
-        if (effect.getEffect().equals(ModEffects.CLEANSE.get())
-                && entity instanceof Player player
-                && CuriosApi.getCuriosInventory(player)
-                .map(handler -> handler.isEquipped(ItemRegistry.INVISIBILITY_RING.get()))
-                .orElse(false)) {
-            int duration = effect.getDuration();
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, duration, 0));
-            player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, duration, 0));
-        }
-
-        if (effect.getEffect().equals(ModEffects.DRUID_HEAL.get())
-                && entity instanceof Player player
-                && CuriosApi.getCuriosInventory(player)
-                .map(handler -> handler.isEquipped(ItemRegistry.POISONWARD_RING.get()))
-                .orElse(false)) {
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, effect.getDuration(), 0));
-        }
     }
 
     @SubscribeEvent
@@ -147,6 +153,9 @@ public class EffectsEventHandler {
             livingEntity.clearFire();
         }
 
+        syncGoldenArmor(livingEntity);
+        syncRingBonusEffects(livingEntity);
+
         MobEffectInstance druidHeal = livingEntity.getEffect(ModEffects.DRUID_HEAL.get());
         if (druidHeal != null) {
             handleDruidHeal(livingEntity);
@@ -156,29 +165,73 @@ public class EffectsEventHandler {
             handleCleanse(livingEntity);
         }
 
-        if (livingEntity.hasEffect(ModEffects.SEAL_OIL.get())) {
-            int sealOilCooldown = livingEntity.getPersistentData().getInt(SEAL_OIL_COOLDOWN);
-            if (sealOilCooldown > 0) {
-                livingEntity.getPersistentData().putInt(SEAL_OIL_COOLDOWN, sealOilCooldown - 1);
-            }
-        }
-
-        syncSealOilCastTime(livingEntity);
-
+        syncSealOilCooldown(livingEntity);
     }
 
-    private static void syncSealOilCastTime(LivingEntity livingEntity) {
-        AttributeInstance castTimeAttr = livingEntity.getAttribute(AttributeRegistry.CAST_TIME_REDUCTION.get());
-        if (castTimeAttr == null) {
+    private static void syncSealOilCooldown(LivingEntity livingEntity) {
+        applyDesiredModifier(livingEntity, AttributeRegistry.COOLDOWN_REDUCTION.get(),
+                SEAL_OIL_COOLDOWN_UUID, "Seal Oil Cooldown Penalty",
+                livingEntity.hasEffect(ModEffects.SEAL_OIL.get()) ? -0.25D : 0.0D);
+    }
+
+    private static void syncGoldenArmor(LivingEntity livingEntity) {
+        MobEffectInstance golden = livingEntity.getEffect(ModEffects.GOLDEN_ARMOR.get());
+        if (golden == null) {
+            applyDesiredModifier(livingEntity, Attributes.ARMOR, GOLDEN_ARMOR_ARMOR_UUID, "Golden Armor Armor", 0.0D);
+            applyDesiredModifier(livingEntity, Attributes.ARMOR_TOUGHNESS, GOLDEN_ARMOR_TOUGHNESS_UUID, "Golden Armor Toughness", 0.0D);
             return;
         }
-        boolean shouldApply = livingEntity.hasEffect(ModEffects.SEAL_OIL.get());
-        boolean applied = castTimeAttr.getModifier(SEAL_OIL_CAST_TIME_UUID) != null;
-        if (shouldApply && !applied) {
-            castTimeAttr.addPermanentModifier(new AttributeModifier(SEAL_OIL_CAST_TIME_UUID,
-                    "Seal Oil Cast Time Penalty", -0.25D, AttributeModifier.Operation.ADDITION));
-        } else if (!shouldApply && applied) {
-            castTimeAttr.removeModifier(SEAL_OIL_CAST_TIME_UUID);
+        int level = golden.getAmplifier() + 1;
+        applyDesiredModifier(livingEntity, Attributes.ARMOR, GOLDEN_ARMOR_ARMOR_UUID, "Golden Armor Armor", 3.0D * level);
+        applyDesiredModifier(livingEntity, Attributes.ARMOR_TOUGHNESS, GOLDEN_ARMOR_TOUGHNESS_UUID, "Golden Armor Toughness", 1.0D * level);
+    }
+
+    private static void syncRingBonusEffects(LivingEntity livingEntity) {
+        if (!(livingEntity instanceof Player player)) return;
+
+        MobEffectInstance golden = player.getEffect(ModEffects.GOLDEN_ARMOR.get());
+        boolean goldenRingActive = golden != null && hasCurio(player, ItemRegistry.FIREWARD_RING.get());
+        syncLinkedEffect(player, goldenRingActive, golden, MobEffects.DAMAGE_RESISTANCE, GOLDEN_ARMOR_RES_FLAG);
+
+        MobEffectInstance druid = player.getEffect(ModEffects.DRUID_HEAL.get());
+        boolean druidRingActive = druid != null && hasCurio(player, ItemRegistry.POISONWARD_RING.get());
+        syncLinkedEffect(player, druidRingActive, druid, MobEffects.REGENERATION, DRUID_HEAL_REGEN_FLAG);
+    }
+
+    private static void syncLinkedEffect(Player player, boolean active, MobEffectInstance source, MobEffect linkedType, String flagKey) {
+        boolean ours = player.getPersistentData().getBoolean(flagKey);
+        MobEffectInstance existing = player.getEffect(linkedType);
+
+        if (active && source != null) {
+            if (existing == null) {
+                player.addEffect(new MobEffectInstance(linkedType, source.getDuration(), 0,
+                        source.isAmbient(), true, true));
+                player.getPersistentData().putBoolean(flagKey, true);
+            } else if (ours && Math.abs(existing.getDuration() - source.getDuration()) > 2) {
+                player.addEffect(new MobEffectInstance(linkedType, source.getDuration(), 0,
+                        source.isAmbient(), true, true));
+            }
+        } else if (ours) {
+            player.removeEffect(linkedType);
+            player.getPersistentData().putBoolean(flagKey, false);
+        }
+    }
+
+    private static boolean hasCurio(Player player, Item item) {
+        return CuriosApi.getCuriosInventory(player).map(handler -> handler.isEquipped(item)).orElse(false);
+    }
+
+    private static void applyDesiredModifier(LivingEntity livingEntity, Attribute attribute, UUID uuid, String name, double desired) {
+        AttributeInstance instance = livingEntity.getAttribute(attribute);
+        if (instance == null) return;
+        AttributeModifier modifier = instance.getModifier(uuid);
+        if (desired == 0.0D) {
+            if (modifier != null) instance.removeModifier(uuid);
+            return;
+        }
+        if (modifier == null || modifier.getAmount() != desired) {
+            if (modifier != null) instance.removeModifier(uuid);
+            instance.addPermanentModifier(new AttributeModifier(uuid, name, desired, AttributeModifier.Operation.ADDITION));
         }
     }
 
@@ -327,13 +380,6 @@ public class EffectsEventHandler {
         LivingEntity entity = event.getEntity();
         if (entity.level().isClientSide) return;
 
-        MobEffectInstance goldenArmor = entity.getEffect(ModEffects.GOLDEN_ARMOR.get());
-        if (goldenArmor != null && entity.level().dimension() == Level.NETHER) {
-            int level = goldenArmor.getAmplifier() + 1;
-            float reducedDamage = event.getAmount() * (1.0f - level * 0.03f);
-            event.setAmount(reducedDamage);
-        }
-
         if (entity.hasEffect(ModEffects.FROST_SHIELD.get())) {
             if (event.getSource().is(DamageTypes.FREEZE)) {
                 event.setAmount(0.0f);
@@ -356,17 +402,9 @@ public class EffectsEventHandler {
 
         MobEffectInstance sealOil = entity.getEffect(ModEffects.SEAL_OIL.get());
         if (sealOil != null) {
-            if (entity.getPersistentData().getInt(SEAL_OIL_COOLDOWN) <= 0) {
-                int amplifier = sealOil.getAmplifier();
-                int level = amplifier + 1;
-
-                float healPercent = level * 0.01f;
-                float healAmount = entity.getMaxHealth() * healPercent + 2.0f;
-
-                entity.heal(healAmount);
-
-                entity.getPersistentData().putInt(SEAL_OIL_COOLDOWN, 100);
-            }
+            int level = sealOil.getAmplifier() + 1;
+            float healAmount = entity.getMaxHealth() * (0.02f * level) + 4.0f;
+            entity.heal(healAmount);
         }
 
         MobEffectInstance frostShield = entity.getEffect(ModEffects.FROST_SHIELD.get());

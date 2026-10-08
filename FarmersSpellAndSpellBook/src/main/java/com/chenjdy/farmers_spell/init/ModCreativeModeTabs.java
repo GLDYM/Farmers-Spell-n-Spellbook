@@ -103,7 +103,7 @@ public class ModCreativeModeTabs {
         accept(output, BLOCK_ITEMS, ModBlocks.CINDEROUS_STOVE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.ALCHEMIST_POT.get());
         accept(output, BLOCK_ITEMS, ModBlocks.GOODBERRY_CRATE.get());
-        accept(output, BLOCK_ITEMS, ModBlocks.ICY_EGG_CRATE.get());  
+        accept(output, BLOCK_ITEMS, ModBlocks.ICY_EGG_CRATE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.EMBER_BLOCK.get());
         accept(output, BLOCK_ITEMS, ModBlocks.EMBER_PILLAR.get());
         accept(output, BLOCK_ITEMS, ModBlocks.GLYPHED_EMBER_BLOCK.get());

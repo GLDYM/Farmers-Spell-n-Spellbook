@@ -5,10 +5,7 @@
             "item": "irons_spellbooks:greater_healing_potion"
         },
         {
-            "item": "farmers_spell:amethyst_sugar"
-        },
-        {
-            "tag": "forge:milk"
+            "item": "minecraft:slime_ball"
         },
         {
             "item": "farmersdelight:apple_cider"
@@ -16,7 +13,7 @@
     ],
     "result": {
         "item": "farmers_spell:cleric_heart",
-        "count": 2
+        "count": 3
     },
     "experience": 1.0,
     "cookingtime": 200

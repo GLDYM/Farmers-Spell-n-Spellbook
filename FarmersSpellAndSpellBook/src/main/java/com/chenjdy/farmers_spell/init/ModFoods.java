@@ -159,7 +159,8 @@ public class ModFoods {
     public static final FoodProperties EDEN_BAK_APPLE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationMod(0.6f)
-            //.effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL.get(), 5 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.FORTIFY.get(), 2 * 60 * 20, 5), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
             .build();
     // 血豆腐
     public static final FoodProperties BLOOD_TOFU = new FoodProperties.Builder()
@@ -337,20 +338,20 @@ public class ModFoods {
             .nutrition(32)
             .saturationMod(1f)
             .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR.get(), 5 * 60 * 20, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR.get(), 5 * 60 * 20, 3), 1.0F)
             .build();
     // 碗装橡肤南瓜汤
     public static final FoodProperties BOWL_OF_PUMPKIN_SOUP = new FoodProperties.Builder()
             .nutrition(20)
             .saturationMod(0.6f)
             .effect(() -> nourishment(FoodValues.LONG_DURATION ), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffectRegistry.OAKSKIN.get(), 3 * 60 * 20, 3), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.OAKSKIN.get(), 3 * 60 * 20, 5), 1.0F)
             .build();
     // 碗装成吉思鸡
     public static final FoodProperties BOWL_OF_SAINGEZI_CHICKEN = new FoodProperties.Builder()
             .nutrition(30)
             .saturationMod(1f)
             .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 7), 1.0F)
             .build();
 }

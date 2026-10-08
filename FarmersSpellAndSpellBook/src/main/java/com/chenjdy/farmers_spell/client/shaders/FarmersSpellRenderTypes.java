@@ -22,7 +22,7 @@ public final class FarmersSpellRenderTypes {
     public static ShaderInstance chaosSlashShader;
 
     private static final ResourceLocation CHAOS_SLASH_TEXTURE =
-            new ResourceLocation(FARMERSSPELL.MODID, "textures/entity/chaos_slash.png");
+            ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "textures/entity/chaos_slash.png");
 
     private static final int GL_LEQUAL = 515;
 

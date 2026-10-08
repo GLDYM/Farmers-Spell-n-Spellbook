@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:glided_divine_ice_cream"
+    },
+    {
+      "tag": "forge:milk"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": { "item": "farmers_spell:holy_milkshake",
+    "count": 3
+  }
+}

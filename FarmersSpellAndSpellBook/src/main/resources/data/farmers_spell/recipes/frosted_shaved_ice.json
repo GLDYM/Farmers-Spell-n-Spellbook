@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:icy_egg"
+    },
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "farmers_spell:amethyst_sugar"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": { "item": "farmers_spell:frosted_shaved_ice",
+    "count": 1
+  }
+}
