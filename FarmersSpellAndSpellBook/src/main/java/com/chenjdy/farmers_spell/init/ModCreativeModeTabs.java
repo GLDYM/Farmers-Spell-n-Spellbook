@@ -39,7 +39,6 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.WSIP_BUTTER.get());
         accept(output, FOOD_ITEMS, ModItems.BLOOD_TOFU.get());
         accept(output, FOOD_ITEMS, ModItems.FOODGEIST_CHEESE.get());
-        accept(output, FOOD_ITEMS, ModItems.DRAGONSKIN_ASPIC.get());
         accept(output, FOOD_ITEMS, ModItems.AMETHYST_SUGAR.get());
         accept(output, FOOD_ITEMS, ModItems.ORIGINAL_NECTAR.get());
         accept(output, FOOD_ITEMS, ModItems.FOODGEIST_SEASONING.get());
@@ -82,6 +81,8 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.BOWL_OF_SAINGEZI_CHICKEN.get());
         accept(output, FOOD_ITEMS, ModBlocks.ICEBREAKER_BREAD.get());
         accept(output, FOOD_ITEMS, ModItems.ICEBERGCREAM_SANDWICH.get());
+        accept(output, FOOD_ITEMS, ModBlocks.DRAGONSKIN_ASPIC.get());
+        accept(output, FOOD_ITEMS, ModItems.DRAGONSKIN_ASPIC_SLICE.get());
         accept(output, FOOD_ITEMS, ModItems.FROSTED_ICE_CREAM_BUCKET.get());
         accept(output, FOOD_ITEMS, ModItems.FROSTED_SHAVED_ICE.get());
         accept(output, FOOD_ITEMS, ModItems.HOLY_MILKSHAKE.get());

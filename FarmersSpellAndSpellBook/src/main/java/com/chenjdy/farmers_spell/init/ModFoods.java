@@ -102,10 +102,12 @@ public class ModFoods {
             .saturationMod(0.1f)
             .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
             .build();
-    // 龙肉冻
-    public static final FoodProperties DRAGONSKIN_ASPIC = new FoodProperties.Builder()
-            .nutrition(6)
-            .saturationMod(0.75f)
+    // 龙鳞冻切片
+    public static final FoodProperties DRAGONSKIN_ASPIC_SLICE = new FoodProperties.Builder()
+            .nutrition(16)
+            .saturationMod(0.8f)
+            .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
             .build();
     // 披萨
     public static final FoodProperties DRAGON_PIZZA = new FoodProperties.Builder()

@@ -31,94 +31,81 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
-
 import java.util.UUID;
+
+import static vectorwing.farmersdelight.common.registry.ModItems.bowlFoodItem;
+import static vectorwing.farmersdelight.common.registry.ModItems.foodItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, FARMERSSPELL.MODID);
 
-    public static final Item CONTAINERS = Items.BOWL;
-
-    public static Item.Properties bowlFoodItem(FoodProperties food) {
-        return new Item.Properties()
-                .food(food)
-                .craftRemainder(Items.BOWL)
-                .stacksTo(16);
-    }
     public static Item.Properties drinkItem(FoodProperties food) {
         return new Item.Properties()
                 .food(food)
                 .craftRemainder(Items.GLASS_BOTTLE)
                 .stacksTo(16);
     }
-    public static Item.Properties normalFoodItem(FoodProperties food) {
-        return new Item.Properties()
-                .food(food);
-    }
     // 神圣奶酪焗土豆
     public static final RegistryObject<Item> BUTTER_POTATO = ITEMS.register("butter_potato",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.BUTTER_POTATO)));
+            () -> new ConsumableItem(foodItem(ModFoods.BUTTER_POTATO)));
     // 宝石汉堡
     public static final RegistryObject<Item> AMETHYST_BURGER = ITEMS.register("amethyst_burger",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_BURGER)));
+            () -> new ConsumableItem(foodItem(ModFoods.AMETHYST_BURGER)));
     // 伊甸烤苹果
     public static final RegistryObject<Item> EDEN_BAK_APPLE = ITEMS.register("eden_baked_apple",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.EDEN_BAK_APPLE)));
+            () -> new ConsumableItem(foodItem(ModFoods.EDEN_BAK_APPLE)));
     // 闪烁十字面包
     public static final RegistryObject<Item> CERIC_CROSS_BUN = ITEMS.register("ceric_cross_bun",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_CROSS_BUN)));
+            () -> new ConsumableItem(foodItem(ModFoods.CERIC_CROSS_BUN)));
     // 神莓玛芬
     public static final RegistryObject<Item> GOODBERRY_MUFFIN = ITEMS.register("goodberry_muffin",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY_MUFFIN)));
+            () -> new ConsumableItem(foodItem(ModFoods.GOODBERRY_MUFFIN)));
     // 冰挞
     public static final RegistryObject<Item> SNOWY_TART = ITEMS.register("snowy_tart",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.SNOWY_TART)));
+            () -> new ConsumableItem(foodItem(ModFoods.SNOWY_TART)));
     // 月饼
     public static final RegistryObject<Item> AMETHYST_MOONCAKE = ITEMS.register("amethyst_mooncake",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_MOONCAKE)));
-    // 龙鳞肉冻
-    public static final RegistryObject<Item> DRAGONSKIN_ASPIC = ITEMS.register("dragonskin_aspic",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.DRAGONSKIN_ASPIC)));
+            () -> new ConsumableItem(foodItem(ModFoods.AMETHYST_MOONCAKE)));
     // 披萨
     public static final RegistryObject<Item> DRAGON_PIZZA = ITEMS.register("dragon_pizza",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.DRAGON_PIZZA)));
+            () -> new ConsumableItem(foodItem(ModFoods.DRAGON_PIZZA)));
     // 过载焦糖
     public static final RegistryObject<Item> ENERGIZED_CANDY = ITEMS.register("energized_candy",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CANDY)));
+            () -> new ConsumableItem(foodItem(ModFoods.ENERGIZED_CANDY)));
     // 泡芙
     public static final RegistryObject<Item> PAOFU = ITEMS.register("paofu",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.PAOFU)));
+            () -> new ConsumableItem(foodItem(ModFoods.PAOFU)));
     // 火腿
     public static final RegistryObject<Item> CINDEROUS_HAM = ITEMS.register("cinderoous_ham",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.CINDEROUS_HAM)));
+            () -> new ConsumableItem(foodItem(ModFoods.CINDEROUS_HAM)));
     // 北冰鲑鱼堡
     public static final RegistryObject<Item> SALMON_BURGER = ITEMS.register("salmon_burger",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.SALMON_BURGER)));
+            () -> new ConsumableItem(foodItem(ModFoods.SALMON_BURGER)));
     // 雷云棉花糖
     public static final RegistryObject<Item> THUNDER_COTTON_CANDY = ITEMS.register("thunder_cotton_candy",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.THUNDER_COTTON_CANDY)));
+            () -> new ConsumableItem(foodItem(ModFoods.THUNDER_COTTON_CANDY)));
     // 血豆腐
     public static final RegistryObject<Item> BLOOD_TOFU = ITEMS.register("blood_tofu",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.BLOOD_TOFU)));
+            () -> new ConsumableItem(foodItem(ModFoods.BLOOD_TOFU)));
     // 食灵奶酪
     public static final RegistryObject<Item> FOODGEIST_CHEESE = ITEMS.register("foodgeist_cheese",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.FOODGEIST_CHEESE)));
+            () -> new ConsumableItem(foodItem(ModFoods.FOODGEIST_CHEESE)));
     // 黄油
     public static final RegistryObject<Item> WSIP_BUTTER = ITEMS.register("wsip_butter",
-            () -> new ButterItem(normalFoodItem(ModFoods.WSIP_BUTTER)));
+            () -> new ButterItem(foodItem(ModFoods.WSIP_BUTTER)));
     // 过载焦糖
     public static final RegistryObject<Item> ENERGIZED_CARAMEL = ITEMS.register("energized_caramel",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ENERGIZED_CARAMEL)));
+            () -> new ConsumableItem(foodItem(ModFoods.ENERGIZED_CARAMEL)));
     // 神莓
     public static final RegistryObject<Item> GOODBERRY = ITEMS.register("goodberry",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY)));
+            () -> new ConsumableItem(foodItem(ModFoods.GOODBERRY)));
     // 牧师之心
     public static final RegistryObject<Item> CERIC_HEART = ITEMS.register("cleric_heart",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_HEART)));
+            () -> new ConsumableItem(foodItem(ModFoods.CERIC_HEART)));
     // 霜皮蛋
     public static final RegistryObject<Item> ICY_EGG = ITEMS.register("icy_egg",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ICY_EGG)));
+            () -> new ConsumableItem(foodItem(ModFoods.ICY_EGG)));
     // 紫晶糖
     public static final RegistryObject<Item> AMETHYST_SUGAR = ITEMS.register("amethyst_sugar",
             () -> new ConsumableItem(new Item.Properties()
@@ -127,28 +114,31 @@ public class ModItems {
                     .stacksTo(16)));
     // 紫晶甜菜
     public static final RegistryObject<Item> AMETHYST_BEETROOT = ITEMS.register("amethyst_beetroot",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_BEETROOT)));
+            () -> new ConsumableItem(foodItem(ModFoods.AMETHYST_BEETROOT)));
     // 红丝绒蛋糕切片
     public static final RegistryObject<Item> RED_VELVET_CAKE_SLICE = ITEMS.register("red_velvet_cake_slice",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.RED_VELVET_CAKE_SLICE)));
+            () -> new ConsumableItem(foodItem(ModFoods.RED_VELVET_CAKE_SLICE)));
     // 神莓派切片
     public static final RegistryObject<Item> GOODBERRY_PIE_SLICE = ITEMS.register("goodberry_pie_slice",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY_PIE_SLICE)));
+            () -> new ConsumableItem(foodItem(ModFoods.GOODBERRY_PIE_SLICE)));
     // 黄油金苹果派切片
     public static final RegistryObject<Item> EDEN_APPLE_TART_SLICE = ITEMS.register("eden_apple_tart_slice",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.EDEN_APPLE_TART_SLICE)));
+            () -> new ConsumableItem(foodItem(ModFoods.EDEN_APPLE_TART_SLICE)));
+    // 龙鳞冻切片
+    public static final RegistryObject<Item> DRAGONSKIN_ASPIC_SLICE = ITEMS.register("dragonskin_aspic_slice",
+            () -> new ConsumableItem(foodItem(ModFoods.DRAGONSKIN_ASPIC_SLICE)));
     //疣猪皮小香肠
     public static final RegistryObject<Item> HOGSKIN_SAUSAGE = ITEMS.register("hogskin_sausage",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.HOGSKIN_SAUSAGE)));
+            () -> new ConsumableItem(foodItem(ModFoods.HOGSKIN_SAUSAGE)));
     //血酒炖牛肉
     public static final RegistryObject<Item> WINE_BEEF_STEW = ITEMS.register("wine_beef_stew",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.WINE_BEEF_STEW)));
+            () -> new ConsumableItem(foodItem(ModFoods.WINE_BEEF_STEW)));
     //红酒血汁烩饭
     public static final RegistryObject<Item> WINE_RICE = ITEMS.register("wine_rice",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.WINE_RICE)));
+            () -> new ConsumableItem(foodItem(ModFoods.WINE_RICE)));
     //炽血麻辣烫
     public static final RegistryObject<Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.CINDEROUS_HOTPOT)));
+            () -> new ConsumableItem(foodItem(ModFoods.CINDEROUS_HOTPOT)));
     // 碗装龙鳞冻
     public static final RegistryObject<Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
@@ -163,7 +153,7 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.GILDED_DIVINE_SAUCE)));
     // 破冰船面包三明治
     public static final RegistryObject<Item> ICEBERGCREAM_SANDWICH = ITEMS.register("icebergcream_sandwich",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
+            () -> new ConsumableItem(foodItem(ModFoods.ICEBERGCREAM_SANDWICH)));
     // 神莓汁
     public static final RegistryObject<Item> GOODBERRY_JUICE = ITEMS.register("goodberry_juice",
             () -> new DrinkItem(drinkItem(ModFoods.GOODBERRY_JUICE), 10, false));

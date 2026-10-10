@@ -34,8 +34,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
@@ -49,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.CookingPotBlock;
 import vectorwing.farmersdelight.common.block.entity.HeatableBlockEntity;
+import vectorwing.farmersdelight.common.block.entity.SyncedBlockEntity;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
 import vectorwing.farmersdelight.common.tag.ModTags;
@@ -61,7 +60,7 @@ import java.util.Optional;
 import static java.util.Map.entry;
 import static vectorwing.farmersdelight.common.registry.ModRecipeTypes.COOKING;
 
-public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider, HeatableBlockEntity, Nameable, RecipeHolder, Clearable
+public class AlchemistPotBlockEntity extends SyncedBlockEntity implements MenuProvider, HeatableBlockEntity, Nameable, RecipeHolder, Clearable
 {
     public static final int MEAL_DISPLAY_SLOT = 6;
     public static final int CONTAINER_SLOT = 7;
@@ -636,19 +635,6 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
         outputHandler.invalidate();
     }
 
-    @Override
-    public CompoundTag getUpdateTag() {
-        return writeItems(new CompoundTag());
-    }
-
-    private CompoundTag writeItems(CompoundTag compound) {
-        super.saveAdditional(compound);
-        compound.put("Container", mealContainerStack.serializeNBT());
-        compound.put("Inventory", inventory.serializeNBT());
-        compound.put("Scroll", scrollHandler.serializeNBT());
-        return compound;
-    }
-
     public CompoundTag writeMeal(CompoundTag compound) {
         if (getMeal().isEmpty()) return compound;
 
@@ -702,11 +688,5 @@ public class AlchemistPotBlockEntity extends BlockEntity implements MenuProvider
     public void clearContent() {
         ItemUtils.clearItems(inventory);
         ItemUtils.clearItems(scrollHandler);
-    }
-
-    private void inventoryChanged() {
-        super.setChanged();
-        if (level != null)
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
     }
 }

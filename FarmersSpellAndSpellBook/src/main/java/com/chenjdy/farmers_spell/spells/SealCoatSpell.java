@@ -12,6 +12,8 @@ import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,11 +21,19 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SealCoatSpell extends AbstractSpell {
 
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "seal_coat");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.duration", Utils.stringTruncation(getSpellPower(spellLevel, caster) / 20.0, 1))
+        );
+    }
 
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)
@@ -34,7 +44,7 @@ public class SealCoatSpell extends AbstractSpell {
 
     public SealCoatSpell() {
         this.manaCostPerLevel = 5;
-        this.baseSpellPower = 0;
+        this.baseSpellPower = 300;
         this.spellPowerPerLevel = 0;
         this.castTime = 20;
         this.baseManaCost = 30;
@@ -62,7 +72,8 @@ public class SealCoatSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        MobEffectInstance sealOilEffect = new MobEffectInstance(ModEffects.SEAL_OIL.get(), 300, spellLevel - 1, false, true, true);
+        int duration = (int) getSpellPower(spellLevel, entity);
+        MobEffectInstance sealOilEffect = new MobEffectInstance(ModEffects.SEAL_OIL.get(), duration, spellLevel - 1, false, true, true);
         entity.addEffect(sealOilEffect);
 
         spawnParticles(level, entity);

@@ -15,14 +15,16 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
-import vectorwing.farmersdelight.common.block.FeastBlock;
 import vectorwing.farmersdelight.common.block.PieBlock;
+import vectorwing.farmersdelight.common.block.RotatedFeastBlock;
 
+import java.util.Collections;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -79,19 +81,37 @@ public class ModBlocks {
                     .sound(SoundType.GRASS)
                     .strength(0.0F)));
     // 饕餮乱炖
-    public static final RegistryObject<FeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem("glutton_hotchpotch",
-            () -> new FeastBlock(BlockBehaviour.Properties.of()
+    private static final VoxelShape GLUTTON_HOTCHPOTCH_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
+    public static final RegistryObject<RotatedFeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem("glutton_hotchpotch",
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F,0.5F),
-                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true));
+                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true,
+                    Collections.nCopies(5, GLUTTON_HOTCHPOTCH_SHAPE).toArray(new VoxelShape[0]), null));
     // 橡肤南瓜浓汤
-    public static final RegistryObject<FeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
-            () -> new FeastBlock(BlockBehaviour.Properties.of()
+    private static final VoxelShape PUMPKIN_SOUP_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
+    public static final RegistryObject<RotatedFeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem("pumpkin_soup",
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F),
-                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true));
+                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true,
+                    Collections.nCopies(5, PUMPKIN_SOUP_SHAPE).toArray(new VoxelShape[0]), null));
+    // 龙鳞冻
+    private static final VoxelShape DRAGONSKIN_ASPIC_PLATE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
+    private static final VoxelShape[] DRAGONSKIN_ASPIC_SHAPES = new VoxelShape[]{
+            Block.box(2.0D, 2.0D, 2.0D, 5.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 8.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 11.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 14.0D, 10.0D, 14.0D)};
+    public static final RegistryObject<RotatedFeastBlock> DRAGONSKIN_ASPIC = registerBlockWithPlaceableItem("dragonskin_aspic",
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .sound(SoundType.SLIME_BLOCK)
+                    .strength(0.5F),
+                    () -> ModItems.DRAGONSKIN_ASPIC_SLICE.get(), true,
+                    DRAGONSKIN_ASPIC_SHAPES, DRAGONSKIN_ASPIC_PLATE));
     // 成吉思鸡
     public static final RegistryObject<SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem("saingezi_chicken",
             () -> new SaingeziChickenBlock(BlockBehaviour.Properties.of()

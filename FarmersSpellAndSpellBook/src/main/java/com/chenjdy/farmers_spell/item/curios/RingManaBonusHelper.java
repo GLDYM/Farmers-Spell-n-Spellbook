@@ -2,6 +2,7 @@ package com.chenjdy.farmers_spell.item.curios;
 
 import com.chenjdy.farmers_spell.init.ModItems;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.Player;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -120,23 +121,29 @@ public final class RingManaBonusHelper {
         return player.hasEffect(ModEffects.NOURISHMENT.get()) || player.hasEffect(ModEffects.COMFORT.get());
     }
 
-    private static boolean isRingEquipped(Player player, net.minecraft.world.item.Item ring) {
+    public static boolean isRingEquipped(Player player, net.minecraft.world.item.Item ring) {
         return CuriosApi.getCuriosInventory(player)
                 .map(handler -> handler.isEquipped(ring))
                 .orElse(false);
     }
 
-    private static void updateModifier(Player player, Attribute attribute, UUID id, String name,
-                                       double amount, AttributeModifier.Operation operation, boolean shouldApply) {
-        AttributeInstance instance = player.getAttribute(attribute);
-        if (instance == null) {
+    public static void applyModifier(LivingEntity entity, Attribute attribute, UUID uuid, String name,
+                                     double amount, AttributeModifier.Operation operation, boolean apply) {
+        AttributeInstance instance = entity.getAttribute(attribute);
+        if (instance == null) return;
+        AttributeModifier existing = instance.getModifier(uuid);
+        if (!apply) {
+            if (existing != null) instance.removeModifier(uuid);
             return;
         }
-        boolean isApplied = instance.getModifier(id) != null;
-        if (shouldApply && !isApplied) {
-            instance.addPermanentModifier(new AttributeModifier(id, name, amount, operation));
-        } else if (!shouldApply && isApplied) {
-            instance.removeModifier(id);
+        if (existing == null || existing.getAmount() != amount || existing.getOperation() != operation) {
+            if (existing != null) instance.removeModifier(uuid);
+            instance.addPermanentModifier(new AttributeModifier(uuid, name, amount, operation));
         }
+    }
+
+    private static void updateModifier(Player player, Attribute attribute, UUID id, String name,
+                                       double amount, AttributeModifier.Operation operation, boolean shouldApply) {
+        applyModifier(player, attribute, id, name, amount, operation, shouldApply);
     }
 }

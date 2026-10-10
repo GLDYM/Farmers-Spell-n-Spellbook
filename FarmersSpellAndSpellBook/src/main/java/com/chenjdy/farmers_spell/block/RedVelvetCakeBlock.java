@@ -33,8 +33,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.ForgeEventFactory;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
+import vectorwing.farmersdelight.common.utility.ShapeUtils;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 
 public class RedVelvetCakeBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -51,38 +53,18 @@ public class RedVelvetCakeBlock extends Block implements EntityBlock {
             Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 3.0)
     };
 
-    protected static final VoxelShape[] SHAPES_SOUTH = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 3.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 5.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 7.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 9.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 11.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 13.0, 15.0, 6.0, 15.0)
-    };
+    private static final VoxelShape[][] SHAPES = buildRotatedShapes();
 
-    protected static final VoxelShape[] SHAPES_WEST = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 13.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 11.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 9.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 7.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 5.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 3.0, 6.0, 15.0)
-    };
-
-    protected static final VoxelShape[] SHAPES_EAST = new VoxelShape[]{
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(1.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(3.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(5.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(7.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(9.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(11.0, 0.0, 1.0, 15.0, 6.0, 15.0),
-            Block.box(13.0, 0.0, 1.0, 15.0, 6.0, 15.0)
-    };
+    private static VoxelShape[][] buildRotatedShapes() {
+        VoxelShape[][] result = new VoxelShape[SHAPES_NORTH.length][4];
+        for (int i = 0; i < SHAPES_NORTH.length; i++) {
+            Map<Direction, VoxelShape> rotated = ShapeUtils.getShapesRotatedFromNorth(SHAPES_NORTH[i]);
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                result[i][dir.get2DDataValue()] = rotated.get(dir);
+            }
+        }
+        return result;
+    }
 
     public RedVelvetCakeBlock(Properties properties) {
         super(properties);
@@ -91,20 +73,7 @@ public class RedVelvetCakeBlock extends Block implements EntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        Direction facing = state.getValue(FACING);
-        int bites = state.getValue(BITES);
-
-        switch (facing) {
-            case SOUTH:
-                return SHAPES_SOUTH[bites];
-            case WEST:
-                return SHAPES_WEST[bites];
-            case EAST:
-                return SHAPES_EAST[bites];
-            case NORTH:
-            default:
-                return SHAPES_NORTH[bites];
-        }
+        return SHAPES[state.getValue(BITES)][state.getValue(FACING).get2DDataValue()];
     }
 
     @Override
@@ -153,8 +122,7 @@ public class RedVelvetCakeBlock extends Block implements EntityBlock {
                 }
             });
 
-            level.playSound(null, pos, SoundEvents.GENERIC_EAT,
-                    SoundSource.PLAYERS, 0.8f, 0.8f);
+            level.playSound(null, pos, SoundEvents.GENERIC_EAT, SoundSource.PLAYERS, 0.8f, 0.8f);
         }
 
         ForgeEventFactory.onItemUseFinish(player, sliceCopy, 0, ItemStack.EMPTY);

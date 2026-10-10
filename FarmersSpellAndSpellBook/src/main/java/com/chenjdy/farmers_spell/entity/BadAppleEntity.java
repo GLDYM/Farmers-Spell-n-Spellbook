@@ -46,10 +46,9 @@ public class BadAppleEntity extends LivingEntity {
         this.blockState = ModBlocks.BAD_APPLE.get().defaultBlockState();
     }
     
-    public BadAppleEntity(Level pLevel, Vec3 pos, int spellLevel) {
+    public BadAppleEntity(Level pLevel, Vec3 pos, int spellLevel, float maxHealth) {
         this(ModEntities.BAD_APPLE_ENTITY.get(), pLevel);
         this.spellLevel = spellLevel;
-        float maxHealth = 50.0f + 10.0f * spellLevel;
         this.entityData.set(DATA_MAX_HEALTH, maxHealth);
         this.entityData.set(DATA_HEALTH, maxHealth);
         this.spawnPos = pos;

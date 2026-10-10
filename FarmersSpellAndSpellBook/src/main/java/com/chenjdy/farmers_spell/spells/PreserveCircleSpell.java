@@ -32,7 +32,7 @@ public class PreserveCircleSpell extends AbstractSpell {
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
                 Component.translatable("ui.irons_spellbooks.radius", Utils.stringTruncation(getRadius(spellLevel, caster, 0), 1)),
-                Component.translatable("ui.irons_spellbooks.duration", Utils.stringTruncation(getDuration(spellLevel) / 20.0, 1))
+                Component.translatable("ui.irons_spellbooks.duration", Utils.stringTruncation(getDuration(spellLevel, caster) / 20.0, 1))
         );
     }
 
@@ -45,8 +45,8 @@ public class PreserveCircleSpell extends AbstractSpell {
 
     public PreserveCircleSpell() {
         this.manaCostPerLevel = 2;
-        this.baseSpellPower = 0;
-        this.spellPowerPerLevel = 0;
+        this.baseSpellPower = 250;
+        this.spellPowerPerLevel = 50;
         this.castTime = 20;
         this.baseManaCost = 30;
     }
@@ -127,7 +127,7 @@ public class PreserveCircleSpell extends AbstractSpell {
 
         float radius = getRadius(spellLevel, entity, playerMagicData.getCastDurationRemaining());
 
-        int duration = getDuration(spellLevel);
+        int duration = getDuration(spellLevel, entity);
 
         PreserveCircleAoe aoe = new PreserveCircleAoe(world);
         aoe.moveTo(spawn);
@@ -158,8 +158,8 @@ public class PreserveCircleSpell extends AbstractSpell {
         return baseRadius + additionalRadius;
     }
 
-    private int getDuration(int spellLevel) {
-        return (int) ((spellLevel * 2.5 + 10) * 20);
+    private int getDuration(int spellLevel, LivingEntity caster) {
+        return (int) getSpellPower(spellLevel, caster);
     }
 
     @Override

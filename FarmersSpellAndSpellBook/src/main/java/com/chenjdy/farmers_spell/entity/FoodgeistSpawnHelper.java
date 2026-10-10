@@ -3,10 +3,11 @@ package com.chenjdy.farmers_spell.entity;
 import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.SpawnUtil;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.WeakHashMap;
 
 public final class FoodgeistSpawnHelper {
@@ -94,61 +96,15 @@ public final class FoodgeistSpawnHelper {
         if (!level.getEntitiesOfClass(FoodgeistEntity.class, new AABB(sourcePos).inflate(16.0D)).isEmpty()) {
             return;
         }
-        for (int attempt = 0; attempt < 20; attempt++) {
-            int offsetX = level.getRandom().nextInt(11) - 5;
-            int offsetZ = level.getRandom().nextInt(11) - 5;
-            BlockPos spawnPos = findGroundPosition(level, sourcePos.offset(offsetX, 0, offsetZ));
-            if (spawnPos != null && level.getBlockState(spawnPos).canBeReplaced()) {
-                FoodgeistEntity foodgeist = new FoodgeistEntity(ModEntities.FOODGEIST.get(), level);
-                foodgeist.setPos(spawnPos.getX() + 0.5D, spawnPos.getY() + 0.5D, spawnPos.getZ() + 0.5D);
-                level.addFreshEntity(foodgeist);
-                level.sendParticles(ParticleTypes.HAPPY_VILLAGER, spawnPos.getX() + 0.5D, spawnPos.getY() + 1.0D,
-                        spawnPos.getZ() + 0.5D, 10, 0.5D, 0.5D, 0.5D, 0.1D);
-                player.playSound(SoundEvents.VILLAGER_CELEBRATE, 1.0F, 1.0F);
-                return;
-            }
-        }
-    }
-
-    private static BlockPos findGroundPosition(ServerLevel level, BlockPos startPos) {
-        BlockPos.MutableBlockPos mutable = startPos.mutable();
-        for (int y = 0; y < 64; y++) {
-            mutable.setY(startPos.getY() - y);
-            if (mutable.getY() >= level.getMinBuildHeight()) {
-                BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
-                    BlockPos result = findFirstReplaceableAbove(level, mutable.getX(), mutable.getZ(), mutable.getY() + 1);
-                    if (result != null) {
-                        return result;
-                    }
-                }
-            }
-        }
-        for (int y = 1; y < 64; y++) {
-            mutable.setY(startPos.getY() + y);
-            if (mutable.getY() < level.getMaxBuildHeight()) {
-                BlockState state = level.getBlockState(mutable);
-                if (!state.isAir() && state.isFaceSturdy(level, mutable, Direction.UP)) {
-                    BlockPos result = findFirstReplaceableAbove(level, mutable.getX(), mutable.getZ(), mutable.getY() + 1);
-                    if (result != null) {
-                        return result;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    @javax.annotation.Nullable
-    private static BlockPos findFirstReplaceableAbove(ServerLevel level, int x, int z, int startY) {
-        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos(x, startY, z);
-        for (int y = startY; y < Math.min(startY + 10, level.getMaxBuildHeight()); y++) {
-            cursor.setY(y);
-            if (level.getBlockState(cursor).canBeReplaced()) {
-                return cursor.immutable();
-            }
-        }
-        return null;
+        Optional<FoodgeistEntity> result = SpawnUtil.trySpawnMob(
+                ModEntities.FOODGEIST.get(), MobSpawnType.SPAWNER, level, sourcePos,
+                20, 5, 10, SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
+        result.ifPresent(foodgeist -> {
+            BlockPos spawnPos = foodgeist.blockPosition();
+            level.sendParticles(ParticleTypes.HAPPY_VILLAGER, spawnPos.getX() + 0.5D, spawnPos.getY() + 1.0D,
+                    spawnPos.getZ() + 0.5D, 10, 0.5D, 0.5D, 0.5D, 0.1D);
+            player.playSound(SoundEvents.VILLAGER_CELEBRATE, 1.0F, 1.0F);
+        });
     }
 
     private static final class SpawnState {

@@ -101,8 +101,7 @@ public class IcebreakerBreadBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(hand);
         int stage = state.getValue(STAGE);
 
@@ -155,8 +154,7 @@ public class IcebreakerBreadBlock extends Block {
                     }
                 }
 
-                level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_IRON,
-                        SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.playSound(null, pos, SoundEvents.ARMOR_EQUIP_IRON, SoundSource.BLOCKS, 1.0f, 1.0f);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

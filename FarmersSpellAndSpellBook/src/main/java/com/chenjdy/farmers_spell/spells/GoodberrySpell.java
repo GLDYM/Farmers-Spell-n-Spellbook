@@ -9,6 +9,8 @@ import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GoodberrySpell extends AbstractSpell {
@@ -33,6 +36,13 @@ public class GoodberrySpell extends AbstractSpell {
             ForgeRegistries.ITEMS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath("forge", "berries")
     );
 
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.healing", Utils.stringTruncation(getSpellPower(spellLevel, caster), 1))
+        );
+    }
+
     private final DefaultConfig defaultConfig = new DefaultConfig()
             .setMinRarity(SpellRarity.COMMON)
             .setSchoolResource(ModSchools.GLUTTONY_RESOURCE)
@@ -42,7 +52,7 @@ public class GoodberrySpell extends AbstractSpell {
 
     public GoodberrySpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 0;
+        this.baseSpellPower = 4;
         this.spellPowerPerLevel = 0;
         this.castTime = 60;
         this.baseManaCost = 50;
@@ -75,7 +85,7 @@ public class GoodberrySpell extends AbstractSpell {
                     && player.tickCount - player.getLastHurtByMobTimestamp() < 100;
 
             if (inCombat) {
-                player.heal(4.0f);
+                player.heal(getSpellPower(spellLevel, entity));
                 player.addEffect(new MobEffectInstance(MobEffects.LUCK, 200, 0));
                 player.playSound(SoundEvents.GENERIC_EAT, 1.0f, 1.0f);
             } else {

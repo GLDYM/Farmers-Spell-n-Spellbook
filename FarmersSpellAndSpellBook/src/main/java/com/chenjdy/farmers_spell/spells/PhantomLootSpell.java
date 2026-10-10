@@ -123,9 +123,7 @@ public class PhantomLootSpell extends AbstractSpell {
 
         for (ItemStack item : lootItems) {
             if (!player.getInventory().add(item)) {
-                ItemEntity itemEntity = new ItemEntity(serverLevel,
-                        player.getX(), player.getY(), player.getZ(),
-                        item);
+                ItemEntity itemEntity = new ItemEntity(serverLevel, player.getX(), player.getY(), player.getZ(), item);
                 serverLevel.addFreshEntity(itemEntity);
             }
         }

@@ -9,8 +9,7 @@ public class GoldenSparkleParticle extends TextureSheetParticle {
 
     private final float peakScale;
 
-    public GoldenSparkleParticle(ClientLevel level, double x, double y, double z,
-                                  double xSpeed, double ySpeed, double zSpeed, SpriteSet sprites) {
+    public GoldenSparkleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet sprites) {
         super(level, x, y, z, 0.0, 0.0, 0.0);
         this.xd = 0.0;
         this.yd = 0.0;

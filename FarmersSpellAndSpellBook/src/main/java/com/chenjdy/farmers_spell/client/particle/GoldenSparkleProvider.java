@@ -15,8 +15,7 @@ public class GoldenSparkleProvider implements ParticleProvider<SimpleParticleTyp
     }
 
     @Override
-    public Particle createParticle(SimpleParticleType type, ClientLevel level,
-                                    double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         return new GoldenSparkleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
     }
 }

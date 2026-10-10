@@ -2,10 +2,10 @@ package com.chenjdy.farmers_spell.event;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.init.*;
+import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -16,7 +16,6 @@ import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import io.redspace.ironsspellbooks.registries.ItemRegistry;
 import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.ParticleHelper;
-import top.theillusivec4.curios.api.CuriosApi;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -31,7 +30,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.particles.ParticleTypes;
@@ -190,11 +188,11 @@ public class EffectsEventHandler {
         if (!(livingEntity instanceof Player player)) return;
 
         MobEffectInstance golden = player.getEffect(ModEffects.GOLDEN_ARMOR.get());
-        boolean goldenRingActive = golden != null && hasCurio(player, ItemRegistry.FIREWARD_RING.get());
+        boolean goldenRingActive = golden != null && RingManaBonusHelper.isRingEquipped(player, ItemRegistry.FIREWARD_RING.get());
         syncLinkedEffect(player, goldenRingActive, golden, MobEffects.DAMAGE_RESISTANCE, GOLDEN_ARMOR_RES_FLAG);
 
         MobEffectInstance druid = player.getEffect(ModEffects.DRUID_HEAL.get());
-        boolean druidRingActive = druid != null && hasCurio(player, ItemRegistry.POISONWARD_RING.get());
+        boolean druidRingActive = druid != null && RingManaBonusHelper.isRingEquipped(player, ItemRegistry.POISONWARD_RING.get());
         syncLinkedEffect(player, druidRingActive, druid, MobEffects.REGENERATION, DRUID_HEAL_REGEN_FLAG);
     }
 
@@ -217,22 +215,9 @@ public class EffectsEventHandler {
         }
     }
 
-    private static boolean hasCurio(Player player, Item item) {
-        return CuriosApi.getCuriosInventory(player).map(handler -> handler.isEquipped(item)).orElse(false);
-    }
-
     private static void applyDesiredModifier(LivingEntity livingEntity, Attribute attribute, UUID uuid, String name, double desired) {
-        AttributeInstance instance = livingEntity.getAttribute(attribute);
-        if (instance == null) return;
-        AttributeModifier modifier = instance.getModifier(uuid);
-        if (desired == 0.0D) {
-            if (modifier != null) instance.removeModifier(uuid);
-            return;
-        }
-        if (modifier == null || modifier.getAmount() != desired) {
-            if (modifier != null) instance.removeModifier(uuid);
-            instance.addPermanentModifier(new AttributeModifier(uuid, name, desired, AttributeModifier.Operation.ADDITION));
-        }
+        RingManaBonusHelper.applyModifier(livingEntity, attribute, uuid, name, desired,
+                AttributeModifier.Operation.ADDITION, desired != 0.0D);
     }
 
     private static void handleDruidHeal(LivingEntity livingEntity) {
