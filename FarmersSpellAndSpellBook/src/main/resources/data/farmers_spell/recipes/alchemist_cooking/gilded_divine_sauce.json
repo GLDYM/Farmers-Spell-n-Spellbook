@@ -5,6 +5,9 @@
             "item": "farmers_spell:wsip_butter"
         },
         {
+            "item": "farmers_spell:foodgeist_cheese"
+        },
+        {
             "item": "minecraft:golden_carrot"
         },
         {
@@ -13,7 +16,7 @@
     ],
     "result": {
         "item": "farmers_spell:gilded_divine_sauce",
-        "count": 1
+        "count": 4
     },
     "container": {
         "item": "minecraft:bowl"

@@ -5,8 +5,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "farmers_spell:wheat_book",
-          "weight": 0.3
+          "name": "farmers_spell:wheat_book"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.3
         }
       ]
     }

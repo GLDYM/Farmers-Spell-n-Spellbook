@@ -1,7 +1,6 @@
 package com.chenjdy.farmers_spell.client.renderer;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
-import com.chenjdy.farmers_spell.client.shaders.FarmersSpellRenderTypes;
 import com.chenjdy.farmers_spell.entity.ChaosSlashProjectile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -27,7 +26,7 @@ public class ChaosSlashRender extends GeoEntityRenderer<ChaosSlashProjectile> {
 
     @Override
     public RenderType getRenderType(ChaosSlashProjectile animatable, ResourceLocation texture,@Nullable MultiBufferSource bufferSource, float partialTick) {
-        return FarmersSpellRenderTypes.CHAOS_SLASH;
+        return ChaosSlashRenderType.chaosSlash(texture);
     }
 
     @Override

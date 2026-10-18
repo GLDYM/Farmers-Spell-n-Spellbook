@@ -80,6 +80,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:kaleidoscope-cookery-1309203:7473809")
     implementation fg.deobf("curse.maven:jei-238222:7361881")
+    implementation fg.deobf("curse.maven:oculus-581495:6020952")
     implementation fg.deobf("curse.maven:jade-324717:6855440")
     implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:6172935")
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
@@ -96,6 +97,7 @@ dependencies {
     implementation fg.deobf("curse.maven:architectury-419699:5137938")
     implementation fg.deobf("curse.maven:AdvancedLootInfo-forge-1205426:8168726")
     implementation fg.deobf("curse.maven:catalogue-forge-459701:4766090")
+    implementation fg.deobf("curse.maven:create-328085:7178761")
 }
 
 tasks.named('processResources', ProcessResources).configure {

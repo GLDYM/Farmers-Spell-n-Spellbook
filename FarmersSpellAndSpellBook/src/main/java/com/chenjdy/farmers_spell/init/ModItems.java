@@ -139,9 +139,6 @@ public class ModItems {
     //炽血麻辣烫
     public static final RegistryObject<Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
             () -> new ConsumableItem(foodItem(ModFoods.CINDEROUS_HOTPOT)));
-    // 碗装龙鳞冻
-    public static final RegistryObject<Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     // 冰山淇淋
     public static final RegistryObject<Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));

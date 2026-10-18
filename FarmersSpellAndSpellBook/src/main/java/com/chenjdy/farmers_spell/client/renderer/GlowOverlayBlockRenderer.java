@@ -8,14 +8,14 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.chenjdy.farmers_spell.client.renderer.layer.FullbrightGlowingGeoLayer;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 public class GlowOverlayBlockRenderer extends GeoBlockRenderer<GlowOverlayBlockEntity> {
 
     public GlowOverlayBlockRenderer(BlockEntityType<? extends GlowOverlayBlockEntity> blockEntityType) {
         super(new GlowOverlayGeoModel(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntityType)));
-        addRenderLayer(new AutoGlowingGeoLayer<>(this));
+        addRenderLayer(new FullbrightGlowingGeoLayer<>(this));
     }
 
     @Override

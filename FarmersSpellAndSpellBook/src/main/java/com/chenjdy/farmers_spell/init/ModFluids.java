@@ -1,13 +1,16 @@
 package com.chenjdy.farmers_spell.init;
 
 import com.chenjdy.farmers_spell.FARMERSSPELL;
+import io.redspace.ironsspellbooks.fluids.NoopFluid;
+import io.redspace.ironsspellbooks.fluids.SimpleTintedClientFluidType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -23,126 +26,37 @@ public class ModFluids {
 
     private static final ResourceLocation WATER_STILL_RL =
             ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_still");
-    private static final ResourceLocation WATER_FLOWING_RL =
-            ResourceLocation.fromNamespaceAndPath("minecraft", "block/water_flow");
 
-    public static final RegistryObject<FluidType> ORIGINAL_NECTAR_TYPE =
-            FLUID_TYPES.register("original_nectar", () -> new FluidType(FluidType.Properties.create()) {
-                @Override
-                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-                    consumer.accept(new ColoredClientExtensions(WATER_STILL_RL, WATER_FLOWING_RL, 0xFFFFB347));
-                }
-            });
+    public static final RegistryObject<FluidType> ORIGINAL_NECTAR_TYPE = registerType("original_nectar", 0xFFB347);
+    public static final RegistryObject<FluidType> AMETHYST_TEQUILA_TYPE = registerType("amethyst_tequila", 0x8E7CC3);
+    public static final RegistryObject<FluidType> CATACOMBS_WINE_TYPE = registerType("catacombs_wine", 0x8B0000);
+    public static final RegistryObject<FluidType> ICE_VENOM_WINE_TYPE = registerType("ice_venom_wine", 0x00BFFF);
 
-    public static final RegistryObject<FluidType> AMETHYST_TEQUILA_TYPE =
-            FLUID_TYPES.register("amethyst_tequila", () -> new FluidType(FluidType.Properties.create()) {
-                @Override
-                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-                    consumer.accept(new ColoredClientExtensions(WATER_STILL_RL, WATER_FLOWING_RL, 0xFF8E7CC3));
-                }
-            });
+    public static final RegistryObject<Fluid> ORIGINAL_NECTAR = registerVirtual("original_nectar", ORIGINAL_NECTAR_TYPE);
+    public static final RegistryObject<Fluid> AMETHYST_TEQUILA = registerVirtual("amethyst_tequila", AMETHYST_TEQUILA_TYPE);
+    public static final RegistryObject<Fluid> CATACOMBS_WINE = registerVirtual("catacombs_wine", CATACOMBS_WINE_TYPE);
+    public static final RegistryObject<Fluid> ICE_VENOM_WINE = registerVirtual("ice_venom_wine", ICE_VENOM_WINE_TYPE);
 
-    public static final RegistryObject<FluidType> CATACOMBS_WINE_TYPE =
-            FLUID_TYPES.register("catacombs_wine", () -> new FluidType(FluidType.Properties.create()) {
-                @Override
-                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-                    consumer.accept(new ColoredClientExtensions(WATER_STILL_RL, WATER_FLOWING_RL, 0xFF8B0000));
-                }
-            });
+    private static RegistryObject<FluidType> registerType(String name, int tintColor) {
+        return FLUID_TYPES.register(name, () -> new FluidType(FluidType.Properties.create()) {
+            @Override
+            public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                consumer.accept(new SimpleTintedClientFluidType(WATER_STILL_RL, tintColor));
+            }
+        });
+    }
 
-    public static final RegistryObject<FluidType> ICE_VENOM_WINE_TYPE =
-            FLUID_TYPES.register("ice_venom_wine", () -> new FluidType(FluidType.Properties.create()) {
-                @Override
-                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-                    consumer.accept(new ColoredClientExtensions(WATER_STILL_RL, WATER_FLOWING_RL, 0xFF00BFFF));
-                }
-            });
-
-    public static final RegistryObject<Fluid> ORIGINAL_NECTAR =
-            FLUIDS.register("original_nectar", () -> new ForgeFlowingFluid.Source(
-                    ModFluids.ORIGINAL_NECTAR_PROPS));
-
-    public static final RegistryObject<Fluid> ORIGINAL_NECTAR_FLOWING =
-            FLUIDS.register("original_nectar_flowing", () -> new ForgeFlowingFluid.Flowing(
-                    ModFluids.ORIGINAL_NECTAR_PROPS));
-
-    public static final ForgeFlowingFluid.Properties ORIGINAL_NECTAR_PROPS =
-            new ForgeFlowingFluid.Properties(
-                    ORIGINAL_NECTAR_TYPE, ORIGINAL_NECTAR, ORIGINAL_NECTAR_FLOWING)
-                    .slopeFindDistance(3)
-                    .levelDecreasePerBlock(2);
-
-    public static final RegistryObject<Fluid> AMETHYST_TEQUILA =
-            FLUIDS.register("amethyst_tequila", () -> new ForgeFlowingFluid.Source(
-                    ModFluids.AMETHYST_TEQUILA_PROPS));
-
-    public static final RegistryObject<Fluid> AMETHYST_TEQUILA_FLOWING =
-            FLUIDS.register("amethyst_tequila_flowing", () -> new ForgeFlowingFluid.Flowing(
-                    ModFluids.AMETHYST_TEQUILA_PROPS));
-
-    public static final ForgeFlowingFluid.Properties AMETHYST_TEQUILA_PROPS =
-            new ForgeFlowingFluid.Properties(
-                    AMETHYST_TEQUILA_TYPE, AMETHYST_TEQUILA, AMETHYST_TEQUILA_FLOWING)
-                    .slopeFindDistance(3)
-                    .levelDecreasePerBlock(2);
-
-    public static final RegistryObject<Fluid> CATACOMBS_WINE =
-            FLUIDS.register("catacombs_wine", () -> new ForgeFlowingFluid.Source(
-                    ModFluids.CATACOMBS_WINE_PROPS));
-
-    public static final RegistryObject<Fluid> CATACOMBS_WINE_FLOWING =
-            FLUIDS.register("catacombs_wine_flowing", () -> new ForgeFlowingFluid.Flowing(
-                    ModFluids.CATACOMBS_WINE_PROPS));
-
-    public static final ForgeFlowingFluid.Properties CATACOMBS_WINE_PROPS =
-            new ForgeFlowingFluid.Properties(
-                    CATACOMBS_WINE_TYPE, CATACOMBS_WINE, CATACOMBS_WINE_FLOWING)
-                    .slopeFindDistance(3)
-                    .levelDecreasePerBlock(2);
-
-    public static final RegistryObject<Fluid> ICE_VENOM_WINE =
-            FLUIDS.register("ice_venom_wine", () -> new ForgeFlowingFluid.Source(
-                    ModFluids.ICE_VENOM_WINE_PROPS));
-
-    public static final RegistryObject<Fluid> ICE_VENOM_WINE_FLOWING =
-            FLUIDS.register("ice_venom_wine_flowing", () -> new ForgeFlowingFluid.Flowing(
-                    ModFluids.ICE_VENOM_WINE_PROPS));
-
-    public static final ForgeFlowingFluid.Properties ICE_VENOM_WINE_PROPS =
-            new ForgeFlowingFluid.Properties(
-                    ICE_VENOM_WINE_TYPE, ICE_VENOM_WINE, ICE_VENOM_WINE_FLOWING)
-                    .slopeFindDistance(3)
-                    .levelDecreasePerBlock(2);
+    private static RegistryObject<Fluid> registerVirtual(String name, RegistryObject<FluidType> type) {
+        RegistryObject<Fluid> fluid = RegistryObject.create(
+                ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, name), ForgeRegistries.FLUIDS);
+        ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(type, fluid, fluid)
+                .bucket(() -> Items.BUCKET);
+        FLUIDS.register(name, () -> new NoopFluid(properties));
+        return fluid;
+    }
 
     public static void register(IEventBus eventBus) {
         FLUID_TYPES.register(eventBus);
         FLUIDS.register(eventBus);
-    }
-
-    private static class ColoredClientExtensions implements IClientFluidTypeExtensions {
-        private final ResourceLocation stillTexture;
-        private final ResourceLocation flowingTexture;
-        private final int tintColor;
-
-        ColoredClientExtensions(ResourceLocation stillTexture, ResourceLocation flowingTexture, int tintColor) {
-            this.stillTexture = stillTexture;
-            this.flowingTexture = flowingTexture;
-            this.tintColor = tintColor;
-        }
-
-        @Override
-        public ResourceLocation getStillTexture() {
-            return stillTexture;
-        }
-
-        @Override
-        public ResourceLocation getFlowingTexture() {
-            return flowingTexture;
-        }
-
-        @Override
-        public int getTintColor() {
-            return tintColor;
-        }
     }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class PermafrostPopsicle extends ConsumableItem {
     
-    private static final int MANA_RECOVERY_PERCENT = 10;
+    private static final int MANA_RECOVERY_PERCENT = 25;
     private static final int COOLDOWN_SECONDS = 20;
     
     public PermafrostPopsicle(Properties properties) {
@@ -88,7 +88,9 @@ public class PermafrostPopsicle extends ConsumableItem {
         tooltipComponents.add(Component.literal("- ")
                 .append(Component.translatable("item.farmers_spell.tooltip.mana_recovery", MANA_RECOVERY_PERCENT).withStyle(ChatFormatting.DARK_AQUA))
                 .withStyle(ChatFormatting.GRAY));
-        tooltipComponents.add(Component.literal("- ").append(Component.translatable("item.farmers_spell.tooltip.infinite").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.GRAY));
+        tooltipComponents.add(Component.literal("- ")
+                .append(Component.translatable("item.farmers_spell.tooltip.infinite")
+                .withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.GRAY));
 
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }
