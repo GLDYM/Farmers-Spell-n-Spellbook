@@ -1,0 +1,14 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "item": "farmers_spell:icy_egg"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:fired_ice_egg",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

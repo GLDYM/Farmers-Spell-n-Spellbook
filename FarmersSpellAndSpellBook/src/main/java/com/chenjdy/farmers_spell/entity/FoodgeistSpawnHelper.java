@@ -23,6 +23,9 @@ public final class FoodgeistSpawnHelper {
     private static final int BASE_INTERVAL = 1200;
     private static final int CHECK_RANGE = 10;
     private static final int Y_RANGE = 5;
+    private static final int SUMMON_RANGE = 16;
+    private static final int SUMMON_SEARCH_RADIUS = 4;
+    private static final int[] SUMMON_Y_OFFSETS = {0, 1, -1, 2, -2};
     private static final Map<BlockEntity, SpawnState> STATES = new WeakHashMap<>();
     private static final List<ScanOffset> SCAN_OFFSETS = createScanOffsets();
 
@@ -105,6 +108,94 @@ public final class FoodgeistSpawnHelper {
                     spawnPos.getZ() + 0.5D, 10, 0.5D, 0.5D, 0.5D, 0.1D);
             player.playSound(SoundEvents.VILLAGER_CELEBRATE, 1.0F, 1.0F);
         });
+    }
+
+    public static boolean summonOrTeleport(ServerLevel level, BlockPos stovePos, Player player) {
+        double cx = stovePos.getX() + 0.5D;
+        double cy = stovePos.getY() + 0.5D;
+        double cz = stovePos.getZ() + 0.5D;
+
+        Optional<FoodgeistEntity> nearest = level.getEntitiesOfClass(
+                        FoodgeistEntity.class, new AABB(stovePos).inflate(SUMMON_RANGE)).stream()
+                .min(Comparator.comparingDouble(entity -> entity.distanceToSqr(cx, cy, cz)));
+
+        if (nearest.isEmpty()) {
+            return summonNewFoodgeist(level, stovePos);
+        }
+
+        Optional<BlockPos> spotResult = findSafeSpotNear(level, stovePos);
+        if (spotResult.isEmpty()) {
+            return false;
+        }
+        BlockPos spot = spotResult.get();
+
+        FoodgeistEntity foodgeist = nearest.get();
+        if (foodgeist.isSitting()) {
+            foodgeist.setSitting(false);
+        }
+        foodgeist.getNavigation().stop();
+        foodgeist.setAnimState(FoodgeistEntity.ANIM_NORMAL);
+        foodgeist.teleportTo(spot.getX() + 0.5D, spot.getY(), spot.getZ() + 0.5D);
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, spot.getX() + 0.5D, spot.getY() + 0.5D,
+                spot.getZ() + 0.5D, 8, 0.4D, 0.4D, 0.4D, 0.1D);
+        player.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        return true;
+    }
+
+    private static boolean summonNewFoodgeist(ServerLevel level, BlockPos stovePos) {
+        Optional<BlockPos> spotResult = findSafeSpotNear(level, stovePos);
+        if (spotResult.isEmpty()) {
+            return false;
+        }
+        FoodgeistEntity foodgeist = ModEntities.FOODGEIST.get().create(level);
+        if (foodgeist == null) {
+            return false;
+        }
+        BlockPos spot = spotResult.get();
+        foodgeist.moveTo(spot.getX() + 0.5D, spot.getY(), spot.getZ() + 0.5D,
+                level.getRandom().nextFloat() * 360.0F, 0.0F);
+        level.addFreshEntity(foodgeist);
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, spot.getX() + 0.5D, spot.getY() + 1.0D,
+                spot.getZ() + 0.5D, 10, 0.5D, 0.5D, 0.5D, 0.1D);
+        return true;
+    }
+
+    public static Optional<BlockPos> findSafeSpotNear(ServerLevel level, BlockPos origin) {
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        for (int radius = 1; radius <= SUMMON_SEARCH_RADIUS; radius++) {
+            for (int yOffset : SUMMON_Y_OFFSETS) {
+                for (int x = origin.getX() - radius; x <= origin.getX() + radius; x++) {
+                    for (int z = origin.getZ() - radius; z <= origin.getZ() + radius; z++) {
+                        if (Math.max(Math.abs(x - origin.getX()), Math.abs(z - origin.getZ())) != radius) {
+                            continue;
+                        }
+                        if (x == origin.getX() && z == origin.getZ()) {
+                            continue;
+                        }
+                        cursor.set(x, origin.getY() + yOffset, z);
+                        if (isSafeStandingSpot(level, cursor)) {
+                            return Optional.of(cursor.immutable());
+                        }
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private static boolean isSafeStandingSpot(ServerLevel level, BlockPos pos) {
+        BlockPos below = pos.below();
+        if (!level.isLoaded(pos) || !level.isLoaded(below)) {
+            return false;
+        }
+        if (level.getBlockState(below).getCollisionShape(level, below).isEmpty()) {
+            return false;
+        }
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()
+                || !level.getBlockState(pos.above()).getCollisionShape(level, pos.above()).isEmpty()) {
+            return false;
+        }
+        return level.getFluidState(pos).isEmpty() && level.getFluidState(pos.above()).isEmpty();
     }
 
     private static final class SpawnState {

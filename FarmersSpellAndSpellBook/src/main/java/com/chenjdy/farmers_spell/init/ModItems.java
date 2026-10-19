@@ -97,6 +97,12 @@ public class ModItems {
     // 过载焦糖
     public static final RegistryObject<Item> ENERGIZED_CARAMEL = ITEMS.register("energized_caramel",
             () -> new ConsumableItem(foodItem(ModFoods.ENERGIZED_CARAMEL)));
+    // 炸霜皮蛋
+    public static final RegistryObject<Item> FIRED_ICE_EGG = ITEMS.register("fired_ice_egg",
+            () -> new ConsumableItem(foodItem(ModFoods.FIRED_ICE_EGG)));
+    // 冰寿司
+    public static final RegistryObject<Item> FROSTED_TAMAGO_SUSHI = ITEMS.register("frosted_tamago_sushi",
+            () -> new ConsumableItem(foodItem(ModFoods.FROSTED_TAMAGO_SUSHI)));
     // 神莓
     public static final RegistryObject<Item> GOODBERRY = ITEMS.register("goodberry",
             () -> new ConsumableItem(foodItem(ModFoods.GOODBERRY)));

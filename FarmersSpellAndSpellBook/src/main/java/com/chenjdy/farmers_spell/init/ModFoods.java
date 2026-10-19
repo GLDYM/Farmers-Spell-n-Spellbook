@@ -97,6 +97,16 @@ public class ModFoods {
             .saturationMod(0.8f)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE.get(), 3 * 60 * 20, 0), 1.0F)
             .build();
+    // 炸霜皮蛋
+    public static final FoodProperties FIRED_ICE_EGG = (new FoodProperties.Builder())
+            .nutrition(4)
+            .saturationMod(0.32f)
+            .build();
+    // 冰寿司
+    public static final FoodProperties FROSTED_TAMAGO_SUSHI = (new FoodProperties.Builder())
+            .nutrition(14)
+            .saturationMod(0.98f)
+            .build();
     // 牧师之心
     public static final FoodProperties CERIC_HEART = (new FoodProperties.Builder())
             .nutrition(4)

@@ -169,6 +169,12 @@ public class ModBlocks {
                     .mapColor(MapColor.ICE)
                     .sound(SoundType.WOOD)
                     .strength(2F, 3F)));
+    // 箱装紫晶甜菜
+    public static final RegistryObject<Block> AMETHYST_BEETROOT_CRATE = registerBlock("amethyst_beetroot_crate",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .sound(SoundType.WOOD)
+                    .strength(2F, 3F)));
     // 箱装霜皮蛋
     public static final RegistryObject<SlabBlock> ICY_EGG_CRATE = registerBlock("icy_egg_crate",
             () -> new SlabBlock(BlockBehaviour.Properties.of()

@@ -30,7 +30,7 @@
       "item": "farmers_spell:amethyst_beetroot"
     }
   ],
-  "result": { "item": "minecraft:amethyst_block",
+  "result": { "item": "farmers_spell:amethyst_beetroot_crate",
     "count": 1
   }
 }

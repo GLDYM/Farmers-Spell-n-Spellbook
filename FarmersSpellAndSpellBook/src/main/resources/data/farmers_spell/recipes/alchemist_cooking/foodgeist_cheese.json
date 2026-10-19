@@ -2,17 +2,14 @@
     "type": "farmers_spell:alchemist_cooking",
     "ingredients": [
         {
-            "tag": "forge:raw_beef"
+            "item": "farmers_spell:foodgeist_seasoning"
         },
         {
-            "tag": "forge:"
-        },
-        {
-            "item": "farmers_spell:"
+            "tag": "forge:milk"
         }
     ],
     "result": {
-        "item": "farmers_spell:foodgeist_steak_nugget",
+        "item": "farmers_spell:foodgeist_cheese",
         "count": 1
     },
     "experience": 1.0,

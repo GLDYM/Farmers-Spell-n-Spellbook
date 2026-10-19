@@ -43,6 +43,7 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.ORIGINAL_NECTAR.get());
         accept(output, FOOD_ITEMS, ModItems.FOODGEIST_SEASONING.get());
         accept(output, FOOD_ITEMS, ModItems.HOGSKIN_SLICE.get());
+        accept(output, FOOD_ITEMS, ModItems.FIRED_ICE_EGG.get());
         accept(output, FOOD_ITEMS, ModItems.CINDEROUS_HAM.get());
         accept(output, FOOD_ITEMS, ModBlocks.RED_VELVET_CAKE.get());
         accept(output, FOOD_ITEMS, ModBlocks.EDEN_APPLE_TART.get());
@@ -64,6 +65,7 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.PERMAFROST_POPSICLE.get());
         accept(output, FOOD_ITEMS, ModItems.AMETHYST_BURGER.get());
         accept(output, FOOD_ITEMS, ModItems.SALMON_BURGER.get());
+        accept(output, FOOD_ITEMS, ModItems.FROSTED_TAMAGO_SUSHI.get());
         accept(output, FOOD_ITEMS, ModItems.ENERGIZED_CARAMEL.get());
         accept(output, FOOD_ITEMS, ModItems.ICEBERGCREAM.get());
         accept(output, FOOD_ITEMS, ModItems.DRAGON_PIZZA.get());
@@ -103,6 +105,7 @@ public class ModCreativeModeTabs {
         accept(output, BLOCK_ITEMS, ModBlocks.WISEWOOD_CABINET.get());
         accept(output, BLOCK_ITEMS, ModBlocks.CINDEROUS_STOVE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.ALCHEMIST_POT.get());
+        accept(output, BLOCK_ITEMS, ModBlocks.AMETHYST_BEETROOT_CRATE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.GOODBERRY_CRATE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.ICY_EGG_CRATE.get());
         accept(output, BLOCK_ITEMS, ModBlocks.EMBER_BLOCK.get());

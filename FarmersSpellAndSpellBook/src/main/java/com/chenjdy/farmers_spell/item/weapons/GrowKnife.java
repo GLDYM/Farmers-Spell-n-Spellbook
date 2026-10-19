@@ -1,12 +1,15 @@
 package com.chenjdy.farmers_spell.item.weapons;
 
+import com.chenjdy.farmers_spell.FARMERSSPELL;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.chenjdy.farmers_spell.init.ModSpells;
 import io.redspace.ironsspellbooks.api.item.weapons.MagicSwordItem;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,15 +22,19 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 
 public class GrowKnife extends MagicSwordItem {
+
+    public static final TagKey<Block> GROW_KNIFE_BLACKLIST = TagKey.create(
+            ForgeRegistries.BLOCKS.getRegistryKey(),ResourceLocation.fromNamespaceAndPath(FARMERSSPELL.MODID, "grow_knife_blacklist"));
 
     public GrowKnife() {
         super(Tiers.IRON, 0.0f, -1.0f,
@@ -51,17 +58,19 @@ public class GrowKnife extends MagicSwordItem {
         int harvestCount = 0;
 
         for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                BlockPos scanPos = clickPos.offset(x, 0, z);
-                BlockState state = level.getBlockState(scanPos);
+            for (int y = 0; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    BlockPos scanPos = clickPos.offset(x, y, z);
+                    BlockState state = level.getBlockState(scanPos);
 
-                if (state.isAir() || !level.mayInteract(player, scanPos)) continue;
-                if (!isValidHarvestPlant(state)) continue;
+                    if (state.isAir() || !level.mayInteract(player, scanPos)) continue;
+                    if (!canHarvestNow(state)) continue;
 
-                level.destroyBlock(scanPos, true);
-                level.levelEvent(null, LevelEvent.PARTICLES_DESTROY_BLOCK, scanPos, Block.getId(state));
-                harvestCount++;
-                tryDropSpecialSeed(level, scanPos, state);
+                    level.destroyBlock(scanPos, true);
+                    level.levelEvent(null, LevelEvent.PARTICLES_DESTROY_BLOCK, scanPos, Block.getId(state));
+                    harvestCount++;
+                    tryDropSpecialSeed(level, scanPos, state);
+                }
             }
         }
 
@@ -80,10 +89,17 @@ public class GrowKnife extends MagicSwordItem {
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (!pLevel.isClientSide) {
-            pStack.setDamageValue(pStack.getDamageValue() + 1);
             tryDropSpecialSeed(pLevel, pPos, pState);
         }
-        return true;
+        return super.mineBlock(pStack, pLevel, pState, pPos, pEntityLiving);
+    }
+
+    private boolean canHarvestNow(BlockState state) {
+        if (state.is(GROW_KNIFE_BLACKLIST)) return false;
+        if (state.getBlock() instanceof CropBlock cropBlock) {
+            return cropBlock.isMaxAge(state);
+        }
+        return isValidHarvestPlant(state);
     }
 
     private boolean isValidHarvestPlant(BlockState state) {

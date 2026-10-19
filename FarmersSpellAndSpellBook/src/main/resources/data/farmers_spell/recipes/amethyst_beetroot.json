@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:amethyst_beetroot_crate"
+    }
+  ],
+  "result": { "item": "farmers_spell:amethyst_beetroot",
+    "count": 9
+  }
+}
