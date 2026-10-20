@@ -98,6 +98,7 @@ dependencies {
     implementation fg.deobf("curse.maven:AdvancedLootInfo-forge-1205426:8168726")
     implementation fg.deobf("curse.maven:catalogue-forge-459701:4766090")
     implementation fg.deobf("curse.maven:create-328085:7178761")
+    implementation fg.deobf("curse.maven:carryon-274259:4882500")
 }
 
 tasks.named('processResources', ProcessResources).configure {
