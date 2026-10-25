@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CAa",
+    "aAa",
     "AHA",
     "aAa"
   ],
@@ -10,13 +10,10 @@
       "item": "farmers_spell:foodgeist_ring"
     },
     "a": {
-      "item": "irons_spellbooks:mithril_scrap"
+      "item": "farmers_spell:bowl_of_glutton_hotchpotch"
     },
     "A": {
       "item": "farmers_spell:foodgeist_cheese"
-    },
-    "C": {
-      "item": "farmers_spell:original_nectar"
     }
   },
   "result": { "item": "farmers_spell:affinity_ring_glutton",

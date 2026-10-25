@@ -10,6 +10,9 @@
     },
     {
       "item": "farmers_spell:wsip_butter"
+    },
+    {
+      "item": "minecraft:golden_carrot"
     }
   ],
   "result": { "item": "farmers_spell:amethyst_burger",

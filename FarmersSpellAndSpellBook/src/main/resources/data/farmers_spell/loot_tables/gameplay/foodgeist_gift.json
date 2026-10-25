@@ -55,16 +55,6 @@
     {
       "rolls": 1.0,
       "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "irons_spellbooks:arcane_essence"
-        }
-      ]
-    },
-    {
-      "rolls": 1.0,
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:random_chance",
@@ -74,7 +64,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "irons_spellbooks:mithril_scrap"
+          "name": "farmers_spell:mithril_cheese"
         }
       ]
     }

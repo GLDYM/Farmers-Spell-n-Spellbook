@@ -79,6 +79,16 @@ public class GoodberrySpell extends AbstractSpell {
     }
 
     @Override
+    public boolean allowLooting() {
+        return false;
+    }
+
+    @Override
+    public boolean allowCrafting() {
+        return false;
+    }
+
+    @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
         if (entity instanceof Player player) {
             boolean inCombat = player.getLastHurtByMob() != null

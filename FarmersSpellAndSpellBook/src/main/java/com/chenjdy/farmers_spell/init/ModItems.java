@@ -20,10 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,10 +28,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.item.KnifeItem;
+
 import java.util.UUID;
 
-import static vectorwing.farmersdelight.common.registry.ModItems.bowlFoodItem;
-import static vectorwing.farmersdelight.common.registry.ModItems.foodItem;
+import static vectorwing.farmersdelight.common.registry.ModItems.*;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -91,6 +89,9 @@ public class ModItems {
     // 食灵奶酪
     public static final RegistryObject<Item> FOODGEIST_CHEESE = ITEMS.register("foodgeist_cheese",
             () -> new ConsumableItem(foodItem(ModFoods.FOODGEIST_CHEESE)));
+    // 秘银奶酪
+public static final RegistryObject<Item> MITHRIL_CHEESE = ITEMS.register("mithril_cheese",
+        () -> new ConsumableItem(foodItem(ModFoods.MITHRIL_CHEESE)));
     // 黄油
     public static final RegistryObject<Item> WSIP_BUTTER = ITEMS.register("wsip_butter",
             () -> new ButterItem(foodItem(ModFoods.WSIP_BUTTER)));
@@ -111,7 +112,7 @@ public class ModItems {
             () -> new ConsumableItem(foodItem(ModFoods.CERIC_HEART)));
     // 霜皮蛋
     public static final RegistryObject<Item> ICY_EGG = ITEMS.register("icy_egg",
-            () -> new ConsumableItem(foodItem(ModFoods.ICY_EGG)));
+            () -> new ItemNameBlockItem(ModBlocks.ICE_EGG_BUSH.get(), foodItem(ModFoods.ICY_EGG)));
     // 紫晶糖
     public static final RegistryObject<Item> AMETHYST_SUGAR = ITEMS.register("amethyst_sugar",
             () -> new ConsumableItem(new Item.Properties()
@@ -248,6 +249,8 @@ public class ModItems {
     public static final RegistryObject<Item> TWILIGHT_BLADE = ITEMS.register("twilight_blade", TwilightBlade::new);
     public static final RegistryObject<Item> BOREAL_KNIFE = ITEMS.register("boreal_knife", BorealKnife::new);
     public static final RegistryObject<Item> ECHOING_KNIFE = ITEMS.register("echoing_knife", EchoingKnife::new);
+    public static final RegistryObject<Item> MITHRIL_KNIFE = ITEMS.register("mithril_knife",
+            () -> new KnifeItem(Tiers.NETHERITE, 0.5F, -2.0F,basicItem().fireResistant()));
     // 饰品
     public static final RegistryObject<Item> AFFINITY_RING_GLUTTON = ITEMS.register("affinity_ring_glutton",
             () -> new AffinityRingGlutton(new Item.Properties().stacksTo(1)));

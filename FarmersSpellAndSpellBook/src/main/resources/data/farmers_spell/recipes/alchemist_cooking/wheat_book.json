@@ -1,0 +1,26 @@
+{
+    "type": "farmers_spell:alchemist_cooking",
+    "ingredients": [
+        {
+            "tag": "forge:dough"
+        },
+        {
+            "tag": "forge:dough"
+        },
+        {
+            "tag": "forge:dough"
+        },
+        {
+            "item": "irons_spellbooks:magic_cloth"
+        },
+        {
+            "item": "farmers_spell:foodgeist_seasoning"
+        }
+    ],
+    "result": {
+        "item": "farmers_spell:wheat_book",
+        "count": 1
+    },
+    "experience": 1.0,
+    "cookingtime": 200
+}

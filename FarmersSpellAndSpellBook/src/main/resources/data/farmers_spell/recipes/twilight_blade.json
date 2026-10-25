@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    "#P",
+    " B"
+  ],
+  "key": {
+    "#": {
+      "item": "farmers_spell:energized_candy"
+    },
+    "P": {
+      "item": "farmers_spell:mithril_cheese"
+    },
+    "B": {
+      "item": "farmers_spell:mithril_knife"
+    }
+  },
+  "result": { "item": "farmers_spell:twilight_blade",
+    "count": 1
+  }
+}

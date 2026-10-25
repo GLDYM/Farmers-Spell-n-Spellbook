@@ -4,12 +4,15 @@ import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -54,6 +57,7 @@ public class BadAppleEntity extends LivingEntity {
         this.spawnPos = pos;
         this.setPos(pos.x + 0.5, pos.y, pos.z + 0.5);
         this.blockState = ModBlocks.BAD_APPLE.get().defaultBlockState();
+        this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 1, false, true, true));
     }
     
     public static AttributeSupplier.Builder createAttributes() {
@@ -250,6 +254,11 @@ public class BadAppleEntity extends LivingEntity {
     
     public float getHealth() {
         return this.entityData.get(DATA_HEALTH);
+    }
+
+    @Override
+    public void setHealth(float health) {
+        this.entityData.set(DATA_HEALTH, Mth.clamp(health, 0.0F, this.getBadAppleMaxHealth()));
     }
     
     public float getBadAppleMaxHealth() {

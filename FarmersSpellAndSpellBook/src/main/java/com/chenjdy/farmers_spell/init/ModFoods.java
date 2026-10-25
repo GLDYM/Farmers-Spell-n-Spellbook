@@ -188,6 +188,11 @@ public class ModFoods {
             .nutrition(6)
             .saturationMod(0.6f)
             .build();
+    // 秘银奶酪
+    public static final FoodProperties MITHRIL_CHEESE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationMod(0.6f)
+            .build();
     // 黄油
     public static final FoodProperties WSIP_BUTTER = new FoodProperties.Builder()
             .nutrition(4)

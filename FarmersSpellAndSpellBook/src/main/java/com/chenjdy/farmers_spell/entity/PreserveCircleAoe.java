@@ -72,6 +72,16 @@ public class PreserveCircleAoe extends AoeEntity {
                 true
         );
         target.addEffect(magicIngredientEffect);
+
+        MobEffectInstance rendEffect = new MobEffectInstance(
+                MobEffectRegistry.REND.get(),
+                1200,
+                Math.max(0, getSpellLevel() - 1),
+                false,
+                false,
+                true
+        );
+        target.addEffect(rendEffect);
     }
 
     @Override

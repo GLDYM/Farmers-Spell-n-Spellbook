@@ -150,7 +150,7 @@ public class PreserveCircleSpell extends AbstractSpell {
     }
 
     private float getRadius(int spellLevel, LivingEntity caster, int castTimeRemaining) {
-        float baseRadius = 1.0f + spellLevel * 0.5f;
+        float baseRadius = 6.0f + spellLevel * 0.5f;
 
         int castTimeElapsed = getCastTime(spellLevel) - castTimeRemaining;
         float additionalRadius = castTimeElapsed / 20.0f;

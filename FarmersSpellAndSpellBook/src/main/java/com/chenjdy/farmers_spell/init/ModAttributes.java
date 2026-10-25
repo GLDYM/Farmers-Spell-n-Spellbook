@@ -20,7 +20,7 @@ public class ModAttributes {
         ATTRIBUTES.register(eventBus);
     }
 
-    public static final RegistryObject<Attribute> GLUTTONY_SPELL_POWER = ATTRIBUTES.register("gluttony_spell_power", 
+    public static final RegistryObject<Attribute> GLUTTONY_SPELL_POWER = ATTRIBUTES.register("gluttony_spell_power",
             () -> (new MagicRangedAttribute("attribute.farmers_spell.gluttony_spell_power", 1.0D, -100, 100.0D).setSyncable(true)));
 
     @SubscribeEvent

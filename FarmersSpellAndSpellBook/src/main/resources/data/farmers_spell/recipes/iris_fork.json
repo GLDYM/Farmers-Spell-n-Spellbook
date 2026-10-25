@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " GM",
-    "AMG",
-    "MA "
+    " GG",
+    " MG",
+    "A  "
   ],
   "key": {
     "M": {
-      "item": "irons_spellbooks:mithril_ingot"
+      "item": "irons_spellbooks:magic_cloth"
     },
     "G": {
-      "item": "farmers_spell:glutton_rune"
+      "item": "farmers_spell:mithril_cheese"
     },
     "A": {
       "item": "irons_spellbooks:arcane_ingot"

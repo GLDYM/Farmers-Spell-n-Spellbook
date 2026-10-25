@@ -5,6 +5,7 @@ import com.chenjdy.farmers_spell.init.*;
 import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,7 +28,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +39,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -161,6 +160,13 @@ public class EffectsEventHandler {
 
         if (livingEntity.hasEffect(ModEffects.CLEANSE.get())) {
             handleCleanse(livingEntity);
+        }
+
+        MobEffectInstance magicalIngredient = livingEntity.getEffect(ModEffects.MAGICAL_INGREDIENT.get());
+        if (magicalIngredient != null && livingEntity.hasEffect(ModEffects.CLAW_BREAK.get())) {
+            int linkedDuration = magicalIngredient.getDuration();
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, linkedDuration, 1));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, linkedDuration, 1));
         }
 
         syncSealOilCooldown(livingEntity);
@@ -373,16 +379,9 @@ public class EffectsEventHandler {
         }
 
         MobEffectInstance magicalIngredient = entity.getEffect(ModEffects.MAGICAL_INGREDIENT.get());
-        if (magicalIngredient != null) {
-            boolean isGluttonyMagic = event.getSource().is(DamageTypes.MAGIC) || event.getSource().is(ModSchools.GLUTTONY_MAGIC);
-            if (isGluttonyMagic) {
-                int amplifier = magicalIngredient.getAmplifier();
-                int level = amplifier + 1;
-
-                float bonusPercent = (5.0f + level) / 100.0f;
-                float newDamage = event.getAmount() * (1.0f + bonusPercent);
-                event.setAmount(newDamage);
-            }
+        if (magicalIngredient != null && isGluttonySpellDamage(event.getSource())) {
+            int level = magicalIngredient.getAmplifier() + 1;
+            event.setAmount(event.getAmount() * (1.0F + 0.035F * level));
         }
 
         MobEffectInstance sealOil = entity.getEffect(ModEffects.SEAL_OIL.get());
@@ -430,6 +429,17 @@ public class EffectsEventHandler {
 
     }
 
+    private static boolean isGluttonySpellDamage(DamageSource source) {
+        if (source.is(ModSchools.GLUTTONY_MAGIC)) {
+            return true;
+        }
+        if (!(source instanceof SpellDamageSource spellDamageSource)) {
+            return false;
+        }
+        var school = spellDamageSource.spell().getSchoolType();
+        return school != null && ModSchools.GLUTTONY_MAGIC.equals(school.getDamageType());
+    }
+
     private static void spawnIcicles(LivingEntity entity, float damage) {
         ServerLevel serverLevel = (ServerLevel) entity.level();
         Vec3 origin = entity.position().add(0, entity.getBbHeight() / 2, 0);
@@ -448,31 +458,6 @@ public class EffectsEventHandler {
 
             icicle.moveTo(spawn.x, spawn.y - icicle.getBoundingBox().getYsize() / 2, spawn.z, angle.y, angle.x);
             serverLevel.addFreshEntity(icicle);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingDrops(LivingDropsEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity.level().isClientSide) return;
-
-        MobEffectInstance magicalIngredient = entity.getEffect(ModEffects.MAGICAL_INGREDIENT.get());
-        if (magicalIngredient != null) {
-            int amplifier = magicalIngredient.getAmplifier();
-            int lootingLevel = amplifier + 1;
-
-            for (ItemEntity drop : event.getDrops()) {
-                ItemStack stack = drop.getItem();
-                int extraCount = 0;
-                for (int i = 0; i < lootingLevel; i++) {
-                    if (entity.getRandom().nextFloat() < 0.1f) {
-                        extraCount++;
-                    }
-                }
-                if (extraCount > 0) {
-                    stack.grow(extraCount);
-                }
-            }
         }
     }
 }

@@ -39,6 +39,7 @@ public class ModCreativeModeTabs {
         accept(output, FOOD_ITEMS, ModItems.WSIP_BUTTER.get());
         accept(output, FOOD_ITEMS, ModItems.BLOOD_TOFU.get());
         accept(output, FOOD_ITEMS, ModItems.FOODGEIST_CHEESE.get());
+        accept(output, FOOD_ITEMS, ModItems.MITHRIL_CHEESE.get());
         accept(output, FOOD_ITEMS, ModItems.AMETHYST_SUGAR.get());
         accept(output, FOOD_ITEMS, ModItems.ORIGINAL_NECTAR.get());
         accept(output, FOOD_ITEMS, ModItems.FOODGEIST_SEASONING.get());
@@ -120,6 +121,7 @@ public class ModCreativeModeTabs {
 
     private static void addEquipmentItems(CreativeModeTab.Output output) {
         accept(output, EQUIPMENT_ITEMS, ModItems.GROW_KNIFE.get());
+        accept(output, EQUIPMENT_ITEMS, ModItems.MITHRIL_KNIFE.get());
         accept(output, EQUIPMENT_ITEMS, ModItems.TWILIGHT_BLADE.get());
         accept(output, EQUIPMENT_ITEMS, ModItems.BOREAL_KNIFE.get());
         accept(output, EQUIPMENT_ITEMS, ModItems.ECHOING_KNIFE.get());

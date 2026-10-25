@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    "#P",
+    " B"
+  ],
+  "key": {
+    "#": {
+      "item": "farmers_spell:frosted_ice_cream_bucket"
+    },
+    "P": {
+      "item": "farmers_spell:mithril_cheese"
+    },
+    "B": {
+      "item": "farmers_spell:mithril_knife"
+    }
+  },
+  "result": { "item": "farmers_spell:boreal_knife",
+    "count": 1
+  }
+}

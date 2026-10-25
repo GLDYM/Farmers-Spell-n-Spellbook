@@ -52,6 +52,8 @@ public class ModBlocks {
                     .strength(3.0F,6.0F)));
     //紫晶甜菜 
     public static final RegistryObject<AmethystBeetrootBlock> AMETHYST_BEETROOT = BLOCKS.register("amethyst_beetroot", AmethystBeetrootBlock::new);
+    // 霜皮蛋丛
+    public static final RegistryObject<IceEggBushBlock> ICE_EGG_BUSH = BLOCKS.register("ice_egg_bush", IceEggBushBlock::new);
     // 红丝绒蛋糕
     public static final RegistryObject<RedVelvetCakeBlock> RED_VELVET_CAKE = registerBlockWithPlaceableItem("red_velvet_cake",
             () -> new RedVelvetCakeBlock(BlockBehaviour.Properties.of()
