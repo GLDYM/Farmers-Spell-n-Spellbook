@@ -21,6 +21,10 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 public final class RingManaBonusHelper {
+    private static final double FOODGEIST_MANA_BONUS = 75.0D;
+    private static final double AFFINITY_MANA_BONUS = 150.0D;
+    private static final ResourceLocation FOODGEIST_MANA_ID = id("foodgeist_ring_mana");
+    private static final ResourceLocation AFFINITY_MANA_ID = id("glutton_ring_mana");
     private static final ResourceLocation FOODGEIST_SPEED_ID = id("foodgeist_ring_speed");
     private static final ResourceLocation FOODGEIST_ATTACK_SPEED_ID = id("foodgeist_ring_attack_speed");
     private static final ResourceLocation FOODGEIST_MINING_SPEED_ID = id("foodgeist_ring_mining_speed");
@@ -60,11 +64,15 @@ public final class RingManaBonusHelper {
         removeLegacyModifier(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), OLD_FOODGEIST_MANA_ID);
         removeLegacyModifier(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), OLD_AFFINITY_MANA_ID);
         removeLegacyModifier(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.SPELL_POWER.get()), OLD_AFFINITY_SPELL_POWER_ID);
+        updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), FOODGEIST_MANA_ID,
+                FOODGEIST_MANA_BONUS, AttributeModifier.Operation.ADD_VALUE, hasFoodgeistRing && hasFoodBlessing);
         updateBonus(player, Attributes.MOVEMENT_SPEED, FOODGEIST_SPEED_ID, 0.10D, hasFoodgeistRing && hasFoodBlessing);
         updateBonus(player, Attributes.ATTACK_SPEED, FOODGEIST_ATTACK_SPEED_ID, 0.10D, hasFoodgeistRing && hasFoodBlessing);
         updateBonus(player, Attributes.BLOCK_BREAK_SPEED, FOODGEIST_MINING_SPEED_ID, 0.10D, hasFoodgeistRing && hasFoodBlessing);
         updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.COOLDOWN_REDUCTION.get()), FOODGEIST_COOLDOWN_ID, 0.10D, hasFoodgeistRing && player.hasEffect(ModEffects.CLEANSE));
         updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.CAST_TIME_REDUCTION.get()), FOODGEIST_CAST_TIME_ID, 0.10D, hasFoodgeistRing && player.hasEffect(ModEffects.CLEANSE));
+        updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), AFFINITY_MANA_ID,
+                AFFINITY_MANA_BONUS, AttributeModifier.Operation.ADD_VALUE, hasAffinityRing && hasFoodBlessing);
         updateBonus(player, Attributes.MOVEMENT_SPEED, AFFINITY_SPEED_ID, 0.20D, hasAffinityRing && hasFoodBlessing);
         updateBonus(player, Attributes.ATTACK_SPEED, AFFINITY_ATTACK_SPEED_ID, 0.20D, hasAffinityRing && hasFoodBlessing);
         updateBonus(player, Attributes.BLOCK_BREAK_SPEED, AFFINITY_MINING_SPEED_ID, 0.20D, hasAffinityRing && hasFoodBlessing);
@@ -81,11 +89,15 @@ public final class RingManaBonusHelper {
     }
 
     public static void clearAll(Player player) {
+        updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), FOODGEIST_MANA_ID,
+                FOODGEIST_MANA_BONUS, AttributeModifier.Operation.ADD_VALUE, false);
         updateBonus(player, Attributes.MOVEMENT_SPEED, FOODGEIST_SPEED_ID, 0.10D, false);
         updateBonus(player, Attributes.ATTACK_SPEED, FOODGEIST_ATTACK_SPEED_ID, 0.10D, false);
         updateBonus(player, Attributes.BLOCK_BREAK_SPEED, FOODGEIST_MINING_SPEED_ID, 0.10D, false);
         updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.COOLDOWN_REDUCTION.get()), FOODGEIST_COOLDOWN_ID, 0.10D, false);
         updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.CAST_TIME_REDUCTION.get()), FOODGEIST_CAST_TIME_ID, 0.10D, false);
+        updateBonus(player, BuiltInRegistries.ATTRIBUTE.wrapAsHolder(AttributeRegistry.MAX_MANA.get()), AFFINITY_MANA_ID,
+                AFFINITY_MANA_BONUS, AttributeModifier.Operation.ADD_VALUE, false);
         updateBonus(player, Attributes.MOVEMENT_SPEED, AFFINITY_SPEED_ID, 0.20D, false);
         updateBonus(player, Attributes.ATTACK_SPEED, AFFINITY_ATTACK_SPEED_ID, 0.20D, false);
         updateBonus(player, Attributes.BLOCK_BREAK_SPEED, AFFINITY_MINING_SPEED_ID, 0.20D, false);
@@ -108,6 +120,13 @@ public final class RingManaBonusHelper {
 
     private static void updateBonus(Player player, Holder<Attribute> attributeHolder,
                                     ResourceLocation id, double amount, boolean shouldApply) {
+        updateBonus(player, attributeHolder, id, amount,
+                AttributeModifier.Operation.ADD_MULTIPLIED_BASE, shouldApply);
+    }
+
+    private static void updateBonus(Player player, Holder<Attribute> attributeHolder,
+                                    ResourceLocation id, double amount,
+                                    AttributeModifier.Operation operation, boolean shouldApply) {
         if (!(player instanceof ServerPlayer)) {
             return;
         }
@@ -115,10 +134,16 @@ public final class RingManaBonusHelper {
         if (attribute == null) {
             return;
         }
-        boolean isApplied = attribute.getModifier(id) != null;
-        if (shouldApply && !isApplied) {
-            attribute.addPermanentModifier(new AttributeModifier(id, amount, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-        } else if (!shouldApply && isApplied) {
+        AttributeModifier existing = attribute.getModifier(id);
+        boolean needsUpdate = existing == null
+                || Double.compare(existing.amount(), amount) != 0
+                || existing.operation() != operation;
+        if (shouldApply && needsUpdate) {
+            if (existing != null) {
+                attribute.removeModifier(id);
+            }
+            attribute.addPermanentModifier(new AttributeModifier(id, amount, operation));
+        } else if (!shouldApply && existing != null) {
             attribute.removeModifier(id);
         }
     }

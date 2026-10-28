@@ -28,6 +28,7 @@
 - Correct Wheat Tome loot chance encoding
 - Correct affinity ring recipe ingredients
 - Correct Feast block facing and serving models
+- Restore maximum mana bonuses from the Foodgeist Ring and Gluttonous Bond Ring while Nourished or Comforted
 
 ## 1.0.6.0
 
