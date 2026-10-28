@@ -49,7 +49,7 @@ public class PhantomLootSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.RARE)
             .setSchoolResource(ModSchools.GLUTTONY_RESOURCE)
             .setMaxLevel(1)
-            .setCooldownSeconds(30)
+            .setCooldownSeconds(10)
             .build();
 
     public PhantomLootSpell() {

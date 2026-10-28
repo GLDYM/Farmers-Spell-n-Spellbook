@@ -381,7 +381,7 @@ public class EffectsEventHandler {
         MobEffectInstance magicalIngredient = entity.getEffect(ModEffects.MAGICAL_INGREDIENT.get());
         if (magicalIngredient != null && isGluttonySpellDamage(event.getSource())) {
             int level = magicalIngredient.getAmplifier() + 1;
-            event.setAmount(event.getAmount() * (1.0F + 0.035F * level));
+            event.setAmount(event.getAmount() * (1.0F + 0.050F * level));
         }
 
         MobEffectInstance sealOil = entity.getEffect(ModEffects.SEAL_OIL.get());
