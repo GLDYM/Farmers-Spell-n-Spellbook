@@ -5,17 +5,14 @@
             "item": "irons_spellbooks:greater_healing_potion"
         },
         {
-            "item": "farmers_spell:amethyst_sugar"
-        },
-        {
-            "tag": "c:drinks/milk"
+            "item": "minecraft:slime_ball"
         },
         {
             "item": "farmersdelight:apple_cider"
         }
     ],
     "result": {
-        "count": 2,
+        "count": 3,
         "id": "farmers_spell:cleric_heart"
     },
     "experience": 1.0,

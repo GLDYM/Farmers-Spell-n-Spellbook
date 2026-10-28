@@ -1,13 +1,13 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "PPP",
+        "DDD",
         "N N",
         "NCN"
     ],
     "key": {
-        "P": {
-            "item": "minecraft:polished_blackstone"
+        "D": {
+            "item": "farmers_spell:decrepit_scrap"
         },
         "N": {
             "item": "irons_spellbooks:nether_brick_pillar"

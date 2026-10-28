@@ -23,7 +23,7 @@ import vectorwing.farmersdelight.common.item.ConsumableItem;
 import java.util.List;
 
 public class PermafrostPopsicle extends ConsumableItem {
-    private static final int MANA_RECOVERY_PERCENT = 10;
+    private static final int MANA_RECOVERY_PERCENT = 25;
     private static final int COOLDOWN_SECONDS = 20;
 
     public PermafrostPopsicle(Item.Properties properties) {

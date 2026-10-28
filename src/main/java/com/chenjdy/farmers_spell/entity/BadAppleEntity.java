@@ -4,8 +4,13 @@ import com.chenjdy.farmers_spell.init.ModBlocks;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.Mth;
 import com.chenjdy.farmers_spell.network.BadApplePacket;
 
 import java.util.List;
@@ -29,6 +35,11 @@ public class BadAppleEntity extends LivingEntity {
     private Vec3 spawnPos;
     private int clientTick = 0;
     private int spellLevel = 1;
+
+    private static final EntityDataAccessor<Float> DATA_HEALTH =
+            SynchedEntityData.defineId(BadAppleEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> DATA_MAX_HEALTH =
+            SynchedEntityData.defineId(BadAppleEntity.class, EntityDataSerializers.FLOAT);
     
     public BadAppleEntity(EntityType<? extends BadAppleEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -39,13 +50,18 @@ public class BadAppleEntity extends LivingEntity {
     }
     
     public BadAppleEntity(Level pLevel, Vec3 pos, int spellLevel) {
+        this(pLevel, pos, spellLevel, 50.0F + 10.0F * spellLevel);
+    }
+
+    public BadAppleEntity(Level pLevel, Vec3 pos, int spellLevel, float maxHealth) {
         this(ModEntities.BAD_APPLE_ENTITY.get(), pLevel);
         this.spellLevel = spellLevel;
-        configureMaxHealth();
-        setHealth(getMaxHealth());
+        this.entityData.set(DATA_MAX_HEALTH, maxHealth);
+        this.entityData.set(DATA_HEALTH, maxHealth);
         this.spawnPos = pos;
         this.setPos(pos.x + 0.5, pos.y, pos.z + 0.5);
         this.blockState = ModBlocks.BAD_APPLE.get().defaultBlockState();
+        this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 1, false, true, true));
     }
     
     public static AttributeSupplier.Builder createAttributes() {
@@ -53,6 +69,13 @@ public class BadAppleEntity extends LivingEntity {
                 .add(Attributes.MAX_HEALTH, 100.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
                 .add(Attributes.ARMOR, 10.0);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_HEALTH, 50.0F);
+        builder.define(DATA_MAX_HEALTH, 50.0F);
     }
     
     @Override
@@ -63,7 +86,12 @@ public class BadAppleEntity extends LivingEntity {
         }
         if (tag.contains("SpellLevel")) {
             spellLevel = tag.getInt("SpellLevel");
-            configureMaxHealth();
+        }
+        if (tag.contains("Health")) {
+            this.entityData.set(DATA_HEALTH, tag.getFloat("Health"));
+        }
+        if (tag.contains("MaxHealth")) {
+            this.entityData.set(DATA_MAX_HEALTH, tag.getFloat("MaxHealth"));
         }
     }
     
@@ -76,6 +104,8 @@ public class BadAppleEntity extends LivingEntity {
             tag.putDouble("SpawnZ", spawnPos.z);
         }
         tag.putInt("SpellLevel", spellLevel);
+        tag.putFloat("Health", this.entityData.get(DATA_HEALTH));
+        tag.putFloat("MaxHealth", this.entityData.get(DATA_MAX_HEALTH));
     }
     
         public void tick() {
@@ -178,10 +208,23 @@ public class BadAppleEntity extends LivingEntity {
     
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.is(DamageTypes.IN_WALL)) {
+        if (level().isClientSide) {
             return false;
         }
-        return super.hurt(source, amount);
+        if (this.invulnerableTime > 0) {
+            return false;
+        }
+
+        float health = this.entityData.get(DATA_HEALTH) - amount;
+        this.invulnerableTime = 10;
+        if (health <= 0.0F) {
+            this.dead = true;
+            this.die(source);
+            this.discard();
+        } else {
+            this.entityData.set(DATA_HEALTH, health);
+        }
+        return true;
     }
     
     private void playMusic() {
@@ -215,9 +258,18 @@ public class BadAppleEntity extends LivingEntity {
         return spellLevel;
     }
 
-    private void configureMaxHealth() {
-        float maxHealth = 50.0f + 10.0f * spellLevel;
-        getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+    @Override
+    public float getHealth() {
+        return this.entityData.get(DATA_HEALTH);
+    }
+
+    @Override
+    public void setHealth(float health) {
+        this.entityData.set(DATA_HEALTH, Mth.clamp(health, 0.0F, getBadAppleMaxHealth()));
+    }
+
+    public float getBadAppleMaxHealth() {
+        return this.entityData.get(DATA_MAX_HEALTH);
     }
     
     

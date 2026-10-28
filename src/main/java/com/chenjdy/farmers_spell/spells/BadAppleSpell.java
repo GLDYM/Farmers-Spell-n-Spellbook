@@ -30,7 +30,7 @@ public class BadAppleSpell extends AbstractSpell {
     
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
-        float health = 50.0f + 10.0f * spellLevel;
+        float health = getSpellPower(spellLevel, caster);
         int tauntRange = 8 + 2 * (spellLevel - 1);
         return List.of(
             Component.translatable("ui.irons_spellbooks.radius", String.valueOf(tauntRange)),
@@ -48,8 +48,8 @@ public class BadAppleSpell extends AbstractSpell {
     
     public BadAppleSpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 0;
-        this.spellPowerPerLevel = 0;
+        this.baseSpellPower = 50;
+        this.spellPowerPerLevel = 10;
         this.castTime = 100;
         this.baseManaCost = 50;
     }
@@ -87,8 +87,9 @@ public class BadAppleSpell extends AbstractSpell {
         Vec3 targetPos = hitResult.getLocation();
         
         if (!level.isClientSide) {
-            BadAppleEntity badApple = new BadAppleEntity(level, targetPos, spellLevel);
-            badApple.setCustomName(Component.literal("Bad Apple"));
+            BadAppleEntity badApple = new BadAppleEntity(
+                    level, targetPos, spellLevel, getSpellPower(spellLevel, entity));
+            badApple.setCustomName(Component.translatable("entity.farmers_spell.bad_apple.name"));
             level.addFreshEntity(badApple);
         }
         

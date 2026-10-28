@@ -1,18 +1,21 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
-            "tag": "c:foods/bread"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot"
-        },
-        {
-            "item": "farmers_spell:wsip_butter"
-        }
-    ],
-    "result": {
-        "id": "farmers_spell:amethyst_burger",
-        "count": 1
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:foods/bread"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    },
+    {
+      "item": "farmers_spell:wsip_butter"
+    },
+    {
+      "item": "minecraft:golden_carrot"
     }
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:amethyst_burger"
+  }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "fluid": "farmers_spell:ice_venom_wine",
+      "amount": 250,
+      "type": "neoforge:fluid"
+    }
+  ],
+  "results": [
+    {
+      "id": "farmers_spell:ice_venom_wine"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ]
+}

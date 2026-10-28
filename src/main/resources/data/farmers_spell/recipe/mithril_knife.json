@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D",
+    "N"
+  ],
+  "key": {
+    "D": {
+      "item": "farmers_spell:mithril_cheese"
+    },
+    "N": {
+      "item": "farmers_spell:decrepit_scrap"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:mithril_knife"
+  }
+}

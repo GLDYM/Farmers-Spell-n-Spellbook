@@ -1,20 +1,20 @@
 {
-    "type": "farmers_spell:alchemist_cooking",
-    "ingredients": [
-        {
-            "tag": "c:foods/dough"
-        },
-        {
-            "item": "farmers_spell:amethyst_sugar"
-        },
-        {
-            "item": "minecraft:amethyst_cluster"
-        }
-    ],
-    "result": {
-        "count": 2,
-        "id": "farmers_spell:amethyst_mooncake"
+  "type": "farmers_spell:alchemist_cooking",
+  "ingredients": [
+    {
+      "tag": "c:foods/dough"
     },
-    "experience": 1.0,
-    "cookingtime": 200
+    {
+      "item": "farmers_spell:amethyst_sugar"
+    },
+    {
+      "item": "minecraft:amethyst_cluster"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:amethyst_mooncake"
+  },
+  "experience": 1,
+  "cookingtime": 200
 }

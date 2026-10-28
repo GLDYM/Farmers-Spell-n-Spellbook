@@ -5,6 +5,7 @@ import com.chenjdy.farmers_spell.block.AlchemistPotBlock;
 import com.chenjdy.farmers_spell.block.AmethystBeetrootBlock;
 import com.chenjdy.farmers_spell.block.CinderousStoveBlock;
 import com.chenjdy.farmers_spell.block.FufuBlock;
+import com.chenjdy.farmers_spell.block.IceEggBushBlock;
 import com.chenjdy.farmers_spell.block.RedVelvetCakeBlock;
 import com.chenjdy.farmers_spell.block.EdenAppleTartBlock;
 import com.chenjdy.farmers_spell.block.IcebreakerBreadBlock;
@@ -21,13 +22,16 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.common.block.PieBlock;
-import vectorwing.farmersdelight.common.block.FeastBlock;
+import vectorwing.farmersdelight.common.block.RotatedFeastBlock;
+
+import java.util.Collections;
 
 import java.util.function.Supplier;
 
@@ -58,6 +62,9 @@ public class ModBlocks {
     public static final DeferredHolder<Block, AmethystBeetrootBlock> AMETHYST_BEETROOT = BLOCKS.register(
             "amethyst_beetroot",
             () -> new AmethystBeetrootBlock());
+    public static final DeferredHolder<Block, IceEggBushBlock> ICE_EGG_BUSH = BLOCKS.register(
+            "ice_egg_bush",
+            () -> new IceEggBushBlock());
 
     public static final DeferredHolder<Block, RedVelvetCakeBlock> RED_VELVET_CAKE = registerBlockWithPlaceableItem(
             "red_velvet_cake",
@@ -92,21 +99,46 @@ public class ModBlocks {
                     .sound(SoundType.GRASS)
                     .strength(0.0F)));
 
-    public static final DeferredHolder<Block, FeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem(
+    private static final VoxelShape GLUTTON_HOTCHPOTCH_SHAPE =
+            Block.box(2.0D, 0.0D, 2.0D, 14.0D, 10.0D, 14.0D);
+    public static final DeferredHolder<Block, RotatedFeastBlock> GLUTTON_HOTCHPOTCH = registerBlockWithPlaceableItem(
             "glutton_hotchpotch",
-            () -> new FeastBlock(BlockBehaviour.Properties.of()
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(2.0F)
-                    .pushReaction(PushReaction.DESTROY), () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true));
+                    .pushReaction(PushReaction.DESTROY),
+                    () -> ModItems.BOWL_OF_GLUTTON_HOTCHPOTCH.get(), true,
+                    Collections.nCopies(5, GLUTTON_HOTCHPOTCH_SHAPE).toArray(new VoxelShape[0]), null));
 
-    public static final DeferredHolder<Block, FeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
+    private static final VoxelShape PUMPKIN_SOUP_SHAPE =
+            Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
+    public static final DeferredHolder<Block, RotatedFeastBlock> PUMPKIN_SOUP = registerBlockWithPlaceableItem(
             "pumpkin_soup",
-            () -> new FeastBlock(BlockBehaviour.Properties.of()
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
                     .sound(SoundType.WOOL)
                     .strength(0.5F)
-                    .pushReaction(PushReaction.DESTROY), () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true));
+                    .pushReaction(PushReaction.DESTROY),
+                    () -> ModItems.BOWL_OF_PUMPKIN_SOUP.get(), true,
+                    Collections.nCopies(5, PUMPKIN_SOUP_SHAPE).toArray(new VoxelShape[0]), null));
+    private static final VoxelShape DRAGONSKIN_ASPIC_PLATE =
+            Block.box(1.0D, 0.0D, 1.0D, 15.0D, 2.0D, 15.0D);
+    private static final VoxelShape[] DRAGONSKIN_ASPIC_SHAPES = new VoxelShape[]{
+            Block.box(2.0D, 2.0D, 2.0D, 5.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 8.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 11.0D, 10.0D, 14.0D),
+            Block.box(2.0D, 2.0D, 2.0D, 14.0D, 10.0D, 14.0D)
+    };
+    public static final DeferredHolder<Block, RotatedFeastBlock> DRAGONSKIN_ASPIC = registerBlockWithPlaceableItem(
+            "dragonskin_aspic",
+            () -> new RotatedFeastBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .sound(SoundType.SLIME_BLOCK)
+                    .strength(0.5F)
+                    .pushReaction(PushReaction.DESTROY),
+                    () -> ModItems.DRAGONSKIN_ASPIC_SLICE.get(), true,
+                    DRAGONSKIN_ASPIC_SHAPES, DRAGONSKIN_ASPIC_PLATE));
 
     public static final DeferredHolder<Block, SaingeziChickenBlock> SAINGEZI_CHICKEN = registerBlockWithCustomItem(
             "saingezi_chicken",
@@ -169,6 +201,10 @@ public class ModBlocks {
     public static final DeferredHolder<Block, SlabBlock> ICY_EGG_CRATE = registerBlock("icy_egg_crate",
             () -> new SlabBlock(
                     BlockBehaviour.Properties.of().mapColor(MapColor.ICE).sound(SoundType.WOOD).strength(2.0F, 3.0F)));
+    public static final DeferredHolder<Block, Block> AMETHYST_BEETROOT_CRATE = registerBlock("amethyst_beetroot_crate",
+            () -> new Block(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE)
+                            .sound(SoundType.WOOD).strength(2.0F, 3.0F)));
     public static final DeferredHolder<Block, IcebreakerBreadBlock> ICEBREAKER_BREAD = registerBlockWithCustomItem(
             "icebreaker_bread", () -> new IcebreakerBreadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.ICE)
                     .sound(SoundType.WOOL).strength(0.5F).noOcclusion().pushReaction(PushReaction.DESTROY)

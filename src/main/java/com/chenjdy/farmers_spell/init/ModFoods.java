@@ -51,16 +51,12 @@ public class ModFoods {
             .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 2 * 60 * 20, 4), 1.0F)
             .build();
     // 碗装龙鳞冻
-    public static final FoodProperties BOWL_OF_DRAGON_SKIN_ASPIC = (new FoodProperties.Builder())
-            .nutrition(32)
-            .saturationModifier(0.8f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
-            .build();
     // 冰山奶霜
     public static final FoodProperties ICEBERGCREAM = (new FoodProperties.Builder())
             .nutrition(6)
             .saturationModifier(0.1f)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3 * 60 * 20, 0), 1.0F)
             .build();
     // 村民圣膏
     public static final FoodProperties GILDED_DIVINE_SAUCE = new FoodProperties.Builder()
@@ -69,15 +65,16 @@ public class ModFoods {
     // 破冰面包三明治
     public static final FoodProperties ICEBERGCREAM_SANDWICH = new FoodProperties.Builder()
             .nutrition(8).saturationModifier(.75f)
-            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3 * 60 * 20, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, 8 * 60 * 20, 0), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 2), 1.0F).build();
     // 神圣奶酪焗土豆
     public static final FoodProperties BUTTER_POTATO = (new FoodProperties.Builder())
             .nutrition(16)
             .saturationModifier(0.8f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 4), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 0), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.SEAL_OIL, 5 * 60 * 20, 0), 1.0F)
+            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 1), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 7), 1.0F)
             .build();
     // 宝石汉堡
     public static final FoodProperties AMETHYST_BURGER = (new FoodProperties.Builder())
@@ -85,18 +82,22 @@ public class ModFoods {
             .saturationModifier(0.8f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 1 * 60 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.ANGEL_WINGS.get(), 30 * 20, 0), 1.0F)
             .build();
     // 伊甸烤苹果
     public static final FoodProperties EDEN_BAK_APPLE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.6f)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.FORTIFY.get(), 2 * 60 * 20, 5), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
             .build();
     // 闪烁十字面包
     public static final FoodProperties CERIC_CROSS_BUN = (new FoodProperties.Builder())
             .nutrition(12)
             .saturationModifier(0.8f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 2), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 3 * 60 * 20, 7), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.ANGEL_WINGS.get(), 1 * 60 * 20, 0), 1.0F)
             .build();
     // 神莓玛芬
     public static final FoodProperties GOODBERRY_MUFFIN = (new FoodProperties.Builder())
@@ -104,6 +105,7 @@ public class ModFoods {
             .saturationModifier(0.8f)
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 3 * 60 * 20, 0), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 30 * 20, 1), 1.0F)
             .build();
     // 冰挞
     public static final FoodProperties SNOWY_TART = (new FoodProperties.Builder())
@@ -111,6 +113,7 @@ public class ModFoods {
             .saturationModifier(0.8f)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 3 * 60 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.FROSTBITTEN_STRIKES.get(), 1 * 60 * 20, 10), 1.0F)
             .build();
     // 月饼
     public static final FoodProperties AMETHYST_MOONCAKE = (new FoodProperties.Builder())
@@ -119,9 +122,19 @@ public class ModFoods {
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
             .build();
     // 龙肉冻
-    public static final FoodProperties DRAGONSKIN_ASPIC = new FoodProperties.Builder()
-            .nutrition(6)
-            .saturationModifier(0.75f)
+    public static final FoodProperties FIRED_ICE_EGG = new FoodProperties.Builder()
+            .nutrition(4)
+            .saturationModifier(0.32f)
+            .build();
+    public static final FoodProperties FROSTED_TAMAGO_SUSHI = new FoodProperties.Builder()
+            .nutrition(14)
+            .saturationModifier(0.98f)
+            .build();
+    public static final FoodProperties DRAGONSKIN_ASPIC_SLICE = new FoodProperties.Builder()
+            .nutrition(16)
+            .saturationModifier(0.8f)
+            .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.EVASION.get(), 1 * 60 * 20, 4), 1.0F)
             .build();
     // 披萨
     public static final FoodProperties DRAGON_PIZZA = new FoodProperties.Builder()
@@ -146,7 +159,8 @@ public class ModFoods {
     public static final FoodProperties PAOFU = new FoodProperties.Builder()
             .nutrition(8)
             .saturationModifier(0.8f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 3000, 2), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 150 * 20, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 90 * 20, 0), 1.0F)
             .build();
     // 火腿
     public static final FoodProperties CINDEROUS_HAM = new FoodProperties.Builder()
@@ -158,6 +172,7 @@ public class ModFoods {
     public static final FoodProperties SALMON_BURGER = new FoodProperties.Builder()
             .nutrition(10)
             .saturationModifier(0.8f)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5 * 60 * 20, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 3 * 60 * 20, 0), 1.0F)
             .build();
     // 雷云棉花糖
@@ -165,7 +180,7 @@ public class ModFoods {
             .nutrition(6)
             .saturationModifier(0.5f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 2 * 60 * 20, 4), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2 * 60 * 20, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1 * 60 * 20, 1), 1.0F)
             .build();
     // 血豆腐
     public static final FoodProperties BLOOD_TOFU = new FoodProperties.Builder()
@@ -178,6 +193,10 @@ public class ModFoods {
             .nutrition(6)
             .saturationModifier(0.6f)
             .build();
+    public static final FoodProperties MITHRIL_CHEESE = new FoodProperties.Builder()
+            .nutrition(6)
+            .saturationModifier(0.6f)
+            .build();
     // 黄油
     public static final FoodProperties WSIP_BUTTER = new FoodProperties.Builder()
             .nutrition(4)
@@ -187,7 +206,7 @@ public class ModFoods {
     public static final FoodProperties ENERGIZED_CARAMEL = new FoodProperties.Builder()
             .nutrition(4)
             .saturationModifier(0.5f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 600, 2), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.CHARGED.get(), 30 * 20, 2), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.CLEANSE, 3 * 60 * 20, 0), 1.0F)
             .build();
     // 橡肤南瓜浓汤
@@ -226,7 +245,7 @@ public class ModFoods {
     public static final FoodProperties GOODBERRY_JUICE = (new FoodProperties.Builder())
             .alwaysEdible()
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 3 * 60 * 20, 0), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 10 * 20, 1), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.GLUTTONY.get(), 5 * 60 * 20, 4), 1.0F)
             .build();
     // 南瓜汁
     public static final FoodProperties PUMPKIN_JUICE = (new FoodProperties.Builder())
@@ -248,7 +267,7 @@ public class ModFoods {
     public static final FoodProperties BUTTER_BEER = new FoodProperties.Builder()
             .alwaysEdible()
             .effect(() -> ironsEffect(() -> MobEffectRegistry.FORTIFY.get(), 3 * 60 * 20, 4), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.SEAL_OIL, 5 * 60 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.ANGEL_WINGS.get(), 2 * 60 * 20, 0), 1.0F)
             .build();
     // 墓穴红酒
     public static final FoodProperties CATACOMBS_WINE = new FoodProperties.Builder()
@@ -261,11 +280,13 @@ public class ModFoods {
             .alwaysEdible()
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 100, 4), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 8 * 60 * 20, 2), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.FROSTBITTEN_STRIKES.get(), 8 * 60 * 20, 10), 1.0F)
             .build();
     // 墨水啤酒
     public static final FoodProperties INK_BEER = new FoodProperties.Builder()
             .alwaysEdible()
-            .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 1 * 60 * 20, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 5 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.PLANAR_SIGHT.get(), 10 * 60 * 20, 0), 1.0F)
             .build();
     // 雷爪
     public static final FoodProperties MOZHAO = new FoodProperties.Builder()
@@ -288,10 +309,13 @@ public class ModFoods {
             .build();
     public static final FoodProperties FROSTED_ICE_CREAM_BUCKET = new FoodProperties.Builder()
             .nutrition(12).saturationModifier(0.42f).alwaysEdible()
-            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 3 * 60 * 20, 0), 1.0F).build();
+            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 3 * 60 * 20, 0), 1.0F)
+            .build();
     public static final FoodProperties FROSTED_SHAVED_ICE = new FoodProperties.Builder()
             .nutrition(6).saturationModifier(0.36f).alwaysEdible()
-            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 0), 1.0F).build();
+            .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 5 * 60 * 20, 0), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.FROSTBITTEN_STRIKES.get(), 5 * 60 * 20, 10), 1.0F)
+            .build();
     public static final FoodProperties GLIDED_DIVINE_ICE_CREAM = new FoodProperties.Builder()
             .nutrition(6).saturationModifier(0.42f).alwaysEdible()
             .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 2), 1.0F).build();
@@ -299,7 +323,7 @@ public class ModFoods {
     public static final FoodProperties RED_VELVET_CAKE = new FoodProperties.Builder()
             .nutrition(2)
             .saturationModifier(0.15f)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.VIGOR.get(), 5 * 60 * 20, 5), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.VIGOR.get(), 5 * 60 * 20, 4), 1.0F)
             .build();
     // 红丝绒蛋糕切片
     public static final FoodProperties RED_VELVET_CAKE_SLICE = new FoodProperties.Builder()
@@ -311,7 +335,7 @@ public class ModFoods {
     public static final FoodProperties GOODBERRY_PIE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.2f)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400, 1), 1.0F)
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 3 * 60 * 20, 0), 1.0F)
             .build();
     // 神莓派片
@@ -319,48 +343,49 @@ public class ModFoods {
             .nutrition(6)
             .saturationModifier(0.2f)
             .effect(() -> new MobEffectInstance(ModEffects.DRUID_HEAL, 3 * 60 * 20, 0), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 0), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 20 * 20, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400, 1), 1.0F)
             .build();
     // 黄油金苹果
     public static final FoodProperties EDEN_APPLE_TART = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.2f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.FORTIFY.get(), 2 * 60 * 20, 5), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 1), 1.0F)
             .build();
     // 黄油金苹果片
     public static final FoodProperties EDEN_APPLE_TART_SLICE = new FoodProperties.Builder()
             .nutrition(6)
             .saturationModifier(0.2f)
             .effect(() -> ironsEffect(() -> MobEffectRegistry.FORTIFY.get(), 2 * 60 * 20, 5), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 200, 1), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.SEAL_OIL, 5 * 60 * 20, 1), 1.0F)
-            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 1), 1.0F)
             .build();
     // 永冻冰棍
     public static final FoodProperties PERMAFROST_POPSICLE = new FoodProperties.Builder()
             .alwaysEdible()
             .effect(() -> new MobEffectInstance(ModEffects.FROST_SHIELD, 45 * 20, 1), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 45 * 20, 1), 1.0F)
             .build();
     // 碗装饕餮乱炖
     public static final FoodProperties BOWL_OF_GLUTTON_HOTCHPOTCH = new FoodProperties.Builder()
             .nutrition(32)
             .saturationModifier(1f)
             .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR, 5 * 60 * 20, 2), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.GOLDEN_ARMOR, 5 * 60 * 20, 3), 1.0F)
             .build();
     public static final FoodProperties BOWL_OF_PUMPKIN_SOUP = new FoodProperties.Builder()
             .nutrition(20)
             .saturationModifier(0.6f)
             .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.OAKSKIN.get(), 3 * 60 * 20, 3), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.OAKSKIN.get(), 3 * 60 * 20, 5), 1.0F)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3 * 60 * 20, 1), 1.0F)
             .build();
     public static final FoodProperties BOWL_OF_SAINGEZI_CHICKEN = new FoodProperties.Builder()
             .nutrition(30)
             .saturationModifier(1f)
-            .effect(() -> nourishment(FoodValues.MEDIUM_DURATION), 1.0F)
-            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 2), 1.0F)
-            .effect(() -> new MobEffectInstance(ModEffects.SEAL_OIL, 5 * 60 * 20, 1), 1.0F)
+            .effect(() -> nourishment(FoodValues.LONG_DURATION), 1.0F)
+            .effect(() -> ironsEffect(() -> MobEffectRegistry.HASTENED.get(), 5 * 60 * 20, 7), 1.0F)
+            .effect(() -> new MobEffectInstance(ModEffects.HOLY_SPIRIT_OIL, 5 * 60 * 20, 1), 1.0F)
             .build();
 }

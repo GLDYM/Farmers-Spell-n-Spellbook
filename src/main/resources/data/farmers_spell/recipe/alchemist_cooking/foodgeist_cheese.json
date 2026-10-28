@@ -1,0 +1,17 @@
+{
+  "type": "farmers_spell:alchemist_cooking",
+  "ingredients": [
+    {
+      "item": "farmers_spell:foodgeist_seasoning"
+    },
+    {
+      "tag": "c:drinks/milk"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:foodgeist_cheese"
+  },
+  "experience": 1,
+  "cookingtime": 200
+}

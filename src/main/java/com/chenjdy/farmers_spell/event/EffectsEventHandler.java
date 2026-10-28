@@ -8,6 +8,7 @@ import com.chenjdy.farmers_spell.item.curios.RingManaBonusHelper;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import io.redspace.ironsspellbooks.datagen.DamageTypeTagGenerator;
 import io.redspace.ironsspellbooks.entity.spells.icicle.IcicleProjectile;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
@@ -27,6 +28,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
@@ -58,10 +62,14 @@ import top.theillusivec4.curios.api.CuriosApi;
 public class EffectsEventHandler {
 
     private static final String DRUID_HEAL_COOLDOWN = "druid_heal_cooldown";
-    private static final String SEAL_OIL_COOLDOWN = "seal_oil_cooldown";
     private static final String CLEANSE_MANA_COOLDOWN = "cleanse_mana_cooldown";
-    private static final ResourceLocation SEAL_OIL_CAST_TIME_ID = ResourceLocation.fromNamespaceAndPath(
-            FarmersSpell.MODID, "seal_oil_cast_time_penalty");
+    private static final int CLEANSE_INTERCEPT_PENALTY_TICKS = 30 * 20;
+    private static final ResourceLocation SEAL_OIL_COOLDOWN_ID = ResourceLocation.fromNamespaceAndPath(
+            FarmersSpell.MODID, "seal_oil_cooldown_penalty");
+    private static final ResourceLocation GOLDEN_ARMOR_ARMOR_ID = ResourceLocation.fromNamespaceAndPath(
+            FarmersSpell.MODID, "golden_armor_armor");
+    private static final ResourceLocation GOLDEN_ARMOR_TOUGHNESS_ID = ResourceLocation.fromNamespaceAndPath(
+            FarmersSpell.MODID, "golden_armor_toughness");
 
     private static final List<Holder<MobEffect>> CLEANSE_IMMUNE_VANILLA_EFFECTS = List.of(
             MobEffects.MOVEMENT_SLOWDOWN,
@@ -94,17 +102,34 @@ public class EffectsEventHandler {
         }
 
         if (entity.hasEffect(ModEffects.CLEANSE)) {
+            boolean immune = false;
             for (Holder<MobEffect> immuneEffect : CLEANSE_IMMUNE_VANILLA_EFFECTS) {
                 if (effect.getEffect().equals(immuneEffect)) {
-                    event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-                    return;
+                    immune = true;
+                    break;
                 }
             }
             MobEffect ironSlowed = getIronSlowedEffect();
             if (ironSlowed != null && effect.getEffect().value() == ironSlowed) {
+                immune = true;
+            }
+            if (immune) {
+                shortenEffect(entity, ModEffects.CLEANSE, CLEANSE_INTERCEPT_PENALTY_TICKS);
                 event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                 return;
             }
+        }
+    }
+
+    private static void shortenEffect(LivingEntity entity, Holder<MobEffect> effectType, int ticks) {
+        MobEffectInstance current = entity.getEffect(effectType);
+        if (current == null) return;
+        int newDuration = current.getDuration() - ticks;
+        if (newDuration <= 0) {
+            entity.removeEffect(effectType);
+        } else {
+            entity.addEffect(new MobEffectInstance(effectType, newDuration, current.getAmplifier(),
+                    current.isAmbient(), current.isVisible(), current.showIcon()));
         }
     }
 
@@ -194,7 +219,8 @@ public class EffectsEventHandler {
     public static void onLivingTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity livingEntity)) return;
         if (livingEntity.level().isClientSide) return;
-        syncSealOilCastTime(livingEntity);
+        syncGoldenArmor(livingEntity);
+        syncSealOilCooldown(livingEntity);
 
         // Some Nourishment applications update an existing effect without emitting Added.
         if (livingEntity instanceof ServerPlayer player) {
@@ -214,26 +240,45 @@ public class EffectsEventHandler {
             handleCleanse(livingEntity);
         }
 
-        if (livingEntity.hasEffect(ModEffects.SEAL_OIL)) {
-            int sealOilCooldown = livingEntity.getPersistentData().getInt(SEAL_OIL_COOLDOWN);
-            if (sealOilCooldown > 0) {
-                livingEntity.getPersistentData().putInt(SEAL_OIL_COOLDOWN, sealOilCooldown - 1);
-            }
+        MobEffectInstance magicalIngredient = livingEntity.getEffect(ModEffects.MAGICAL_INGREDIENT);
+        if (magicalIngredient != null && livingEntity.hasEffect(ModEffects.CLAW_BREAK)) {
+            int linkedDuration = magicalIngredient.getDuration();
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, linkedDuration, 1));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, linkedDuration, 1));
         }
 
     }
 
-    private static void syncSealOilCastTime(LivingEntity entity) {
-        var attribute = entity.getAttributes().getInstance(AttributeRegistry.CAST_TIME_REDUCTION);
+    private static void syncGoldenArmor(LivingEntity entity) {
+        MobEffectInstance goldenArmor = entity.getEffect(ModEffects.GOLDEN_ARMOR);
+        int level = goldenArmor == null ? 0 : goldenArmor.getAmplifier() + 1;
+        syncAttributeModifier(entity, Attributes.ARMOR, GOLDEN_ARMOR_ARMOR_ID, level * 3.0D);
+        syncAttributeModifier(entity, Attributes.ARMOR_TOUGHNESS, GOLDEN_ARMOR_TOUGHNESS_ID, level);
+    }
+
+    private static void syncSealOilCooldown(LivingEntity entity) {
+        syncAttributeModifier(entity, AttributeRegistry.COOLDOWN_REDUCTION, SEAL_OIL_COOLDOWN_ID,
+                entity.hasEffect(ModEffects.SEAL_OIL) ? -0.25D : 0.0D);
+    }
+
+    private static void syncAttributeModifier(LivingEntity entity, Holder<Attribute> attributeHolder,
+                                              ResourceLocation id, double amount) {
+        var attribute = entity.getAttributes().getInstance(attributeHolder);
         if (attribute == null) return;
-        boolean active = entity.hasEffect(ModEffects.SEAL_OIL);
-        boolean applied = attribute.getModifier(SEAL_OIL_CAST_TIME_ID) != null;
-        if (active && !applied) {
-            attribute.addPermanentModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
-                    SEAL_OIL_CAST_TIME_ID, -0.25D,
-                    net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
-        } else if (!active && applied) {
-            attribute.removeModifier(SEAL_OIL_CAST_TIME_ID);
+
+        AttributeModifier existing = attribute.getModifier(id);
+        if (amount == 0.0D) {
+            if (existing != null) {
+                attribute.removeModifier(id);
+            }
+            return;
+        }
+
+        if (existing == null || Double.compare(existing.amount(), amount) != 0) {
+            if (existing != null) {
+                attribute.removeModifier(id);
+            }
+            attribute.addPermanentModifier(new AttributeModifier(id, amount, AttributeModifier.Operation.ADD_VALUE));
         }
     }
 
@@ -379,13 +424,6 @@ public class EffectsEventHandler {
         if (!(event.getEntity() instanceof LivingEntity entity)) return;
         if (entity.level().isClientSide) return;
 
-        MobEffectInstance goldenArmor = entity.getEffect(ModEffects.GOLDEN_ARMOR);
-        if (goldenArmor != null && entity.level().dimension() == Level.NETHER) {
-            int level = goldenArmor.getAmplifier() + 1;
-            float reducedDamage = event.getNewDamage() * (1.0f - level * 0.03f);
-            event.setNewDamage(reducedDamage);
-        }
-
         if (entity.hasEffect(ModEffects.FROST_SHIELD)) {
             if (event.getSource().is(DamageTypes.FREEZE)) {
                 event.setNewDamage(0.0f);
@@ -394,31 +432,15 @@ public class EffectsEventHandler {
         }
 
         MobEffectInstance magicalIngredient = entity.getEffect(ModEffects.MAGICAL_INGREDIENT);
-        if (magicalIngredient != null) {
-            boolean isGluttonyMagic = event.getSource().is(DamageTypes.MAGIC) || event.getSource().is(ModSchools.GLUTTONY_MAGIC);
-            if (isGluttonyMagic) {
-                int amplifier = magicalIngredient.getAmplifier();
-                int level = amplifier + 1;
-
-                float bonusPercent = (5.0f + level) / 100.0f;
-                float newDamage = event.getNewDamage() * (1.0f + bonusPercent);
-                event.setNewDamage(newDamage);
-            }
+        if (magicalIngredient != null && isGluttonySpellDamage(event.getSource())) {
+            int level = magicalIngredient.getAmplifier() + 1;
+            event.setNewDamage(event.getNewDamage() * (1.0F + 0.050F * level));
         }
 
         MobEffectInstance sealOil = entity.getEffect(ModEffects.SEAL_OIL);
         if (sealOil != null) {
-            if (entity.getPersistentData().getInt(SEAL_OIL_COOLDOWN) <= 0) {
-                int amplifier = sealOil.getAmplifier();
-                int level = amplifier + 1;
-
-                float healPercent = level * 0.01f;
-                float healAmount = entity.getMaxHealth() * healPercent + 2.0f;
-
-                entity.heal(healAmount);
-
-                entity.getPersistentData().putInt(SEAL_OIL_COOLDOWN, 100);
-            }
+            int level = sealOil.getAmplifier() + 1;
+            entity.heal(entity.getMaxHealth() * (0.02F * level) + 4.0F);
         }
 
         MobEffectInstance frostShield = entity.getEffect(ModEffects.FROST_SHIELD);
@@ -459,6 +481,17 @@ public class EffectsEventHandler {
 
     }
 
+    private static boolean isGluttonySpellDamage(DamageSource source) {
+        if (source.is(ModSchools.GLUTTONY_MAGIC)) {
+            return true;
+        }
+        if (!(source instanceof SpellDamageSource spellDamageSource)) {
+            return false;
+        }
+        var school = spellDamageSource.spell().getSchoolType();
+        return school != null && ModSchools.GLUTTONY_MAGIC.equals(school.getDamageType());
+    }
+
     private static void spawnIcicles(LivingEntity entity, float damage) {
         ServerLevel serverLevel = (ServerLevel) entity.level();
         Vec3 origin = entity.position().add(0, entity.getBbHeight() / 2, 0);
@@ -480,28 +513,4 @@ public class EffectsEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void onLivingDrops(LivingDropsEvent event) {
-        if (!(event.getEntity() instanceof LivingEntity entity)) return;
-        if (entity.level().isClientSide) return;
-
-        MobEffectInstance magicalIngredient = entity.getEffect(ModEffects.MAGICAL_INGREDIENT);
-        if (magicalIngredient != null) {
-            int amplifier = magicalIngredient.getAmplifier();
-            int lootingLevel = amplifier + 1;
-
-            for (ItemEntity drop : event.getDrops()) {
-                ItemStack stack = drop.getItem();
-                int extraCount = 0;
-                for (int i = 0; i < lootingLevel; i++) {
-                    if (entity.getRandom().nextFloat() < 0.1f) {
-                        extraCount++;
-                    }
-                }
-                if (extraCount > 0) {
-                    stack.grow(extraCount);
-                }
-            }
-        }
-    }
 }

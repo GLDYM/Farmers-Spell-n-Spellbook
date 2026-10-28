@@ -10,10 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AmethystBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -61,9 +58,7 @@ public class CropSeedItem extends Item {
     }
     
     private boolean isValidSupportBlock(BlockState state) {
-        return state.getBlock() instanceof AmethystBlock 
-            || state.getBlock() instanceof BuddingAmethystBlock 
-            || state.is(Blocks.CALCITE);
+        return state.is(AmethystBeetrootBlock.PLANTABLE);
     }
 
     @Override

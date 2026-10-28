@@ -72,6 +72,11 @@ public class Plugin implements IModPlugin {
                 VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.item.farmers_spell.decrepit_scrap.info")
         );
+        registration.addIngredientInfo(
+                new ItemStack(ModItems.MITHRIL_KNIFE.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.farmersdelight.info.knife")
+        );
     }
 
     private static List<AlchemistCookingRecipe> getRecipes() {

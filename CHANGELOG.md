@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.0.7.0
+
+### Feature
+
+- Add the Frost Egg Bush crop, plantable through block tags
+- Add Amethyst Beetroot Crates
+- Add Dragon-Skin Aspic as a feast block with slices
+- Add Fried Frost Egg, Frosted Tamago Sushi, and Mithril Cheese
+- Add the Mithril Knife and its recipes
+- Add the White Altar Bloom spell
+- Add Foodgeist sitting, stove summoning, and new animations
+- Add expandable block descriptions shown while holding Shift
+- Add Create filling and emptying recipes
+
+### Changed
+
+- Update Goodberry, Phantom Loot, Preserve Circle, Seal Coat, Bad Apple, and Chaos Slash values
+- Update food effects and recipes
+- Make Amethyst Beetroot and Frost Egg planting rules data-driven
+- Add a data-driven Harvest Sickle block blacklist
+- Update Foodgeist gifts, loot tags, models, textures, sounds, and spell icons
+- Update English and Chinese localization
+
+### Fixed
+
+- Correct Wheat Tome loot chance encoding
+- Correct affinity ring recipe ingredients
+- Correct Feast block facing and serving models
+
 ## 1.0.6.0
 
 ### Feature

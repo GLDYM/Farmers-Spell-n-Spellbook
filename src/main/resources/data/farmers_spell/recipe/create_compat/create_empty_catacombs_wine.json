@@ -1,0 +1,23 @@
+{
+  "type": "create:emptying",
+  "ingredients": [
+    {
+      "item": "farmers_spell:catacombs_wine"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:glass_bottle"
+    },
+    {
+      "amount": 250,
+      "id": "farmers_spell:catacombs_wine"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ]
+}

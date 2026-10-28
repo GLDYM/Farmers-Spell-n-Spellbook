@@ -12,7 +12,10 @@ import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,11 +26,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams.Builder;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
 import java.util.List;
 import java.util.Optional;
 import static net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ENTITY;
@@ -38,6 +43,7 @@ import net.minecraft.resources.ResourceKey;
 public class PhantomLootSpell extends AbstractSpell {
 
     public static final TagKey<EntityType<?>> BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "phantom_loot_blacklist"));
+    private static final String PHANTOM_LOOTED_TAG = "farmers_spell_phantom_looted";
 
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "phantom_loot");
 
@@ -48,7 +54,7 @@ public class PhantomLootSpell extends AbstractSpell {
         this.baseSpellPower = 0;
         this.spellPowerPerLevel = 0;
         this.castTime = 5;
-        this.baseManaCost = 100;
+        this.baseManaCost = 200;
     }
 
     @Override
@@ -78,7 +84,22 @@ public class PhantomLootSpell extends AbstractSpell {
 
     @Override
     public boolean checkPreCastConditions(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData) {
+        if (ModConfigs.isPhantomLootOncePerMob() && isTargetAlreadyLooted(level, entity)) {
+            if (entity instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("message.farmers_spell.phantom_loot_already_looted")
+                                .withStyle(ChatFormatting.RED)));
+            }
+            return false;
+        }
         return Utils.preCastTargetHelper(level, entity, playerMagicData, this, 32, .35f, true, (livingEntity) -> livingEntity instanceof Mob mob && isValidTarget(mob));
+    }
+
+    private boolean isTargetAlreadyLooted(Level level, LivingEntity caster) {
+        return Utils.raycastForEntity(level, caster, 32, true) instanceof EntityHitResult hit
+                && hit.getEntity() instanceof Mob mob
+                && isValidTarget(mob)
+                && mob.getPersistentData().getBoolean(PHANTOM_LOOTED_TAG);
     }
 
     @Override
@@ -86,7 +107,9 @@ public class PhantomLootSpell extends AbstractSpell {
         if (playerMagicData.getAdditionalCastData() instanceof TargetEntityCastData targetData) {
             var targetEntity = targetData.getTarget((ServerLevel) level);
             if (targetEntity instanceof Mob mob) {
-                grantLoot((ServerLevel) level, mob, entity);
+                if (grantLoot((ServerLevel) level, mob, entity)) {
+                    agitate(mob, entity);
+                }
                 playSounds(level, entity, mob);
             }
         }
@@ -103,10 +126,13 @@ public class PhantomLootSpell extends AbstractSpell {
         return true;
     }
 
-    private void grantLoot(ServerLevel serverLevel, Mob mob, LivingEntity caster) {
+    private boolean grantLoot(ServerLevel serverLevel, Mob mob, LivingEntity caster) {
+        if (ModConfigs.isPhantomLootOncePerMob() && mob.getPersistentData().getBoolean(PHANTOM_LOOTED_TAG)) {
+            return false;
+        }
         ResourceKey<LootTable> lootTableKey = mob.getType().getDefaultLootTable();
         if (lootTableKey == null)
-            return;
+            return false;
         var lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(lootTableKey);
         Player player = (Player) caster;
         var lootParams = new Builder(serverLevel).withParameter(ORIGIN, mob.position()).withParameter(THIS_ENTITY, mob).withParameter(DAMAGE_SOURCE, serverLevel.damageSources().playerAttack(player)).withOptionalParameter(ATTACKING_ENTITY, player).withOptionalParameter(LAST_DAMAGE_PLAYER, player).create(ENTITY);
@@ -120,6 +146,21 @@ public class PhantomLootSpell extends AbstractSpell {
 
         if (caster instanceof ServerPlayer serverPlayer) {
             ModTriggers.PHANTOM_LOOT_TRIGGER.get().trigger(serverPlayer);
+        }
+        if (!lootItems.isEmpty() && ModConfigs.isPhantomLootOncePerMob()) {
+            mob.getPersistentData().putBoolean(PHANTOM_LOOTED_TAG, true);
+        }
+        return !lootItems.isEmpty();
+    }
+
+    private void agitate(Mob mob, LivingEntity caster) {
+        if (!(caster instanceof Player player)) return;
+
+        mob.setLastHurtByMob(player);
+        if (mob instanceof NeutralMob neutralMob) {
+            neutralMob.setPersistentAngerTarget(player.getUUID());
+            neutralMob.startPersistentAngerTimer();
+            mob.setTarget(player);
         }
     }
 

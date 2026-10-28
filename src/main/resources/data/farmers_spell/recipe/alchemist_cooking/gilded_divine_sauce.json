@@ -1,23 +1,26 @@
 {
-    "type": "farmers_spell:alchemist_cooking",
-    "ingredients": [
-        {
-            "item": "farmers_spell:wsip_butter"
-        },
-        {
-            "item": "minecraft:golden_carrot"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot"
-        }
-    ],
-    "result": {
-        "count": 1,
-        "id": "farmers_spell:gilded_divine_sauce"
+  "type": "farmers_spell:alchemist_cooking",
+  "ingredients": [
+    {
+      "item": "farmers_spell:wsip_butter"
     },
-    "container": {
-        "id": "minecraft:bowl"
+    {
+      "item": "farmers_spell:foodgeist_cheese"
     },
-    "experience": 1.0,
-    "cookingtime": 200
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "item": "farmers_spell:amethyst_beetroot"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "farmers_spell:gilded_divine_sauce"
+  },
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "experience": 1,
+  "cookingtime": 200
 }

@@ -8,6 +8,7 @@ import com.chenjdy.farmers_spell.item.GluttonyUpgradeOrbItem;
 import com.chenjdy.farmers_spell.item.armor.GluttonyChefArmorItem;
 import com.chenjdy.farmers_spell.item.curios.AffinityRingGlutton;
 import com.chenjdy.farmers_spell.item.curios.FoodgeistRing;
+import com.chenjdy.farmers_spell.item.curios.WheatSpellBook;
 import com.chenjdy.farmers_spell.item.irons.DrinkItem;
 import com.chenjdy.farmers_spell.item.irons.PermafrostPopsicle;
 import com.chenjdy.farmers_spell.item.irons.VexGinger;
@@ -27,15 +28,18 @@ import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import vectorwing.farmersdelight.common.item.ConsumableItem;
 import vectorwing.farmersdelight.common.item.DrinkableItem;
+import vectorwing.farmersdelight.common.item.KnifeItem;
 
 import net.minecraft.core.registries.Registries;
 
@@ -71,8 +75,6 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.SNOWY_TART)));
     public static final DeferredHolder<Item, Item> AMETHYST_MOONCAKE = ITEMS.register("amethyst_mooncake",
             () -> new ConsumableItem(normalFoodItem(ModFoods.AMETHYST_MOONCAKE)));
-    public static final DeferredHolder<Item, Item> DRAGONSKIN_ASPIC = ITEMS.register("dragonskin_aspic",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.DRAGONSKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> DRAGON_PIZZA = ITEMS.register("dragon_pizza",
             () -> new ConsumableItem(normalFoodItem(ModFoods.DRAGON_PIZZA)));
     public static final DeferredHolder<Item, Item> ENERGIZED_CANDY = ITEMS.register("energized_candy",
@@ -91,6 +93,8 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.BLOOD_TOFU)));
     public static final DeferredHolder<Item, Item> FOODGEIST_CHEESE = ITEMS.register("foodgeist_cheese",
             () -> new ConsumableItem(normalFoodItem(ModFoods.FOODGEIST_CHEESE)));
+    public static final DeferredHolder<Item, Item> MITHRIL_CHEESE = ITEMS.register("mithril_cheese",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.MITHRIL_CHEESE)));
     public static final DeferredHolder<Item, Item> WSIP_BUTTER = ITEMS.register("wsip_butter",
             () -> new ButterItem(normalFoodItem(ModFoods.WSIP_BUTTER)));
     public static final DeferredHolder<Item, Item> ENERGIZED_CARAMEL = ITEMS.register("energized_caramel",
@@ -100,7 +104,11 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> CERIC_HEART = ITEMS.register("cleric_heart",
             () -> new ConsumableItem(normalFoodItem(ModFoods.CERIC_HEART)));
     public static final DeferredHolder<Item, Item> ICY_EGG = ITEMS.register("icy_egg",
-            () -> new ConsumableItem(normalFoodItem(ModFoods.ICY_EGG)));
+            () -> new BlockItem(ModBlocks.ICE_EGG_BUSH.get(), normalFoodItem(ModFoods.ICY_EGG)));
+    public static final DeferredHolder<Item, Item> FIRED_ICE_EGG = ITEMS.register("fired_ice_egg",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.FIRED_ICE_EGG)));
+    public static final DeferredHolder<Item, Item> FROSTED_TAMAGO_SUSHI = ITEMS.register("frosted_tamago_sushi",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.FROSTED_TAMAGO_SUSHI)));
     public static final DeferredHolder<Item, Item> AMETHYST_SUGAR = ITEMS.register("amethyst_sugar",
             () -> new ConsumableItem(new Item.Properties().food(ModFoods.AMETHYST_SUGAR).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
     public static final DeferredHolder<Item, Item> AMETHYST_BEETROOT = ITEMS.register("amethyst_beetroot",
@@ -111,6 +119,8 @@ public class ModItems {
             () -> new ConsumableItem(normalFoodItem(ModFoods.GOODBERRY_PIE_SLICE)));
     public static final DeferredHolder<Item, Item> EDEN_APPLE_TART_SLICE = ITEMS.register("eden_apple_tart_slice",
             () -> new ConsumableItem(normalFoodItem(ModFoods.EDEN_APPLE_TART_SLICE)));
+    public static final DeferredHolder<Item, Item> DRAGONSKIN_ASPIC_SLICE = ITEMS.register("dragonskin_aspic_slice",
+            () -> new ConsumableItem(normalFoodItem(ModFoods.DRAGONSKIN_ASPIC_SLICE)));
 
     public static final DeferredHolder<Item, Item> HOGSKIN_SAUSAGE = ITEMS.register("hogskin_sausage",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.HOGSKIN_SAUSAGE)));
@@ -120,8 +130,6 @@ public class ModItems {
             () -> new ConsumableItem(bowlFoodItem(ModFoods.WINE_RICE)));
     public static final DeferredHolder<Item, Item> CINDEROUS_HOTPOT = ITEMS.register("cinderous_hotpot",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.CINDEROUS_HOTPOT)));
-    public static final DeferredHolder<Item, Item> BOWL_OF_DRAGON_SKIN_ASPIC = ITEMS.register("bowl_of_dragon_skin_aspic",
-            () -> new ConsumableItem(bowlFoodItem(ModFoods.BOWL_OF_DRAGON_SKIN_ASPIC)));
     public static final DeferredHolder<Item, Item> ICEBERGCREAM = ITEMS.register("icebergcream",
             () -> new ConsumableItem(bowlFoodItem(ModFoods.ICEBERGCREAM)));
     public static final DeferredHolder<Item, Item> GILDED_DIVINE_SAUCE = ITEMS.register("gilded_divine_sauce",
@@ -191,6 +199,10 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> TWILIGHT_BLADE = ITEMS.register("twilight_blade", TwilightBlade::new);
     public static final DeferredHolder<Item, Item> BOREAL_KNIFE = ITEMS.register("boreal_knife", BorealKnife::new);
     public static final DeferredHolder<Item, Item> ECHOING_KNIFE = ITEMS.register("echoing_knife", EchoingKnife::new);
+    public static final DeferredHolder<Item, Item> MITHRIL_KNIFE = ITEMS.register("mithril_knife",
+            () -> new KnifeItem(Tiers.NETHERITE, new Item.Properties()
+                    .attributes(KnifeItem.createAttributes(Tiers.NETHERITE, 0.5F, -2.0F))
+                    .fireResistant()));
 
     public static final DeferredHolder<Item, Item> AFFINITY_RING_GLUTTON = ITEMS.register("affinity_ring_glutton",
             () -> new AffinityRingGlutton(new Item.Properties().stacksTo(1)));
@@ -198,7 +210,7 @@ public class ModItems {
             () -> new FoodgeistRing(new Item.Properties().stacksTo(1)));
 
     public static final DeferredHolder<Item, Item> WHEAT_BOOK = ITEMS.register("wheat_book",
-            () -> new SpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+            () -> new WheatSpellBook(6, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> TIRAMISU = ITEMS.register("tiramisu",
                 () -> new UniqueSpellBook(
                     new SpellDataRegistryHolder[]{

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    "#P",
+    " B"
+  ],
+  "key": {
+    "#": {
+      "item": "farmers_spell:amethyst_tequila"
+    },
+    "P": {
+      "item": "farmers_spell:mithril_cheese"
+    },
+    "B": {
+      "item": "farmers_spell:mithril_knife"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:echoing_knife"
+  }
+}

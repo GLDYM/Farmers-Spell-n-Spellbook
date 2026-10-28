@@ -1,21 +1,21 @@
 {
-    "type": "farmers_spell:alchemist_cooking",
-    "ingredients": [
-        {
-            "item": "minecraft:gold_nugget"
-        },
-        {
-            "item": "farmers_spell:amethyst_beetroot_seeds"
-        },
-        {
-            "tag": "c:drinks/milk"
-        }
-    ],
-    "result": {
-        "count": 1,
-        "id": "farmers_spell:wsip_butter"
+  "type": "farmers_spell:alchemist_cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_nugget"
     },
-    "experience": 1.0,
-    "required_school": "irons_spellbooks:holy",
-    "cookingtime": 200
+    {
+      "item": "farmers_spell:amethyst_beetroot_seeds"
+    },
+    {
+      "tag": "c:drinks/milk"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "farmers_spell:wsip_butter"
+  },
+  "experience": 1,
+  "required_school": "irons_spellbooks:holy",
+  "cookingtime": 60
 }

@@ -45,7 +45,7 @@ public class ChaosSlashSpell extends AbstractSpell {
         this.baseSpellPower = 5;
         this.spellPowerPerLevel = 1;
         this.castTime = 0;
-        this.baseManaCost = 8;
+        this.baseManaCost = 18;
     }
 
     @Override

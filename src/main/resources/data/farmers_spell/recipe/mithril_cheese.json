@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "DND",
+    " D "
+  ],
+  "key": {
+    "D": {
+      "item": "irons_spellbooks:mithril_scrap"
+    },
+    "N": {
+      "item": "farmers_spell:foodgeist_cheese"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "farmers_spell:mithril_cheese"
+  }
+}

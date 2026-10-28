@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "farmers_spell:mithril_cheese"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "irons_spellbooks:mithril_scrap"
+      }
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knife"
+  }
+}

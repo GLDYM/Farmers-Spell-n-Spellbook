@@ -3,6 +3,7 @@ package com.chenjdy.farmers_spell.entity;
 import com.chenjdy.farmers_spell.init.ModEffects;
 import com.chenjdy.farmers_spell.init.ModEntities;
 import com.chenjdy.farmers_spell.init.ModSpells;
+import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.entity.spells.AbstractMagicProjectile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Holder;
@@ -19,24 +20,32 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ChaosSlashProjectile extends AbstractMagicProjectile {
+public class ChaosSlashProjectile extends AbstractMagicProjectile implements GeoEntity {
     private static final EntityDataAccessor<Float> DATA_RADIUS = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> DATA_SLASH_TYPE = SynchedEntityData.defineId(ChaosSlashProjectile.class, EntityDataSerializers.INT);
     private static final float SPEED = 1f;
     private static final int EXPIRE_TIME = 4 * 20;
     private static int slashCounter = 0;
+    private static final RawAnimation ANIMATION = RawAnimation.begin().thenLoop("animation");
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public AABB oldBB;
     private int effectDuration = 10;
     private final List<Entity> victims = new ArrayList<>();
@@ -72,10 +81,6 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
 
     public void setSlashType(int type) {
         this.getEntityData().set(DATA_SLASH_TYPE, type);
-    }
-
-    public void shoot(Vec3 rotation) {
-        super.shoot(rotation.scale(SPEED));
     }
 
     @Override
@@ -161,7 +166,8 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
 
     private void damageEntity(Entity entity) {
         if (!victims.contains(entity)) {
-            entity.hurt(ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()), getDamage());
+            DamageSources.applyDamage(entity, getDamage(),
+                    ModSpells.CHAOS_SLASH_SPELL.get().getDamageSource(this, getOwner()));
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(
                         ModEffects.CLAW_BREAK,
@@ -211,5 +217,18 @@ public class ChaosSlashProjectile extends AbstractMagicProjectile {
         super.readAdditionalSaveData(pCompound);
         this.effectDuration = pCompound.getInt("EffectDuration");
         this.setSlashType(pCompound.getInt("SlashType"));
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controller", 0, state -> {
+            state.getController().setAnimation(ANIMATION);
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

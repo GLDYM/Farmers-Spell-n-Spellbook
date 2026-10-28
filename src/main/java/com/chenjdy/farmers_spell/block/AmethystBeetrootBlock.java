@@ -1,10 +1,14 @@
 package com.chenjdy.farmers_spell.block;
 
+import com.chenjdy.farmers_spell.FarmersSpell;
 import com.chenjdy.farmers_spell.init.ModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -14,10 +18,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.AmethystBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,6 +37,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class AmethystBeetrootBlock extends CropBlock {
     public static final MapCodec<AmethystBeetrootBlock> CODEC = simpleCodec(AmethystBeetrootBlock::new);
+    public static final TagKey<Block> PLANTABLE = TagKey.create(
+            Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "amethyst_beetroot_plantable"));
 
     @Override
     public MapCodec<AmethystBeetrootBlock> codec() {
@@ -144,9 +149,7 @@ public class AmethystBeetrootBlock extends CropBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.getBlock() instanceof AmethystBlock 
-            || state.getBlock() instanceof BuddingAmethystBlock 
-            || state.is(Blocks.CALCITE);
+        return state.is(PLANTABLE);
     }
 
     @Override
@@ -212,9 +215,7 @@ public class AmethystBeetrootBlock extends CropBlock {
                     BlockPos checkPos = supportPos.offset(x, y, z);
                     if (!checkPos.equals(supportPos)) {
                         BlockState checkState = level.getBlockState(checkPos);
-                        if (checkState.getBlock() instanceof AmethystBlock 
-                            || checkState.getBlock() instanceof BuddingAmethystBlock
-                            || checkState.is(Blocks.CALCITE)) {
+                        if (checkState.is(PLANTABLE)) {
                             speed += 0.5F;
                         }
                     }

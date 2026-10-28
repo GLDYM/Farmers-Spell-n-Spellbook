@@ -8,9 +8,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class ClawBreakEffect extends MobEffect {
+    private static final double ATTACK_DAMAGE_PER_LEVEL = -3.0D;
     
     public ClawBreakEffect(MobEffectCategory pCategory, int pColor) {
         super(pCategory, pColor);
-        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "claw_break_attack_damage"), -0.015, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE,
+                ResourceLocation.fromNamespaceAndPath(FarmersSpell.MODID, "claw_break_attack_damage"),
+                ATTACK_DAMAGE_PER_LEVEL, AttributeModifier.Operation.ADD_VALUE);
     }
 }

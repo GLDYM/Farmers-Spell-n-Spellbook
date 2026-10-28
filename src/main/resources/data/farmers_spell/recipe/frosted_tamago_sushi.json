@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "farmers_spell:fired_ice_egg"
+    },
+    {
+      "item": "farmers_spell:fired_ice_egg"
+    },
+    {
+      "item": "farmersdelight:cooked_rice"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "farmers_spell:frosted_tamago_sushi"
+  }
+}

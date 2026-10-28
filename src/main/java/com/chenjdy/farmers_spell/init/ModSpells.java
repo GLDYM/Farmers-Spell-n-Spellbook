@@ -8,6 +8,7 @@ import com.chenjdy.farmers_spell.spells.PhantomLootSpell;
 import com.chenjdy.farmers_spell.spells.PanSpell;
 import com.chenjdy.farmers_spell.spells.PreserveCircleSpell;
 import com.chenjdy.farmers_spell.spells.SealCoatSpell;
+import com.chenjdy.farmers_spell.spells.WhiteCaseBloomSpell;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.neoforged.bus.api.IEventBus;
@@ -23,6 +24,7 @@ public class ModSpells {
     public static final DeferredHolder<AbstractSpell, AbstractSpell> BAD_APPLE_SPELL = SPELLS.register("bad_apple", BadAppleSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> CHAOS_SLASH_SPELL = SPELLS.register("chaos_slash", ChaosSlashSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> PRESERVE_CIRCLE_SPELL = SPELLS.register("preserve_circle", PreserveCircleSpell::new);
+    public static final DeferredHolder<AbstractSpell, AbstractSpell> WHITE_CASE_BLOOM_SPELL = SPELLS.register("white_case_bloom", WhiteCaseBloomSpell::new);
     public static final DeferredHolder<AbstractSpell, AbstractSpell> PAN_SPELL = SPELLS.register("pan", PanSpell::new);
 
     public static void register(IEventBus eventBus) {

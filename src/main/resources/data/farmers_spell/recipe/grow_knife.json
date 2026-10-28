@@ -3,7 +3,7 @@
     "pattern": [
         "AAA",
         "  F",
-        "  P"
+        "  a"
     ],
     "key": {
         "A": {
@@ -12,8 +12,8 @@
         "F": {
             "item": "farmersdelight:flint_knife"
         },
-        "P": {
-            "item": "minecraft:poisonous_potato"
+        "a": {
+            "item": "irons_spellbooks:arcane_essence"
         }
     },
     "result": {
